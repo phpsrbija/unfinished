@@ -1,0 +1,3 @@
+.vagrant
+.~lock.*
+vendor/
