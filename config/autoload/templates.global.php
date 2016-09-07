@@ -1,14 +1,6 @@
 <?php
 
 return [
-    'dependencies' => [
-        'factories' => [
-            Zend\Expressive\FinalHandler::class                       => Zend\Expressive\Container\TemplatedErrorHandlerFactory::class,
-            Zend\Expressive\Template\TemplateRendererInterface::class => Zend\Expressive\ZendView\ZendViewRendererFactory::class,
-            Zend\View\HelperPluginManager::class                      => Zend\Expressive\ZendView\HelperPluginManagerFactory::class,
-        ],
-    ],
-
     'templates' => [
         'layout' => 'layout/default',
         'map'    => [

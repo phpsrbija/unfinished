@@ -1,12 +1,16 @@
 <?php
-use Zend\Expressive\Container\ApplicationFactory;
+
 use Zend\Expressive\Helper;
 
 return [
-    'dependencies' => [
+    'dependencies'        => [
         'factories' => [
-            Helper\ServerUrlMiddleware::class => Helper\ServerUrlMiddlewareFactory::class,
-            Helper\UrlHelperMiddleware::class => Helper\UrlHelperMiddlewareFactory::class,
+            Helper\ServerUrlMiddleware::class   => Helper\ServerUrlMiddlewareFactory::class,
+            Helper\UrlHelperMiddleware::class   => Helper\UrlHelperMiddlewareFactory::class,
+
+            // Register custom Error Middlewares
+            App\Middleware\Error::class         => App\Middleware\ErrorFactory::class,
+            App\Middleware\ErrorNotFound::class => App\Middleware\ErrorNotFoundFactory::class,
         ],
     ],
     // This can be used to seed pre- and/or post-routing middleware
@@ -41,29 +45,33 @@ return [
                 // - modifications to outgoing responses
                 Helper\ServerUrlMiddleware::class,
             ],
-            'priority' => 10000,
+            'priority'   => 10000,
         ],
 
         'routing' => [
             'middleware' => [
-                ApplicationFactory::ROUTING_MIDDLEWARE,
+                Zend\Expressive\Container\ApplicationFactory::ROUTING_MIDDLEWARE,
                 Helper\UrlHelperMiddleware::class,
                 // Add more middleware here that needs to introspect the routing
                 // results; this might include:
                 // - route-based authentication
                 // - route-based validation
                 // - etc.
-                ApplicationFactory::DISPATCH_MIDDLEWARE,
+                Zend\Expressive\Container\ApplicationFactory::DISPATCH_MIDDLEWARE,
             ],
-            'priority' => 1,
+            'priority'   => 1,
+        ],
+
+        'error404' => [
+            'middleware' => [App\Middleware\ErrorNotFound::class],
+            'priority'   => -1,
         ],
 
         'error' => [
-            'middleware' => [
-                // Add error middleware here.
-            ],
-            'error'    => true,
-            'priority' => -10000,
+            'middleware' => [App\Middleware\Error::class],
+            'error'      => true,
+            'priority'   => -10000,
         ],
+
     ],
 ];
