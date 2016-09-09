@@ -21,7 +21,9 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/App/"
+            "Web\\": "src/Web/",
+            "Core\\": "src/Core/",
+            "Admin\\": "src/Admin/"
         }
     },
     "scripts": {

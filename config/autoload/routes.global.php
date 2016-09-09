@@ -3,24 +3,37 @@
 return [
     'dependencies' => [
         'invokables' => [
-            App\Action\PingAction::class => App\Action\PingAction::class,
+            Web\Action\PingAction::class => Web\Action\PingAction::class,
         ],
         'factories'  => [
-            App\Action\HomePageAction::class => App\Action\HomePageFactory::class,
+            // Web
+            Web\Action\HomePageAction::class => Web\Action\HomePageFactory::class,
+
+            // Admin
+            Admin\Action\IndexAction::class  => Admin\Action\IndexFactory::class,
         ],
     ],
 
     'routes' => [
+        // Web
         [
             'name'            => 'home',
             'path'            => '/',
-            'middleware'      => App\Action\HomePageAction::class,
+            'middleware'      => Web\Action\HomePageAction::class,
             'allowed_methods' => ['GET'],
         ],
         [
             'name'            => 'api.ping',
             'path'            => '/api/ping',
-            'middleware'      => App\Action\PingAction::class,
+            'middleware'      => Web\Action\PingAction::class,
+            'allowed_methods' => ['GET'],
+        ],
+
+        // Admin
+        [
+            'name'            => 'admin',
+            'path'            => '/admin',
+            'middleware'      => Admin\Action\IndexAction::class,
             'allowed_methods' => ['GET'],
         ],
     ],

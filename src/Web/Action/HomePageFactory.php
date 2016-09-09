@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action;
+namespace Web\Action;
 
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;

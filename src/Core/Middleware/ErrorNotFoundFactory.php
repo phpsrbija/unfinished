@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Middleware;
+namespace Core\Middleware;
 
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;

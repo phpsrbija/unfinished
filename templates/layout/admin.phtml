@@ -1,0 +1,44 @@
+<?php
+$this->headLink()
+    ->prependStylesheet('http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css')
+    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+
+$this->inlineScript()
+    ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+    ->prependFile('https://code.jquery.com/jquery-3.1.0.slim.min.js');
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/favicon.ico">
+
+    <?= $this->headTitle('Admin')->setSeparator('::')->setAutoEscape(false) ?>
+    <?= $this->headMeta(); ?>
+    <?= $this->headLink(); ?>
+</head>
+<body>
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation" class="active"><a href="#">Logout</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Welcome :)</h3>
+    </div>
+
+    <?= $this->content ?>
+
+    <footer class="footer">
+        <p>&copy; PHP Serbia 2012 - <?= date('Y') ?> Made with ♥ in Serbia</p>
+    </footer>
+</div>
+<?= $this->inlineScript(); ?>
+</body>
+</html>
