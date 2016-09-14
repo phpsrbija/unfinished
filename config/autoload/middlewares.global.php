@@ -8,9 +8,10 @@ return [
             Helper\ServerUrlMiddleware::class    => Helper\ServerUrlMiddlewareFactory::class,
             Helper\UrlHelperMiddleware::class    => Helper\UrlHelperMiddlewareFactory::class,
 
-            // Register custom Error Middlewares
+            // Register custom Middlewares
             Core\Middleware\Error::class         => Core\Middleware\ErrorFactory::class,
             Core\Middleware\ErrorNotFound::class => Core\Middleware\ErrorNotFoundFactory::class,
+            Core\Middleware\AdminAuth::class     => Core\Middleware\AdminAuthFactory::class,
         ],
     ],
     // This can be used to seed pre- and/or post-routing middleware
@@ -36,7 +37,7 @@ return [
         // defined in multiple configuration files/locations. This file defines
         // some conventional keys for middleware to execute early, routing
         // middleware, and error middleware.
-        'always' => [
+        'always'     => [
             'middleware' => [
                 // Add more middleware here that you want to execute on
                 // every request:
@@ -46,6 +47,13 @@ return [
                 Helper\ServerUrlMiddleware::class,
             ],
             'priority'   => 10000,
+        ],
+
+        // execute this middlweare on every /admin[*] path
+        'permission' => [
+            'middleware' => [Core\Middleware\AdminAuth::class],
+            'priority'   => 100,
+            'path'       => '/admin'
         ],
 
         'routing' => [
