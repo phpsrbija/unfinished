@@ -1,15 +1,16 @@
 <?php
 
-namespace Admin\Action;
+namespace Web\Factory\Action;
 
+use Web\Action\HomePageAction;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class IndexFactory
+class HomePageFactory
 {
     public function __invoke(ContainerInterface $container)
     {
-        return new IndexAction(
+        return new HomePageAction(
             $container->get(TemplateRendererInterface::class)
         );
     }

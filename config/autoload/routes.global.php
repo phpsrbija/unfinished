@@ -2,16 +2,14 @@
 
 return [
     'dependencies' => [
-        'invokables' => [
-            Web\Action\PingAction::class => Web\Action\PingAction::class,
-        ],
-        'factories'  => [
+        'factories' => [
             // Web
-            Web\Action\HomePageAction::class   => Web\Action\HomePageFactory::class,
+            Web\Action\PingAction::class           => Zend\ServiceManager\Factory\InvokableFactory::class,
+            Web\Action\HomePageAction::class       => Web\Factory\Action\HomePageFactory::class,
 
             // Admin
-            Admin\Action\IndexAction::class    => Admin\Action\IndexFactory::class,
-            Admin\Action\AuthController::class => Admin\Action\AuthFactory::class,
+            Admin\Action\IndexAction::class        => Admin\Factory\Action\IndexFactory::class,
+            Admin\Controller\AuthController::class => Admin\Factory\Controller\AuthFactory::class,
         ],
     ],
 
@@ -32,7 +30,7 @@ return [
         [
             'name'            => 'auth',
             'path'            => '/auth/:action',
-            'middleware'      => Admin\Action\AuthController::class,
+            'middleware'      => Admin\Controller\AuthController::class,
             'allowed_methods' => ['GET', 'POST'],
         ],
 
@@ -43,6 +41,5 @@ return [
             'middleware'      => Admin\Action\IndexAction::class,
             'allowed_methods' => ['GET'],
         ],
-
     ],
 ];

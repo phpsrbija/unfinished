@@ -1,7 +1,8 @@
 <?php
 
-namespace Admin\Action;
+namespace Admin\Factory\Controller;
 
+use Admin\Controller\AuthController;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Expressive\Router\RouterInterface;
