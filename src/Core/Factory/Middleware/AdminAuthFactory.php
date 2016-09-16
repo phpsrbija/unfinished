@@ -1,15 +1,16 @@
 <?php
 
-namespace Admin\Action;
+namespace Core\Factory\Middleware;
 
+use Core\Middleware\AdminAuth;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 
-class LoginHandleFactory
+class AdminAuthFactory
 {
     public function __invoke(ContainerInterface $container)
     {
-        return new LoginHandleAction(
+        return new AdminAuth(
             $container->get(RouterInterface::class),
             $container->get('session')
         );

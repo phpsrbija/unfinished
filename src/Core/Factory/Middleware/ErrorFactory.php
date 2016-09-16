@@ -1,7 +1,8 @@
 <?php
 
-namespace Core\Middleware;
+namespace Core\Factory\Middleware;
 
+use Core\Middleware\Error;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 

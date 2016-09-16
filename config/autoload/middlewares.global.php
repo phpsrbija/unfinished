@@ -9,9 +9,9 @@ return [
             Helper\UrlHelperMiddleware::class    => Helper\UrlHelperMiddlewareFactory::class,
 
             // Register custom Middlewares
-            Core\Middleware\Error::class         => Core\Middleware\ErrorFactory::class,
-            Core\Middleware\ErrorNotFound::class => Core\Middleware\ErrorNotFoundFactory::class,
-            Core\Middleware\AdminAuth::class     => Core\Middleware\AdminAuthFactory::class,
+            Core\Middleware\Error::class         => Core\Factory\Middleware\ErrorFactory::class,
+            Core\Middleware\ErrorNotFound::class => Core\Factory\Middleware\ErrorNotFoundFactory::class,
+            Core\Middleware\AdminAuth::class     => Core\Factory\Middleware\AdminAuthFactory::class,
         ],
     ],
     // This can be used to seed pre- and/or post-routing middleware

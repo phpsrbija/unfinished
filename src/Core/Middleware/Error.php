@@ -32,8 +32,9 @@ class Error
         }
 
         return new HtmlResponse($this->template->render('error::error', [
-            'status' => $code,
-            'reason' => $message
+            'exception' => $ex,
+            'status'    => $code,
+            'reason'    => $message
         ]), $code);
     }
 }

@@ -22,18 +22,11 @@ class AdminAuth
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
         /**
-         * Skip it for /admin/login page
-         */
-        if($request->getUri()->getPath() == '/login'){
-            return $next($request, $response);
-        }
-
-        /**
          * Check if user is logged in
          */
         $user = $this->session->getStorage()->user;
         if(!$user){
-            return $response->withStatus(302)->withHeader('Location', $this->router->generateUri('login'));
+            return $response->withStatus(302)->withHeader('Location', $this->router->generateUri('auth', ['action' => 'login']));
         }
 
         /**
