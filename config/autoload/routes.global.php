@@ -5,7 +5,7 @@ return [
         'factories' => [
             // Web
             Web\Action\PingAction::class           => Zend\ServiceManager\Factory\InvokableFactory::class,
-            Web\Action\HomePageAction::class       => Web\Factory\Action\HomePageFactory::class,
+            Web\Action\IndexAction::class          => Web\Factory\Action\IndexFactory::class,
 
             // Admin
             Admin\Action\IndexAction::class        => Admin\Factory\Action\IndexFactory::class,
@@ -18,7 +18,7 @@ return [
         [
             'name'            => 'home',
             'path'            => '/',
-            'middleware'      => Web\Action\HomePageAction::class,
+            'middleware'      => Web\Action\IndexAction::class,
             'allowed_methods' => ['GET'],
         ],
         [

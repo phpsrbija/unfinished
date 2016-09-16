@@ -2,21 +2,43 @@
 
 namespace Admin\Controller;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 abstract class AbstractController
 {
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * @var Response
+     */
+    protected $response;
+
+    /**
+     * @var callable
+     */
+    protected $next;
+
+    /**
+     * Middlware method
+     */
+    public function __invoke(Request $request, Response $response, callable $next = null)
     {
         $action = $request->getAttribute('action', 'index');
 
         if(!method_exists($this, $action)){
             $response->withStatus(404);
 
-            return $next($request, $response, new \Exception("Function '$action' in controller is not defined!", 404));
+            return $next($request, $response, new \Exception("Function '$action' is not defined!", 404));
         }
 
-        return $this->$action($request, $response, $next);
+        $this->request  = $request;
+        $this->response = $response;
+        $this->next     = $next;
+
+        return $this->$action();
     }
 }

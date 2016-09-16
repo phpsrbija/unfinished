@@ -22,23 +22,23 @@ class AuthController extends AbstractController
         $this->session  = $session;
     }
 
-    public function login(Request $request, Response $response)
+    // If user is already logged in do a redirect
+    public function login()
     {
-        // If user is already logged in
         if($this->session->getStorage()->user){
-            return $response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
+            return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
 
         return new HtmlResponse($this->template->render('admin::login'));
     }
 
-    public function loginHandle(Request $request, Response $response)
+    public function loginHandle()
     {
         if($this->session->getStorage()->user){
-            return $response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
+            return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
 
-        $data     = $request->getParsedBody();
+        $data     = $this->request->getParsedBody();
         $email    = isset($data['email']) ? $data['email'] : null;
         $password = isset($data['password']) ? $data['password'] : null;
         $user     = [
@@ -49,18 +49,18 @@ class AuthController extends AbstractController
         if($user['email'] === $email && $user['password'] === $password){
             $this->session->getStorage()->user = $user;
 
-            return $response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
+            return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
         else{
-            return $response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
+            return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
     }
 
-    public function logout(Request $request, Response $response)
+    public function logout()
     {
         $this->session->getStorage()->clear('user');
 
-        return $response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
+        return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
     }
 
 }
