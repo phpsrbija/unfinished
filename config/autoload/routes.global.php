@@ -6,10 +6,13 @@ return [
             // Web
             Web\Action\PingAction::class           => Zend\ServiceManager\Factory\InvokableFactory::class,
             Web\Action\IndexAction::class          => Web\Factory\Action\IndexFactory::class,
+            Web\Action\AboutAction::class          => Web\Factory\Action\TemplateFactory::class,
+            Web\Action\ContactAction::class        => Web\Factory\Action\TemplateFactory::class,
 
             // Admin
             Admin\Action\IndexAction::class        => Admin\Factory\Action\IndexFactory::class,
             Admin\Controller\AuthController::class => Admin\Factory\Controller\AuthFactory::class,
+
         ],
     ],
 
@@ -20,6 +23,16 @@ return [
             'path'            => '/',
             'middleware'      => Web\Action\IndexAction::class,
             'allowed_methods' => ['GET'],
+        ],
+        [
+            'name'       => 'about',
+            'path'       => '/about-us',
+            'middleware' => Web\Action\AboutAction::class,
+        ],
+        [
+            'name'       => 'contact',
+            'path'       => '/contact-us',
+            'middleware' => Web\Action\ContactAction::class,
         ],
         [
             'name'            => 'api.ping',
