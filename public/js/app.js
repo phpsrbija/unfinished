@@ -3,28 +3,19 @@ $(document).ready(function () {
     $(document).on('click', 'a', function (event) {
         var uri = window.location.pathname + window.location.search;
         var url = $(this).attr("href");
+        var replace = (uri == url) ? true : false;
         var fragment = ($(this).data("subcontent") !== undefined); // set only for sub-content
 
-        if (uri != url) {
-            if (!fragment) {
-                $.pjax.click(event, {container: $("#content")});
-            } else {
-                $.pjax.click(event, {container: $("#sub-content"), fragment: '#sub-content'});
-            }
-        }
-        else {
-            if (!fragment) {
-                $.pjax.reload('#content');
-            } else {
-                $.pjax.reload('#sub-content', {fragment: '#sub-content'});
-            }
+        if (!fragment) {
+            $.pjax.click(event, {container: $("#content"), replace: replace});
+        } else {
+            $.pjax.click(event, {container: $("#sub-content"), fragment: '#sub-content', replace: replace});
         }
 
         event.preventDefault();
     });
 
-
-    // Eventi koji se sve mogu desiti na pjax
+    // Some events...
     $(document).on('pjax:click	', function () {
         //console.log('klikete bum');
     });
@@ -38,6 +29,6 @@ $(document).ready(function () {
     });
 
     $(document).on('pjax:popstate', function () {
-        //console.log('popstate madafaka');
+        //console.log('popstate - back/forward');
     });
 });
