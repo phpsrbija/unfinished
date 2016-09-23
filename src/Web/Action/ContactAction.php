@@ -18,6 +18,11 @@ class ContactAction
 
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
-        return new HtmlResponse($this->template->render('web::contact'));
+        $data = [];
+        if($request->hasHeader('X-Requested-With')){
+            $data += ['layout' => 'layout/no'];
+        }
+
+        return new HtmlResponse($this->template->render('web::contact', $data));
     }
 }
