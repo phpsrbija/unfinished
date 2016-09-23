@@ -6,12 +6,11 @@ $(document).ready(function () {
         var replace = (uri == url) ? true : false;
         var fragment = ($(this).data("subcontent") !== undefined); // set only for sub-content
 
-        if (!fragment) {
-            $.pjax.click(event, {container: $("#content"), replace: replace});
-        } else {
-            $.pjax.click(event, {container: $("#sub-content"), fragment: '#sub-content', replace: replace});
-        }
+        var options = fragment ?
+                {container: $("#sub-content"), fragment: '#sub-content', replace: replace} :
+                {container: $("#content"), replace: replace};
 
+        $.pjax.click(event, options);
         event.preventDefault();
     });
 
