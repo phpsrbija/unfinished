@@ -23,6 +23,6 @@ class IndexAction
             'additional' => '*',
         ];
 
-        return new HtmlResponse($this->template->render('admin::index', $data + ['layout' => 'layout/admin']));
+        return new HtmlResponse($this->template->render('admin::index', $data));
     }
 }

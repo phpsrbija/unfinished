@@ -4,12 +4,15 @@ return [
     'templates' => [
         'layout' => 'layout/default',
         'map'    => [
-            'layout/default'    => 'templates/layout/default.phtml',
-            'layout/admin'      => 'templates/layout/admin.phtml',
-            'layout/no'         => 'templates/layout/no.phtml',
-            'layout/sub-layout' => 'templates/layout/sub-layout.phtml',
-            'error/error'       => 'templates/error/error.phtml',
-            'error/404'         => 'templates/error/404.phtml',
+            // different layouts
+            'layout/default' => 'templates/layout/default.phtml',
+            'layout/admin'   => 'templates/layout/admin.phtml',
+            'layout/no'      => 'templates/layout/no.phtml',
+
+            // map to view files
+            'error/error'    => 'templates/error/error.phtml',
+            'error/404'      => 'templates/error/404.phtml',
+            'sub-menu'       => 'templates/layout/sub-menu.phtml',
         ],
         'paths'  => [
             'web'    => ['templates/web'],

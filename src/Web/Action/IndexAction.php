@@ -23,10 +23,6 @@ class IndexAction
             'template'   => 'zend-view',
         ];
 
-        if($request->hasHeader('X-Requested-With')){
-            $data += ['layout' => 'layout/no'];
-        }
-
         return new HtmlResponse($this->template->render('web::home-page', $data));
     }
 }

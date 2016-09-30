@@ -12,6 +12,7 @@ return [
             Core\Middleware\Error::class         => Core\Factory\Middleware\ErrorFactory::class,
             Core\Middleware\ErrorNotFound::class => Core\Factory\Middleware\ErrorNotFoundFactory::class,
             Core\Middleware\AdminAuth::class     => Core\Factory\Middleware\AdminAuthFactory::class,
+            Web\Middleware\Layout::class         => Web\Factory\Middleware\LayoutFactory::class,
         ],
     ],
     // This can be used to seed pre- and/or post-routing middleware
@@ -60,6 +61,8 @@ return [
             'middleware' => [
                 Zend\Expressive\Container\ApplicationFactory::ROUTING_MIDDLEWARE,
                 Helper\UrlHelperMiddleware::class,
+                Web\Middleware\Layout::class, // change layout dynamically
+
                 // Add more middleware here that needs to introspect the routing
                 // results; this might include:
                 // - route-based authentication
