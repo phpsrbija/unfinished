@@ -40,18 +40,18 @@ echo "
    Create apropriate config
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
 if [ ! -f /var/www/unfinished/data/phinx/phinx.php ]; then
-    cp /var/www/unfinished/data/phinx/phinx.php.dist /var/www/mycommerce360/data/phinx/phinx.php
+    cp /var/www/unfinished/data/phinx/phinx.php.dist /var/www/unfinished/data/phinx/phinx.php
 fi
 
 if [ ! -f /var/www/unfinished/config/autoload/local.php ]; then
-    cp /var/www/unfinished/config/autoload/local.php.dist /var/www/mycommerce360/config/autoload/local.php
+    cp /var/www/unfinished/config/autoload/local.php.dist /var/www/unfinished/config/autoload/local.php
 fi
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
    Phinx migrate
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
-#cd /var/www/mycommerce360/data/phinx && /var/www/mycommerce360/vendor/bin/phinx migrate
+#cd /var/www/unfinished/data/phinx && /var/www/unfinished/vendor/bin/phinx migrate
 
 ###############################################################################
 ### During development log every query in /tmp/pgsql.log .. thanks me later
