@@ -2,7 +2,7 @@
 
 return [
     "paths"        => [
-        "migrations" => "migrations/"
+        "migrations" => "%%PHINX_CONFIG_DIR%%/migrations/"
     ],
     "environments" => [
         "default_migration_table" => "migrations_log",
