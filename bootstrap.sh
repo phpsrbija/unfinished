@@ -14,7 +14,7 @@ echo "
    Start provisioning.. Adding new version of PHP and update...
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
 sudo apt-get -y install python-software-properties >> /dev/null
-sudo add-apt-repository ppa:ondrej/php5-5.6 >> /dev/null
+sudo add-apt-repository ppa:ondrej/php >> /dev/null
 sudo apt-get update
 
 echo "
@@ -32,8 +32,7 @@ echo "
    Install packages
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
 sudo apt-get install -y nginx >> /dev/null
-sudo apt-get -y install curl php5 php5-mhash php5-mcrypt php5-curl php5-cli php5-mysql php5-gd php5-intl php5-xsl php5-xdebug >> /dev/null
-sudo apt-get install -y php5-fpm >> /dev/null
+sudo apt-get -y install curl php7.0-fpm php7.0-mcrypt php7.0-curl php7.0-cli php7.0-mysql php7.0-gd php7.0-intl php7.0-xsl php7.0-xdebug
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -91,7 +90,7 @@ sudo bash -c "echo 'server {
     location ~ \.php$ {
         try_files \$uri =404;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
         fastcgi_index index.php;
         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
         include fastcgi_params;
@@ -100,7 +99,7 @@ sudo bash -c "echo 'server {
 
 sudo cp /etc/nginx/sites-available/unfinished.dev /etc/nginx/sites-enabled/
 sudo service nginx restart
-sudo service php5-fpm restart
+sudo service php7.0-fpm restart
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -112,9 +111,9 @@ display_errors = On
 log_errors = On
 html_errors = On
 error_log = /tmp/php_errors.log
-" >> /etc/php5/fpm/php.ini
+" >> /etc/php/7.0/fpm/php.ini
 sudo service nginx restart
-sudo service php5-fpm restart
+sudo service php7.0-fpm restart
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
