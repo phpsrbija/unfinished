@@ -25,7 +25,7 @@ sudo debconf-set-selections <<< "mysql-server mysql-server/root_password passwor
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password 12345"
 
 sudo apt-get install -y mysql-common mysql-server-5.6 mysql-client-5.6
-mysql -u root -pmysql123  -e "CREATE DATABASE unfinished;"
+mysql -u root -p12345  -e "CREATE DATABASE unfinished;"
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
