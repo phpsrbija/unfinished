@@ -1,7 +1,6 @@
 language: php
 php:
   - '7.0'
-  - nightly
 install: composer install --no-interaction
 script:
   - vendor/bin/phpunit --colors --configuration="tests/phpunit.xml" --coverage-clover clover.xml
