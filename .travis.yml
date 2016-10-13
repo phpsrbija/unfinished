@@ -4,5 +4,5 @@ php:
   - nightly
 install: composer install --no-interaction
 script:
-  - vendor/bin/phpunit --colors --coverage-clover clover.xml
+  - vendor/bin/phpunit --colors --configuration="tests/phpunit.xml" --coverage-clover clover.xml
   - php vendor/bin/coverage-checker.php clover.xml 100
