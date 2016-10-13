@@ -3,4 +3,6 @@ php:
   - '7.0'
   - nightly
 install: composer install --no-interaction
-script: true
+script:
+  - vendor/bin/phpunit --colors --coverage-clover clover.xml
+  - php vendor/bin/coverage-checker.php clover.xml 100
