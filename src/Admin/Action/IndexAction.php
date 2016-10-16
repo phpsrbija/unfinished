@@ -11,6 +11,13 @@ class IndexAction
 {
     private $template;
 
+    /**
+     * IndexAction constructor.
+     *
+     * @TODO move to base class ?
+     *
+     * @param Template $template
+     */
     public function __construct(Template $template)
     {
         $this->template = $template;
@@ -19,7 +26,7 @@ class IndexAction
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
         $data = [
-            'message'    => 'Welcome',
+            'message'    => 'Create article',
             'additional' => '*',
         ];
 
