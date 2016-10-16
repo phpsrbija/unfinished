@@ -30,8 +30,8 @@ abstract class AbstractController
         $action = $request->getAttribute('action', 'index');
 
         if(!method_exists($this, $action)){
-            $response->withStatus(404);
-
+            // clone new response with 404 status code set
+            $response = $response->withStatus(404);
             return $next($request, $response, new \Exception("Function '$action' is not defined!", 404));
         }
 
