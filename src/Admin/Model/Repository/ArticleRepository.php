@@ -3,7 +3,6 @@ namespace Admin\Model\Repository;
 
 use Admin\Model\Entity\ArticleEntity;
 use Admin\Model\Storage\ArticleStorageInterface;
-use Zend\Stdlib\ArrayObject;
 
 class ArticleRepository implements ArticleRepositoryInterface
 {

@@ -3,8 +3,6 @@ declare(strict_types = 1);
 
 namespace Admin\Validator;
 
-use Zend\Validator\Exception;
-
 class ArticleValidator implements \Admin\Validator\ValidatorInterface
 {
     /**
@@ -21,7 +19,7 @@ class ArticleValidator implements \Admin\Validator\ValidatorInterface
      *
      * @return void
      */
-    public function validate($postData) : void
+    public function validate($postData)
     {
         $textValidator = new \Zend\Validator\StringLength();
         $textValidator->setMin(4);
