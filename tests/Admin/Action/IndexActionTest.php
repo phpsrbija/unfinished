@@ -2,9 +2,6 @@
 declare(strict_types = 1);
 namespace Test\Admin\Action;
 
-/**
- * @author Nemanja Ognjanovic <nemanja@ognjanovic.me>
- */
 class IndexActionTest extends \PHPUnit_Framework_TestCase
 {
     public function testIndexActionShouldReturnHtmlResponse()
