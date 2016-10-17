@@ -2,6 +2,7 @@
 
 namespace Admin\Controller;
 
+use Core\Service\AdminUserService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
@@ -14,15 +15,16 @@ class AuthController extends AbstractController
     private $router;
     private $template;
     private $session;
+    private $adminUserService;
 
-    public function __construct(Router $router, Template $template, SessionManager $session)
+    public function __construct(Router $router, Template $template, SessionManager $session, AdminUserService $adminUserService)
     {
-        $this->router   = $router;
-        $this->template = $template;
-        $this->session  = $session;
+        $this->router           = $router;
+        $this->template         = $template;
+        $this->session          = $session;
+        $this->adminUserService = $adminUserService;
     }
 
-    // If user is already logged in do a redirect
     public function login()
     {
         if($this->session->getStorage()->user){
@@ -41,17 +43,14 @@ class AuthController extends AbstractController
         $data     = $this->request->getParsedBody();
         $email    = isset($data['email']) ? $data['email'] : null;
         $password = isset($data['password']) ? $data['password'] : null;
-        $user     = [
-            'email'    => 'admin@unfinished.com',
-            'password' => 'admin'
-        ];
 
-        if($user['email'] === $email && $user['password'] === $password){
-            $this->session->getStorage()->user = $user;
+        try{
+            $this->session->getStorage()->user = $this->adminUserService->loginUser($email, $password);
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
-        else{
+        catch(\Exception $e){
+            //@todo set $e->getMessage() to flash messanger and print messages in next page
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
     }

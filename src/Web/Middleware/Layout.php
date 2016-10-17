@@ -28,10 +28,11 @@ class Layout
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
+        // jquery-pjax: hide layout
         // set empty layout that simulate layout-no-render
-        if($request->hasHeader('X-Requested-With') && $request->hasHeader('X-PJAX')){
-            $this->config['templates']['layout'] = 'layout/no';
-        }
+        //if($request->hasHeader('X-Requested-With') && $request->hasHeader('X-PJAX')){
+        //    $this->config['templates']['layout'] = 'layout/no';
+        //}
 
         if(0 === strpos($request->getUri()->getPath(), '/admin')){
             $this->config['templates']['layout'] = 'layout/admin';

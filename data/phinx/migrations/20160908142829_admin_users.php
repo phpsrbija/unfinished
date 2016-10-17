@@ -18,7 +18,7 @@ class AdminUsers extends AbstractMigration
             ->create();
 
         //password is: testtest
-        $this->execute("insert into admin_users (admin_user_uuid, first_name,last_name,email,password) values (UNHEX('110E8400E29B11D4A716446655440000'), 'Unfinished',  'Admin', 'unfinished@admin.com', '$2y$10\$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK')");
+        $this->execute("insert into admin_users (admin_user_uuid, first_name,last_name,email,password) values (UNHEX('110E8400E29B11D4A716446655440000'), 'Unfinished',  'Admin', 'admin@unfinished.com', '$2y$10\$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK')");
     }
 
     public function down()

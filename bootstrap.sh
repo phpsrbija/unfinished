@@ -53,7 +53,7 @@ echo "
 #cd /var/www/unfinished/data/phinx && /var/www/unfinished/vendor/bin/phinx migrate
 
 ###############################################################################
-### During development log every query in /tmp/pgsql.log .. thanks me later
+### During development log every query in /tmp/mysql.log .. thanks me later
 ###############################################################################
 echo "
 general_log = on
