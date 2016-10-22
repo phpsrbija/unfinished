@@ -18,15 +18,13 @@ class Error
 
     public function __invoke($ex, Request $request, Response $response)
     {
-        if($ex instanceof \Exception){
+        if ($ex instanceof \Exception) {
             $code    = $ex->getCode() === 0 ? 500 : $ex->getCode();
             $message = $ex->getMessage();
-        }
-        elseif(is_int($ex)){
+        } elseif (is_int($ex)) {
             $code    = $ex;
             $message = 'Application Error!';
-        }
-        else{
+        } else {
             $code    = 500;
             $message = 'Unknown Application Error!';
         }

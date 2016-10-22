@@ -5,3 +5,4 @@ install: composer install --no-interaction
 script:
   - vendor/bin/phpunit --colors --configuration="tests/phpunit.xml" --coverage-clover clover.xml
   - php vendor/bin/coverage-checker.php clover.xml 100
+  - php vendor/bin/phpcs --standard=PSR2 ./src/*

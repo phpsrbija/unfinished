@@ -20,11 +20,11 @@ class AdminUserService
     {
         $user = $this->adminUsersMapper->getByEmail($email);
 
-        if(!$user){
+        if (!$user) {
             throw new \Exception('User does not exist.');
         }
 
-        if(!$this->crypt->verify($password, $user->password)){
+        if (!$this->crypt->verify($password, $user->password)) {
             throw new \Exception('Password does not match.');
         }
 

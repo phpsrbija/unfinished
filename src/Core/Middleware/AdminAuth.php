@@ -25,8 +25,11 @@ class AdminAuth
          * Check if user is logged in
          */
         $user = $this->session->getStorage()->user;
-        if(!$user){
-            return $response->withStatus(302)->withHeader('Location', $this->router->generateUri('auth', ['action' => 'login']));
+        if (!$user) {
+            return $response->withStatus(302)->withHeader(
+                'Location',
+                $this->router->generateUri('auth', ['action' => 'login'])
+            );
         }
 
         /**

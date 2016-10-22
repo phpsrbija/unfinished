@@ -24,5 +24,4 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
     {
         return $this->update(['last_login' => date('Y-m-d H:i:s')], ['admin_user_uuid' => $id]);
     }
-
 }
