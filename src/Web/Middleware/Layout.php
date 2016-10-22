@@ -34,11 +34,10 @@ class Layout
         //    $this->config['templates']['layout'] = 'layout/no';
         //}
 
-        if(0 === strpos($request->getUri()->getPath(), '/admin')){
+        if (0 === strpos($request->getUri()->getPath(), '/admin')) {
             $this->config['templates']['layout'] = 'layout/admin';
         }
 
         return $next($request, $response);
     }
-
 }

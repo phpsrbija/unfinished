@@ -15,5 +15,4 @@ class MapperFactory
 
         return $instance;
     }
-
 }
