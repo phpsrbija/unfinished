@@ -6,7 +6,7 @@ class LayoutFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testLayoutFactoryShouldCreateLayoutMiddlewareInstance()
     {
-        $template = $this->getMockBuilder('Zend\Expressive\Template\TemplateRendererInterface')
+        $router = $this->getMockBuilder('Zend\Expressive\Router\RouterInterface')
             ->getMockForAbstractClass();
         $container = $this->getMockBuilder('Interop\Container\ContainerInterface')
             ->setMethods(['get'])
@@ -14,7 +14,7 @@ class LayoutFactoryTest extends \PHPUnit_Framework_TestCase
         $config = new \ArrayObject();
         $container->expects(static::at(0))
             ->method('get')
-            ->will(static::returnValue($template));
+            ->will(static::returnValue($router));
         $container->expects(static::at(1))
             ->method('get')
             ->will(static::returnValue($config));
