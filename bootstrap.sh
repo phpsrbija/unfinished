@@ -56,11 +56,15 @@ echo "
 ### During development log every query in /tmp/mysql.log .. thanks me later
 ###############################################################################
 echo "
+
 general_log = on
 general_log_file=/tmp/mysql.log
 " >> /etc/mysql/my.cnf
-sudo service mysql restart
 
+# mysql doesnt need to use that much ram for dev environment
+sudo sed -i '/\[mysqld\]/a table_definition_cache=200' /etc/mysql/my.cnf
+
+sudo service mysql restart
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
