@@ -32,7 +32,7 @@
         }
     },
     "scripts": {
-        "upload-coverage": "coveralls",
+        "upload-coverage": "coveralls -v",
         "cs-check": "vendor/bin/phpcs --standard=PSR2 ./src/*",
         "cs-fix": "phpcbf",
         "server": "php -S 0.0.0.0:8080 -t public/ public/index.php",
