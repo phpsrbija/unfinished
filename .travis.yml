@@ -4,5 +4,8 @@ php:
 install: composer install --no-interaction
 script:
   - vendor/bin/phpunit --colors --configuration="tests/phpunit.xml" --coverage-clover clover.xml
+  - composer test-coverage
   - php vendor/bin/coverage-checker.php clover.xml 100
   - php vendor/bin/phpcs --standard=PSR2 ./src/*
+after_script:
+  - composer upload-coverage
