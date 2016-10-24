@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Core\Middleware;
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -7,16 +7,38 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
 
-class Error
+/**
+ * Class Error.
+ *
+ * @package Core\Middleware
+ */
+final class Error
 {
+    /**
+     * @var Template
+     */
     private $template;
 
+    /**
+     * Error constructor.
+     *
+     * @param Template $template template
+     */
     public function __construct(Template $template)
     {
         $this->template = $template;
     }
 
-    public function __invoke($ex, Request $request, Response $response)
+    /**
+     * Invoked on middleware execution.
+     *
+     * @param mixed    $exception exception
+     * @param Request  $request   request
+     * @param Response $response  response
+     *
+     * @return HtmlResponse
+     */
+    public function __invoke($ex, Request $request, Response $response) : HtmlResponse
     {
         if ($ex instanceof \Exception) {
             $code    = $ex->getCode() === 0 ? 500 : $ex->getCode();

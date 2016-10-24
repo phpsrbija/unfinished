@@ -1,12 +1,16 @@
 <?php
-
+declare(strict_types = 1);
 namespace Core\Factory;
 
 use Interop\Container\ContainerInterface;
 use Zend\Session\Config\SessionConfig;
 use Zend\Session\SessionManager;
-use Zend\Session\Container;
 
+/**
+ * Class SessionFactory.
+ *
+ * @package Core\Factory
+ */
 class SessionFactory
 {
     const SESSION_CONF = [
@@ -18,7 +22,14 @@ class SessionFactory
         'gc_maxlifetime'      => 2592000
     ];
 
-    public function __invoke(ContainerInterface $container)
+    /**
+     * Executed when factory is invoked.
+     *
+     * @param ContainerInterface $container container
+     *
+     * @return SessionManager
+     */
+    public function __invoke(ContainerInterface $container) : SessionManager
     {
         $sessionConfig = new SessionConfig();
         $sessionConfig->setOptions(self::SESSION_CONF);

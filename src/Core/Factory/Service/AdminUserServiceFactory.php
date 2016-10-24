@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Core\Factory\Service;
 
 use Core\Mapper\AdminUsersMapper;
@@ -9,7 +9,14 @@ use Zend\Crypt\Password\Bcrypt;
 
 class AdminUserServiceFactory
 {
-    public function __invoke(ContainerInterface $container)
+    /**
+     * Executed when factory is invoked.
+     *
+     * @param ContainerInterface $container container
+     *
+     * @return AdminUserService
+     */
+    public function __invoke(ContainerInterface $container) : AdminUserService
     {
         return new AdminUserService(
             new Bcrypt(),
