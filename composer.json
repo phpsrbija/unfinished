@@ -31,15 +31,10 @@
         }
     },
     "scripts": {
-        "check": [
-            "@cs",
-            "@test"
-        ],
-        "cs-check": "phpcs",
+        "cs-check": "vendor/bin/phpcs --standard=PSR2 ./src/*",
         "cs-fix": "phpcbf",
-        "serve": "php -S 0.0.0.0:8080 -t public/ public/index.php",
-        "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
-        "upload-coverage": "coveralls -v"
+        "server": "php -S 0.0.0.0:8080 -t public/ public/index.php",
+        "test": "vendor/bin/phpunit --colors=always --configuration=\"./tests/phpunit.xml\" --bootstrap=\"./tests/bootstrap.php\"",
+        "test-coverage": "vendor/bin/phpunit --colors=always --configuration=\"./tests/phpunit.xml\" --bootstrap=\"./tests/bootstrap.php\" --coverage-text"
     }
 }
