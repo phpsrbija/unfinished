@@ -21,6 +21,9 @@ class AdminUserServiceTest extends \PHPUnit_Framework_TestCase
             ->setMethods(['getByEmail', 'updateLogin'])
             ->getMock();
         $adminUsersMapper->expects(static::once())
+            ->method('updateLogin')
+            ->will(static::returnValue(1));
+        $adminUsersMapper->expects(static::once())
             ->method('getByEmail')
             ->will(static::returnValue($userData));
         $adminUserService = new \Core\Service\AdminUserService($bcrypt, $adminUsersMapper);

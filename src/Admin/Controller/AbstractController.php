@@ -1,10 +1,15 @@
 <?php
-
 namespace Admin\Controller;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
+/**
+ * Class AbstractController.
+ * Intended to be extended by any newly created controller.
+ *
+ * @package Admin\Controller
+ */
 abstract class AbstractController
 {
     /**
@@ -23,7 +28,14 @@ abstract class AbstractController
     protected $next;
 
     /**
-     * Middlware method
+     * Executed whenever controller is instantiated.
+     * Determines which action to invoke based on request.
+     *
+     * @param Request       $request  request
+     * @param Response      $response response
+     * @param callable|null $next     next middleware
+     *
+     * @return mixed
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {

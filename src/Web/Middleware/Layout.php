@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Web\Middleware;
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -7,11 +7,29 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
 
+/**
+ * Class Layout.
+ *
+ * @package Web\Middleware
+ */
 class Layout
 {
+    /**
+     * @var Router
+     */
     private $router;
+
+    /**
+     * @var mixed
+     */
     private $config;
 
+    /**
+     * Layout constructor.
+     *
+     * @param Router $router router
+     * @param mixed  $config config
+     */
     public function __construct(Router $router, $config)
     {
         $this->router = $router;
