@@ -1,6 +1,7 @@
 # unfinished
 
 [![Build Status](https://travis-ci.org/tasmaniski/unfinished.svg?branch=master)](https://travis-ci.org/tasmaniski/unfinished)
+[![Coverage Status](https://coveralls.io/repos/github/tasmaniski/unfinished/badge.svg)](https://coveralls.io/github/tasmaniski/unfinished)
 
 ## Instalation
 
