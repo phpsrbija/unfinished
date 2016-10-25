@@ -2,3 +2,4 @@
 .vagrant
 .~lock.*
 vendor/
+docker/mysql_data
