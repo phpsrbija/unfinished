@@ -19,7 +19,12 @@ class PostController extends AbstractController
         $this->template = $template;
     }
 
-    public function index()
+    /**
+     * Posts list
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function index() : \Psr\Http\Message\ResponseInterface
     {
         return new HtmlResponse($this->template->render('admin::post/index'));
     }

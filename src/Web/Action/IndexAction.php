@@ -1,5 +1,5 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types = 1);
+
 namespace Web\Action;
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -32,10 +32,9 @@ class IndexAction
     /**
      * Executed when action is invoked.
      *
-     * @param Request       $request  request
-     * @param Response      $response response
-     * @param callable|null $next     next in line
-     *
+     * @param Request $request    request
+     * @param Response $response  response
+     * @param callable|null $next next in line
      * @return HtmlResponse
      */
     public function __invoke(Request $request, Response $response, callable $next = null) : HtmlResponse
@@ -45,6 +44,6 @@ class IndexAction
             'template'   => 'zend-view',
         ];
 
-        return new HtmlResponse($this->template->render('web::home-page', $data));
+        return new HtmlResponse($this->template->render('web::index', $data));
     }
 }
