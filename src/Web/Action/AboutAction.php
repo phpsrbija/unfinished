@@ -29,10 +29,9 @@ class AboutAction
     /**
      * Executed when action is invoked.
      *
-     * @param Request       $request  request
-     * @param Response      $response response
-     * @param callable|null $next     next in line
-     *
+     * @param Request $request    request
+     * @param Response $response  response
+     * @param callable|null $next next in line
      * @return HtmlResponse
      */
     public function __invoke(Request $request, Response $response, callable $next = null) : HtmlResponse

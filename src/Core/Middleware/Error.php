@@ -39,7 +39,6 @@ final class Error
      */
     public function __invoke($ex, Request $request, Response $response) : HtmlResponse
     {
-
         if($ex instanceof \Exception){
             $code    = $ex->getCode() === 0 ? 500 : $ex->getCode();
             $message = $ex->getMessage();
