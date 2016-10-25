@@ -12,7 +12,6 @@ return [
             // map to view files
             'error/error'    => 'templates/error/error.phtml',
             'error/404'      => 'templates/error/404.phtml',
-            'sub-menu'       => 'templates/layout/sub-menu.phtml',
         ],
         'paths'  => [
             'web'    => ['templates/web'],

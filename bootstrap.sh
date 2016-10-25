@@ -50,7 +50,7 @@ echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
    Phinx migrate
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
-#cd /var/www/unfinished/data/phinx && /var/www/unfinished/vendor/bin/phinx migrate
+cd /var/www/unfinished/data/phinx && /var/www/unfinished/vendor/bin/phinx migrate
 
 ###############################################################################
 ### During development log every query in /tmp/mysql.log .. thanks me later
