@@ -32,21 +32,23 @@ final class Error
     /**
      * Invoked on middleware execution.
      *
-     * @param mixed    $exception exception
-     * @param Request  $request   request
-     * @param Response $response  response
-     *
+     * @param mixed $exception   exception
+     * @param Request $request   request
+     * @param Response $response response
      * @return HtmlResponse
      */
     public function __invoke($ex, Request $request, Response $response) : HtmlResponse
     {
-        if ($ex instanceof \Exception) {
+
+        if($ex instanceof \Exception){
             $code    = $ex->getCode() === 0 ? 500 : $ex->getCode();
             $message = $ex->getMessage();
-        } elseif (is_int($ex)) {
+        }
+        elseif(is_int($ex)){
             $code    = $ex;
             $message = 'Application Error!';
-        } else {
+        }
+        else{
             $code    = 500;
             $message = 'Unknown Application Error!';
         }
@@ -54,7 +56,8 @@ final class Error
         return new HtmlResponse($this->template->render('error::error', [
             'exception' => $ex,
             'status'    => $code,
-            'reason'    => $message
+            'reason'    => $message,
+            'layout'    => 'layout/no'
         ]), $code);
     }
 }
