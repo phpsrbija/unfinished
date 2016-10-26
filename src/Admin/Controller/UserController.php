@@ -7,6 +7,11 @@ namespace Admin\Controller;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
 
+/**
+ * Class UserController.
+ *
+ * @package Admin\Controller
+ */
 class UserController extends AbstractController
 {
     /**
@@ -14,6 +19,11 @@ class UserController extends AbstractController
      */
     private $template;
 
+    /**
+     * UserController constructor.
+     *
+     * @param Template $template template engine
+     */
     public function __construct(Template $template)
     {
         $this->template = $template;
@@ -28,5 +38,4 @@ class UserController extends AbstractController
     {
         return new HtmlResponse($this->template->render('admin::user/index'));
     }
-
 }

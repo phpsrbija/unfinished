@@ -7,6 +7,11 @@ namespace Admin\Controller;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
 
+/**
+ * Class PostController.
+ *
+ * @package Admin\Controller
+ */
 class PostController extends AbstractController
 {
     /**
@@ -14,6 +19,11 @@ class PostController extends AbstractController
      */
     private $template;
 
+    /**
+     * PostController constructor.
+     *
+     * @param Template $template template engine
+     */
     public function __construct(Template $template)
     {
         $this->template = $template;
@@ -28,5 +38,4 @@ class PostController extends AbstractController
     {
         return new HtmlResponse($this->template->render('admin::post/index'));
     }
-
 }
