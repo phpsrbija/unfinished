@@ -1,0 +1,50 @@
+version: '2'
+services:
+  web:
+      build: ./docker/nginx/
+      ports:
+          - 80:80
+      volumes_from:
+          - app
+  php:
+      #restart: always
+      build: ./docker/php7.0-fpm/
+      ##build: .
+      #restart: always
+      #image: phpdockerio/php7-fpm
+      expose:
+          - 9000
+      volumes_from:
+          - app
+  app:
+      image: phpdockerio/php7-fpm
+      volumes:
+          - .:/var/www/unfinished
+      command: "true"
+  mysql:
+#      build: ./mysql/
+      image: mysql:latest
+      volumes_from:
+          - data
+      ports:
+          - 3307:3306
+      environment:
+          MYSQL_ROOT_PASSWORD: 12345
+          MYSQL_DATABASE: unfinished
+          MYSQL_USER: unfinished
+          MYSQL_PASSWORD: 12345
+  data:
+      image: mysql:latest
+      volumes:
+          - ./docker/mysql_data:/var/lib/mysql
+      command: "true"
+  memcached:
+      image: memcached:latest
+      expose:
+          - 11211
+      command: "memcached"
+  redis:
+      image: redis
+      expose:
+          - 6379
+      #command: "start"
