@@ -48,22 +48,41 @@ fi
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
+   Install and run composer
+────────────────────────────────────────────────────────────────────────────────────────────────────────"
+sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
+sudo /sbin/mkswap /var/swap.1
+sudo /sbin/swapon /var/swap.1
+
+cd /tmp/
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+sudo mv composer.phar /usr/local/bin/composer
+cd /var/www/unfinished/
+
+if [ -d "vendor" ]; then
+ composer update --no-dev
+else
+ composer install --no-dev
+fi
+
+echo "
+────────────────────────────────────────────────────────────────────────────────────────────────────────
    Phinx migrate
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
 cd /var/www/unfinished/data/phinx && /var/www/unfinished/vendor/bin/phinx migrate
 
-###############################################################################
-### During development log every query in /tmp/mysql.log .. thanks me later
-###############################################################################
-echo "
 
+# During development log every query in /tmp/mysql.log .. thanks me later
+echo "
 general_log = on
 general_log_file=/tmp/mysql.log
 " >> /etc/mysql/my.cnf
 
 # mysql doesnt need to use that much ram for dev environment
 sudo sed -i '/\[mysqld\]/a table_definition_cache=200' /etc/mysql/my.cnf
-
 sudo service mysql restart
 
 echo "
