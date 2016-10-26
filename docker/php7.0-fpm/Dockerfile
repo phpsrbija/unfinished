@@ -5,8 +5,9 @@ WORKDIR /var/www/unfinished
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get -y install curl vim && \
+    apt-get -y install curl vim php7.0-xdebug && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 
 RUN sed -i 's/;daemonize = yes/daemonize = no/g' /etc/php/7.0/fpm/php-fpm.conf
 
