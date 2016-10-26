@@ -224,7 +224,7 @@ class ArticleEntity implements ArraySerializableInterface
     /**
      * @param \DateTime $createdAt
      */
-    private function setCreatedAt($createdAt)
+    private function setCreated_at($createdAt)
     {
         $this->createdAt = $createdAt;
     }
@@ -232,7 +232,7 @@ class ArticleEntity implements ArraySerializableInterface
     /**
      * @param \DateTime $publishedAt
      */
-    private function setPublishedAt($publishedAt)
+    private function setPublished_at($publishedAt)
     {
         $this->publishedAt = $publishedAt;
     }
@@ -248,7 +248,7 @@ class ArticleEntity implements ArraySerializableInterface
     /**
      * @param int $userId
      */
-    private function setUserId($userId)
+    private function setUser_id($userId)
     {
         $this->userId = $userId;
     }

@@ -1,1 +1,20 @@
-Article list
+<?php
+/**
+ * @var \Zend\Db\ResultSet\ResultSetInterface $articleCollection
+ * @var \Admin\Model\Entity\ArticleEntity $article
+ */
+?>
+
+<a href="<?=$this->url('article', ['action' => 'create']) ?>" title="Create article">Create new article</a><br />
+
+<h1>Article list</h1>
+
+<ul>
+<?php foreach($articleCollection as $article): ?>
+    <li><span><?=$article->getTitle()?></span> -
+        <span><?=$article->getPublishedAt()?></span> -
+        <span><a href="/admin/article/update?id=<?=$article->getArticleUuid()?>" title="Update">Edit</a></span>
+        <span><a class="ajaxDelete" href="/admin/article/delete" title="Delete">Delete</a></span>
+    </li>
+<?php endforeach; ?>
+</ul>

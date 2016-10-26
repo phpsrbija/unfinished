@@ -39,9 +39,11 @@ class ArticlePageAction extends AbstractPage
 
     public function indexAction(Request $request, Response $response, callable $next = null) : HtmlResponse
     {
+        $articleCollection = $this->articleRepo->fetchAllArticles();
+
         $data = [
             'message'    => 'Article list',
-            'additional' => '*',
+            'articleCollection' => $articleCollection,
         ];
 
         return new HtmlResponse($this->getTemplate()->render('admin::article/index', $data));
@@ -61,9 +63,10 @@ class ArticlePageAction extends AbstractPage
                 $this->validator->validate($data['data']);
 
                 $article->exchangeArray($data['data']);
-                //@TODO implement storage interface
-//                var_dump($this->articleRepo->saveArticle($article));
-//                var_dump($article);
+                if ($this->articleRepo->saveArticle($article)) {
+                    return $this->indexAction($request, $response);
+                }
+                //@TODO there was an error saving article, set a flesh message for user
 
             // handle validation errors
             } catch (\Admin\Validator\ValidatorException $e) {

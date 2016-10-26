@@ -3,6 +3,7 @@
 namespace Admin\Model\Storage;
 
 use Admin\Model\Entity\ArticleEntity;
+use Zend\Db\ResultSet\ResultSetInterface;
 
 interface ArticleStorageInterface
 {
@@ -11,7 +12,7 @@ interface ArticleStorageInterface
      *
      * @param $params
      *
-     * @return mixed
+     * @return ResultSetInterface
      */
     public function fetchAll($params);
 

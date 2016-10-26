@@ -2,7 +2,6 @@
 
 namespace Admin\Db;
 
-
 use Admin\Model\Entity\ArticleEntity;
 use Admin\Model\Storage\ArticleStorageInterface;
 use Zend\Db\TableGateway\TableGateway;
@@ -11,13 +10,22 @@ use Zend\Db\ResultSet\ResultSetInterface;
 
 class ArticleTableGateway extends TableGateway implements ArticleStorageInterface
 {
+    protected $columns = array(
+        'articleUuid' => 'article_uuid',
+        'title' => 'title',
+        'publishedAt' => 'published_at',
+//        'createdAt' => 'created_at',
+        'slug' => 'slug',
+        'type' => 'type',
+    );
+
     /**
      * @param AdapterInterface   $adapter
      * @param ResultSetInterface $resultSet
      */
     public function __construct(AdapterInterface $adapter, ResultSetInterface $resultSet)
     {
-        parent::__construct('album', $adapter, null, $resultSet);
+        parent::__construct('articles', $adapter, null, $resultSet);
     }
 
     /**
@@ -27,14 +35,7 @@ class ArticleTableGateway extends TableGateway implements ArticleStorageInterfac
     {
         $select = $this->getSql()->select();
 
-        $collection = [];
-
-        /** @var ArticleEntity $entity */
-        foreach ($this->selectWith($select) as $entity) {
-            $collection[$entity->getArticleUuid()] = $entity;
-        }
-
-        return $collection;
+        return $this->selectWith($select);
     }
 
     /**

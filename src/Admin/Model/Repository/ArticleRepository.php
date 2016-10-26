@@ -16,11 +16,19 @@ class ArticleRepository implements ArticleRepositoryInterface
         $this->articleStorage = $articleStorage;
     }
 
-    public function fetchAllArticles($params)
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function fetchAllArticles($params = array())
     {
         return $this->articleStorage->fetchAll($params);
     }
 
+    /**
+     * @param string $articleUuid
+     * @return ArticleEntity
+     */
     public function fetchSingleArticle($articleUuid)
     {
         return $this->articleStorage->fetchOne($articleUuid);

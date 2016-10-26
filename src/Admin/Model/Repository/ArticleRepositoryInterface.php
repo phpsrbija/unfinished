@@ -21,7 +21,7 @@ interface ArticleRepositoryInterface
      *
      * @return ArrayObject
      */
-    public function fetchAllArticles($params);
+    public function fetchAllArticles($params = array());
 
     /**
      * Fetches a single ArticleEntity model.
