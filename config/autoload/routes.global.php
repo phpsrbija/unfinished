@@ -18,6 +18,11 @@ return [
 
             // Db
             Zend\Db\Adapter\AdapterInterface::class => Zend\Db\Adapter\AdapterServiceFactory::class,
+            Admin\Action\IndexAction::class        => Admin\Factory\Action\IndexFactory::class,
+            Admin\Controller\AuthController::class => Admin\Factory\Controller\AuthFactory::class,
+            Admin\Controller\UserController::class => Admin\Factory\Controller\UserFactory::class,
+            Admin\Controller\TagController::class  => Admin\Factory\Controller\TagFactory::class,
+            Admin\Controller\PostController::class => Admin\Factory\Controller\PostFactory::class,
         ],
     ],
 
@@ -64,6 +69,24 @@ return [
             'path'            => '/admin/article/:action',
             'middleware'      => Admin\Action\ArticlePageAction::class,
             'allowed_methods' => ['GET', 'POST'],
-        ]
+        ],
+        [
+            'name'            => 'admin.users',
+            'path'            => '/admin/users',
+            'middleware'      => Admin\Controller\UserController::class,
+            'allowed_methods' => ['GET'],
+        ],
+        [
+            'name'            => 'admin.tags',
+            'path'            => '/admin/tags',
+            'middleware'      => Admin\Controller\TagController::class,
+            'allowed_methods' => ['GET'],
+        ],
+        [
+            'name'            => 'admin.posts',
+            'path'            => '/admin/posts',
+            'middleware'      => Admin\Controller\PostController::class,
+            'allowed_methods' => ['GET'],
+        ],
     ],
 ];

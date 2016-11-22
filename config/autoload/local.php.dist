@@ -3,4 +3,11 @@
 return [
     'debug'                 => false,
     'config_cache_enabled'  => false,
+
+    'db' => [
+            'driver'   => 'Pdo',
+            'dsn'      => 'mysql:dbname=unfinished;host=localhost',
+            'username' => 'root',       // set DB username
+            'password' => '12345',   // set DB password
+        ],
 ];

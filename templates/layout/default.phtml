@@ -6,7 +6,6 @@ $this->headLink()
 
 $this->inlineScript()
     ->prependFile('/js/app.js')
-    ->prependFile('/js/jquery.pjax.js')
     ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
     ->prependFile('https://code.jquery.com/jquery-2.2.4.min.js');
 ?>
@@ -32,10 +31,9 @@ $this->inlineScript()
                 <li role="presentation"><a href="<?= $this->url('home') ?>">Home</a></li>
                 <li role="presentation"><a href="<?= $this->url('about') ?>">About</a></li>
                 <li role="presentation"><a href="<?= $this->url('contact') ?>">Contact</a></li>
-                <li role="presentation" class="active"><a href="<?= $this->url('auth', ['action' => 'login']) ?>">Login</a></li>
             </ul>
         </nav>
-        <h3 class="text-muted">Unfinished&trade;</h3>
+        <h3 class="text-muted">UnFin&trade;</h3>
     </div>
 
     <div id="content">

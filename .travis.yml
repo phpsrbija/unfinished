@@ -1,7 +1,12 @@
 language: php
-php:
-  - '7.0'
+matrix:
+  fast_finish: true
+  include:
+    - php: 7
 install: composer install --no-interaction
 script:
-  - vendor/bin/phpunit --colors --configuration="tests/phpunit.xml" --coverage-clover clover.xml
-  - php vendor/bin/coverage-checker.php clover.xml 2
+  - composer test-coverage
+  - php vendor/bin/coverage-checker.php clover.xml 100
+  - composer cs-check
+after_script:
+  - composer upload-coverage

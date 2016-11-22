@@ -4,7 +4,7 @@
 <h2>This is awkward.</h2>
 <p>We encountered a <?php echo $this->escapeHtml(sprintf('%d %s', $this->status, $this->reason)); ?> error.</p><hr/>
 
-<?php if(isset($this->exception) && $this->exception instanceof Exception): ?>
+<?php if(isset($this->exception)): ?>
     <hr/>
     <h2>Additional information: </h2>
     <h3><?php echo get_class($this->exception); ?></h3>
