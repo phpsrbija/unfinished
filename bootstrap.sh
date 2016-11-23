@@ -13,9 +13,9 @@ echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
    Start provisioning.. Adding new version of PHP and update...
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
-sudo apt-get -y install python-software-properties >> /dev/null
 sudo add-apt-repository ppa:ondrej/php >> /dev/null
-sudo apt-get update
+sudo apt-get update >> /dev/null
+
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -29,10 +29,13 @@ mysql -u root -p12345  -e "CREATE DATABASE unfinished;"
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
-   Install packages
+   Install packages and PHP 7
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
+sudo apt-get install -y zip unzip >> /dev/null
 sudo apt-get install -y nginx >> /dev/null
-sudo apt-get -y install git curl php7.0-zip php7.0-fpm php7.0-mcrypt php7.0-curl php7.0-cli php7.0-mysql php7.0-gd php7.0-intl php7.0-xsl php7.0-xdebug php7.0-mbstring
+sudo apt-get install -y curl git >> /dev/null
+sudo apt-get install -y php7.0-zip php7.0-fpm php7.0-mcrypt php7.0-curl php7.0-cli php7.0-mysql php7.0-gd php7.0-intl php7.0-xsl php7.0-mbstring
+sudo apt-get install -y php-xdebug
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -56,7 +59,6 @@ sudo /sbin/swapon /var/swap.1
 
 cd /tmp/
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
 sudo mv composer.phar /usr/local/bin/composer
