@@ -51,8 +51,12 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
         return $this->update(['last_login' => date('Y-m-d H:i:s')], ['admin_user_uuid' => $uuid]);
     }
 
-    public function getPaginationSelect()
+    public function getPaginationSelect($userId)
     {
-        return $this->getSql()->select();
+        $select = $this->getSql()->select()->order(['created_at' => 'desc']);
+
+        $select->where->notEqualTo('admin_user_uuid', $userId);
+
+        return $select;
     }
 }

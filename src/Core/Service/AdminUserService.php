@@ -68,9 +68,9 @@ class AdminUserService
         return $user;
     }
 
-    public function getPagination($page, $limit)
+    public function getPagination($page, $limit, $userId)
     {
-        $select           = $this->adminUsersMapper->getPaginationSelect();
+        $select           = $this->adminUsersMapper->getPaginationSelect($userId);
         $paginatorAdapter = new DbSelect($select, $this->adminUsersMapper->getAdapter());
         $paginator        = new Paginator($paginatorAdapter);
 

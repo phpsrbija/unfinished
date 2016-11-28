@@ -26,7 +26,8 @@ final class UserFactory
     {
         return new UserController(
             $container->get(TemplateRendererInterface::class),
-            $container->get(AdminUserService::class)
+            $container->get(AdminUserService::class),
+            $container->get('session')
         );
     }
 }

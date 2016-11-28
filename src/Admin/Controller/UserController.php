@@ -26,18 +26,26 @@ class UserController extends AbstractController
      */
     private $adminUserService;
 
+    /**
+     * @var SessionManager
+     */
+    private $session;
+
     CONST DEFAUTL_LIMIT = 15;
     CONST DEFAUTL_PAGE  = 1;
 
     /**
      * UserController constructor.
      *
-     * @param Template $template template engine
+     * @param Template $template
+     * @param AdminUserService $adminUserService
+     * @param SessionManager $session
      */
-    public function __construct(Template $template, AdminUserService $adminUserService)
+    public function __construct(Template $template, AdminUserService $adminUserService, SessionManager $session)
     {
         $this->template         = $template;
         $this->adminUserService = $adminUserService;
+        $this->session          = $session;
     }
 
     /**
@@ -47,6 +55,7 @@ class UserController extends AbstractController
      */
     public function index() : \Psr\Http\Message\ResponseInterface
     {
+        $user   = $this->session->getStorage()->user;
         $params = $this->request->getQueryParams();
         $page   = isset($params['page']) ? $params['page'] : self::DEFAUTL_PAGE;
         $limit  = isset($params['limit']) ? $params['limit'] : self::DEFAUTL_LIMIT;
@@ -56,7 +65,7 @@ class UserController extends AbstractController
         //    add filters ...
         //];
 
-        $adminUsers = $this->adminUserService->getPagination($page, $limit);
+        $adminUsers = $this->adminUserService->getPagination($page, $limit, $user->admin_user_uuid);
 
         return new HtmlResponse($this->template->render('admin::user/index', ['list' => $adminUsers]));
     }
