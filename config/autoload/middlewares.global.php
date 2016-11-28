@@ -75,13 +75,13 @@ return [
 
         'error404' => [
             'middleware' => [Core\Middleware\ErrorNotFound::class],
-            'priority'   => -1,
+            'priority'   => -10,
         ],
 
         'error' => [
             'middleware' => [Core\Middleware\Error::class],
             'error'      => true,
-            'priority'   => -10000,
+            'priority'   => -1,
         ],
 
     ],

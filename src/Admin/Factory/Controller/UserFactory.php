@@ -7,6 +7,7 @@ namespace Admin\Factory\Controller;
 use Admin\Controller\UserController;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Core\Service\AdminUserService;
 
 /**
  * Class UserFactory.
@@ -24,7 +25,8 @@ final class UserFactory
     public function __invoke(ContainerInterface $container) : UserController
     {
         return new UserController(
-            $container->get(TemplateRendererInterface::class)
+            $container->get(TemplateRendererInterface::class),
+            $container->get(AdminUserService::class)
         );
     }
 }
