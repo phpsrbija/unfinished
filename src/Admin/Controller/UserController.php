@@ -7,6 +7,7 @@ namespace Admin\Controller;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
 use Core\Service\AdminUserService;
+use Zend\Session\SessionManager;
 
 /**
  * Class UserController.
@@ -19,6 +20,10 @@ class UserController extends AbstractController
      * @var Template
      */
     private $template;
+
+    /**
+     * @var AdminUserService
+     */
     private $adminUserService;
 
     CONST DEFAUTL_LIMIT = 15;
@@ -47,9 +52,8 @@ class UserController extends AbstractController
         $limit  = isset($params['limit']) ? $params['limit'] : self::DEFAUTL_LIMIT;
 
         //$filter = [
-        //    'country'    => isset($params['country']) ? $params['country'] : '',
-        //    'tournament' => isset($params['tournament']) ? $params['tournament'] : 0,
-        //    'sport'      => isset($params['sport']) ? $params['sport'] : 0
+        //    'first_name' => isset($params['first_name']) ? $params['first_name'] : '',
+        //    add filters ...
         //];
 
         $adminUsers = $this->adminUserService->getPagination($page, $limit);

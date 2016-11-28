@@ -4,6 +4,7 @@
     <table class="table table-hover table-striped ">
         <thead>
         <tr>
+            <th>Active</th>
             <th>Full Name</th>
             <th>Email</th>
             <th>Last Login</th>
@@ -15,6 +16,7 @@
 
         <?php foreach($list as $one): ?>
             <tr>
+                <td><?= $one->status ? 'Yes' : 'No' ?></td>
                 <td><?= $one->first_name ?> <?= $one->last_name ?></td>
                 <td><?= $one->email ?></td>
                 <td><?= $one->last_login ? date('H:i d.m.Y', strtotime($one->last_login)) : '-' ?></td>
