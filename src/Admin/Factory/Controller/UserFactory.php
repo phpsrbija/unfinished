@@ -8,6 +8,7 @@ use Admin\Controller\UserController;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Core\Service\AdminUserService;
+use Zend\Expressive\Router\RouterInterface;
 
 /**
  * Class UserFactory.
@@ -26,6 +27,7 @@ final class UserFactory
     {
         return new UserController(
             $container->get(TemplateRendererInterface::class),
+            $container->get(RouterInterface::class),
             $container->get(AdminUserService::class),
             $container->get('session')
         );

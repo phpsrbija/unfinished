@@ -29,6 +29,11 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
         $this->adapter = $adapter;
     }
 
+    public function get($id)
+    {
+        return $this->select(['admin_user_uuid' => $id])->current();
+    }
+
     /**
      * Get admin user by email.
      *

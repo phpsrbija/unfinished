@@ -1,0 +1,37 @@
+<?php if($user): ?>
+    <h2>Edit admin user "<?= $user->first_name . ' ' . $user->last_name ?>"</h2>
+<?php else: ?>
+    <h2>Add new user</h2>
+<?php endif; ?>
+<br/>
+
+<form action="<?= $this->url('admin.users.action', ['action' => 'doedit', 'id' => $user ? $user->admin_user_uuid : 0]) ?>" method="POST">
+
+    <div class="form-group">
+        <input type="text" class="form-control" name="first_name" value="<?= $user ? $user->first_name : '' ?>">
+    </div>
+
+    <div class="form-group">
+        <input type="text" class="form-control" name="last_name" value="<?= $user ? $user->last_name : '' ?>">
+    </div>
+
+    <div class="form-group" disabled>
+        <input type="text" class="form-control" name="email" value="<?= $user ? $user->email : '' ?>">
+    </div>
+
+    <div class="form-group">
+        <input type="password" class="form-control" name="password" value="" autocomplete="off">
+    </div>
+
+    <div class="form-group">
+        <select class="form-control" name="status">
+            <option value="1" <?= ($user && $user->status == 1) ? 'selected' : '' ?>>Activated</option>
+            <option value="0" <?= ($user && $user->status == 0) ? 'selected' : '' ?>>Deactivated</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-default">Save</button>
+    <a href="<?= $this->url('admin.users') ?>" class="btn btn-default">Cancel</a>
+
+</form>
+<br/>

@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace Core\Service;
 
+use Ramsey\Uuid\Uuid;
 use Core\Mapper\AdminUsersMapper;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Predicate\Expression;
@@ -68,6 +69,14 @@ class AdminUserService
         return $user;
     }
 
+    /**
+     * Return pagination object to paginate results on view
+     *
+     * @param int $page      Current page set to pagination to display
+     * @param int $limit     Limit set to pagination
+     * @param string $userId UUID from DB
+     * @return Paginator
+     */
     public function getPagination($page, $limit, $userId)
     {
         $select           = $this->adminUsersMapper->getPaginationSelect($userId);
@@ -78,5 +87,55 @@ class AdminUserService
         $paginator->setItemCountPerPage($limit);
 
         return $paginator;
+    }
+
+    /**
+     * Return one user for given UUID
+     *
+     * @param string $userId UUID from DB
+     * @return array|\ArrayObject|null
+     */
+    public function getUser($userId)
+    {
+        $user = $this->adminUsersMapper->get($userId);
+
+        return $user;
+    }
+
+    /**
+     * Update or Insert user.
+     *
+     * @param Array $data  Data from POST
+     * @param null $userId UUID of user if we want to edit or 0 to add new user
+     * @throws \Exception
+     */
+    public function save($data, $userId = 0)
+    {
+        //@todo Validate data
+        if($data['password'] == ''){
+            unset($data['password']);
+        }
+        else{
+            $data['password'] = $this->crypt->create($data['password']);
+        }
+
+        if($userId){
+            $this->adminUsersMapper->update($data, ['admin_user_uuid' => $userId]);
+        }
+        else{
+            $data['admin_user_uuid'] = Uuid::uuid1()->toString();
+            $this->adminUsersMapper->insert($data);
+        }
+    }
+
+    /**
+     * Delete user by given UUID
+     *
+     * @param string $userId UUID from DB
+     * @return bool
+     */
+    public function delete($userId)
+    {
+        return (bool)$this->adminUsersMapper->delete(['admin_user_uuid' => $userId]);
     }
 }
