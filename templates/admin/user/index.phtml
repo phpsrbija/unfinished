@@ -1,1 +1,55 @@
-List of all admin users.
+<div class="row">
+    <h2 class="col-md-6">List of admin users</h2>
+    <div class="col-md-6">
+        <a href="<?= $this->url('admin.users.action', ['action' => 'edit', 'id' => 0]) ?>" style="margin-top:20px;"
+           class="btn btn-default pull-right btn-success"> New User
+        </a>
+    </div>
+</div><br/>
+
+<?php if($list->getTotalItemCount() > 0): ?>
+    <table class="table table-hover table-striped ">
+        <thead>
+        <tr>
+            <th>Active</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Last Login</th>
+            <th>Created</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <?php foreach($list as $one): ?>
+            <tr>
+                <td><?= $one->status ? 'Yes' : 'No' ?></td>
+                <td><?= $one->first_name ?> <?= $one->last_name ?></td>
+                <td><?= $one->email ?></td>
+                <td><?= $one->last_login ? date('H:i d.m.Y', strtotime($one->last_login)) : '-' ?></td>
+                <td><?= date('d.m.Y', strtotime($one->created_at)) ?></td>
+                <td style="width:70px;">
+                    <span class="pull-right">
+                        <a href="<?= $this->url('admin.users.action', ['action' => 'edit', 'id' => $one->admin_user_uuid]) ?>">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>&nbsp;
+                        <a href="<?= $this->url('admin.users.action', ['action' => 'delete', 'id' => $one->admin_user_uuid]) ?>"
+                           onclick="if(!confirm('Are you sure?')){return false;}" class="text-danger">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <?= $this->paginationControl($list, 'Sliding', 'admin/pagination', ['route' => 'admin.users']) ?>
+
+<?php else: ?>
+    <div class="jumbotron text-center">
+        <h3>There is no users!</h3>
+    </div>
+<?php endif; ?>
+
+

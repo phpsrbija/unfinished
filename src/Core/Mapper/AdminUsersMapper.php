@@ -22,7 +22,6 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
      * Db adapter setter method,
      *
      * @param Adapter $adapter db adapter
-     *
      * @return void
      */
     public function setDbAdapter(Adapter $adapter)
@@ -30,11 +29,15 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
         $this->adapter = $adapter;
     }
 
+    public function get($id)
+    {
+        return $this->select(['admin_user_uuid' => $id])->current();
+    }
+
     /**
      * Get admin user by email.
      *
      * @param string $email email
-     *
      * @return array|\ArrayObject|null
      */
     public function getByEmail(string $email)
@@ -46,11 +49,19 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
      * Updates login data.
      *
      * @param string $uuid admin user uuid
-     *
      * @return int number of affected rows
      */
     public function updateLogin(string $uuid) : int
     {
         return $this->update(['last_login' => date('Y-m-d H:i:s')], ['admin_user_uuid' => $uuid]);
+    }
+
+    public function getPaginationSelect($userId)
+    {
+        $select = $this->getSql()->select()->order(['created_at' => 'desc']);
+
+        $select->where->notEqualTo('admin_user_uuid', $userId);
+
+        return $select;
     }
 }
