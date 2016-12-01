@@ -72,7 +72,7 @@ class ArticleTableGateway extends TableGateway implements ArticleStorageInterfac
 
         $update = $this->getSql()->update();
         $update->set($updateData);
-        $update->where->equalTo('id', $article->getId());
+        $update->where->equalTo('article_uuid', $article->getArticle_uuid());
 
         return $this->updateWith($update) > 0;
     }

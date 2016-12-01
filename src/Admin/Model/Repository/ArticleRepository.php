@@ -43,7 +43,7 @@ class ArticleRepository implements ArticleRepositoryInterface
      */
     public function saveArticle(ArticleEntity $article)
     {
-        if (!$article->getArticleUuid()) {
+        if (!$article->getArticle_uuid()) {
             return $this->articleStorage->create($article);
         } else {
             return $this->articleStorage->update($article);
@@ -52,7 +52,7 @@ class ArticleRepository implements ArticleRepositoryInterface
 
     public function deleteArticle(ArticleEntity $article)
     {
-        return $this->articleStorage->delete(['article_uuid' => $article->getArticleUuid()]);
+        return $this->articleStorage->delete(['article_uuid' => $article->getArticle_uuid()]);
     }
 
 }

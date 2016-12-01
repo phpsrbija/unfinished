@@ -14,7 +14,7 @@ class ArticleEntity implements ArraySerializableInterface
     /**
      * @var string
      */
-    private $articleUuid;
+    private $article_uuid;
 
     /**
      * @var string
@@ -44,12 +44,12 @@ class ArticleEntity implements ArraySerializableInterface
     /**
      * @var \DateTime
      */
-    private $createdAt;
+    private $created_at;
 
     /**
      * @var \DateTime
      */
-    private $publishedAt;
+    private $published_at;
 
     /**
      * @var integer
@@ -59,7 +59,7 @@ class ArticleEntity implements ArraySerializableInterface
     /**
      * @var integer
      */
-    private $userId;
+    private $user_id;
 
     /**
      * @inheritdoc
@@ -96,9 +96,9 @@ class ArticleEntity implements ArraySerializableInterface
     /**
      * @return string
      */
-    public function getArticleUuid()
+    public function getArticle_uuid()
     {
-        return $this->articleUuid;
+        return $this->article_uuid;
     }
 
     /**
@@ -144,17 +144,17 @@ class ArticleEntity implements ArraySerializableInterface
     /**
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreated_at()
     {
-        return $this->createdAt;
+        return $this->created_at;
     }
 
     /**
      * @return \DateTime
      */
-    public function getPublishedAt()
+    public function getPublished_at()
     {
-        return $this->publishedAt;
+        return $this->published_at;
     }
 
     /**
@@ -168,17 +168,17 @@ class ArticleEntity implements ArraySerializableInterface
     /**
      * @return int
      */
-    public function getUserId()
+    public function getUser_id()
     {
-        return $this->userId;
+        return $this->user_id;
     }
 
     /**
      * @param string $articleUuid
      */
-    private function setArticleUuid($articleUuid)
+    private function setArticle_uuid($articleUuid)
     {
-        $this->articleUuid = $articleUuid;
+        $this->article_uuid = $articleUuid;
     }
 
     /**
@@ -250,6 +250,6 @@ class ArticleEntity implements ArraySerializableInterface
      */
     private function setUser_id($userId)
     {
-        $this->userId = $userId;
+        $this->user_id = $userId;
     }
 }

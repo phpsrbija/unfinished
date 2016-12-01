@@ -11,7 +11,6 @@ return [
 
             // Admin
             Admin\Action\IndexAction::class         => Admin\Factory\Action\IndexFactory::class,
-            Admin\Action\ArticlePageAction::class   => Admin\Factory\Action\ArticlePageFactory::class,
             Admin\Model\Repository\ArticleRepositoryInterface::class => Admin\Factory\Model\Repository\ArticleRepositoryFactory::class,
             Admin\Model\Storage\ArticleStorageInterface::class => Admin\Factory\Db\ArticleTableGatewayFactory::class,
 
@@ -21,6 +20,7 @@ return [
             Admin\Controller\UserController::class => Admin\Factory\Controller\UserFactory::class,
             Admin\Controller\TagController::class  => Admin\Factory\Controller\TagFactory::class,
             Admin\Controller\PostController::class => Admin\Factory\Controller\PostFactory::class,
+            Admin\Controller\ArticleController::class => Admin\Factory\Controller\ArticleFactory::class,
         ],
     ],
 
@@ -65,7 +65,7 @@ return [
         [
             'name'            => 'article',
             'path'            => '/admin/article/:action',
-            'middleware'      => Admin\Action\ArticlePageAction::class,
+            'middleware'      => Admin\Controller\ArticleController::class,
             'allowed_methods' => ['GET', 'POST'],
         ],
         [
