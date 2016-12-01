@@ -72,7 +72,13 @@ return [
             'name'            => 'admin.users',
             'path'            => '/admin/users',
             'middleware'      => Admin\Controller\UserController::class,
-            'allowed_methods' => ['GET'],
+            'allowed_methods' => ['GET']
+        ],
+        [
+            'name'            => 'admin.users.action',
+            'path'            => '/admin/users/:action/:id',
+            'middleware'      => Admin\Controller\UserController::class,
+            'allowed_methods' => ['GET', 'POST']
         ],
         [
             'name'            => 'admin.tags',

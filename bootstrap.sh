@@ -11,32 +11,35 @@ echo "────────────────────────�
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
-   Start provisioning.. Adding new version of PHP and update...
+   Sit back, this may take a while: installing PHP7, update and install all tools
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
-sudo apt-get -y install python-software-properties >> /dev/null
-sudo add-apt-repository ppa:ondrej/php >> /dev/null
-sudo apt-get update
+sudo add-apt-repository ppa:ondrej/php      >> /dev/null 2>&1
+sudo apt-get update                         >> /dev/null 2>&1
+
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
-   Installing MySql 5.6
+   Installing MySql 5.6 - DB name: unfinished | user:root | password:12345
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password 12345"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password 12345"
 
-sudo apt-get install -y mysql-common mysql-server-5.6 mysql-client-5.6
-mysql -u root -p12345  -e "CREATE DATABASE unfinished;"
+sudo apt-get install -y mysql-common mysql-server-5.6 mysql-client-5.6      >> /dev/null 2>&1
+mysql -u root -p12345  -e "CREATE DATABASE unfinished;"                     >> /dev/null 2>&1
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
-   Install packages
+   Install PHP 7.0 and rest packages
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
-sudo apt-get install -y nginx >> /dev/null
-sudo apt-get -y install git curl php7.0-zip php7.0-fpm php7.0-mcrypt php7.0-curl php7.0-cli php7.0-mysql php7.0-gd php7.0-intl php7.0-xsl php7.0-xdebug php7.0-mbstring
+sudo apt-get install -y zip unzip   >> /dev/null 2>&1
+sudo apt-get install -y nginx       >> /dev/null 2>&1
+sudo apt-get install -y curl git    >> /dev/null 2>&1
+sudo apt-get install -y php7.0-zip php7.0-fpm php7.0-mcrypt php7.0-curl php7.0-cli php7.0-mysql php7.0-gd php7.0-intl php7.0-xsl php7.0-mbstring >> /dev/null 2>&1
+sudo apt-get install -y php-xdebug  >> /dev/null 2>&1
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
-   Create apropriate config
+   Create apropriate app config: /config/autoload/local.php - change it for local needs
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
 if [ ! -f /var/www/unfinished/data/phinx/phinx.php ]; then
     cp /var/www/unfinished/data/phinx/phinx.php.dist /var/www/unfinished/data/phinx/phinx.php
@@ -50,29 +53,28 @@ echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
    Install and run composer
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
-sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
-sudo /sbin/mkswap /var/swap.1
-sudo /sbin/swapon /var/swap.1
+sudo /bin/dd if=/dev/zero of=/var/swap.1 bs=1M count=1024   >> /dev/null 2>&1
+sudo /sbin/mkswap /var/swap.1                               >> /dev/null 2>&1
+sudo /sbin/swapon /var/swap.1                               >> /dev/null 2>&1
 
 cd /tmp/
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-php composer-setup.php
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"   >> /dev/null 2>&1
+php composer-setup.php                                                      >> /dev/null 2>&1
 php -r "unlink('composer-setup.php');"
 sudo mv composer.phar /usr/local/bin/composer
 cd /var/www/unfinished/
 
 if [ -d "vendor" ]; then
- composer update --no-dev
+ composer update --no-dev       >> /dev/null 2>&1
 else
- composer install --no-dev
+ composer install --no-dev      >> /dev/null 2>&1
 fi
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
-   Phinx migrate
+   Create DB tables and populate it with data
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
-cd /var/www/unfinished/data/phinx && /var/www/unfinished/vendor/bin/phinx migrate
+cd /var/www/unfinished/data/phinx && /var/www/unfinished/vendor/bin/phinx migrate   >> /dev/null 2>&1
 
 
 # During development log every query in /tmp/mysql.log .. thanks me later
@@ -82,8 +84,8 @@ general_log_file=/tmp/mysql.log
 " >> /etc/mysql/my.cnf
 
 # mysql doesnt need to use that much ram for dev environment
-sudo sed -i '/\[mysqld\]/a table_definition_cache=200' /etc/mysql/my.cnf
-sudo service mysql restart
+sudo sed -i '/\[mysqld\]/a table_definition_cache=200' /etc/mysql/my.cnf    >> /dev/null 2>&1
+sudo service mysql restart                                                  >> /dev/null 2>&1
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -121,8 +123,8 @@ sudo bash -c "echo 'server {
 }' > /etc/nginx/sites-available/unfinished.dev"
 
 sudo cp /etc/nginx/sites-available/unfinished.dev /etc/nginx/sites-enabled/
-sudo service nginx restart
-sudo service php7.0-fpm restart
+sudo service nginx restart          >> /dev/null 2>&1
+sudo service php7.0-fpm restart     >> /dev/null 2>&1
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -135,8 +137,8 @@ log_errors = On
 html_errors = On
 error_log = /tmp/php_errors.log
 " >> /etc/php/7.0/fpm/php.ini
-sudo service nginx restart
-sudo service php7.0-fpm restart
+sudo service nginx restart          >> /dev/null 2>&1
+sudo service php7.0-fpm restart     >> /dev/null 2>&1
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
