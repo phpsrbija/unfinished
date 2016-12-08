@@ -40,11 +40,11 @@ class ArticleController extends AbstractController
     /**
      * ArticleController constructor.
      *
-     * @param Template $template
+     * @param Template                   $template
      * @param ArticleRepositoryInterface $articleRepo
-     * @param Validator $validator
-     * @param SessionManager $session
-     * @param Router $routes
+     * @param Validator                  $validator
+     * @param SessionManager             $session
+     * @param Router                     $routes
      */
     public function __construct(
         Template $template,

@@ -20,7 +20,7 @@ class ArticleRepository implements ArticleRepositoryInterface
      * ArticleRepository constructor.
      *
      * @param ArticleStorageInterface $articleStorage
-     * @param \DateTime $dateTime
+     * @param \DateTime               $dateTime
      */
     public function __construct(ArticleStorageInterface $articleStorage, \DateTime $dateTime)
     {

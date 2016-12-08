@@ -11,12 +11,12 @@ use Zend\Db\ResultSet\ResultSetInterface;
 class ArticleTableGateway extends TableGateway implements ArticleStorageInterface
 {
     protected $columns = array(
-//        'articleUuid' => 'article_uuid',
-//        'title' => 'title',
-//        'publishedAt' => 'published_at',
-//        'createdAt' => 'created_at',
-//        'slug' => 'slug',
-//        'type' => 'type',
+    //        'articleUuid' => 'article_uuid',
+    //        'title' => 'title',
+    //        'publishedAt' => 'published_at',
+    //        'createdAt' => 'created_at',
+    //        'slug' => 'slug',
+    //        'type' => 'type',
     );
 
     /**
@@ -35,9 +35,9 @@ class ArticleTableGateway extends TableGateway implements ArticleStorageInterfac
     {
         return $this->select($params);
 
-//        $select = $this->getSql()->select();
-//
-//        return $this->selectWith($select);
+        //        $select = $this->getSql()->select();
+        //
+        //        return $this->selectWith($select);
     }
 
     /**
