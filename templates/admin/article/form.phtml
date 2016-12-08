@@ -1,0 +1,44 @@
+<form class="form" action="" method="POST">
+
+
+    <input type="text" class="form-control" placeholder="title" name="title" value="<?php
+    if (isset($data['title'])) { echo $data['title']; }
+    ?>" /><br/>
+    <?php if (isset($errors['title'])):?>
+        <?php foreach ($errors['title'] as $msg): ?>
+            <span><?=$msg?></span>
+        <?php endforeach ?>
+    <?php endif ?>
+
+    <input type="text" class="form-control" placeholder="publish date" name="published_at"><br/>
+    <?php if (isset($errors['publishedAt'])):?>
+        <?php foreach ($errors['publishedAt'] as $msg): ?>
+            <span><?=$msg?></span>
+        <?php endforeach ?>
+    <?php endif ?>
+
+    <input type="text" class="form-control" placeholder="intro..." name="lead" value="<?php
+    if (isset($data['lead'])) { echo $data['lead']; }
+    ?>" /><br/>
+    <?php if (isset($errors['lead'])):?>
+        <?php foreach ($errors['lead'] as $msg): ?>
+            <span><?=$msg?></span>
+        <?php endforeach ?>
+    <?php endif ?>
+
+    <textarea class="form-control" name="body"><?php
+    if (isset($data['body'])) { echo $data['body']; }
+    ?></textarea><br/>
+    <?php if (isset($errors['body'])):?>
+        <?php foreach ($errors['body'] as $msg): ?>
+            <span><?=$msg?></span>
+        <?php endforeach ?>
+    <?php endif ?>
+
+    <select name="status" id="status">
+        <option value="0">Unpublished</option>
+        <option value="1">Published</option>
+    </select>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+</form>

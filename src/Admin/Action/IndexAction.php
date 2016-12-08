@@ -40,7 +40,7 @@ final class IndexAction
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
         $data = [
-            'message'    => 'Welcome',
+            'message'    => 'Create article',
             'additional' => '*',
         ];
 

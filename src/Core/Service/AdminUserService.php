@@ -60,9 +60,9 @@ class AdminUserService
             throw new \Exception('Password does not match.');
         }
 
-        if($user->status != 1){
-            throw new \Exception('User is not active.');
-        }
+//        if($user->status != 1){
+//            throw new \Exception('User is not active.');
+//        }
 
         $this->adminUsersMapper->updateLogin($user->admin_user_uuid);
 
