@@ -33,13 +33,22 @@ interface ArticleRepositoryInterface
     public function fetchSingleArticle($articleUuid);
 
     /**
-     * Saves article model taking care if it is an create or update operation.
+     * Creates article model.
      *
      * @param ArticleEntity $article
      *
      * @return bool
      */
-    public function saveArticle(ArticleEntity $article);
+    public function createArticle(ArticleEntity $article);
+
+    /**
+     * Updates article model.
+     *
+     * @param ArticleEntity $article
+     *
+     * @return bool
+     */
+    public function updateArticle(ArticleEntity $article);
 
     /**
      * Deletes a single article entity.

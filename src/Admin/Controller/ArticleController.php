@@ -7,6 +7,8 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Admin\Model\Repository\ArticleRepositoryInterface;
 use Admin\Validator\ValidatorInterface as Validator;
 use Ramsey\Uuid\Uuid;
+use Zend\Session\SessionManager;
+use Zend\Expressive\Router\RouterInterface as Router;
 
 class ArticleController extends AbstractController
 {
@@ -26,17 +28,36 @@ class ArticleController extends AbstractController
     private $validator;
 
     /**
+     * @var SessionManager
+     */
+    private $session;
+
+    /**
+     * @var ROUTER
+     */
+    private $router;
+
+    /**
      * ArticleController constructor.
      *
      * @param Template $template
      * @param ArticleRepositoryInterface $articleRepo
      * @param Validator $validator
+     * @param SessionManager $session
+     * @param Router $routes
      */
-    public function __construct(Template $template, ArticleRepositoryInterface $articleRepo, Validator $validator)
-    {
+    public function __construct(
+        Template $template,
+        ArticleRepositoryInterface $articleRepo,
+        Validator $validator,
+        SessionManager $session,
+        Router $router
+    ) {
         $this->template = $template;
         $this->articleRepo = $articleRepo;
         $this->validator = $validator;
+        $this->session = $session;
+        $this->router = $router;
     }
 
     public function index() : HtmlResponse
@@ -51,7 +72,7 @@ class ArticleController extends AbstractController
         return new HtmlResponse($this->template->render('admin::article/index', $data));
     }
 
-    public function create() : HtmlResponse
+    public function create() : \Psr\Http\Message\ResponseInterface
     {
         $data = [
             'message' => 'Create article',
@@ -60,17 +81,23 @@ class ArticleController extends AbstractController
         ];
 
         if (count($data['data']) > 0) {
+            $user   = $this->session->getStorage()->user;
             try {
                 $article = new \Admin\Model\Entity\ArticleEntity();
-                //generate uuid
-                $data['data']['article_uuid'] = Uuid::uuid1()->toString();
-                $this->validator->validate($data['data']);
+                //@TODO fix this
+                $dt = new \DateTime('now');
+                $data['data']['created_at'] = $dt->format('Y-m-d H:i:s');
 
+                //generate uuid
+                $data['data']['article_uuid'] = hex2bin(Uuid::uuid1()->getHex());
+                $data['user_uuid'] = $user->admin_user_uuid;
+                $this->validator->validate($data['data']);
                 $article->exchangeArray($data['data']);
-                var_dump($this->articleRepo->saveArticle($article));
-                die();
-                if ($this->articleRepo->saveArticle($article)) {
-                    return $this->index();
+                if ($this->articleRepo->createArticle($article)) {
+                    return $this->response->withStatus(302)->withHeader(
+                        'Location',
+                        $this->router->generateUri('admin.articles', ['action' => 'index'])
+                    );
                 }
                 //@TODO there was an error saving article, set a flesh message for user
 
@@ -85,5 +112,11 @@ class ArticleController extends AbstractController
         }
 
         return new HtmlResponse($this->template->render('admin::article/create', $data));
+    }
+
+    public function doCreate()
+    {
+
+
     }
 }

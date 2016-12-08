@@ -15,7 +15,8 @@ class ArticleRepositoryFactory
     public function __invoke(ContainerInterface $container)
     {
         return new ArticleRepository(
-            $container->get(ArticleStorageInterface::class)
+            $container->get(ArticleStorageInterface::class),
+            new \DateTime()
         );
     }
 }

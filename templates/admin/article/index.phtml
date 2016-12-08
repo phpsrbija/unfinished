@@ -5,16 +5,16 @@
  */
 ?>
 
-<a href="<?=$this->url('article', ['action' => 'create']) ?>" title="Create article">Create new article</a><br />
+<a href="<?=$this->url('admin.articles', ['action' => 'create']) ?>" title="Create article">Create new article</a><br />
 
 <h1>Article list</h1>
 
 <ul>
 <?php foreach($articleCollection as $article): ?>
     <li><span><?=$article->getTitle()?></span> -
-        <span><?=$article->getPublishedAt()?></span> -
-        <span><a href="/admin/article/update?id=<?=$article->getArticleUuid()?>" title="Update">Edit</a></span>
-        <span><a class="ajaxDelete" href="/admin/article/delete" title="Delete">Delete</a></span>
+        <span><?=$article->getPublished_at()?></span> -
+        <span><a href="<?=$this->url('admin.articles', ['action' => 'update', 'id' => $article->getArticle_uuid()])?>" title="Update">Update</a></span>
+        <span><a href="<?=$this->url('admin.articles', ['action' => 'delete', 'id' => $article->getArticle_uuid()])?>" title="Delete">Delete</a></span>
     </li>
 <?php endforeach; ?>
 </ul>

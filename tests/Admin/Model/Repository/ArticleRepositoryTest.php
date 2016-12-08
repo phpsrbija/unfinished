@@ -5,35 +5,83 @@ namespace Test\Admin\Model\Entity;
 
 class ArticleRepositoryTest extends \PHPUnit_Framework_TestCase
 {
-    public function testStandardGetters()
+    public function testFetchAllArticlesShouldReturnResultSet()
     {
-        $article = new \Admin\Model\Entity\ArticleEntity();
+        $storage = $this->getMockBuilder('Admin\Db\ArticleTableGateway')
+            ->disableOriginalConstructor()
+            ->setMethods(['fetchAll'])
+            ->getMock();
+        $storage->expects(self::once())
+            ->method('fetchAll')
+            ->willReturn(new \Zend\Db\ResultSet\HydratingResultSet());
 
-        $articleData = array(
-            'title' => 'test title',
-            'lead' => 'test lead',
-            'articleUuid' => '123-456-789',
-            'slug' => 'article-slug',
-            'body' => 'body content',
-            'type' => 1,
-            'status' => 1,
-            'userId' => 1,
-            'createdAt' => new \DateTime('now'),
-            'publishedAt' => new \DateTime('now'),
-        );
+        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime());
+        $result = $articleRepo->fetchAllArticles();
 
-        $article->exchangeArray($articleData);
-        static::assertSame($articleData['title'], $article->getTitle());
-        static::assertSame($articleData['lead'], $article->getLead());
-        static::assertSame($articleData['articleUuid'], $article->getArticleUuid());
-        static::assertSame($articleData['slug'], $article->getSlug());
-        static::assertSame($articleData['body'], $article->getBody());
-        static::assertSame($articleData['type'], $article->getType());
-        static::assertSame($articleData['status'], $article->getStatus());
-        static::assertSame($articleData['createdAt'], $article->getCreatedAt());
-        static::assertSame($articleData['publishedAt'], $article->getPublishedAt());
-        static::assertSame($articleData['userId'], $article->getUserId());
-        static::assertEquals($articleData, $article->getArrayCopy());
+        self::assertInstanceOf('Zend\Db\ResultSet\HydratingResultSet', $result);
     }
 
+    public function testFetchSingleArticleShouldReturnArticleEntity()
+    {
+        $storage = $this->getMockBuilder('Admin\Db\ArticleTableGateway')
+            ->disableOriginalConstructor()
+            ->setMethods(['fetchOne'])
+            ->getMock();
+        $storage->expects(self::once())
+            ->method('fetchOne')
+            ->willReturn(new \Admin\Model\Entity\ArticleEntity());
+
+        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime());
+        $result = $articleRepo->fetchSingleArticle('123');
+
+        self::assertInstanceOf('Admin\Model\Entity\ArticleEntity', $result);
+    }
+
+    public function testCreateArticleShouldReturnTrue()
+    {
+        $storage = $this->getMockBuilder('Admin\Db\ArticleTableGateway')
+            ->disableOriginalConstructor()
+            ->setMethods(['create'])
+            ->getMock();
+        $storage->expects(self::once())
+            ->method('create')
+            ->willReturn(true);
+
+        $article = new \Admin\Model\Entity\ArticleEntity();
+        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime());
+
+        self::assertSame(true, $articleRepo->createArticle($article));
+    }
+
+    public function testUpdateArticleShouldReturnTrue()
+    {
+        $storage = $this->getMockBuilder('Admin\Db\ArticleTableGateway')
+            ->disableOriginalConstructor()
+            ->setMethods(['update'])
+            ->getMock();
+        $storage->expects(self::once())
+            ->method('update')
+            ->willReturn(true);
+
+        $article = new \Admin\Model\Entity\ArticleEntity();
+        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime());
+
+        self::assertSame(true, $articleRepo->updateArticle($article));
+    }
+
+    public function testDeleteArticleShouldReturnTrue()
+    {
+        $storage = $this->getMockBuilder('Admin\Db\ArticleTableGateway')
+            ->disableOriginalConstructor()
+            ->setMethods(['delete'])
+            ->getMock();
+        $storage->expects(self::once())
+            ->method('delete')
+            ->willReturn(true);
+
+        $article = new \Admin\Model\Entity\ArticleEntity();
+        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime());
+
+        self::assertSame(true, $articleRepo->deleteArticle($article));
+    }
 }

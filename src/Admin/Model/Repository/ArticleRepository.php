@@ -11,16 +11,29 @@ class ArticleRepository implements ArticleRepositoryInterface
      */
     private $articleStorage;
 
-    public function __construct(ArticleStorageInterface $articleStorage)
+    /**
+     * @var \DateTime
+     */
+    private $dateTime;
+
+    /**
+     * ArticleRepository constructor.
+     *
+     * @param ArticleStorageInterface $articleStorage
+     * @param \DateTime $dateTime
+     */
+    public function __construct(ArticleStorageInterface $articleStorage, \DateTime $dateTime)
     {
         $this->articleStorage = $articleStorage;
+        $this->dateTime = $dateTime;
     }
 
     /**
      * @param array $params
-     * @return mixed
+     *
+     * @return \Zend\Db\ResultSet\ResultSetInterface
      */
-    public function fetchAllArticles($params = array())
+    public function fetchAllArticles($params = array()) : \Zend\Db\ResultSet\ResultSetInterface
     {
         return $this->articleStorage->fetchAll($params);
     }
@@ -29,7 +42,7 @@ class ArticleRepository implements ArticleRepositoryInterface
      * @param string $articleUuid
      * @return ArticleEntity
      */
-    public function fetchSingleArticle($articleUuid)
+    public function fetchSingleArticle($articleUuid) : ArticleEntity
     {
         return $this->articleStorage->fetchOne($articleUuid);
     }
@@ -41,13 +54,20 @@ class ArticleRepository implements ArticleRepositoryInterface
      *
      * @return bool
      */
-    public function saveArticle(ArticleEntity $article)
+    public function createArticle(ArticleEntity $article)
     {
-        if (!$article->getArticle_uuid()) {
             return $this->articleStorage->create($article);
-        } else {
-            return $this->articleStorage->update($article);
-        }
+    }
+
+    /**
+     *
+     * @param ArticleEntity $article
+     *
+     * @return bool
+     */
+    public function updateArticle(ArticleEntity $article)
+    {
+        return $this->articleStorage->update($article);
     }
 
     public function deleteArticle(ArticleEntity $article)

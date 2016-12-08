@@ -10,6 +10,10 @@ use Zend\Stdlib\ArraySerializableInterface;
  */
 class ArticleEntity implements ArraySerializableInterface
 {
+    const TYPE_STANDARD = 1;
+
+    const STATUS_UNPUBLISHED = 0;
+    const STATUS_PUBLISHED = 1;
 
     /**
      * @var string
@@ -39,7 +43,7 @@ class ArticleEntity implements ArraySerializableInterface
     /**
      * @var integer
      */
-    private $type;
+    private $type = self::TYPE_STANDARD;
 
     /**
      * @var \DateTime
@@ -59,7 +63,7 @@ class ArticleEntity implements ArraySerializableInterface
     /**
      * @var integer
      */
-    private $user_id;
+    private $user_uuid = 1;
 
     /**
      * @inheritdoc
@@ -98,7 +102,7 @@ class ArticleEntity implements ArraySerializableInterface
      */
     public function getArticle_uuid()
     {
-        return $this->article_uuid;
+        return bin2hex($this->article_uuid);
     }
 
     /**
@@ -168,9 +172,9 @@ class ArticleEntity implements ArraySerializableInterface
     /**
      * @return int
      */
-    public function getUser_id()
+    public function getUser_uuid()
     {
-        return $this->user_id;
+        return $this->user_uuid;
     }
 
     /**
@@ -187,6 +191,7 @@ class ArticleEntity implements ArraySerializableInterface
     private function setTitle($title)
     {
         $this->title = $title;
+        $this->setSlug($title);
     }
 
     /**
@@ -194,7 +199,7 @@ class ArticleEntity implements ArraySerializableInterface
      */
     private function setSlug($slug)
     {
-        $this->slug = $slug;
+        $this->slug = urlencode($slug);
     }
 
     /**
@@ -226,7 +231,7 @@ class ArticleEntity implements ArraySerializableInterface
      */
     private function setCreated_at($createdAt)
     {
-        $this->createdAt = $createdAt;
+        $this->created_at = $createdAt;
     }
 
     /**
@@ -234,7 +239,7 @@ class ArticleEntity implements ArraySerializableInterface
      */
     private function setPublished_at($publishedAt)
     {
-        $this->publishedAt = $publishedAt;
+        $this->published_at = $publishedAt;
     }
 
     /**
@@ -246,10 +251,10 @@ class ArticleEntity implements ArraySerializableInterface
     }
 
     /**
-     * @param int $userId
+     * @param int $userUuid
      */
-    private function setUser_id($userId)
+    private function setUser_uuid($userUuid)
     {
-        $this->user_id = $userId;
+        $this->user_uuid = $userUuid;
     }
 }

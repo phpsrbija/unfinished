@@ -8,7 +8,7 @@ use Admin\Validator\ArticleValidator;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Admin\Model\Repository\ArticleRepositoryInterface;
-use Ramsey\Uuid\Uuid;
+use Zend\Expressive\Router\RouterInterface;
 
 class ArticleFactory
 {
@@ -17,7 +17,9 @@ class ArticleFactory
         return new ArticleController(
             $container->get(TemplateRendererInterface::class),
             $container->get(ArticleRepositoryInterface::class),
-            new ArticleValidator()
+            new ArticleValidator(),
+            $container->get('session'),
+            $container->get(RouterInterface::class)
         );
     }
 }
