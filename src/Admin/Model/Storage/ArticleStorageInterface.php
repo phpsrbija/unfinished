@@ -38,7 +38,7 @@ interface ArticleStorageInterface
      * Updates an entity.
      *
      * @param $article
-     * @param null $where
+     * @param null       $where
      * @param array|null $joins
      *
      * @return mixed

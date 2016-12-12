@@ -6,6 +6,7 @@ use Zend\Stdlib\ArraySerializableInterface;
 
 /**
  * Class ArticleEntity.
+ *
  * @package Admin\Model\Entity
  */
 class ArticleEntity implements ArraySerializableInterface

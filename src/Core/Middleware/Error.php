@@ -32,9 +32,9 @@ final class Error
     /**
      * Invoked on middleware execution.
      *
-     * @param mixed $exception   exception
-     * @param Request $request   request
-     * @param Response $response response
+     * @param  mixed    $exception exception
+     * @param  Request  $request   request
+     * @param  Response $response  response
      * @return HtmlResponse
      */
     public function __invoke($ex, Request $request, Response $response) : HtmlResponse
@@ -50,11 +50,15 @@ final class Error
             $message = 'Unknown Application Error!';
         }
 
-        return new HtmlResponse($this->template->render('error::error', [
-            'exception' => $ex,
-            'status'    => $code,
-            'reason'    => $message,
-            'layout'    => 'layout/no'
-        ]), $code);
+        return new HtmlResponse(
+            $this->template->render(
+                'error::error', [
+                'exception' => $ex,
+                'status'    => $code,
+                'reason'    => $message,
+                'layout'    => 'layout/no'
+                ]
+            ), $code
+        );
     }
 }
