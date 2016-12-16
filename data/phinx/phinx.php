@@ -11,11 +11,11 @@ return [
         // all DB connections
         "default"                 => [
             "adapter" => 'mysql',
-            "host"    => 'localhost',
+            "host"    => 'mysql',
             "name"    => 'unfinished',
             "user"    => 'root',  // set username
             "pass"    => '12345', // and pass
-            "port"    => '5432'
+            "port"    => '3306'
         ]
     ]
 ];
