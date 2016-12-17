@@ -21,8 +21,10 @@ class AdminUsers extends AbstractMigration
         $faker = Faker\Factory::create();
         $count = rand(100, 150);
         for($i = 0; $i < $count; $i++){
+            $mysqlUuid = new \MysqlUuid\Uuid($faker->uuid);
+            $mysqlUuid = $mysqlUuid->toFormat(new \MysqlUuid\Formats\Binary());
             $data = [
-                'admin_user_uuid' => $faker->uuid,
+                'admin_user_uuid' => $mysqlUuid,
                 'email'           => $faker->email,
                 'first_name'      => $faker->firstName,
                 'last_name'       => $faker->lastName,
@@ -36,10 +38,12 @@ class AdminUsers extends AbstractMigration
         }
 
         // Insert default user with password testtest
-        $this->execute(
-            "insert into admin_users (admin_user_uuid, first_name,last_name,email,password, status) values " .
-            "('$faker->uuid', 'Unfinished',  'Admin', 'admin@unfinished.com', '$2y$10\$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK', 1)"
-        );
+        //$mysqlUuid = new \MysqlUuid\Uuid($faker->uuid);
+        //$mysqlUuid = $mysqlUuid->toFormat(new \MysqlUuid\Formats\Binary());
+        //$this->execute(
+        //    "insert into admin_users (admin_user_uuid, first_name,last_name,email,password, status) values " .
+        //    "('$mysqlUuid', 'Unfinished',  'Admin', 'admin@unfinished.com', '$2y$10\$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK', 1)"
+        //);
     }
 
     public function down()
