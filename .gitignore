@@ -3,3 +3,4 @@
 .~lock.*
 vendor/
 docker/mysql_data
+data/phinx/phinx.php
