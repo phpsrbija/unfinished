@@ -7,7 +7,7 @@
 ## Instalation
 
 ```
-git clone https://github.com/tasmaniski/unfinished.git
+git clone https://github.com/phpsrbija/unfinished.git
 cd unfinished
 vagrant up
 ```
