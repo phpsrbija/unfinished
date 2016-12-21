@@ -1,12 +1,11 @@
 <?php
-
+declare(strict_types = 1);
 namespace Admin\Controller;
 
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
 use Admin\Model\Repository\ArticleRepositoryInterface;
 use Admin\Validator\ValidatorInterface as Validator;
-use Ramsey\Uuid\Uuid;
 use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;
 
@@ -33,7 +32,7 @@ class ArticleController extends AbstractController
     private $session;
 
     /**
-     * @var ROUTER
+     * @var Router
      */
     private $router;
 
@@ -44,7 +43,7 @@ class ArticleController extends AbstractController
      * @param ArticleRepositoryInterface $articleRepo
      * @param Validator                  $validator
      * @param SessionManager             $session
-     * @param Router                     $routes
+     * @param Router                     $router
      */
     public function __construct(
         Template $template,
@@ -72,6 +71,11 @@ class ArticleController extends AbstractController
         return new HtmlResponse($this->template->render('admin::article/index', $data));
     }
 
+    /**
+     * Create article form.
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function create() : \Psr\Http\Message\ResponseInterface
     {
         $data = [
@@ -80,43 +84,34 @@ class ArticleController extends AbstractController
             'data' => $this->request->getParsedBody()
         ];
 
-        if (count($data['data']) > 0) {
-            $user   = $this->session->getStorage()->user;
-            try {
-                $article = new \Admin\Model\Entity\ArticleEntity();
-                //@TODO fix this
-                $dt = new \DateTime('now');
-                $data['data']['created_at'] = $dt->format('Y-m-d H:i:s');
-
-                //generate uuid
-                $data['data']['article_uuid'] = hex2bin(Uuid::uuid1()->getHex());
-                $data['user_uuid'] = $user->admin_user_uuid;
-                $this->validator->validate($data['data']);
-                $article->exchangeArray($data['data']);
-                if ($this->articleRepo->createArticle($article)) {
-                    return $this->response->withStatus(302)->withHeader(
-                        'Location',
-                        $this->router->generateUri('admin.articles', ['action' => 'index'])
-                    );
-                }
-                //@TODO there was an error saving article, set a flesh message for user
-
-                // handle validation errors
-            } catch (\Admin\Validator\ValidatorException $e) {
-                $data['errors'] = $this->validator->getMessages();
-
-                // handle other errors
-            } catch (\Exception $e) {
-                var_dump($e->getMessage());
-            }
-        }
-
         return new HtmlResponse($this->template->render('admin::article/create', $data));
     }
 
-    public function doCreate()
+    /**
+     * Create article action.
+     * Takes care of article creation process.
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function docreate() : \Psr\Http\Message\ResponseInterface
     {
-
-
+        try {
+            if ($this->articleRepo->createArticle($this->request, $this->session->getStorage()->user->admin_user_uuid))
+            {
+                return $this->response->withStatus(302)->withHeader(
+                    'Location',
+                    $this->router->generateUri('admin.articles.action', ['action' => 'index'])
+                );
+            }
+        // @TODO ? handle (validation) errors
+        } catch (\Exception $e) {
+            return $this->response->withStatus(302)->withHeader(
+                'Location',
+                $this->router->generateUri(
+                    'admin.articles.action',
+                    ['action' => 'create']
+                )
+            );
+        }
     }
 }

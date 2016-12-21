@@ -5,7 +5,7 @@
  */
 ?>
 
-<a href="<?=$this->url('admin.articles', ['action' => 'create']) ?>" title="Create article">Create new article</a><br />
+<a href="<?=$this->url('admin.articles.action', ['action' => 'create']) ?>" title="Create article">Create new article</a><br />
 
 <h1>Article list</h1>
 
@@ -13,8 +13,8 @@
 <?php foreach($articleCollection as $article): ?>
     <li><span><?=$article->getTitle()?></span> -
         <span><?=$article->getPublished_at()?></span> -
-        <span><a href="<?=$this->url('admin.articles', ['action' => 'update', 'id' => $article->getArticle_uuid()])?>" title="Update">Update</a></span>
-        <span><a href="<?=$this->url('admin.articles', ['action' => 'delete', 'id' => $article->getArticle_uuid()])?>" title="Delete">Delete</a></span>
+        <span><a href="<?=$this->url('admin.articles.action', ['action' => 'update', 'id' => $article->getArticle_uuid()])?>" title="Update">Update</a></span>
+        <span><a href="<?=$this->url('admin.articles.action', ['action' => 'delete', 'id' => $article->getArticle_uuid()])?>" title="Delete">Delete</a></span>
     </li>
 <?php endforeach; ?>
 </ul>

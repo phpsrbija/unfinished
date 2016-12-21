@@ -63,7 +63,7 @@ return [
             'allowed_methods' => ['GET'],
         ],
         [
-            'name'            => 'admin.articles',
+            'name'            => 'admin.articles.action',
             'path'            => '/admin/articles/:action',
             'middleware'      => Admin\Controller\ArticleController::class,
             'allowed_methods' => ['GET', 'POST'],

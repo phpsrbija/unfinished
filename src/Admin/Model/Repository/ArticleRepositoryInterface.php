@@ -4,6 +4,7 @@ namespace Admin\Model\Repository;
 
 use Admin\Model\Entity\ArticleEntity;
 use Zend\Stdlib\ArrayObject;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 /**
  * Interface ArticleRepositoryInterface.
@@ -35,11 +36,12 @@ interface ArticleRepositoryInterface
     /**
      * Creates article model.
      *
-     * @param ArticleEntity $article
+     * @param Request $request
+     * @param string  $adminUserUuid
      *
      * @return bool
      */
-    public function createArticle(ArticleEntity $article);
+    public function createArticle(Request $request, $adminUserUuid);
 
     /**
      * Updates article model.
