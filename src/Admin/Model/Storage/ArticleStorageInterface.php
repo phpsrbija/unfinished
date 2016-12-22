@@ -19,31 +19,30 @@ interface ArticleStorageInterface
     /**
      * Fetches a single entity from storage.
      *
-     * @param $params
+     * @param int $id
      *
-     * @return ArticleEntity
+     * @return array
      */
-    public function fetchOne($params);
+    public function fetchOne($id);
 
     /**
      * Creates a new entity.
      *
-     * @param ArticleEntity $article
+     * @param array $articleData
      *
      * @return bool
      */
-    public function create(ArticleEntity $article);
+    public function create($articleData);
 
     /**
      * Updates an entity.
      *
-     * @param $article
-     * @param null       $where
-     * @param array|null $joins
+     * @param int $id
+     * @param array $data
      *
      * @return mixed
      */
-    public function update($article, $where = null, array $joins = null);
+    public function updateArticle($id, $data);
 
     /**
      * Deletes an entity.

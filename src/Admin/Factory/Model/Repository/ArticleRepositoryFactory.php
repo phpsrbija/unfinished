@@ -2,7 +2,7 @@
 
 namespace Admin\Factory\Model\Repository;
 
-use Admin\Model\Storage\ArticleStorageInterface;
+use Admin\Mapper\ArticleMapper;
 use Admin\Model\Repository\ArticleRepository;
 use Interop\Container\ContainerInterface;
 use \Admin\Validator\ArticleValidator as Validator;
@@ -16,7 +16,7 @@ class ArticleRepositoryFactory
     public function __invoke(ContainerInterface $container)
     {
         return new ArticleRepository(
-            $container->get(ArticleStorageInterface::class),
+            $container->get(ArticleMapper::class),
             new \DateTime(),
             new Validator()
         );

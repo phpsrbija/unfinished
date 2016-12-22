@@ -12,7 +12,7 @@ return [
             // Admin
             Admin\Action\IndexAction::class         => Admin\Factory\Action\IndexFactory::class,
             Admin\Model\Repository\ArticleRepositoryInterface::class => Admin\Factory\Model\Repository\ArticleRepositoryFactory::class,
-            Admin\Model\Storage\ArticleStorageInterface::class => Admin\Factory\Db\ArticleTableGatewayFactory::class,
+//            Admin\Model\Storage\ArticleStorageInterface::class => Admin\Factory\Db\ArticleTableGatewayFactory::class,
 
             // Db
             Zend\Db\Adapter\AdapterInterface::class => Zend\Db\Adapter\AdapterServiceFactory::class,
@@ -63,7 +63,19 @@ return [
             'allowed_methods' => ['GET'],
         ],
         [
+            'name'            => 'admin.articles',
+            'path'            => '/admin/articles',
+            'middleware'      => Admin\Controller\ArticleController::class,
+            'allowed_methods' => ['GET'],
+        ],
+        [
             'name'            => 'admin.articles.action',
+            'path'            => '/admin/articles/:action/:id',
+            'middleware'      => Admin\Controller\ArticleController::class,
+            'allowed_methods' => ['GET', 'POST'],
+        ],
+        [
+            'name'            => 'admin.articles.doaction',
             'path'            => '/admin/articles/:action',
             'middleware'      => Admin\Controller\ArticleController::class,
             'allowed_methods' => ['GET', 'POST'],

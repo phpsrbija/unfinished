@@ -1,17 +1,17 @@
 <?php
 namespace Admin\Model\Repository;
 
-use Admin\Model\Entity\ArticleEntity;
-use Admin\Model\Storage\ArticleStorageInterface;
+use Admin\Mapper\ArticleMapper;
 use Ramsey\Uuid\Uuid;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Admin\Validator\ArticleValidator as Validator;
+use Zend\Db\ResultSet\HydratingResultSet as ResultSet;
 
 
 class ArticleRepository implements ArticleRepositoryInterface
 {
     /**
-     * @var ArticleStorageInterface
+     * @var ArticleMapper
      */
     private $articleStorage;
 
@@ -28,10 +28,10 @@ class ArticleRepository implements ArticleRepositoryInterface
     /**
      * ArticleRepository constructor.
      *
-     * @param ArticleStorageInterface $articleStorage
+     * @param ArticleMapper $articleStorage
      * @param \DateTime               $dateTime
      */
-    public function __construct(ArticleStorageInterface $articleStorage, \DateTime $dateTime, Validator $validator)
+    public function __construct(ArticleMapper $articleStorage, \DateTime $dateTime, Validator $validator)
     {
         $this->articleStorage = $articleStorage;
         $this->dateTime = $dateTime;
@@ -41,18 +41,18 @@ class ArticleRepository implements ArticleRepositoryInterface
     /**
      * @param array $params
      *
-     * @return \Zend\Db\ResultSet\ResultSetInterface
+     * @return ResultSet
      */
-    public function fetchAllArticles($params = array()) : \Zend\Db\ResultSet\ResultSetInterface
+    public function fetchAllArticles($params = array()) : ResultSet
     {
         return $this->articleStorage->fetchAll($params);
     }
 
     /**
      * @param string $articleUuid
-     * @return ArticleEntity
+     * @return array
      */
-    public function fetchSingleArticle($articleUuid) : ArticleEntity
+    public function fetchSingleArticle($articleUuid) : array
     {
         return $this->articleStorage->fetchOne($articleUuid);
     }
@@ -68,40 +68,48 @@ class ArticleRepository implements ArticleRepositoryInterface
     public function createArticle(Request $request, $adminUserUuid)
     {
         if (count($request->getParsedBody())) {
-            $article = new \Admin\Model\Entity\ArticleEntity();
             $data['data'] = $request->getParsedBody();
             $data['data']['created_at'] = $this->dateTime->format('Y-m-d H:i:s');
             $data['data']['article_uuid'] = Uuid::uuid1()->toString();
             $data['user_uuid'] = $adminUserUuid;
             $this->validator->validate($data['data']);
-            $article->exchangeArray($data['data']);
 
-            return $this->articleStorage->create($article);
+            return $this->articleStorage->create($data['data']);
         }
 
         return false;
     }
 
     /**
+     * Update article to repository.
      *
-     * @param ArticleEntity $article
+     * @param Request $request
+     * @param string  $adminUserUuid
      *
      * @return bool
      */
-    public function updateArticle(ArticleEntity $article)
+    public function updateArticle(Request $request, $adminUserUuid)
     {
-        return $this->articleStorage->update($article);
+        if (count($request->getParsedBody())) {
+            $data['data'] = $request->getParsedBody();
+            $data['user_uuid'] = $adminUserUuid;
+            $this->validator->validate($data['data']);
+
+            return $this->articleStorage->update($data['data'], ['article_uuid' => $data['data']['article_uuid']]);
+        }
+
+        return false;
     }
 
     /**
      * Delete an article.
      *
-     * @param ArticleEntity $article
+     * @param string $id
      * @return bool
      */
-    public function deleteArticle(ArticleEntity $article)
+    public function deleteArticle($id)
     {
-        return $this->articleStorage->delete(['article_uuid' => $article->getArticle_uuid()]);
+        return $this->articleStorage->delete(['article_uuid' => $id]);
     }
 
 }

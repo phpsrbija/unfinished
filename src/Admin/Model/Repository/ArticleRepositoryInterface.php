@@ -46,18 +46,19 @@ interface ArticleRepositoryInterface
     /**
      * Updates article model.
      *
-     * @param ArticleEntity $article
+     * @param Request $request
+     * @param string  $adminUserUuid
      *
      * @return bool
      */
-    public function updateArticle(ArticleEntity $article);
+    public function updateArticle(Request $request, $adminUserUuid);
 
     /**
      * Deletes a single article entity.
      *
-     * @param ArticleEntity $article
+     * @param string $id
      *
      * @return bool
      */
-    public function deleteArticle(ArticleEntity $article);
+    public function deleteArticle($id);
 }

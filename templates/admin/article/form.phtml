@@ -1,5 +1,8 @@
-<form class="form articleForm" action="/admin/articles/docreate" method="POST">
+<form class="form articleForm" action="/admin/articles/do<?= (isset($data['article_uuid'])) ? 'update' : 'create'; ?>" method="POST">
 
+    <?php if (isset($data['article_uuid'])): ?>
+        <input type="hidden" name="article_uuid" value="<?=$data['article_uuid']?>" />
+    <?php endif; ?>
 
     <input type="text" class="form-control" placeholder="title" name="title" value="<?php
     if (isset($data['title'])) { echo $data['title']; }

@@ -6,7 +6,7 @@ class ArticleRepositoryFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testArticleRepositoryFactoryShouldCreateExpectedRepository()
     {
-        $storage = $this->getMockBuilder('Admin\Model\Storage\ArticleStorageInterface')
+        $storage = $this->getMockBuilder('Admin\Mapper\ArticleMapper')
             ->getMockForAbstractClass();
         $container = $this->getMockBuilder('Interop\Container\ContainerInterface')
             ->setMethods(['get'])

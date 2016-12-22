@@ -80,7 +80,6 @@ class ArticleController extends AbstractController
     {
         $data = [
             'message' => 'Create article',
-            'errors' => false,
             'data' => $this->request->getParsedBody()
         ];
 
@@ -96,13 +95,7 @@ class ArticleController extends AbstractController
     public function docreate() : \Psr\Http\Message\ResponseInterface
     {
         try {
-            if ($this->articleRepo->createArticle($this->request, $this->session->getStorage()->user->admin_user_uuid))
-            {
-                return $this->response->withStatus(302)->withHeader(
-                    'Location',
-                    $this->router->generateUri('admin.articles.action', ['action' => 'index'])
-                );
-            }
+            $this->articleRepo->createArticle($this->request, $this->session->getStorage()->user->admin_user_uuid);
         // @TODO ? handle (validation) errors
         } catch (\Exception $e) {
             return $this->response->withStatus(302)->withHeader(
@@ -113,5 +106,72 @@ class ArticleController extends AbstractController
                 )
             );
         }
+
+        return $this->response->withStatus(302)->withHeader(
+            'Location',
+            $this->router->generateUri('admin.articles')
+        );
+    }
+
+    /**
+     * Update article form.
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function update() : \Psr\Http\Message\ResponseInterface
+    {
+        $articleData = $this->articleRepo->fetchSingleArticle($this->request->getAttribute('id'));
+
+        $data = [
+            'message' => 'Update article',
+            'data' => $articleData
+        ];
+
+        return new HtmlResponse($this->template->render('admin::article/update', $data));
+    }
+
+    /**
+     * Update article action.
+     * Takes care of article update process.
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function doupdate() : \Psr\Http\Message\ResponseInterface
+    {
+        try {
+            $this->articleRepo->updateArticle($this->request, $this->session->getStorage()->user->admin_user_uuid);
+            // @TODO ? handle (validation) errors
+        } catch (\Exception $e) {
+            return $this->response->withStatus(302)->withHeader(
+                'Location',
+                $this->router->generateUri(
+                    'admin.articles.action',
+                    ['action' => 'update']
+                )
+            );
+        }
+
+        return $this->response->withStatus(302)->withHeader(
+            'Location',
+            $this->router->generateUri('admin.articles')
+        );
+    }
+
+    public function delete() : \Psr\Http\Message\ResponseInterface
+    {
+        try {
+            $this->articleRepo->deleteArticle($this->request->getAttribute('id'));
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+            die();
+        }
+
+        return $this->response->withStatus(302)->withHeader(
+            'Location',
+            $this->router->generateUri(
+                'admin.articles',
+                ['action' => 'index']
+            )
+        );
     }
 }

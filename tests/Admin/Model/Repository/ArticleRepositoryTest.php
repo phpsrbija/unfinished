@@ -7,7 +7,7 @@ class ArticleRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testFetchAllArticlesShouldReturnResultSet()
     {
-        $storage = $this->getMockBuilder('Admin\Db\ArticleTableGateway')
+        $storage = $this->getMockBuilder('Admin\Mapper\ArticleMapper')
             ->disableOriginalConstructor()
             ->setMethods(['fetchAll'])
             ->getMock();
@@ -15,31 +15,42 @@ class ArticleRepositoryTest extends \PHPUnit_Framework_TestCase
             ->method('fetchAll')
             ->willReturn(new \Zend\Db\ResultSet\HydratingResultSet());
 
-        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime());
+        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime(), new \Admin\Validator\ArticleValidator());
         $result = $articleRepo->fetchAllArticles();
 
         self::assertInstanceOf('Zend\Db\ResultSet\HydratingResultSet', $result);
     }
 
-    public function testFetchSingleArticleShouldReturnArticleEntity()
+    public function testFetchSingleArticleShouldReturnArticleData()
     {
-        $storage = $this->getMockBuilder('Admin\Db\ArticleTableGateway')
+        $articleData = array(
+            'test' => 'test'
+        );
+        $storage = $this->getMockBuilder('Admin\Mapper\ArticleMapper')
             ->disableOriginalConstructor()
             ->setMethods(['fetchOne'])
             ->getMock();
         $storage->expects(self::once())
             ->method('fetchOne')
-            ->willReturn(new \Admin\Model\Entity\ArticleEntity());
+            ->willReturn($articleData);
 
-        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime());
+        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime(), new \Admin\Validator\ArticleValidator());
         $result = $articleRepo->fetchSingleArticle('123');
 
-        self::assertInstanceOf('Admin\Model\Entity\ArticleEntity', $result);
+        self::assertSame($articleData, $result);
     }
 
     public function testCreateArticleShouldReturnTrue()
     {
-        $storage = $this->getMockBuilder('Admin\Db\ArticleTableGateway')
+        $request = $this->getMockBuilder('Psr\Http\Message\ServerRequestInterface')
+            ->disableOriginalConstructor()
+            ->setMethods(['getParsedBody'])
+            ->getMockForAbstractClass();
+        $request->expects(static::exactly(2))
+            ->method('getParsedBody')
+            ->willReturn(['title' => 'data', 'lead' => 'lead', 'body' => 'test']);
+
+        $storage = $this->getMockBuilder('Admin\Mapper\ArticleMapper')
             ->disableOriginalConstructor()
             ->setMethods(['create'])
             ->getMock();
@@ -47,15 +58,21 @@ class ArticleRepositoryTest extends \PHPUnit_Framework_TestCase
             ->method('create')
             ->willReturn(true);
 
-        $article = new \Admin\Model\Entity\ArticleEntity();
-        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime());
+        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime(), new \Admin\Validator\ArticleValidator());
 
-        self::assertSame(true, $articleRepo->createArticle($article));
+        self::assertSame(true, $articleRepo->createArticle($request, 'test'));
     }
 
     public function testUpdateArticleShouldReturnTrue()
     {
-        $storage = $this->getMockBuilder('Admin\Db\ArticleTableGateway')
+        $request = $this->getMockBuilder('Psr\Http\Message\ServerRequestInterface')
+            ->disableOriginalConstructor()
+            ->setMethods(['getParsedBody'])
+            ->getMockForAbstractClass();
+        $request->expects(static::exactly(2))
+            ->method('getParsedBody')
+            ->willReturn(['title' => 'data', 'lead' => 'lead', 'body' => 'test', 'article_uuid' => 'test']);
+        $storage = $this->getMockBuilder('Admin\Mapper\ArticleMapper')
             ->disableOriginalConstructor()
             ->setMethods(['update'])
             ->getMock();
@@ -63,15 +80,14 @@ class ArticleRepositoryTest extends \PHPUnit_Framework_TestCase
             ->method('update')
             ->willReturn(true);
 
-        $article = new \Admin\Model\Entity\ArticleEntity();
-        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime());
+        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime(), new \Admin\Validator\ArticleValidator());
 
-        self::assertSame(true, $articleRepo->updateArticle($article));
+        self::assertSame(true, $articleRepo->updateArticle($request, 'test'));
     }
 
     public function testDeleteArticleShouldReturnTrue()
     {
-        $storage = $this->getMockBuilder('Admin\Db\ArticleTableGateway')
+        $storage = $this->getMockBuilder('Admin\Mapper\ArticleMapper')
             ->disableOriginalConstructor()
             ->setMethods(['delete'])
             ->getMock();
@@ -79,9 +95,8 @@ class ArticleRepositoryTest extends \PHPUnit_Framework_TestCase
             ->method('delete')
             ->willReturn(true);
 
-        $article = new \Admin\Model\Entity\ArticleEntity();
-        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime());
+        $articleRepo = new \Admin\Model\Repository\ArticleRepository($storage, new \DateTime(), new \Admin\Validator\ArticleValidator());
 
-        self::assertSame(true, $articleRepo->deleteArticle($article));
+        self::assertSame(true, $articleRepo->deleteArticle('test'));
     }
 }
