@@ -23,12 +23,12 @@ class AdminUsers extends AbstractMigration
         for($i = 0; $i < $count; $i++){
             $mysqlUuid = new \MysqlUuid\Uuid($faker->uuid);
             $mysqlUuid = $mysqlUuid->toFormat(new \MysqlUuid\Formats\Binary());
-            $data = [
+            $data      = [
                 'admin_user_uuid' => $mysqlUuid,
                 'email'           => $faker->email,
                 'first_name'      => $faker->firstName,
                 'last_name'       => $faker->lastName,
-                'password'        => '$2y$10$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK',//password = testtest
+                'password'        => '$2y$10$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK', //password = testtest
                 'status'          => rand(0, 1),
                 'last_login'      => rand(0, 10) === 7 ? null : $faker->dateTimeBetween('-10 days', 'now')->format('Y-m-d H:i:s'),
                 'created_at'      => $faker->dateTimeBetween('-20 days', '-10 days')->format('Y-m-d H:i:s'),
@@ -38,12 +38,12 @@ class AdminUsers extends AbstractMigration
         }
 
         // Insert default user with password testtest
-        //$mysqlUuid = new \MysqlUuid\Uuid($faker->uuid);
-        //$mysqlUuid = $mysqlUuid->toFormat(new \MysqlUuid\Formats\Binary());
-        //$this->execute(
-        //    "insert into admin_users (admin_user_uuid, first_name,last_name,email,password, status) values " .
-        //    "('$mysqlUuid', 'Unfinished',  'Admin', 'admin@unfinished.com', '$2y$10\$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK', 1)"
-        //);
+        $mysqlUuid = new \MysqlUuid\Uuid($faker->uuid);
+        $mysqlUuid = $mysqlUuid->toFormat(new \MysqlUuid\Formats\Binary());
+        $this->execute(
+            "insert into admin_users (admin_user_uuid, first_name,last_name,email,password, status) values " .
+            "('$mysqlUuid', 'Unfinished',  'Admin', 'admin@unfinished.com', '$2y$10\$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK', 1)"
+        );
     }
 
     public function down()

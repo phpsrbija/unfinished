@@ -4,6 +4,9 @@ declare(strict_types = 1);
 namespace Core\Service;
 
 use Ramsey\Uuid\Uuid;
+use MysqlUuid\Uuid as MysqlUuid;
+use MysqlUuid\Formats\Binary;
+use MysqlUuid\Formats\PlainString;
 use Core\Mapper\AdminUsersMapper;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Predicate\Expression;
@@ -97,7 +100,14 @@ class AdminUserService
      */
     public function getUser($userId)
     {
-        $user = $this->adminUsersMapper->get($userId);
+        if(!$userId){
+            return;
+        }
+
+        $mysqlUuid = new MysqlUuid($userId, new PlainString);
+        $id        = $mysqlUuid->toFormat(new Binary);
+        $user      = $this->adminUsersMapper->get($id);
+        $user->id  = $userId;
 
         return $user;
     }
@@ -120,10 +130,14 @@ class AdminUserService
         }
 
         if($userId){
-            $this->adminUsersMapper->update($data, ['admin_user_uuid' => $userId]);
+            $mysqlUuid = new MysqlUuid($userId, new PlainString);
+            $id        = $mysqlUuid->toFormat(new Binary);
+
+            $this->adminUsersMapper->update($data, ['admin_user_uuid' => $id]);
         }
         else{
-            $data['admin_user_uuid'] = Uuid::uuid1()->toString();
+            $mysqlUuid               = new MysqlUuid(Uuid::uuid1()->toString());
+            $data['admin_user_uuid'] = $mysqlUuid->toFormat(new Binary);
             $this->adminUsersMapper->insert($data);
         }
     }
@@ -136,6 +150,9 @@ class AdminUserService
      */
     public function delete($userId)
     {
-        return (bool)$this->adminUsersMapper->delete(['admin_user_uuid' => $userId]);
+        $mysqlUuid = new MysqlUuid($userId, new PlainString);
+        $id        = $mysqlUuid->toFormat(new Binary);
+
+        return (bool)$this->adminUsersMapper->delete(['admin_user_uuid' => $id]);
     }
 }

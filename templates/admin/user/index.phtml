@@ -22,6 +22,10 @@
         <tbody>
 
         <?php foreach($list as $one): ?>
+            <?php
+            $mysqlUuid  = new \MysqlUuid\Uuid($one->admin_user_uuid, new \MysqlUuid\Formats\Binary);
+            $id         = $mysqlUuid->toFormat(new \MysqlUuid\Formats\PlainString)
+            ?>
             <tr>
                 <td><?= $one->status ? 'Yes' : 'No' ?></td>
                 <td><?= $one->first_name ?> <?= $one->last_name ?></td>
@@ -30,9 +34,9 @@
                 <td><?= date('d.m.Y', strtotime($one->created_at)) ?></td>
                 <td style="width:70px;">
                     <span class="pull-right">
-                        <a href="<?= $this->url('admin.users.action', ['action' => 'edit', 'id' => $one->admin_user_uuid]) ?>"><i class="glyphicon glyphicon-pencil"></i></a>
+                        <a href="<?= $this->url('admin.users.action', ['action' => 'edit', 'id' => $id]) ?>"><i class="glyphicon glyphicon-pencil"></i></a>
                         &nbsp;
-                        <a href="<?= $this->url('admin.users.action', ['action' => 'delete', 'id' => $one->admin_user_uuid]) ?>" onclick="if(!confirm('Are you sure?')){return false;}" class="text-danger">
+                        <a href="<?= $this->url('admin.users.action', ['action' => 'delete', 'id' => $id]) ?>" onclick="if(!confirm('Are you sure?')){return false;}" class="text-danger">
                             <i class="glyphicon glyphicon-trash"></i>
                         </a>
                     </span>
