@@ -39,8 +39,8 @@ class Layout
     /**
      * Chenge layout for web and admin.
      *
-     * @todo On Ajax requests no render layout at all!
-     * @todo Add additional logics - no render on specific routes or URIs or HTTP Headers ...
+     * @todo         On Ajax requests no render layout at all!
+     * @todo         Add additional logics - no render on specific routes or URIs or HTTP Headers ...
      * @nice-to-know if we want to change layout based on route name (powerful on grouped routes):
      *      1. Register this Middleware after ROUTING_MIDDLEWARE!
      *      2. $result = $request->getAttribute('Zend\Expressive\Router\RouteResult');

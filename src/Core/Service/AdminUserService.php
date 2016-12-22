@@ -46,8 +46,8 @@ class AdminUserService
     /**
      * Performs user login or throws exception if credentials are not valid.
      *
-     * @param string $email    user email
-     * @param string $password user password
+     * @param  string $email    user email
+     * @param  string $password user password
      * @return array|\ArrayObject|null
      * @throws \Exception if user does not exist or password is not valid
      */
@@ -63,9 +63,9 @@ class AdminUserService
             throw new \Exception('Password does not match.');
         }
 
-        if($user->status != 1){
-            throw new \Exception('User is not active.');
-        }
+        //        if($user->status != 1){
+        //            throw new \Exception('User is not active.');
+        //        }
 
         $this->adminUsersMapper->updateLogin($user->admin_user_uuid);
 
@@ -75,9 +75,9 @@ class AdminUserService
     /**
      * Return pagination object to paginate results on view
      *
-     * @param int $page      Current page set to pagination to display
-     * @param int $limit     Limit set to pagination
-     * @param string $userId UUID from DB
+     * @param  int $page      Current page set to pagination to display
+     * @param  int $limit     Limit set to pagination
+     * @param  string $userId UUID from DB
      * @return Paginator
      */
     public function getPagination($page, $limit, $userId)
@@ -95,7 +95,7 @@ class AdminUserService
     /**
      * Return one user for given UUID
      *
-     * @param string $userId UUID from DB
+     * @param  string $userId UUID from DB
      * @return array|\ArrayObject|null
      */
     public function getUser($userId)
@@ -115,8 +115,8 @@ class AdminUserService
     /**
      * Update or Insert user.
      *
-     * @param Array $data  Data from POST
-     * @param null $userId UUID of user if we want to edit or 0 to add new user
+     * @param  Array $data  Data from POST
+     * @param  null $userId UUID of user if we want to edit or 0 to add new user
      * @throws \Exception
      */
     public function save($data, $userId = 0)
@@ -145,7 +145,7 @@ class AdminUserService
     /**
      * Delete user by given UUID
      *
-     * @param string $userId UUID from DB
+     * @param  string $userId UUID from DB
      * @return bool
      */
     public function delete($userId)

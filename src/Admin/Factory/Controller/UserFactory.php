@@ -20,7 +20,7 @@ final class UserFactory
     /**
      * Factory method for UserController.
      *
-     * @param ContainerInterface $container container
+     * @param  ContainerInterface $container container
      * @return UserController
      */
     public function __invoke(ContainerInterface $container) : UserController

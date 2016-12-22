@@ -1,0 +1,14 @@
+<h2 class="text-center">Create new article</h2>
+
+<?=$this->partial('admin::article/form', ['data' => $data]); ?>
+
+<script src="/js/tinymce/tinymce.min.js"></script>
+<script src="/js/initTinyMce.js"></script>
+
+<script>
+    initMce('#body', '100%', 300, true);
+
+    $('.articleForm').on('submit', function(e) {
+        tinyMCE.triggerSave();
+    });
+</script>

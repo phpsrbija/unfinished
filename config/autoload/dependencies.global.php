@@ -21,6 +21,7 @@ return [
 
             // Mappers
             Core\Mapper\AdminUsersMapper::class                       => Core\Factory\MapperFactory::class,
+            Admin\Mapper\ArticleMapper::class                         => Core\Factory\MapperFactory::class,
 
         ],
     ],

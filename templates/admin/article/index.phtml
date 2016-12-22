@@ -1,0 +1,20 @@
+<?php
+/**
+ * @var \Zend\Db\ResultSet\ResultSetInterface $articleCollection
+ * @var \Admin\Model\Entity\ArticleEntity $article
+ */
+?>
+
+<a href="<?=$this->url('admin.articles.action', ['action' => 'create', 'id' => 0]) ?>" title="Create article">Create new article</a><br />
+
+<h1>Article list</h1>
+
+<ul>
+<?php foreach($articleCollection as $article): ?>
+    <li><span><?=$article->title?></span> -
+        <span><?=$article->published_at?></span> -
+        <span><a href="<?=$this->url('admin.articles.action', ['action' => 'update', 'id' => $article->article_uuid])?>" title="Update">Update</a></span>
+        <span><a href="<?=$this->url('admin.articles.action', ['action' => 'delete', 'id' => $article->article_uuid])?>" title="Delete">Delete</a></span>
+    </li>
+<?php endforeach; ?>
+</ul>
