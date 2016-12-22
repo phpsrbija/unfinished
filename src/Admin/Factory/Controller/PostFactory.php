@@ -18,7 +18,7 @@ final class PostFactory
     /**
      * Factory method for PostController.
      *
-     * @param ContainerInterface $container container
+     * @param  ContainerInterface $container container
      * @return PostController
      */
     public function __invoke(ContainerInterface $container) : PostController

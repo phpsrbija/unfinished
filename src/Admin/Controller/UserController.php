@@ -43,9 +43,9 @@ class UserController extends AbstractController
     /**
      * UserController constructor.
      *
-     * @param Template $template
+     * @param Template         $template
      * @param AdminUserService $adminUserService
-     * @param SessionManager $session
+     * @param SessionManager   $session
      */
     public function __construct(Template $template, Router $router, AdminUserService $adminUserService, SessionManager $session)
     {

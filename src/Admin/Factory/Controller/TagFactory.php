@@ -18,7 +18,7 @@ final class TagFactory
     /**
      * Factory method for TagController.
      *
-     * @param ContainerInterface $container container
+     * @param  ContainerInterface $container container
      * @return TagController
      */
     public function __invoke(ContainerInterface $container) : TagController
