@@ -5,7 +5,11 @@ WORKDIR /var/www/unfinished
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get -y install curl vim php7.0-xdebug && \
+    apt-get -y install curl \
+    vim \
+    php7.0-xdebug \
+    php7.0-mysql \
+    php7.0-mbstring && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 
