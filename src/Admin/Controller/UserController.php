@@ -72,7 +72,7 @@ class UserController extends AbstractController
         //    add filters ...
         //];
 
-        $adminUsers = $this->adminUserService->getPagination($page, $limit, $user->admin_user_uuid);
+        $adminUsers = $this->adminUserService->getPagination($page, $limit, $user->admin_user_id);
 
         return new HtmlResponse($this->template->render('admin::user/index', ['list' => $adminUsers]));
     }

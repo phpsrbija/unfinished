@@ -1,6 +1,8 @@
 <?php
 
 use Phinx\Migration\AbstractMigration;
+use MysqlUuid\Formats\Binary;
+use MysqlUuid\Uuid;
 
 class AdminUsers extends AbstractMigration
 {
@@ -8,6 +10,7 @@ class AdminUsers extends AbstractMigration
     {
         $this->table('admin_users', ['id' => false, 'primary_key' => 'admin_user_uuid'])
             ->addColumn('admin_user_uuid', 'binary', ['limit' => 16])
+            ->addColumn('admin_user_id', 'text')
             ->addColumn('first_name', 'text')
             ->addColumn('last_name', 'text')
             ->addColumn('email', 'string', ['limit' => 128])
@@ -21,10 +24,11 @@ class AdminUsers extends AbstractMigration
         $faker = Faker\Factory::create();
         $count = rand(100, 150);
         for($i = 0; $i < $count; $i++){
-            $mysqlUuid = new \MysqlUuid\Uuid($faker->uuid);
-            $mysqlUuid = $mysqlUuid->toFormat(new \MysqlUuid\Formats\Binary());
+            $id        = $faker->uuid;
+            $mysqluuid = (new Uuid($id))->toFormat(new Binary());
             $data      = [
-                'admin_user_uuid' => $mysqlUuid,
+                'admin_user_uuid' => $mysqluuid,
+                'admin_user_id'   => $id,
                 'email'           => $faker->email,
                 'first_name'      => $faker->firstName,
                 'last_name'       => $faker->lastName,
@@ -38,11 +42,11 @@ class AdminUsers extends AbstractMigration
         }
 
         // Insert default user with password testtest
-        $mysqlUuid = new \MysqlUuid\Uuid($faker->uuid);
-        $mysqlUuid = $mysqlUuid->toFormat(new \MysqlUuid\Formats\Binary());
+        $id        = $faker->uuid;
+        $mysqluuid = (new Uuid($id))->toFormat(new Binary());
         $this->execute(
-            "insert into admin_users (admin_user_uuid, first_name,last_name,email,password, status) values " .
-            "('$mysqlUuid', 'Unfinished',  'Admin', 'admin@unfinished.com', '$2y$10\$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK', 1)"
+            "insert into admin_users (admin_user_uuid, admin_user_id, first_name,last_name,email,password, status) values " .
+            "('$mysqluuid', '$id', 'Unfinished',  'Admin', 'admin@unfinished.com', '$2y$10\$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK', 1)"
         );
     }
 

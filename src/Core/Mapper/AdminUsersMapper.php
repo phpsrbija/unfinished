@@ -31,7 +31,7 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
 
     public function get($id)
     {
-        return $this->select(['admin_user_uuid' => $id])->current();
+        return $this->select(['admin_user_id' => $id])->current();
     }
 
     /**
@@ -48,19 +48,19 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
     /**
      * Updates login data.
      *
-     * @param  string $uuid admin user uuid
+     * @param  string $uuid admin user id
      * @return int number of affected rows
      */
-    public function updateLogin(string $uuid) : int
+    public function updateLogin(string $userId) : int
     {
-        return $this->update(['last_login' => date('Y-m-d H:i:s')], ['admin_user_uuid' => $uuid]);
+        return $this->update(['last_login' => date('Y-m-d H:i:s')], ['admin_user_id' => $userId]);
     }
 
     public function getPaginationSelect($userId)
     {
         $select = $this->getSql()->select()->order(['created_at' => 'desc']);
 
-        $select->where->notEqualTo('admin_user_uuid', $userId);
+        $select->where->notEqualTo('admin_user_id', $userId);
 
         return $select;
     }
