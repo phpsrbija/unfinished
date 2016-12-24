@@ -4,3 +4,6 @@
 vendor/
 docker/mysql_data
 data/phinx/phinx.php
+*.DS_Store
+*.sublime-project
+*.sublime-workspace
