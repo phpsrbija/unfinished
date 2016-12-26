@@ -43,7 +43,7 @@ class ArticleRepository implements ArticleRepositoryInterface
      *
      * @return ResultSet
      */
-    public function fetchAllArticles($params = array()) : ResultSet
+    public function fetchAllArticles($params = array())
     {
         return $this->articleStorage->fetchAll($params);
     }
