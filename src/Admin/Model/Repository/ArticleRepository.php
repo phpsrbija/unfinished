@@ -71,7 +71,7 @@ class ArticleRepository implements ArticleRepositoryInterface
             $data['data']['created_at']   = $this->dateTime->format('Y-m-d H:i:s');
             $data['data']['article_id']   = Uuid::uuid1()->toString();
             $data['data']['article_uuid'] = (new MysqlUuid($data['data']['article_id']))->toFormat(new Binary);
-            $data['user_uuid']            = $adminUserUuid;
+            $data['data']['user_uuid']    = $adminUserUuid;
             $this->validator->validate($data['data']);
 
             return $this->articleStorage->create($data['data']);
