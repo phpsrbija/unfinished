@@ -7,6 +7,8 @@ namespace Admin\Factory\Controller;
 use Admin\Controller\TagController;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Core\Service\TagService;
+use Zend\Expressive\Router\RouterInterface;
 
 /**
  * Class TagFactory.
@@ -24,7 +26,9 @@ final class TagFactory
     public function __invoke(ContainerInterface $container) : TagController
     {
         return new TagController(
-            $container->get(TemplateRendererInterface::class)
+            $container->get(TemplateRendererInterface::class),
+            $container->get(RouterInterface::class),
+            $container->get(TagService::class)
         );
     }
 }

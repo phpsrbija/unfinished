@@ -1,1 +1,47 @@
-List of all tags, menu etc.
+<div class="row">
+    <h2 class="col-md-6">List of all tags</h2>
+    <div class="col-md-6">
+        <a href="<?= $this->url('admin.tags.action', ['action' => 'edit', 'id' => 0]) ?>" style="margin-top:20px;"
+           class="btn btn-default pull-right btn-success"> New Tag
+        </a>
+    </div>
+</div><br/>
+
+<?php if($list->getTotalItemCount() > 0): ?>
+    <table class="table table-hover table-striped ">
+        <thead>
+        <tr>
+            <th>Nme</th>
+            <th>Slug</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <?php foreach($list as $one): ?>
+            <tr>
+                <td><?= $one->name ?></td>
+                <td><?= $one->slug ?></td>
+                <td style="width:70px;">
+                    <span class="pull-right">
+                        <a href="<?= $this->url('admin.tags.action', ['action' => 'edit', 'id' => $one->tag_id]) ?>">
+                            <i class="glyphicon glyphicon-pencil"></i></a>
+                        &nbsp;
+                        <a href="<?= $this->url('admin.tags.action', ['action' => 'delete', 'id' => $one->tag_id]) ?>"
+                           onclick="if(!confirm('Are you sure?')){return false;}" class="text-danger">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <?= $this->paginationControl($list, 'Sliding', 'admin/pagination', ['route' => 'admin.tags']) ?>
+
+<?php else: ?>
+    <div class="jumbotron text-center">
+        <h3>There are no tags!</h3>
+    </div>
+<?php endif; ?>

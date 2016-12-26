@@ -18,11 +18,12 @@ return [
 
             // Services
             Core\Service\AdminUserService::class                      => Core\Factory\Service\AdminUserServiceFactory::class,
+            Core\Service\TagService::class                            => Core\Factory\Service\TagServiceFactory::class,
 
             // Mappers
             Core\Mapper\AdminUsersMapper::class                       => Core\Factory\MapperFactory::class,
             Admin\Mapper\ArticleMapper::class                         => Core\Factory\MapperFactory::class,
-
+            Core\Mapper\TagsMapper::class                             => Core\Factory\MapperFactory::class,
         ],
     ],
 ];
