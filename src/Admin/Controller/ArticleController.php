@@ -99,13 +99,16 @@ class ArticleController extends AbstractController
             $this->articleRepo->createArticle($this->request, $this->session->getStorage()->user->admin_user_uuid);
         }
         catch(\Exception $e){
-            return $this->response->withStatus(302)->withHeader(
-                'Location',
-                $this->router->generateUri(
-                    'admin.articles.action',
-                    ['action' => 'create']
-                )
-            );
+            echo $e->getMessage();
+            exit;
+
+            //return $this->response->withStatus(302)->withHeader(
+            //    'Location',
+            //    $this->router->generateUri(
+            //        'admin.articles.action',
+            //        ['action' => 'create']
+            //    )
+            //);
         }
 
         return $this->response->withStatus(302)->withHeader(
