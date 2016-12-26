@@ -9,7 +9,7 @@ class CreateArticlesTable extends AbstractMigration
             ->addColumn('article_uuid', 'binary', ['limit' => 16])
             ->addColumn('article_id', 'text')
             ->addColumn('title', 'text')
-            ->addColumn('slug', 'text')
+            ->addColumn('slug', 'text', ['null' => true])
             ->addColumn('type', 'integer')
             ->addColumn('created_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('published_at', 'datetime')
