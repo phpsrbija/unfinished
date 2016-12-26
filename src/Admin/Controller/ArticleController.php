@@ -39,11 +39,11 @@ class ArticleController extends AbstractController
     /**
      * ArticleController constructor.
      *
-     * @param Template                   $template
+     * @param Template $template
      * @param ArticleRepositoryInterface $articleRepo
-     * @param Validator                  $validator
-     * @param SessionManager             $session
-     * @param Router                     $router
+     * @param Validator $validator
+     * @param SessionManager $session
+     * @param Router $router
      */
     public function __construct(
         Template $template,
@@ -51,12 +51,13 @@ class ArticleController extends AbstractController
         Validator $validator,
         SessionManager $session,
         Router $router
-    ) {
-        $this->template = $template;
+    )
+    {
+        $this->template    = $template;
         $this->articleRepo = $articleRepo;
-        $this->validator = $validator;
-        $this->session = $session;
-        $this->router = $router;
+        $this->validator   = $validator;
+        $this->session     = $session;
+        $this->router      = $router;
     }
 
     public function index() : HtmlResponse
@@ -64,7 +65,7 @@ class ArticleController extends AbstractController
         $articleCollection = $this->articleRepo->fetchAllArticles();
 
         $data = [
-            'message'    => 'Article list',
+            'message'           => 'Article list',
             'articleCollection' => $articleCollection,
         ];
 
@@ -80,7 +81,7 @@ class ArticleController extends AbstractController
     {
         $data = [
             'message' => 'Create article',
-            'data' => $this->request->getParsedBody()
+            'data'    => $this->request->getParsedBody()
         ];
 
         return new HtmlResponse($this->template->render('admin::article/create', $data));
@@ -94,10 +95,10 @@ class ArticleController extends AbstractController
      */
     public function docreate() : \Psr\Http\Message\ResponseInterface
     {
-        try {
+        try{
             $this->articleRepo->createArticle($this->request, $this->session->getStorage()->user->admin_user_uuid);
-        // @TODO ? handle (validation) errors
-        } catch (\Exception $e) {
+        }
+        catch(\Exception $e){
             return $this->response->withStatus(302)->withHeader(
                 'Location',
                 $this->router->generateUri(
@@ -124,7 +125,7 @@ class ArticleController extends AbstractController
 
         $data = [
             'message' => 'Update article',
-            'data' => $articleData
+            'data'    => $articleData
         ];
 
         return new HtmlResponse($this->template->render('admin::article/update', $data));
@@ -138,10 +139,11 @@ class ArticleController extends AbstractController
      */
     public function doupdate() : \Psr\Http\Message\ResponseInterface
     {
-        try {
+        try{
             $this->articleRepo->updateArticle($this->request, $this->session->getStorage()->user->admin_user_uuid);
             // @TODO ? handle (validation) errors
-        } catch (\Exception $e) {
+        }
+        catch(\Exception $e){
             return $this->response->withStatus(302)->withHeader(
                 'Location',
                 $this->router->generateUri(
@@ -159,9 +161,10 @@ class ArticleController extends AbstractController
 
     public function delete() : \Psr\Http\Message\ResponseInterface
     {
-        try {
+        try{
             $this->articleRepo->deleteArticle($this->request->getAttribute('id'));
-        } catch (\Exception $e) {
+        }
+        catch(\Exception $e){
             var_dump($e->getMessage());
             die();
         }

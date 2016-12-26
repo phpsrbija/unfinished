@@ -3,10 +3,11 @@ namespace Admin\Model\Repository;
 
 use Admin\Mapper\ArticleMapper;
 use Ramsey\Uuid\Uuid;
+use MysqlUuid\Uuid as MysqlUuid;
+use MysqlUuid\Formats\Binary;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Admin\Validator\ArticleValidator as Validator;
 use Zend\Db\ResultSet\HydratingResultSet as ResultSet;
-
 
 class ArticleRepository implements ArticleRepositoryInterface
 {
@@ -29,21 +30,20 @@ class ArticleRepository implements ArticleRepositoryInterface
      * ArticleRepository constructor.
      *
      * @param ArticleMapper $articleStorage
-     * @param \DateTime               $dateTime
+     * @param \DateTime $dateTime
      */
     public function __construct(ArticleMapper $articleStorage, \DateTime $dateTime, Validator $validator)
     {
         $this->articleStorage = $articleStorage;
-        $this->dateTime = $dateTime;
-        $this->validator = $validator;
+        $this->dateTime       = $dateTime;
+        $this->validator      = $validator;
     }
 
     /**
      * @param array $params
-     *
      * @return ResultSet
      */
-    public function fetchAllArticles($params = array())
+    public function fetchAllArticles($params = [])
     {
         return $this->articleStorage->fetchAll($params);
     }
@@ -61,17 +61,17 @@ class ArticleRepository implements ArticleRepositoryInterface
      * Saves article to repository.
      *
      * @param Request $request
-     * @param string  $adminUserUuid
-     *
+     * @param string $adminUserUuid
      * @return bool
      */
     public function createArticle(Request $request, $adminUserUuid)
     {
-        if (count($request->getParsedBody())) {
-            $data['data'] = $request->getParsedBody();
-            $data['data']['created_at'] = $this->dateTime->format('Y-m-d H:i:s');
-            $data['data']['article_uuid'] = Uuid::uuid1()->toString();
-            $data['user_uuid'] = $adminUserUuid;
+        if(count($request->getParsedBody())){
+            $data['data']                 = $request->getParsedBody();
+            $data['data']['created_at']   = $this->dateTime->format('Y-m-d H:i:s');
+            $data['data']['article_id']   = Uuid::uuid1()->toString();
+            $data['data']['article_uuid'] = (new MysqlUuid($data['data']['article_id']))->toFormat(new Binary);
+            $data['user_uuid']            = $adminUserUuid;
             $this->validator->validate($data['data']);
 
             return $this->articleStorage->create($data['data']);
@@ -84,14 +84,13 @@ class ArticleRepository implements ArticleRepositoryInterface
      * Update article to repository.
      *
      * @param Request $request
-     * @param string  $adminUserUuid
-     *
+     * @param string $adminUserUuid
      * @return bool
      */
     public function updateArticle(Request $request, $adminUserUuid)
     {
-        if (count($request->getParsedBody())) {
-            $data['data'] = $request->getParsedBody();
+        if(count($request->getParsedBody())){
+            $data['data']      = $request->getParsedBody();
             $data['user_uuid'] = $adminUserUuid;
             $this->validator->validate($data['data']);
 

@@ -7,6 +7,7 @@ class CreateArticlesTable extends AbstractMigration
     {
         $this->table('articles', ['id' => false, 'primary_key' => 'article_uuid'])
             ->addColumn('article_uuid', 'binary', ['limit' => 16])
+            ->addColumn('article_id', 'text')
             ->addColumn('title', 'text')
             ->addColumn('slug', 'text')
             ->addColumn('type', 'integer')

@@ -49,8 +49,4 @@ class ArticleMapper extends AbstractTableGateway implements AdapterAwareInterfac
         return $this->insert($articleData);
     }
 
-//    public function updateArticle($id, $articleData)
-//    {
-//        return $this->update($articleData, ['article_uuid' => $id]);
-//    }
 }
