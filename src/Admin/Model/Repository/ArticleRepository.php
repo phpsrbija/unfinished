@@ -52,7 +52,7 @@ class ArticleRepository implements ArticleRepositoryInterface
      * @param string $articleUuid
      * @return array
      */
-    public function fetchSingleArticle($articleUuid) : array
+    public function fetchSingleArticle($articleUuid)
     {
         return $this->articleStorage->fetchOne($articleUuid);
     }
