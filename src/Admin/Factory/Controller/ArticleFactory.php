@@ -17,7 +17,6 @@ class ArticleFactory
         return new ArticleController(
             $container->get(TemplateRendererInterface::class),
             $container->get(ArticleRepositoryInterface::class),
-            new ArticleValidator(),
             $container->get('session'),
             $container->get(RouterInterface::class)
         );

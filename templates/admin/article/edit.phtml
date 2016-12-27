@@ -1,0 +1,46 @@
+<?php if(isset($article)):?>
+    <h2>Edit article</h2>
+<?php else: ?>
+    <h2>Create new article</h2>
+<?php endif; ?>
+<br/>
+
+<form action="<?= $this->url('admin.articles.action', ['action' => 'doedit', 'id' => $article ? $article->article_id : 0]) ?>" method="POST" class="form articleForm">
+
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="title" name="title" value="<?= $article ? $article->title : ''; ?>" />
+    </div>
+
+    <div class="form-group">
+        <input type="date" class="form-control" placeholder="publish date" name="published_at" value="<?= $article ? $article->published_at : ''; ?>" />
+    </div>
+
+    <div class="form-group">
+        <textarea class="form-control" rows="3" placeholder="intro..." name="lead"><?= $article ? $article->lead : ''; ?></textarea>
+    </div>
+
+    <div class="form-group">
+        <textarea id="body" class="form-control" name="body"><?= $article ? $article->body : '' ?></textarea>
+    </div>
+
+    <div class="form-group">
+        <select name="status" id="status" class="form-control">
+            <option value="0">Unpublished</option>
+            <option value="1">Published</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-default">Save</button>
+    <a href="<?= $this->url('admin.articles') ?>" class="btn btn-default">Cancel</a>
+</form><br/>
+
+<script src="/js/tinymce/tinymce.min.js"></script>
+<script src="/js/initTinyMce.js"></script>
+
+<script>
+    initMce('#body', '100%', 300, true);
+
+    $('.articleForm').on('submit', function(e) {
+        tinyMCE.triggerSave();
+    });
+</script>

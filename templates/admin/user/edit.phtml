@@ -7,19 +7,19 @@
 
 <form action="<?= $this->url('admin.users.action', ['action' => 'doedit', 'id' => $user ? $user->admin_user_id : 0]) ?>" method="POST">
     <div class="form-group">
-        <input type="text" class="form-control" name="first_name" value="<?= $user ? $user->first_name : '' ?>">
+        <input type="text" class="form-control" name="first_name" placeholder="First name" value="<?= $user ? $user->first_name : '' ?>">
     </div>
 
     <div class="form-group">
-        <input type="text" class="form-control" name="last_name" value="<?= $user ? $user->last_name : '' ?>">
+        <input type="text" class="form-control" name="last_name" placeholder="Last name" value="<?= $user ? $user->last_name : '' ?>">
     </div>
 
     <div class="form-group" disabled>
-        <input type="text" class="form-control" name="email" value="<?= $user ? $user->email : '' ?>">
+        <input type="text" class="form-control" name="email" placeholder="Email" value="<?= $user ? $user->email : '' ?>">
     </div>
 
     <div class="form-group">
-        <input type="password" class="form-control" name="password" value="" autocomplete="off">
+        <input type="password" class="form-control" name="password" placeholder="password" value="">
     </div>
 
     <div class="form-group">

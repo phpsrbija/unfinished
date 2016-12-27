@@ -22,36 +22,23 @@ interface ArticleRepositoryInterface
      *
      * @return ArrayObject
      */
-    public function fetchAllArticles($params = array());
+    public function fetchAllArticles($page, $limit);
 
     /**
      * Fetches a single ArticleEntity model.
      *
-     * @param string $articleUuid
+     * @param string $articleId
      *
      * @return ArticleEntity
      */
-    public function fetchSingleArticle($articleUuid);
-
-    /**
-     * Creates article model.
-     *
-     * @param Request $request
-     * @param string  $adminUserUuid
-     *
-     * @return bool
-     */
-    public function createArticle(Request $request, $adminUserUuid);
+    public function fetchSingleArticle($articleId);
 
     /**
      * Updates article model.
      *
-     * @param Request $request
-     * @param string  $adminUserUuid
-     *
      * @return bool
      */
-    public function updateArticle(Request $request, $adminUserUuid);
+    public function saveArticle($user, $data, $id = null);
 
     /**
      * Deletes a single article entity.

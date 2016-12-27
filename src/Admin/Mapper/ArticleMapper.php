@@ -35,13 +35,20 @@ class ArticleMapper extends AbstractTableGateway implements AdapterAwareInterfac
         return $this->select($params);
     }
 
+    public function getPaginationSelect()
+    {
+        $select = $this->getSql()->select()->order(['created_at' => 'desc']);
+
+        return $select;
+    }
+
     /**
      * @param string $id
      * @return \ArrayObject
      */
     public function fetchOne($id)
     {
-        return $this->select(['article_uuid' => $id])->current();
+        return $this->select(['article_id' => $id])->current();
     }
 
     public function create($articleData)

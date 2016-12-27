@@ -2,12 +2,14 @@
 namespace Admin\Model\Repository;
 
 use Admin\Mapper\ArticleMapper;
+use Admin\Validator\ArticleValidator as Validator;
 use Ramsey\Uuid\Uuid;
 use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Admin\Validator\ArticleValidator as Validator;
 use Zend\Db\ResultSet\HydratingResultSet as ResultSet;
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\DbSelect;
 
 class ArticleRepository implements ArticleRepositoryInterface
 {
@@ -43,41 +45,25 @@ class ArticleRepository implements ArticleRepositoryInterface
      * @param array $params
      * @return ResultSet
      */
-    public function fetchAllArticles($params = [])
+    public function fetchAllArticles($page, $limit)
     {
-        return $this->articleStorage->fetchAll($params);
+        $select           = $this->articleStorage->getPaginationSelect();
+        $paginatorAdapter = new DbSelect($select, $this->articleStorage->getAdapter());
+        $paginator        = new Paginator($paginatorAdapter);
+
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage($limit);
+
+        return $paginator;
     }
 
     /**
-     * @param string $articleUuid
+     * @param string $articleId
      * @return array
      */
-    public function fetchSingleArticle($articleUuid)
+    public function fetchSingleArticle($articleId)
     {
-        return $this->articleStorage->fetchOne($articleUuid);
-    }
-
-    /**
-     * Saves article to repository.
-     *
-     * @param Request $request
-     * @param string $adminUserUuid
-     * @return bool
-     */
-    public function createArticle(Request $request, $adminUserUuid)
-    {
-        if(count($request->getParsedBody())){
-            $data['data']                 = $request->getParsedBody();
-            $data['data']['created_at']   = $this->dateTime->format('Y-m-d H:i:s');
-            $data['data']['article_id']   = Uuid::uuid1()->toString();
-            $data['data']['article_uuid'] = (new MysqlUuid($data['data']['article_id']))->toFormat(new Binary);
-            $data['data']['user_uuid']    = $adminUserUuid;
-            $this->validator->validate($data['data']);
-
-            return $this->articleStorage->create($data['data']);
-        }
-
-        return false;
+        return $this->articleStorage->fetchOne($articleId);
     }
 
     /**
@@ -87,17 +73,19 @@ class ArticleRepository implements ArticleRepositoryInterface
      * @param string $adminUserUuid
      * @return bool
      */
-    public function updateArticle(Request $request, $adminUserUuid)
+    public function saveArticle($user, $data, $id = null)
     {
-        if(count($request->getParsedBody())){
-            $data['data']      = $request->getParsedBody();
-            $data['user_uuid'] = $adminUserUuid;
-            $this->validator->validate($data['data']);
+        $data['admin_user_uuid'] = $user->admin_user_uuid;
 
-            return $this->articleStorage->update($data['data'], ['article_uuid' => $data['data']['article_uuid']]);
+        if($id){
+            return $this->articleStorage->update($data, ['article_id' => $id]);
         }
+        else{
+            $data['article_id']      = Uuid::uuid1()->toString();
+            $data['article_uuid'] = (new MysqlUuid($data['article_id']))->toFormat(new Binary);
 
-        return false;
+            return $this->articleStorage->insert($data);
+        }
     }
 
     /**
@@ -108,7 +96,7 @@ class ArticleRepository implements ArticleRepositoryInterface
      */
     public function deleteArticle($id)
     {
-        return $this->articleStorage->delete(['article_uuid' => $id]);
+        return $this->articleStorage->delete(['article_id' => $id]);
     }
 
 }

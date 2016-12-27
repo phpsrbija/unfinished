@@ -5,7 +5,6 @@ namespace Admin\Controller;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
 use Admin\Model\Repository\ArticleRepositoryInterface;
-use Admin\Validator\ValidatorInterface as Validator;
 use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;
 
@@ -22,11 +21,6 @@ class ArticleController extends AbstractController
     private $articleRepo;
 
     /**
-     * @var \Zend\Validator\AbstractValidator
-     */
-    private $validator;
-
-    /**
      * @var SessionManager
      */
     private $session;
@@ -41,125 +35,59 @@ class ArticleController extends AbstractController
      *
      * @param Template $template
      * @param ArticleRepositoryInterface $articleRepo
-     * @param Validator $validator
      * @param SessionManager $session
      * @param Router $router
      */
-    public function __construct(
-        Template $template,
-        ArticleRepositoryInterface $articleRepo,
-        Validator $validator,
-        SessionManager $session,
-        Router $router
-    )
+    public function __construct(Template $template, ArticleRepositoryInterface $articleRepo, SessionManager $session, Router $router)
     {
         $this->template    = $template;
         $this->articleRepo = $articleRepo;
-        $this->validator   = $validator;
         $this->session     = $session;
         $this->router      = $router;
     }
 
     public function index() : HtmlResponse
     {
-        $articleCollection = $this->articleRepo->fetchAllArticles();
+        $params   = $this->request->getQueryParams();
+        $page     = isset($params['page']) ? $params['page'] : 1;
+        $limit    = isset($params['limit']) ? $params['limit'] : 15;
+        $articles = $this->articleRepo->fetchAllArticles($page, $limit);
 
-        $data = [
-            'message'           => 'Article list',
-            'articleCollection' => $articleCollection,
-        ];
-
-        return new HtmlResponse($this->template->render('admin::article/index', $data));
+        return new HtmlResponse($this->template->render('admin::article/index', ['list' => $articles]));
     }
 
     /**
-     * Create article form.
+     * Add/Edit show form
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function create() : \Psr\Http\Message\ResponseInterface
+    public function edit() : \Psr\Http\Message\ResponseInterface
     {
-        $data = [
-            'message' => 'Create article',
-            'data'    => $this->request->getParsedBody()
-        ];
+        $id      = $this->request->getAttribute('id');
+        $article = $this->articleRepo->fetchSingleArticle($id);
 
-        return new HtmlResponse($this->template->render('admin::article/create', $data));
+        return new HtmlResponse($this->template->render('admin::article/edit', ['article' => $article]));
     }
 
     /**
-     * Create article action.
-     * Takes care of article creation process.
+     * Add/Edit  article action
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function docreate() : \Psr\Http\Message\ResponseInterface
+    public function doedit() : \Psr\Http\Message\ResponseInterface
     {
         try{
-            $this->articleRepo->createArticle($this->request, $this->session->getStorage()->user->admin_user_uuid);
+            $id   = $this->request->getAttribute('id');
+            $data = $this->request->getParsedBody();
+            $user = $this->session->getStorage()->user;
+
+            $this->articleRepo->saveArticle($user, $data, $id);
         }
         catch(\Exception $e){
-            echo $e->getMessage();
-            exit;
-
-            //return $this->response->withStatus(302)->withHeader(
-            //    'Location',
-            //    $this->router->generateUri(
-            //        'admin.articles.action',
-            //        ['action' => 'create']
-            //    )
-            //);
+            throw $e;
         }
 
-        return $this->response->withStatus(302)->withHeader(
-            'Location',
-            $this->router->generateUri('admin.articles')
-        );
-    }
-
-    /**
-     * Update article form.
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function update() : \Psr\Http\Message\ResponseInterface
-    {
-        $articleData = $this->articleRepo->fetchSingleArticle($this->request->getAttribute('id'));
-
-        $data = [
-            'message' => 'Update article',
-            'data'    => $articleData
-        ];
-
-        return new HtmlResponse($this->template->render('admin::article/update', $data));
-    }
-
-    /**
-     * Update article action.
-     * Takes care of article update process.
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function doupdate() : \Psr\Http\Message\ResponseInterface
-    {
-        try{
-            $this->articleRepo->updateArticle($this->request, $this->session->getStorage()->user->admin_user_uuid);
-            // @TODO ? handle (validation) errors
-        }
-        catch(\Exception $e){
-            return $this->response->withStatus(302)->withHeader(
-                'Location',
-                $this->router->generateUri(
-                    'admin.articles.action',
-                    ['action' => 'update']
-                )
-            );
-        }
-
-        return $this->response->withStatus(302)->withHeader(
-            'Location',
-            $this->router->generateUri('admin.articles')
-        );
+        return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.articles'));
     }
 
     public function delete() : \Psr\Http\Message\ResponseInterface
@@ -168,16 +96,11 @@ class ArticleController extends AbstractController
             $this->articleRepo->deleteArticle($this->request->getAttribute('id'));
         }
         catch(\Exception $e){
-            var_dump($e->getMessage());
-            die();
+            throw $e;
         }
 
         return $this->response->withStatus(302)->withHeader(
-            'Location',
-            $this->router->generateUri(
-                'admin.articles',
-                ['action' => 'index']
-            )
+            'Location', $this->router->generateUri('admin.articles', ['action' => 'index'])
         );
     }
 }
