@@ -16,7 +16,7 @@ class ArticleRepository implements ArticleRepositoryInterface
     /**
      * @var ArticleMapper
      */
-    private $articleStorage;
+    private $articleMapper;
 
     /**
      * @var \DateTime
@@ -34,9 +34,9 @@ class ArticleRepository implements ArticleRepositoryInterface
      * @param ArticleMapper $articleStorage
      * @param \DateTime $dateTime
      */
-    public function __construct(ArticleMapper $articleStorage, \DateTime $dateTime, Validator $validator)
+    public function __construct(ArticleMapper $articleMapper, \DateTime $dateTime, Validator $validator)
     {
-        $this->articleStorage = $articleStorage;
+        $this->articleMapper = $articleMapper;
         $this->dateTime       = $dateTime;
         $this->validator      = $validator;
     }
@@ -47,8 +47,8 @@ class ArticleRepository implements ArticleRepositoryInterface
      */
     public function fetchAllArticles($page, $limit)
     {
-        $select           = $this->articleStorage->getPaginationSelect();
-        $paginatorAdapter = new DbSelect($select, $this->articleStorage->getAdapter());
+        $select           = $this->articleMapper->getPaginationSelect();
+        $paginatorAdapter = new DbSelect($select, $this->articleMapper->getAdapter());
         $paginator        = new Paginator($paginatorAdapter);
 
         $paginator->setCurrentPageNumber($page);
@@ -63,7 +63,7 @@ class ArticleRepository implements ArticleRepositoryInterface
      */
     public function fetchSingleArticle($articleId)
     {
-        return $this->articleStorage->fetchOne($articleId);
+        return $this->articleMapper->fetchOne($articleId);
     }
 
     /**
@@ -78,13 +78,13 @@ class ArticleRepository implements ArticleRepositoryInterface
         $data['admin_user_uuid'] = $user->admin_user_uuid;
 
         if($id){
-            return $this->articleStorage->update($data, ['article_id' => $id]);
+            return $this->articleMapper->update($data, ['article_id' => $id]);
         }
         else{
             $data['article_id']      = Uuid::uuid1()->toString();
             $data['article_uuid'] = (new MysqlUuid($data['article_id']))->toFormat(new Binary);
 
-            return $this->articleStorage->insert($data);
+            return $this->articleMapper->insert($data);
         }
     }
 
@@ -96,7 +96,7 @@ class ArticleRepository implements ArticleRepositoryInterface
      */
     public function deleteArticle($id)
     {
-        return $this->articleStorage->delete(['article_id' => $id]);
+        return $this->articleMapper->delete(['article_id' => $id]);
     }
 
 }

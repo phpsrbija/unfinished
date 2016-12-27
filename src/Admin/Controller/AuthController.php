@@ -39,17 +39,13 @@ final class AuthController extends AbstractController
     /**
      * AuthController constructor.
      *
-     * @param Router           $router           router
-     * @param Template         $template         template engine
-     * @param SessionManager   $session          session manager
+     * @param Router $router                     router
+     * @param Template $template                 template engine
+     * @param SessionManager $session            session manager
      * @param AdminUserService $adminUserService admin user service
      */
-    public function __construct(
-        Router $router,
-        Template $template,
-        SessionManager $session,
-        AdminUserService $adminUserService
-    ) {
+    public function __construct(Router $router, Template $template, SessionManager $session, AdminUserService $adminUserService)
+    {
         $this->router           = $router;
         $this->template         = $template;
         $this->session          = $session;
@@ -63,7 +59,7 @@ final class AuthController extends AbstractController
      */
     public function login() : \Psr\Http\Message\ResponseInterface
     {
-        if ($this->session->getStorage()->user) {
+        if($this->session->getStorage()->user){
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
 
@@ -77,7 +73,7 @@ final class AuthController extends AbstractController
      */
     public function loginHandle() : \Psr\Http\Message\ResponseInterface
     {
-        if ($this->session->getStorage()->user) {
+        if($this->session->getStorage()->user){
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
 
@@ -85,11 +81,12 @@ final class AuthController extends AbstractController
         $email    = isset($data['email']) ? $data['email'] : null;
         $password = isset($data['password']) ? $data['password'] : null;
 
-        try {
+        try{
             $this->session->getStorage()->user = $this->adminUserService->loginUser($email, $password);
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
-        } catch (\Exception $e) {
+        }
+        catch(\Exception $e){
             //@todo set $e->getMessage() to flash messanger and print messages in next page
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
