@@ -6,7 +6,7 @@ namespace Admin\Factory\Controller;
 use Admin\Controller\ArticleController;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Admin\Model\Repository\ArticleRepositoryInterface;
+use Core\Model\Repository\ArticleRepositoryInterface;
 use Zend\Expressive\Router\RouterInterface;
 
 class ArticleFactory

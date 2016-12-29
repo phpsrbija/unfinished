@@ -1,9 +1,9 @@
 <?php
 
-namespace Admin\Factory\Model\Repository;
+namespace Core\Factory\Model\Repository;
 
 use Core\Mapper\ArticleMapper;
-use Admin\Model\Repository\ArticleRepository;
+use Core\Model\Repository\ArticleRepository;
 use Interop\Container\ContainerInterface;
 
 class ArticleRepositoryFactory

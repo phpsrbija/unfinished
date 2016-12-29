@@ -4,22 +4,21 @@ return [
     'dependencies' => [
         'factories' => [
             // Web
-            Web\Action\PingAction::class                             => Zend\ServiceManager\Factory\InvokableFactory::class,
-            Web\Action\IndexAction::class                            => Web\Factory\Action\IndexFactory::class,
-            Web\Action\AboutAction::class                            => Web\Factory\Action\TemplateFactory::class,
-            Web\Action\ContactAction::class                          => Web\Factory\Action\TemplateFactory::class,
+            Web\Action\PingAction::class              => Zend\ServiceManager\Factory\InvokableFactory::class,
+            Web\Action\IndexAction::class             => Web\Factory\Action\IndexFactory::class,
+            Web\Action\AboutAction::class             => Web\Factory\Action\TemplateFactory::class,
+            Web\Action\ContactAction::class           => Web\Factory\Action\TemplateFactory::class,
 
             // Admin
-            Admin\Action\IndexAction::class                          => Admin\Factory\Action\IndexFactory::class,
-            Admin\Model\Repository\ArticleRepositoryInterface::class => Admin\Factory\Model\Repository\ArticleRepositoryFactory::class,
+            Admin\Action\IndexAction::class           => Admin\Factory\Action\IndexFactory::class,
 
             // Db
-            Zend\Db\Adapter\AdapterInterface::class                  => Zend\Db\Adapter\AdapterServiceFactory::class,
-            Admin\Controller\AuthController::class                   => Admin\Factory\Controller\AuthFactory::class,
-            Admin\Controller\UserController::class                   => Admin\Factory\Controller\UserFactory::class,
-            Admin\Controller\TagController::class                    => Admin\Factory\Controller\TagFactory::class,
-            Admin\Controller\PostController::class                   => Admin\Factory\Controller\PostFactory::class,
-            Admin\Controller\ArticleController::class                => Admin\Factory\Controller\ArticleFactory::class,
+            Zend\Db\Adapter\AdapterInterface::class   => Zend\Db\Adapter\AdapterServiceFactory::class,
+            Admin\Controller\AuthController::class    => Admin\Factory\Controller\AuthFactory::class,
+            Admin\Controller\UserController::class    => Admin\Factory\Controller\UserFactory::class,
+            Admin\Controller\TagController::class     => Admin\Factory\Controller\TagFactory::class,
+            Admin\Controller\PostController::class    => Admin\Factory\Controller\PostFactory::class,
+            Admin\Controller\ArticleController::class => Admin\Factory\Controller\ArticleFactory::class,
         ],
     ],
 

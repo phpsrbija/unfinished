@@ -4,7 +4,7 @@ namespace Admin\Controller;
 
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
-use Admin\Model\Repository\ArticleRepositoryInterface;
+use Core\Model\Repository\ArticleRepositoryInterface;
 use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;
 
@@ -16,7 +16,7 @@ class ArticleController extends AbstractController
     private $template;
 
     /**
-     * @var \Admin\Model\Repository\ArticleRepositoryInterface
+     * @var \Core\Model\Repository\ArticleRepositoryInterface
      */
     private $articleRepo;
 

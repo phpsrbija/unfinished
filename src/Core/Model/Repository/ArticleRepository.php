@@ -1,5 +1,5 @@
 <?php
-namespace Admin\Model\Repository;
+namespace Core\Model\Repository;
 
 use Core\Mapper\ArticleMapper;
 use Ramsey\Uuid\Uuid;

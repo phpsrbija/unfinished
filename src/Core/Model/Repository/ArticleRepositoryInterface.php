@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\Repository;
+namespace Core\Model\Repository;
 
 /**
  * Interface ArticleRepositoryInterface.
