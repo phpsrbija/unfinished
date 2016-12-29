@@ -1,20 +1,20 @@
 <?php
 
-namespace Core\Factory\Model\Repository;
+namespace Core\Factory\Service;
 
 use Core\Mapper\ArticleMapper;
-use Core\Model\Repository\ArticleRepository;
+use Core\Service\ArticleService;
 use Interop\Container\ContainerInterface;
 
-class ArticleRepositoryFactory
+class ArticleServiceFactory
 {
     /**
      * @param ContainerInterface $container
-     * @return ArticleRepository
+     * @return ArticleService
      */
     public function __invoke(ContainerInterface $container)
     {
-        return new ArticleRepository(
+        return new ArticleService(
             $container->get(ArticleMapper::class),
             new \DateTime()
         );

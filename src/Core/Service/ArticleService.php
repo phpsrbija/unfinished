@@ -1,5 +1,5 @@
 <?php
-namespace Core\Model\Repository;
+namespace Core\Service;
 
 use Core\Mapper\ArticleMapper;
 use Ramsey\Uuid\Uuid;
@@ -10,7 +10,7 @@ use Zend\Db\ResultSet\HydratingResultSet as ResultSet;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DbSelect;
 
-class ArticleRepository implements ArticleRepositoryInterface
+class ArticleService implements ArticleServiceInterface
 {
     /**
      * @var ArticleMapper
@@ -23,7 +23,7 @@ class ArticleRepository implements ArticleRepositoryInterface
     private $dateTime;
 
     /**
-     * ArticleRepository constructor.
+     * ArticleService constructor.
      *
      * @param ArticleMapper $articleStorage
      * @param \DateTime $dateTime
@@ -60,7 +60,7 @@ class ArticleRepository implements ArticleRepositoryInterface
     }
 
     /**
-     * Update article to repository.
+     * Update article to DB.
      *
      * @param Request $request
      * @param string $adminUserUuid

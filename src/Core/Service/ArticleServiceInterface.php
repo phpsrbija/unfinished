@@ -1,14 +1,13 @@
 <?php
 
-namespace Core\Model\Repository;
+namespace Core\Service;
 
 /**
- * Interface ArticleRepositoryInterface.
- * This interface defines crud operations for article repo.
+ * Interface ArticleServiceInterface.
  *
- * @package Admin\Model\Repository
+ * @package Admin\Service
  */
-interface ArticleRepositoryInterface
+interface ArticleServiceInterface
 {
     /**
      * Fetches a list of ArticleEntity models.

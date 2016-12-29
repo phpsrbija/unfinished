@@ -19,13 +19,12 @@
         <tbody>
         <?php foreach($list as $one): ?>
             <tr>
-                <td><?= $one->title ?></td>
+                <td><?php // $one->title ?></td>
                 <td style="width:90px;"><?= date("d.m.Y", strtotime($one->published_at)); ?></td>
                 <td style="width:70px;">
                         <span class="pull-right">
                             <a href="<?= $this->url('admin.articles.action', ['action' => 'edit', 'id' => $one->article_id]) ?>">
-                                <i class="glyphicon glyphicon-pencil"></i></a>
-                            &nbsp;
+                                <i class="glyphicon glyphicon-pencil"></i></a> &nbsp; 
                             <a href="<?= $this->url('admin.articles.action', ['action' => 'delete', 'id' => $one->article_id]) ?>"
                                onclick="if(!confirm('Are you sure?')){return false;}" class="text-danger">
                                 <i class="glyphicon glyphicon-trash"></i>

@@ -4,7 +4,7 @@ namespace Admin\Controller;
 
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
-use Core\Model\Repository\ArticleRepositoryInterface;
+use Core\Service\ArticleServiceInterface;
 use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;
 
@@ -16,9 +16,9 @@ class ArticleController extends AbstractController
     private $template;
 
     /**
-     * @var \Core\Model\Repository\ArticleRepositoryInterface
+     * @var \Core\Service\ArticleServiceInterface
      */
-    private $articleRepo;
+    private $articleService;
 
     /**
      * @var SessionManager
@@ -34,16 +34,16 @@ class ArticleController extends AbstractController
      * ArticleController constructor.
      *
      * @param Template $template
-     * @param ArticleRepositoryInterface $articleRepo
+     * @param ArticleServiceInterface $articleService
      * @param SessionManager $session
      * @param Router $router
      */
-    public function __construct(Template $template, ArticleRepositoryInterface $articleRepo, SessionManager $session, Router $router)
+    public function __construct(Template $template, ArticleServiceInterface $articleService, SessionManager $session, Router $router)
     {
-        $this->template    = $template;
-        $this->articleRepo = $articleRepo;
-        $this->session     = $session;
-        $this->router      = $router;
+        $this->template       = $template;
+        $this->articleService = $articleService;
+        $this->session        = $session;
+        $this->router         = $router;
     }
 
     public function index() : HtmlResponse
@@ -51,7 +51,7 @@ class ArticleController extends AbstractController
         $params   = $this->request->getQueryParams();
         $page     = isset($params['page']) ? $params['page'] : 1;
         $limit    = isset($params['limit']) ? $params['limit'] : 15;
-        $articles = $this->articleRepo->fetchAllArticles($page, $limit);
+        $articles = $this->articleService->fetchAllArticles($page, $limit);
 
         return new HtmlResponse($this->template->render('admin::article/index', ['list' => $articles]));
     }
@@ -64,7 +64,7 @@ class ArticleController extends AbstractController
     public function edit() : \Psr\Http\Message\ResponseInterface
     {
         $id      = $this->request->getAttribute('id');
-        $article = $this->articleRepo->fetchSingleArticle($id);
+        $article = $this->articleService->fetchSingleArticle($id);
 
         return new HtmlResponse($this->template->render('admin::article/edit', ['article' => $article]));
     }
@@ -81,7 +81,7 @@ class ArticleController extends AbstractController
             $data = $this->request->getParsedBody();
             $user = $this->session->getStorage()->user;
 
-            $this->articleRepo->saveArticle($user, $data, $id);
+            $this->articleService->saveArticle($user, $data, $id);
         }
         catch(\Exception $e){
             throw $e;
@@ -93,7 +93,7 @@ class ArticleController extends AbstractController
     public function delete() : \Psr\Http\Message\ResponseInterface
     {
         try{
-            $this->articleRepo->deleteArticle($this->request->getAttribute('id'));
+            $this->articleService->deleteArticle($this->request->getAttribute('id'));
         }
         catch(\Exception $e){
             throw $e;

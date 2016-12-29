@@ -22,7 +22,7 @@ return [
             // Services
             Core\Service\AdminUserService::class                      => Core\Factory\Service\AdminUserServiceFactory::class,
             Core\Service\TagService::class                            => Core\Factory\Service\TagServiceFactory::class,
-            Core\Model\Repository\ArticleRepositoryInterface::class   => Core\Factory\Model\Repository\ArticleRepositoryFactory::class,
+            Core\Service\ArticleServiceInterface::class               => Core\Factory\Service\ArticleServiceFactory::class,
 
             // Mappers
             Core\Mapper\AdminUsersMapper::class                       => Core\Factory\MapperFactory::class,
