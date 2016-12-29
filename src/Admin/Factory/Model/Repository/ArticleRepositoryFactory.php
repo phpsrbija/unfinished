@@ -2,10 +2,9 @@
 
 namespace Admin\Factory\Model\Repository;
 
-use Admin\Mapper\ArticleMapper;
+use Core\Mapper\ArticleMapper;
 use Admin\Model\Repository\ArticleRepository;
 use Interop\Container\ContainerInterface;
-use \Admin\Validator\ArticleValidator as Validator;
 
 class ArticleRepositoryFactory
 {
@@ -17,8 +16,7 @@ class ArticleRepositoryFactory
     {
         return new ArticleRepository(
             $container->get(ArticleMapper::class),
-            new \DateTime(),
-            new Validator()
+            new \DateTime()
         );
     }
 }

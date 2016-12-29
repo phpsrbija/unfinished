@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace Admin\Factory\Controller;
 
 use Admin\Controller\ArticleController;
-use Admin\Validator\ArticleValidator;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Admin\Model\Repository\ArticleRepositoryInterface;

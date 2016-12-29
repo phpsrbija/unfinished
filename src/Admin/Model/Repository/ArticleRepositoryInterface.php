@@ -2,13 +2,8 @@
 
 namespace Admin\Model\Repository;
 
-use Admin\Model\Entity\ArticleEntity;
-use Zend\Stdlib\ArrayObject;
-use Psr\Http\Message\ServerRequestInterface as Request;
-
 /**
  * Interface ArticleRepositoryInterface.
- *
  * This interface defines crud operations for article repo.
  *
  * @package Admin\Model\Repository
@@ -19,7 +14,6 @@ interface ArticleRepositoryInterface
      * Fetches a list of ArticleEntity models.
      *
      * @param array $params
-     *
      * @return ArrayObject
      */
     public function fetchAllArticles($page, $limit);
@@ -28,7 +22,6 @@ interface ArticleRepositoryInterface
      * Fetches a single ArticleEntity model.
      *
      * @param string $articleId
-     *
      * @return ArticleEntity
      */
     public function fetchSingleArticle($articleId);
@@ -44,7 +37,6 @@ interface ArticleRepositoryInterface
      * Deletes a single article entity.
      *
      * @param string $id
-     *
      * @return bool
      */
     public function deleteArticle($id);

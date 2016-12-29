@@ -1,8 +1,7 @@
 <?php
 namespace Admin\Model\Repository;
 
-use Admin\Mapper\ArticleMapper;
-use Admin\Validator\ArticleValidator as Validator;
+use Core\Mapper\ArticleMapper;
 use Ramsey\Uuid\Uuid;
 use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
@@ -24,21 +23,15 @@ class ArticleRepository implements ArticleRepositoryInterface
     private $dateTime;
 
     /**
-     * @var Validator
-     */
-    private $validator;
-
-    /**
      * ArticleRepository constructor.
      *
      * @param ArticleMapper $articleStorage
      * @param \DateTime $dateTime
      */
-    public function __construct(ArticleMapper $articleMapper, \DateTime $dateTime, Validator $validator)
+    public function __construct(ArticleMapper $articleMapper, \DateTime $dateTime)
     {
         $this->articleMapper = $articleMapper;
-        $this->dateTime       = $dateTime;
-        $this->validator      = $validator;
+        $this->dateTime      = $dateTime;
     }
 
     /**
@@ -81,7 +74,7 @@ class ArticleRepository implements ArticleRepositoryInterface
             return $this->articleMapper->update($data, ['article_id' => $id]);
         }
         else{
-            $data['article_id']      = Uuid::uuid1()->toString();
+            $data['article_id']   = Uuid::uuid1()->toString();
             $data['article_uuid'] = (new MysqlUuid($data['article_id']))->toFormat(new Binary);
 
             return $this->articleMapper->insert($data);
