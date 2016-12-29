@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "973e581c6c09c1410a753b2668a26a73",
-    "content-hash": "a88293517f983dca12df58edd2573d44",
+    "hash": "c6791760d460104dea735cfea7f19702",
+    "content-hash": "601984e3cbcfbf0e3968a2c4a94a7cc2",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -1187,16 +1187,16 @@
         },
         {
             "name": "zendframework/zend-expressive-helpers",
-            "version": "2.1.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-helpers.git",
-                "reference": "204f33a12d9cd59646e1d8007d42e681a9b7b813"
+                "reference": "b60666a7a2928bda15fceadcf15116c7df03b5e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-helpers/zipball/204f33a12d9cd59646e1d8007d42e681a9b7b813",
-                "reference": "204f33a12d9cd59646e1d8007d42e681a9b7b813",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-helpers/zipball/b60666a7a2928bda15fceadcf15116c7df03b5e3",
+                "reference": "b60666a7a2928bda15fceadcf15116c7df03b5e3",
                 "shasum": ""
             },
             "require": {
@@ -1208,7 +1208,7 @@
             "require-dev": {
                 "mockery/mockery": "^0.9.5",
                 "phpunit/phpunit": "^4.7",
-                "squizlabs/php_codesniffer": "^2.3",
+                "zendframework/zend-coding-standard": "~1.0.0",
                 "zendframework/zend-diactoros": "^1.2"
             },
             "suggest": {
@@ -1219,8 +1219,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1-dev",
-                    "dev-develop": "2.2-dev",
+                    "dev-master": "2.2-dev",
+                    "dev-develop": "2.3-dev",
                     "dev-dev-3.0.0": "3.0.0-dev"
                 }
             },
@@ -1241,7 +1241,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2016-10-03 03:57:23"
+            "time": "2016-12-24 05:02:55"
         },
         {
             "name": "zendframework/zend-expressive-router",
@@ -1695,6 +1695,61 @@
                 "zf2"
             ],
             "time": "2016-06-07 21:08:30"
+        },
+        {
+            "name": "zendframework/zend-inputfilter",
+            "version": "2.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-inputfilter.git",
+                "reference": "0cf1bdcd8858a8583965310a7dae63ad75bd1237"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-inputfilter/zipball/0cf1bdcd8858a8583965310a7dae63ad75bd1237",
+                "reference": "0cf1bdcd8858a8583965310a7dae63ad75bd1237",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "zendframework/zend-filter": "^2.6",
+                "zendframework/zend-stdlib": "^2.7 || ^3.0",
+                "zendframework/zend-validator": "^2.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8",
+                "squizlabs/php_codesniffer": "^2.6.2",
+                "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3"
+            },
+            "suggest": {
+                "zendframework/zend-servicemanager": "To support plugin manager support"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev",
+                    "dev-develop": "2.8-dev"
+                },
+                "zf": {
+                    "component": "Zend\\InputFilter",
+                    "config-provider": "Zend\\InputFilter\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\InputFilter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "homepage": "https://github.com/zendframework/zend-inputfilter",
+            "keywords": [
+                "inputfilter",
+                "zf2"
+            ],
+            "time": "2016-08-18 18:40:34"
         },
         {
             "name": "zendframework/zend-loader",
@@ -3285,12 +3340,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "ccd522f40878bcfbc9bd7cb45f0772098d2963f5"
+                "reference": "c798e4083112679dfe36394ca681153a7a6f83ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ccd522f40878bcfbc9bd7cb45f0772098d2963f5",
-                "reference": "ccd522f40878bcfbc9bd7cb45f0772098d2963f5",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/c798e4083112679dfe36394ca681153a7a6f83ed",
+                "reference": "c798e4083112679dfe36394ca681153a7a6f83ed",
                 "shasum": ""
             },
             "conflict": {
@@ -3331,7 +3386,7 @@
                 "namshi/jose": "<2.2",
                 "oro/crm": ">=1.7,<1.7.4",
                 "oro/platform": ">=1.7,<1.7.4",
-                "phpmailer/phpmailer": ">=5,<5.2.14",
+                "phpmailer/phpmailer": ">=5,<5.2.18",
                 "pusher/pusher-php-server": "<2.2.1",
                 "sabre/dav": ">=1.6,<1.6.99|>=1.7,<1.7.11|>=1.8,<1.8.9",
                 "shopware/shopware": "<4.3.7|>=5,<5.1.5",
@@ -3408,7 +3463,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2016-12-21 14:15:22"
+            "time": "2016-12-27 15:21:16"
         },
         {
             "name": "satooshi/php-coveralls",

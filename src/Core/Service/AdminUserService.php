@@ -7,6 +7,8 @@ use Ramsey\Uuid\Uuid;
 use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
 use Core\Mapper\AdminUsersMapper;
+use Core\Filter\AdminUserFilter;
+use Core\Exception\FilterException;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Predicate\Expression;
 use Zend\Paginator\Adapter\DbSelect;
@@ -21,14 +23,16 @@ use Zend\Crypt\Password\Bcrypt;
 class AdminUserService
 {
     /**
+     * @var Bcrypt
+     */
+    private $crypt;
+
+    /**
      * @var AdminUsersMapper
      */
     private $adminUsersMapper;
 
-    /**
-     * @var Bcrypt
-     */
-    private $crypt;
+    private $adminUserFilter;
 
     /**
      * AdminUserService constructor.
@@ -36,10 +40,11 @@ class AdminUserService
      * @param Bcrypt $crypt                      bcrypt password encryption method
      * @param AdminUsersMapper $adminUsersMapper mapper for admin us
      */
-    public function __construct(Bcrypt $crypt, AdminUsersMapper $adminUsersMapper)
+    public function __construct(Bcrypt $crypt, AdminUsersMapper $adminUsersMapper, AdminUserFilter $adminUserFilter)
     {
         $this->crypt            = $crypt;
         $this->adminUsersMapper = $adminUsersMapper;
+        $this->adminUserFilter  = $adminUserFilter;
     }
 
     /**
@@ -107,19 +112,21 @@ class AdminUserService
     /**
      * Update or Insert user.
      *
-     * @todo Validate/filter data
      * @param  Array $data  Data from POST
      * @param  null $userId UUID of user if we want to edit or 0 to add new user
      * @throws \Exception
      */
     public function save($data, $userId = 0)
     {
-        if($data['password'] == ''){
-            unset($data['password']);
+        $filter = $this->adminUserFilter->getInputFilter()->setData($data);
+
+        if(!$filter->isValid()){
+            throw new FilterException($filter->getMessages());
         }
-        else{
-            $data['password'] = $this->crypt->create($data['password']);
-        }
+
+        $data = $filter->getValues();
+        unset($data['confirm_password']);
+        $data['password'] = $this->crypt->create($data['password']);
 
         if($userId){
             $this->adminUsersMapper->update($data, ['admin_user_id' => $userId]);

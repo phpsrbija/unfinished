@@ -5,6 +5,7 @@ namespace Core\Factory\Service;
 use Core\Mapper\TagsMapper;
 use Core\Service\TagService;
 use Interop\Container\ContainerInterface;
+use Core\Filter\TagFilter;
 
 class TagServiceFactory
 {
@@ -17,7 +18,8 @@ class TagServiceFactory
     public function __invoke(ContainerInterface $container) : TagService
     {
         return new TagService(
-            $container->get(TagsMapper::class)
+            $container->get(TagsMapper::class),
+            $container->get(TagFilter::class)
         );
     }
 }

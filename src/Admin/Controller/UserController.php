@@ -4,10 +4,11 @@ declare(strict_types = 1);
 
 namespace Admin\Controller;
 
+use Core\Service\AdminUserService;
+use Core\Exception\FilterException;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
-use Core\Service\AdminUserService;
 use Zend\Session\SessionManager;
 
 /**
@@ -40,9 +41,9 @@ class UserController extends AbstractController
     /**
      * UserController constructor.
      *
-     * @param Template         $template
+     * @param Template $template
      * @param AdminUserService $adminUserService
-     * @param SessionManager   $session
+     * @param SessionManager $session
      */
     public function __construct(Template $template, Router $router, AdminUserService $adminUserService, SessionManager $session)
     {
@@ -92,11 +93,12 @@ class UserController extends AbstractController
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.users'));
         }
+        catch(FilterException $fe){
+            var_dump($fe->getArrayMessages());
+            throw $fe;
+        }
         catch(\Exception $e){
-            return $this->response->withStatus(302)->withHeader(
-                'Location',
-                $this->router->generateUri('admin.users.action', ['action' => 'edit', 'id' => $userId])
-            );
+            throw $e;
         }
     }
 

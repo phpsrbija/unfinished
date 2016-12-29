@@ -1,11 +1,14 @@
 <?php
 
+use Zend\ServiceManager\Factory\InvokableFactory;
+
 // Provide application wide services
 return [
     'dependencies' => [
         'invokables' => [
             Zend\Expressive\Helper\ServerUrlHelper::class => Zend\Expressive\Helper\ServerUrlHelper::class,
             Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\ZendRouter::class,
+
         ],
         'factories'  => [
             // Default factories
@@ -25,6 +28,10 @@ return [
             Core\Mapper\AdminUsersMapper::class                       => Core\Factory\MapperFactory::class,
             Core\Mapper\ArticleMapper::class                          => Core\Factory\MapperFactory::class,
             Core\Mapper\TagsMapper::class                             => Core\Factory\MapperFactory::class,
+
+            // Filters
+            Core\Filter\TagFilter::class                              => InvokableFactory::class,
+            Core\Filter\AdminUserFilter::class                        => Core\Factory\FilterFactory::class
         ],
     ],
 ];

@@ -7,6 +7,8 @@ use Ramsey\Uuid\Uuid;
 use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
 use Core\Mapper\TagsMapper;
+use Core\Filter\TagFilter;
+use Core\Exception\FilterException;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DbSelect;
 
@@ -22,14 +24,17 @@ class TagService
      */
     private $tagsMapper;
 
+    private $tagFilter;
+
     /**
      * TagService constructor.
      *
      * @param tagsMapper $tagsMapper mapper for tags
      */
-    public function __construct(TagsMapper $tagsMapper)
+    public function __construct(TagsMapper $tagsMapper, TagFilter $tagFilter)
     {
         $this->tagsMapper = $tagsMapper;
+        $this->tagFilter  = $tagFilter;
     }
 
     /**
@@ -65,13 +70,20 @@ class TagService
     /**
      * Update or Insert tag.
      *
-     * @todo Validate/filter data
      * @param  Array $data Data from POST
      * @param  null $tagId UUID of tag if we want to edit or 0 to add new tag
      * @throws \Exception
      */
     public function save($data, $tagId = 0)
     {
+        $filter = $this->tagFilter->getInputFilter()->setData($data);
+
+        if(!$filter->isValid()){
+            throw new FilterException($filter->getMessages());
+        }
+
+        $data = $filter->getValues();
+
         if($tagId){
             $this->tagsMapper->update($data, ['tag_id' => $tagId]);
         }

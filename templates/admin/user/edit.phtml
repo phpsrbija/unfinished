@@ -23,6 +23,10 @@
     </div>
 
     <div class="form-group">
+        <input type="password" class="form-control" name="confirm_password" placeholder="confirm password" value="">
+    </div>
+
+    <div class="form-group">
         <select class="form-control" name="status">
             <option value="1" <?= ($user && $user->status == 1) ? 'selected' : '' ?>>Activated</option>
             <option value="0" <?= ($user && $user->status == 0) ? 'selected' : '' ?>>Deactivated</option>

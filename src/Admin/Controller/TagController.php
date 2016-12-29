@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Admin\Controller;
 
 use Core\Service\TagService;
+use Core\Exception\FilterException;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -82,11 +83,12 @@ class TagController extends AbstractController
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.tags'));
         }
+        catch(FilterException $fe){
+            var_dump($fe->getArrayMessages());
+            throw $fe;
+        }
         catch(\Exception $e){
-            return $this->response->withStatus(302)->withHeader(
-                'Location',
-                $this->router->generateUri('admin.tags.action', ['action' => 'edit', 'id' => $id])
-            );
+            throw $e;
         }
     }
 
