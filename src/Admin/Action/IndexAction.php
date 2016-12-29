@@ -39,11 +39,6 @@ final class IndexAction
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
-        $data = [
-            'message'    => 'Create article',
-            'additional' => '*',
-        ];
-
-        return new HtmlResponse($this->template->render('admin::index', $data));
+        return new HtmlResponse($this->template->render('admin::index'));
     }
 }
