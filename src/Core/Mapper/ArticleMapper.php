@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace Core\Mapper;
 
+use Core\Entity\ArticleType;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
 use Zend\Db\ResultSet\ResultSetInterface;
@@ -35,25 +36,26 @@ class ArticleMapper extends AbstractTableGateway implements AdapterAwareInterfac
         return $this->select($params);
     }
 
-    public function getPaginationSelect()
+    public function getPostsSelect()
     {
-        $select = $this->getSql()->select()->order(['created_at' => 'desc']);
-
-        return $select;
+        return $this->getSql()->select()
+            ->where(['articles.type' => ArticleType::POST])
+            ->join('article_posts', 'article_posts.article_uuid = articles.article_uuid', ['title', 'body', 'lead'])
+            ->order(['created_at' => 'desc']);
     }
 
-    /**
-     * @param string $id
-     * @return \ArrayObject
-     */
-    public function fetchOne($id)
+    public function getPost($id)
     {
-        return $this->select(['article_id' => $id])->current();
+        $select = $this->getSql()->select()
+            ->where(['article_id' => $id])
+            ->join('article_posts', 'article_posts.article_uuid = articles.article_uuid', ['title', 'body', 'lead']);
+
+        return $this->selectWith($select)->current();
     }
 
     public function create($articleData)
     {
-        return $this->insert($articleData);
+        $this->insert($articleData);
     }
 
 }

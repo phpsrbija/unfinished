@@ -1,0 +1,50 @@
+<?php if(isset($post)):?>
+    <h2>Edit post</h2>
+<?php else: ?>
+    <h2>Create new post</h2>
+<?php endif; ?>
+<br/>
+
+<form action="<?= $this->url('admin.posts.action', ['action' => 'doedit', 'id' => $post ? $post->article_id : 0]) ?>" method="POST" class="form articleForm">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="title" name="title" value="<?= $post ? $post->title : ''; ?>" />
+    </div>
+
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="publish date" name="published_at" value="<?= $post ? $post->published_at : ''; ?>" />
+        <i>format: yyyy-mm-dd H:i:s</i>
+    </div>
+
+    <div class="form-group">
+        <textarea class="form-control" rows="3" placeholder="intro..." name="lead"><?= $post ? $post->lead : ''; ?></textarea>
+    </div>
+
+    <div class="form-group">
+        <input type="text" class="form-control" rows="3" placeholder="URL slug" name="slug" value="<?= $post ? $post->slug : ''; ?>">
+    </div>
+
+    <div class="form-group">
+        <textarea id="body" class="form-control" name="body"><?= $post ? $post->body : '' ?></textarea>
+    </div>
+
+    <div class="form-group">
+        <select name="status" id="status" class="form-control">
+            <option value="0">Unpublished</option>
+            <option value="1">Published</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-default">Save</button>
+    <a href="<?= $this->url('admin.posts') ?>" class="btn btn-default">Cancel</a>
+</form><br/>
+
+<script src="/js/tinymce/tinymce.min.js"></script>
+<script src="/js/initTinyMce.js"></script>
+
+<script>
+    initMce('#body', '100%', 300, true);
+
+    $('.articleForm').on('submit', function(e) {
+        tinyMCE.triggerSave();
+    });
+</script>

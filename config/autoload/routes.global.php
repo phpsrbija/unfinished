@@ -61,21 +61,21 @@ return [
             'allowed_methods' => ['GET'],
         ],
         [
-            'name'            => 'admin.articles',
-            'path'            => '/admin/articles',
-            'middleware'      => Admin\Controller\ArticleController::class,
+            'name'            => 'admin.posts',
+            'path'            => '/admin/posts',
+            'middleware'      => Admin\Controller\PostController::class,
             'allowed_methods' => ['GET'],
         ],
         [
-            'name'            => 'admin.articles.action',
-            'path'            => '/admin/articles/:action/:id',
-            'middleware'      => Admin\Controller\ArticleController::class,
+            'name'            => 'admin.posts.action',
+            'path'            => '/admin/posts/:action/:id',
+            'middleware'      => Admin\Controller\PostController::class,
             'allowed_methods' => ['GET', 'POST'],
         ],
         [
-            'name'            => 'admin.articles.doaction',
-            'path'            => '/admin/articles/:action',
-            'middleware'      => Admin\Controller\ArticleController::class,
+            'name'            => 'admin.posts.doaction',
+            'path'            => '/admin/posts/:action',
+            'middleware'      => Admin\Controller\PostController::class,
             'allowed_methods' => ['GET', 'POST'],
         ],
         [
@@ -101,12 +101,6 @@ return [
             'path'            => '/admin/tags/:action/:id',
             'middleware'      => Admin\Controller\TagController::class,
             'allowed_methods' => ['GET', 'POST']
-        ],
-        [
-            'name'            => 'admin.posts',
-            'path'            => '/admin/posts',
-            'middleware'      => Admin\Controller\PostController::class,
-            'allowed_methods' => ['GET'],
-        ],
+        ]
     ],
 ];
