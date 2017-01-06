@@ -20,12 +20,8 @@ class PostService implements ArticleServiceInterface
     private $articleMapper;
     private $articlePostsMapper;
     private $articleFilter;
+    private $postFilter;
 
-    /**
-     * ArticleService constructor.
-     *
-     * @param ArticleMapper $articleStorage
-     */
     public function __construct(ArticleMapper $articleMapper, ArticlePostsMapper $articlePostsMapper, ArticleFilter $articleFilter, PostFilter $postFilter)
     {
         $this->articleMapper      = $articleMapper;
@@ -34,13 +30,9 @@ class PostService implements ArticleServiceInterface
         $this->postFilter         = $postFilter;
     }
 
-    /**
-     * @param array $params
-     * @return ResultSet
-     */
     public function fetchAllArticles($page, $limit)
     {
-        $select           = $this->articleMapper->getPostsSelect(ArticleType::POST);
+        $select           = $this->articlePostsMapper->getPaginationSelect();
         $paginatorAdapter = new DbSelect($select, $this->articleMapper->getAdapter());
         $paginator        = new Paginator($paginatorAdapter);
 
@@ -50,28 +42,17 @@ class PostService implements ArticleServiceInterface
         return $paginator;
     }
 
-    /**
-     * @param string $articleId
-     * @return array
-     */
     public function fetchSingleArticle($articleId)
     {
-        return $this->articleMapper->getPost($articleId);
+        return $this->articlePostsMapper->get($articleId);
     }
 
-    /**
-     * Update article to DB.
-     *
-     * @param Request $request
-     * @param string $adminUserUuid
-     * @return bool
-     */
     public function saveArticle($user, $data, $id = null)
     {
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
         $postFilter    = $this->postFilter->getInputFilter()->setData($data);
 
-        if(!$articleFilter->isValid() && !$postFilter->isValid()){
+        if(!$articleFilter->isValid() || !$postFilter->isValid()){
             throw new FilterException($articleFilter->getMessages() + $postFilter->getMessages());
         }
 
@@ -80,7 +61,7 @@ class PostService implements ArticleServiceInterface
         $article['admin_user_uuid'] = $user->admin_user_uuid;
 
         if($id){
-            $oldPost = $this->articleMapper->getPost($id);
+            $oldPost = $this->articlePostsMapper->get($id);
             $this->articleMapper->update($article, ['article_uuid' => $oldPost->article_uuid]);
             $this->articlePostsMapper->update($post, ['article_uuid' => $oldPost->article_uuid]);
         }
@@ -95,15 +76,9 @@ class PostService implements ArticleServiceInterface
         }
     }
 
-    /**
-     * Delete an article.
-     *
-     * @param string $id
-     * @return bool
-     */
     public function deleteArticle($id)
     {
-        $post = $this->articleMapper->getPost($id);
+        $post = $this->articlePostsMapper->get($id);
 
         if(!$post){
             throw new \Exception('Article not found!');
@@ -111,8 +86,6 @@ class PostService implements ArticleServiceInterface
 
         $this->articlePostsMapper->delete(['article_uuid' => $post->article_uuid]);
         $this->articleMapper->delete(['article_uuid' => $post->article_uuid]);
-
-        return true;
     }
 
 }

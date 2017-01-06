@@ -6,7 +6,7 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-class PostFilter implements InputFilterAwareInterface
+class DiscussionFilter implements InputFilterAwareInterface
 {
     protected $inputFilter;
 
@@ -32,16 +32,6 @@ class PostFilter implements InputFilterAwareInterface
                 'validators' => [
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 1500]],
-                ],
-            ]);
-
-            $inputFilter->add([
-                'name'       => 'lead',
-                'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
-                'validators' => [
-                    ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 50000]],
                 ],
             ]);
 

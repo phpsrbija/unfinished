@@ -7,6 +7,7 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Core\Service\PostService;
 use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;
+use Core\Exception\FilterException;
 
 class PostController extends AbstractController
 {
@@ -82,6 +83,10 @@ class PostController extends AbstractController
             $user = $this->session->getStorage()->user;
 
             $this->postService->saveArticle($user, $data, $id);
+        }
+        catch(FilterException $fe){
+            var_dump($fe->getArrayMessages());
+            throw $fe;
         }
         catch(\Exception $e){
             throw $e;
