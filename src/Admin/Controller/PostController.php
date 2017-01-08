@@ -5,6 +5,7 @@ namespace Admin\Controller;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
 use Core\Service\PostService;
+use Core\Service\TagService;
 use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Core\Exception\FilterException;
@@ -32,19 +33,31 @@ class PostController extends AbstractController
     private $router;
 
     /**
+     * @var TagService
+     */
+    private $tagService;
+
+    /**
      * PostController constructor.
      *
      * @param Template $template
      * @param PostService $postService
      * @param SessionManager $session
      * @param Router $router
+     * @param TagService $tagService
      */
-    public function __construct(Template $template, PostService $postService, SessionManager $session, Router $router)
-    {
+    public function __construct(
+        Template $template,
+        PostService $postService,
+        SessionManager $session,
+        Router $router,
+        TagService $tagService
+    ) {
         $this->template    = $template;
         $this->postService = $postService;
         $this->session     = $session;
         $this->router      = $router;
+        $this->tagService  = $tagService;
     }
 
     public function index() : HtmlResponse
@@ -66,8 +79,9 @@ class PostController extends AbstractController
     {
         $id   = $this->request->getAttribute('id');
         $post = $this->postService->fetchSingleArticle($id);
+        $tags = $this->tagService->getPagination(1, 50);
 
-        return new HtmlResponse($this->template->render('admin::post/edit', ['post' => $post]));
+        return new HtmlResponse($this->template->render('admin::post/edit', ['post' => $post, 'tags' => $tags]));
     }
 
     /**

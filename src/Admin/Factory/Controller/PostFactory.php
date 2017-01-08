@@ -7,6 +7,7 @@ use Admin\Controller\PostController;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Core\Service\PostService;
+use Core\Service\TagService;
 use Zend\Expressive\Router\RouterInterface;
 
 class PostFactory
@@ -17,7 +18,8 @@ class PostFactory
             $container->get(TemplateRendererInterface::class),
             $container->get(PostService::class),
             $container->get('session'),
-            $container->get(RouterInterface::class)
+            $container->get(RouterInterface::class),
+            $container->get(TagService::class)
         );
     }
 }

@@ -1,3 +1,10 @@
+<?php
+use MysqlUuid\Formats\PlainString;
+use MysqlUuid\Formats\Binary;
+use MysqlUuid\Uuid;
+
+?>
+
 <?php if(isset($post)):?>
     <h2>Edit post</h2>
 <?php else: ?>
@@ -13,6 +20,17 @@
     <div class="form-group">
         <input type="text" class="form-control" placeholder="publish date" name="published_at" value="<?= $post ? $post->published_at : ''; ?>" />
         <i>format: yyyy-mm-dd H:i:s</i>
+    </div>
+
+    <div class="form-group">
+        <?php $tagUuid = (new Uuid($post->tag_uuid, new Binary()))->toFormat(new PlainString()); ?>
+        <select id="tag_uuid" name="tag_uuid" class="form-control">
+            <?php foreach ($tags as $tag): ?>
+                <option value="<?=$tag->tag_id?>" <?php if ($tag->tag_id == $tagUuid):
+                    echo 'selected="selected"';
+                endif; ?>><?=$tag->name?></option>
+            <?php endforeach ?>
+        </select>
     </div>
 
     <div class="form-group">

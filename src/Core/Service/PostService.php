@@ -10,8 +10,6 @@ use Core\Filter\PostFilter;
 use Ramsey\Uuid\Uuid;
 use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Zend\Db\ResultSet\HydratingResultSet as ResultSet;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DbSelect;
 
@@ -58,6 +56,7 @@ class PostService implements ArticleServiceInterface
 
         $article                    = $articleFilter->getValues();
         $post                       = $postFilter->getValues();
+        $post['tag_uuid']           = (new MysqlUuid($post['tag_uuid']))->toFormat(new Binary);
         $article['admin_user_uuid'] = $user->admin_user_uuid;
 
         if($id){
