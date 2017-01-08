@@ -45,16 +45,6 @@ class PostFilter implements InputFilterAwareInterface
                 ],
             ]);
 
-            $inputFilter->add([
-                'name'       => 'tag_uuid',
-                'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
-                'validators' => [
-                    ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 36, 'max' => 36]],
-                ],
-            ]);
-
             $this->inputFilter = $inputFilter;
         }
 

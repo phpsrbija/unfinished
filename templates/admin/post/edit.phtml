@@ -1,9 +1,3 @@
-<?php
-use MysqlUuid\Formats\PlainString;
-use MysqlUuid\Formats\Binary;
-use MysqlUuid\Uuid;
-?>
-
 <?php if(isset($post)):?>
     <h2>Edit post</h2>
 <?php else: ?>
@@ -19,17 +13,6 @@ use MysqlUuid\Uuid;
     <div class="form-group">
         <input type="text" class="form-control" placeholder="publish date" name="published_at" value="<?= $post ? $post->published_at : ''; ?>" />
         <i>format: yyyy-mm-dd H:i:s</i>
-    </div>
-
-    <div class="form-group">
-        <?php $tagUuid = (new Uuid($post->tag_uuid, new Binary()))->toFormat(new PlainString()); ?>
-        <select id="tag_uuid" name="tag_uuid" class="form-control">
-            <?php foreach ($tags as $tag): ?>
-                <option value="<?=$tag->tag_id?>" <?php if ($tag->tag_id == $tagUuid):
-                    echo 'selected="selected"';
-                endif; ?>><?=$tag->name?></option>
-            <?php endforeach ?>
-        </select>
     </div>
 
     <div class="form-group">
@@ -49,6 +32,15 @@ use MysqlUuid\Uuid;
             <option value="0">Unpublished</option>
             <option value="1">Published</option>
         </select>
+    </div>
+
+    <div class="form-group">
+        <?php foreach ($tags as $tag): ?>
+            <label><?=$tag->name?></label>
+            <input type="checkbox" name="tag_uuid[]" value="<?=$tag->tag_id?>" <?php if (in_array($tag->tag_id, $post->tagIds)):
+                echo 'checked';
+            endif; ?>/>
+        <?php endforeach ?>
     </div>
 
     <button type="submit" class="btn btn-default">Save</button>

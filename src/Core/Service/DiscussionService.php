@@ -51,7 +51,6 @@ class DiscussionService implements ArticleServiceInterface
 
     public function fetchSingleArticle($articleId)
     {
-        $article = $this->articleDiscussionsMapper->get($articleId);
         $tagIds = [];
         foreach ($this->articleDiscussionsMapper->get($articleId) as $article) {
             $tagIds[] = $article['tag_id'];
