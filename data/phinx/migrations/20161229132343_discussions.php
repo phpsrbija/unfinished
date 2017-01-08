@@ -4,6 +4,7 @@ use Phinx\Migration\AbstractMigration;
 use MysqlUuid\Formats\Binary;
 use MysqlUuid\Uuid;
 use Core\Entity\ArticleType;
+use MysqlUuid\Formats\PlainString;
 
 class Discussions extends AbstractMigration
 {
@@ -41,7 +42,7 @@ class Discussions extends AbstractMigration
             $post = [
                 'article_uuid' => $mysqluuid,
                 'title'        => 'Discussion: ' . $title,
-                'body'         => $faker->paragraph(15)
+                'body'         => $faker->paragraph(15),
             ];
 
             $this->insert('articles', $article);

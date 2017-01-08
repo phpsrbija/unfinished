@@ -14,7 +14,6 @@ class Posts extends AbstractMigration
             ->addColumn('title', 'text')
             ->addColumn('body', 'text')
             ->addColumn('lead', 'text')
-            ->addColumn('tag_uuid', 'binary', ['limit' => 16])
             ->addForeignKey('article_uuid', 'articles', 'article_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->create();
 
@@ -22,12 +21,6 @@ class Posts extends AbstractMigration
         $rows = $this->fetchAll('select admin_user_uuid from admin_users;');
         foreach($rows as $r){
             $ids[] = $r['admin_user_uuid'];
-        }
-
-        $tagIds = [];
-        $tags = $this->fetchAll('select tag_uuid from tags;');
-        foreach($tags as $tag){
-            $tagIds[] = $tag['tag_uuid'];
         }
 
         $faker = Faker\Factory::create();
@@ -50,8 +43,7 @@ class Posts extends AbstractMigration
                 'article_uuid' => $mysqluuid,
                 'title'        => $title,
                 'body'         => $faker->paragraph(15),
-                'lead'         => $faker->paragraph(5),
-                'tag_uuid'     => $ids[array_rand($tagIds)],
+                'lead'         => $faker->paragraph(5)
             ];
 
             $this->insert('articles', $article);

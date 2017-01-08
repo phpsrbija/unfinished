@@ -29,6 +29,7 @@ return [
             Core\Mapper\TagsMapper::class                             => Core\Factory\MapperFactory::class,
             Core\Mapper\ArticlePostsMapper::class                     => Core\Factory\MapperFactory::class,
             Core\Mapper\ArticleDiscussionsMapper::class               => Core\Factory\MapperFactory::class,
+            Core\Mapper\ArticleTagsMapper::class                      => Core\Factory\MapperFactory::class,
 
             // Filters
             Core\Filter\TagFilter::class                              => InvokableFactory::class,
