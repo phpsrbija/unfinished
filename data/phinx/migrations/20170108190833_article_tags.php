@@ -29,18 +29,16 @@ class ArticleTags extends AbstractMigration
 
             $this->insert('article_tags', $data);
 
-//            if (rand(1, 10) > 7) {
+            $newTagId = $tagIds[array_rand($tagIds)];
+            while ($tagId === $newTagId) {
                 $newTagId = $tagIds[array_rand($tagIds)];
-                while ($tagId === $newTagId) {
-                    $newTagId = $tagIds[array_rand($tagIds)];
-                }
-                $data = [
-                    'tag_uuid'      => (new Uuid($newTagId, new Binary()))->toFormat(new Binary()),
-                    'article_uuid'  => (new Uuid($article['article_uuid'], new Binary()))->toFormat(new Binary()),
-                ];
+            }
+            $data = [
+                'tag_uuid'      => (new Uuid($newTagId, new Binary()))->toFormat(new Binary()),
+                'article_uuid'  => (new Uuid($article['article_uuid'], new Binary()))->toFormat(new Binary()),
+            ];
 
-                $this->insert('article_tags', $data);
-//            }
+            $this->insert('article_tags', $data);
         }
     }
 
