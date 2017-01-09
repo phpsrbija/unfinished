@@ -52,7 +52,8 @@ class PostController extends AbstractController
         SessionManager $session,
         Router $router,
         TagService $tagService
-    ) {
+    )
+    {
         $this->template    = $template;
         $this->postService = $postService;
         $this->session     = $session;
@@ -79,7 +80,7 @@ class PostController extends AbstractController
     {
         $id   = $this->request->getAttribute('id');
         $post = $this->postService->fetchSingleArticle($id);
-        $tags = $this->tagService->getPagination(1, 50);
+        $tags = $this->tagService->getAll();
 
         return new HtmlResponse($this->template->render('admin::post/edit', ['post' => $post, 'tags' => $tags]));
     }

@@ -37,9 +37,7 @@
     <div class="form-group">
         <?php foreach ($tags as $tag): ?>
             <label><?=$tag->name?></label>
-            <input type="checkbox" name="tag_uuid[]" value="<?=$tag->tag_id?>" <?php if (in_array($tag->tag_id, $post->tagIds)):
-                echo 'checked';
-            endif; ?>/>
+            <input type="checkbox" name="tag_uuid[]" value="<?=$tag->tag_id?>" <?= ($post && in_array($tag->tag_id, $post->tags)) ? 'checked' : '' ?>/>
         <?php endforeach ?>
     </div>
 

@@ -105,4 +105,9 @@ class TagService
     {
         return (bool)$this->tagsMapper->delete(['tag_id' => $tagId]);
     }
+
+    public function getAll()
+    {
+        return $this->tagsMapper->select();
+    }
 }

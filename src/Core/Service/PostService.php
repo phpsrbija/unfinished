@@ -43,19 +43,16 @@ class PostService implements ArticleServiceInterface
 
     /**
      * PostService constructor.
+     *
      * @param ArticleMapper $articleMapper
      * @param ArticlePostsMapper $articlePostsMapper
      * @param ArticleFilter $articleFilter
      * @param PostFilter $postFilter
      * @param ArticleTagsMapper $articleTagsMapper
      */
-    public function __construct(
-        ArticleMapper $articleMapper,
-        ArticlePostsMapper $articlePostsMapper,
-        ArticleFilter $articleFilter,
-        PostFilter $postFilter,
-        ArticleTagsMapper $articleTagsMapper
-    ) {
+    public function __construct(ArticleMapper $articleMapper, ArticlePostsMapper $articlePostsMapper, ArticleFilter $articleFilter,
+                                PostFilter $postFilter, ArticleTagsMapper $articleTagsMapper)
+    {
         $this->articleMapper      = $articleMapper;
         $this->articlePostsMapper = $articlePostsMapper;
         $this->articleFilter      = $articleFilter;
@@ -86,11 +83,14 @@ class PostService implements ArticleServiceInterface
      */
     public function fetchSingleArticle($articleId)
     {
-        $tagIds = [];
-        foreach ($this->articlePostsMapper->get($articleId) as $article) {
-            $tagIds[] = $article['tag_id'];
+        $article = $this->articlePostsMapper->get($articleId);
+
+        if($article){
+            $article['tags'] = [];
+            foreach($this->articlePostsMapper->getTages($articleId) as $tag){
+                $article['tags'][] = $tag->tag_id;
+            }
         }
-        $article['tagIds'] = $tagIds;
 
         return $article;
     }
@@ -115,7 +115,7 @@ class PostService implements ArticleServiceInterface
         $article['admin_user_uuid'] = $user->admin_user_uuid;
 
         if($id){
-            $oldPost = $this->articlePostsMapper->get($id)->current();
+            $oldPost = $this->articlePostsMapper->get($id);
             $this->articleMapper->update($article, ['article_uuid' => $oldPost->article_uuid]);
             $this->articlePostsMapper->update($post, ['article_uuid' => $oldPost->article_uuid]);
             $article['article_uuid'] = $oldPost->article_uuid;
@@ -134,11 +134,14 @@ class PostService implements ArticleServiceInterface
         $this->articleTagsMapper->delete(['article_uuid' => $article['article_uuid']]);
 
         //insert fresh tags
-        foreach ($data['tag_uuid'] as $tagUuid) {
-            $tagUuid = (new MysqlUuid($tagUuid))->toFormat(new Binary);
-            $articleTags = ['tag_uuid' => $tagUuid, 'article_uuid' => $article['article_uuid']];
 
-            $this->articleTagsMapper->insert($articleTags);
+        if(isset($data['tag_uuid']) && $data['tag_uuid']){
+            foreach($data['tag_uuid'] as $tagUuid){
+                $tagUuid     = (new MysqlUuid($tagUuid))->toFormat(new Binary);
+                $articleTags = ['tag_uuid' => $tagUuid, 'article_uuid' => $article['article_uuid']];
+
+                $this->articleTagsMapper->insert($articleTags);
+            }
         }
     }
 
@@ -154,6 +157,7 @@ class PostService implements ArticleServiceInterface
             throw new \Exception('Article not found!');
         }
 
+        $this->articleTagsMapper->delete(['article_uuid' => $post->article_uuid]);
         $this->articlePostsMapper->delete(['article_uuid' => $post->article_uuid]);
         $this->articleMapper->delete(['article_uuid' => $post->article_uuid]);
     }
