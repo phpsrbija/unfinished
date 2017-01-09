@@ -29,8 +29,8 @@
 
     <div class="form-group">
         <select name="status" id="status" class="form-control">
-            <option value="0">Unpublished</option>
-            <option value="1">Published</option>
+            <option value="0" <?= $post ? ($post->status == 0 ? 'selected' : '') : '' ?>>Unpublished</option>
+            <option value="1" <?= $post ? ($post->status == 1 ? 'selected' : '') : '' ?>>Published</option>
         </select>
     </div>
 
