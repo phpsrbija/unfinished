@@ -30,6 +30,26 @@
         </select>
     </div>
 
+    <div class="form-group">
+        <?php foreach ($tags as $tag): ?>
+            <label><?=$tag->name?></label>
+            <input type="checkbox" name="tag_uuid[]" value="<?=$tag->tag_id?>" <?php if (in_array($tag->tag_id, $discussion->tagIds)):
+                echo 'checked';
+            endif; ?>/>
+        <?php endforeach ?>
+    </div>
+
     <button type="submit" class="btn btn-default">Save</button>
     <a href="<?= $this->url('admin.discussions') ?>" class="btn btn-default">Cancel</a>
-</form><br/>
+</form>
+
+<script src="/js/tinymce/tinymce.min.js"></script>
+<script src="/js/initTinyMce.js"></script>
+
+<script>
+    initMce('#body', '100%', 300, true);
+
+    $('.articleForm').on('submit', function(e) {
+        tinyMCE.triggerSave();
+    });
+</script>

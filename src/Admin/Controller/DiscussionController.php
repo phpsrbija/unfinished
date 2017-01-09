@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Admin\Controller;
 
 use Core\Service\DiscussionService;
+use Core\Service\TagService;
 use Core\Exception\FilterException;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
@@ -13,17 +14,50 @@ use Zend\Session\SessionManager;
 
 class DiscussionController extends AbstractController
 {
+    /**
+     * @var Template
+     */
     private $template;
-    private $router;
-    private $discussionService;
-    private $session;
 
-    public function __construct(Template $template, Router $router, DiscussionService $discussionService, SessionManager $session)
-    {
+    /**
+     * @var Router
+     */
+    private $router;
+
+    /**
+     * @var DiscussionService
+     */
+    private $discussionService;
+
+    /**
+     * @var SessionManager
+     */
+    private $session;
+    /**
+     * @var TagService
+     */
+    private $tagService;
+
+    /**
+     * DiscussionController constructor.
+     * @param Template $template
+     * @param Router $router
+     * @param DiscussionService $discussionService
+     * @param SessionManager $session
+     * @param TagService $tagService
+     */
+    public function __construct(
+        Template $template,
+        Router $router,
+        DiscussionService $discussionService,
+        SessionManager $session,
+        TagService $tagService
+    ) {
         $this->template          = $template;
         $this->router            = $router;
         $this->discussionService = $discussionService;
         $this->session           = $session;
+        $this->tagService        = $tagService;
     }
 
     public function index() : \Psr\Http\Message\ResponseInterface
@@ -41,8 +75,12 @@ class DiscussionController extends AbstractController
     {
         $id   = $this->request->getAttribute('id');
         $post = $this->discussionService->fetchSingleArticle($id);
+        $tags = $this->tagService->getPagination(1, 50);
 
-        return new HtmlResponse($this->template->render('admin::discussion/edit', ['discussion' => $post]));
+        return new HtmlResponse($this->template->render(
+            'admin::discussion/edit',
+            ['discussion' => $post, 'tags' => $tags]
+        ));
     }
 
     public function doedit()

@@ -7,6 +7,7 @@ use Admin\Controller\DiscussionController;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Core\Service\DiscussionService;
+use Core\Service\TagService;
 use Zend\Expressive\Router\RouterInterface;
 
 class DiscussionFactory
@@ -17,7 +18,8 @@ class DiscussionFactory
             $container->get(TemplateRendererInterface::class),
             $container->get(RouterInterface::class),
             $container->get(DiscussionService::class),
-            $container->get('session')
+            $container->get('session'),
+            $container->get(TagService::class)
         );
     }
 }

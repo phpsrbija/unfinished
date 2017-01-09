@@ -3,6 +3,7 @@
 namespace Core\Factory\Service;
 
 use Core\Mapper\ArticleMapper;
+use Core\Mapper\ArticleTagsMapper;
 use Core\Service\DiscussionService;
 use Core\Mapper\ArticleDiscussionsMapper;
 use Core\Filter\ArticleFilter;
@@ -21,7 +22,8 @@ class DiscussionServiceFactory
             $container->get(ArticleMapper::class),
             $container->get(ArticleDiscussionsMapper::class),
             $container->get(ArticleFilter::class),
-            $container->get(DiscussionFilter::class)
+            $container->get(DiscussionFilter::class),
+            $container->get(ArticleTagsMapper::class)
         );
     }
 }

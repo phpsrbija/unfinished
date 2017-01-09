@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c6791760d460104dea735cfea7f19702",
+    "hash": "50e52f8fdbaddc038a26758bd8174781",
     "content-hash": "601984e3cbcfbf0e3968a2c4a94a7cc2",
     "packages": [
         {
@@ -134,16 +134,16 @@
         },
         {
             "name": "http-interop/http-middleware",
-            "version": "0.2.0",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/http-interop/http-middleware.git",
-                "reference": "ff545c87e97bf4d88f0cb7eb3e89f99aaa53d7a9"
+                "reference": "08c50a4c571b2ac6c8efcdb4371cb06e1c90820c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/http-interop/http-middleware/zipball/ff545c87e97bf4d88f0cb7eb3e89f99aaa53d7a9",
-                "reference": "ff545c87e97bf4d88f0cb7eb3e89f99aaa53d7a9",
+                "url": "https://api.github.com/repos/http-interop/http-middleware/zipball/08c50a4c571b2ac6c8efcdb4371cb06e1c90820c",
+                "reference": "08c50a4c571b2ac6c8efcdb4371cb06e1c90820c",
                 "shasum": ""
             },
             "require": {
@@ -182,7 +182,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-09-25 13:30:27"
+            "time": "2016-11-19 15:51:20"
         },
         {
             "name": "paragonie/random_compat",
@@ -974,16 +974,16 @@
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "1.3.7",
+            "version": "1.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "969ff423d3f201da3ff718a5831bb999bb0669b0"
+                "reference": "d9c1fd7c4b024179d49faf367da544b4eef7cfe8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/969ff423d3f201da3ff718a5831bb999bb0669b0",
-                "reference": "969ff423d3f201da3ff718a5831bb999bb0669b0",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/d9c1fd7c4b024179d49faf367da544b4eef7cfe8",
+                "reference": "d9c1fd7c4b024179d49faf367da544b4eef7cfe8",
                 "shasum": ""
             },
             "require": {
@@ -995,7 +995,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.6 || ^5.5",
-                "squizlabs/php_codesniffer": "^2.3.1"
+                "zendframework/zend-coding-standard": "~1.0.0"
             },
             "type": "library",
             "extra": {
@@ -1020,7 +1020,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2016-10-11 13:25:21"
+            "time": "2017-01-05 21:44:28"
         },
         {
             "name": "zendframework/zend-escaper",
@@ -2193,16 +2193,16 @@
         },
         {
             "name": "zendframework/zend-stratigility",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-stratigility.git",
-                "reference": "c410d367bb85f0a3cca44f112957d0ee28895d19"
+                "reference": "ffbf29ceb92a9223b8383ea2b021b242591141d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-stratigility/zipball/c410d367bb85f0a3cca44f112957d0ee28895d19",
-                "reference": "c410d367bb85f0a3cca44f112957d0ee28895d19",
+                "url": "https://api.github.com/repos/zendframework/zend-stratigility/zipball/ffbf29ceb92a9223b8383ea2b021b242591141d2",
+                "reference": "ffbf29ceb92a9223b8383ea2b021b242591141d2",
                 "shasum": ""
             },
             "require": {
@@ -2212,8 +2212,8 @@
                 "zendframework/zend-escaper": "^2.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.7 || ^5.5",
-                "squizlabs/php_codesniffer": "^2.6.2",
+                "phpunit/phpunit": "^5.6",
+                "zendframework/zend-coding-standard": "~1.0.0",
                 "zendframework/zend-diactoros": "^1.0"
             },
             "suggest": {
@@ -2242,7 +2242,7 @@
                 "middleware",
                 "psr-7"
             ],
-            "time": "2016-11-11 00:16:05"
+            "time": "2017-01-05 22:22:10"
         },
         {
             "name": "zendframework/zend-uri",
@@ -3340,12 +3340,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "c798e4083112679dfe36394ca681153a7a6f83ed"
+                "reference": "b809da53b92844354dda4423ed1d393e279b64ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/c798e4083112679dfe36394ca681153a7a6f83ed",
-                "reference": "c798e4083112679dfe36394ca681153a7a6f83ed",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/b809da53b92844354dda4423ed1d393e279b64ca",
+                "reference": "b809da53b92844354dda4423ed1d393e279b64ca",
                 "shasum": ""
             },
             "conflict": {
@@ -3386,7 +3386,7 @@
                 "namshi/jose": "<2.2",
                 "oro/crm": ">=1.7,<1.7.4",
                 "oro/platform": ">=1.7,<1.7.4",
-                "phpmailer/phpmailer": ">=5,<5.2.18",
+                "phpmailer/phpmailer": ">=5,<5.2.20",
                 "pusher/pusher-php-server": "<2.2.1",
                 "sabre/dav": ">=1.6,<1.6.99|>=1.7,<1.7.11|>=1.8,<1.8.9",
                 "shopware/shopware": "<4.3.7|>=5,<5.1.5",
@@ -3398,7 +3398,7 @@
                 "simplesamlphp/simplesamlphp": "<1.14.11",
                 "simplesamlphp/simplesamlphp-module-infocard": "<1.0.1",
                 "socalnick/scn-social-auth": "<1.15.2",
-                "swiftmailer/swiftmailer": ">=4,<4.99.99|>=5,<5.2.1",
+                "swiftmailer/swiftmailer": ">=4,<5.4.5",
                 "symfony/dependency-injection": ">=2,<2.0.17",
                 "symfony/form": ">=2.3,<2.3.35|>=2.4,<2.6.12|>=2.7,<2.7.7",
                 "symfony/framework-bundle": ">=2,<2.3.18|>=2.4,<2.4.8|>=2.5,<2.5.2",
@@ -3463,7 +3463,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2016-12-27 15:21:16"
+            "time": "2016-12-29 12:33:36"
         },
         {
             "name": "satooshi/php-coveralls",

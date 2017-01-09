@@ -43,7 +43,7 @@ class Posts extends AbstractMigration
                 'article_uuid' => $mysqluuid,
                 'title'        => $title,
                 'body'         => $faker->paragraph(15),
-                'lead'         => $faker->paragraph(5),
+                'lead'         => $faker->paragraph(5)
             ];
 
             $this->insert('articles', $article);
