@@ -60,11 +60,6 @@ class PostService implements ArticleServiceInterface
         $this->articleTagsMapper  = $articleTagsMapper;
     }
 
-    /**
-     * @param $page
-     * @param $limit
-     * @return Paginator
-     */
     public function fetchAllArticles($page, $limit)
     {
         $select           = $this->articlePostsMapper->getPaginationSelect();
@@ -77,10 +72,6 @@ class PostService implements ArticleServiceInterface
         return $paginator;
     }
 
-    /**
-     * @param string $articleId
-     * @return mixed
-     */
     public function fetchSingleArticle($articleId)
     {
         $article = $this->articlePostsMapper->get($articleId);
@@ -95,12 +86,6 @@ class PostService implements ArticleServiceInterface
         return $article;
     }
 
-    /**
-     * @param $user
-     * @param $data
-     * @param null $id
-     * @throws FilterException
-     */
     public function saveArticle($user, $data, $id = null)
     {
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
@@ -134,7 +119,6 @@ class PostService implements ArticleServiceInterface
         $this->articleTagsMapper->delete(['article_uuid' => $article['article_uuid']]);
 
         //insert fresh tags
-
         if(isset($data['tag_uuid']) && $data['tag_uuid']){
             foreach($data['tag_uuid'] as $tagUuid){
                 $tagUuid     = (new MysqlUuid($tagUuid))->toFormat(new Binary);
@@ -145,10 +129,6 @@ class PostService implements ArticleServiceInterface
         }
     }
 
-    /**
-     * @param string $id
-     * @throws \Exception
-     */
     public function deleteArticle($id)
     {
         $post = $this->articlePostsMapper->get($id);
