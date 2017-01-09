@@ -17,6 +17,7 @@ return [
             Admin\Controller\PostController::class       => Admin\Factory\Controller\PostFactory::class,
             Admin\Controller\ArticleController::class    => Admin\Factory\Controller\ArticleFactory::class,
             Admin\Controller\DiscussionController::class => Admin\Factory\Controller\DiscussionFactory::class,
+            Admin\Controller\EventController::class      => Admin\Factory\Controller\EventFactory::class,
 
             // Db
             Zend\Db\Adapter\AdapterInterface::class      => Zend\Db\Adapter\AdapterServiceFactory::class,
@@ -113,6 +114,18 @@ return [
             'name'            => 'admin.discussions.action',
             'path'            => '/admin/discussions/:action/:id',
             'middleware'      => Admin\Controller\DiscussionController::class,
+            'allowed_methods' => ['GET', 'POST']
+        ],
+        [
+            'name'            => 'admin.events',
+            'path'            => '/admin/events',
+            'middleware'      => Admin\Controller\EventController::class,
+            'allowed_methods' => ['GET', 'POST']
+        ],
+        [
+            'name'            => 'admin.events.action',
+            'path'            => '/admin/events/:action/:id',
+            'middleware'      => Admin\Controller\EventController::class,
             'allowed_methods' => ['GET', 'POST']
         ]
     ],

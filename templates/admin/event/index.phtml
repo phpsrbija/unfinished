@@ -1,8 +1,8 @@
 <div class="row">
-    <h2 class="col-md-6">Posts list</h2>
+    <h2 class="col-md-6">Events list</h2>
     <div class="col-md-6">
-        <a href="<?= $this->url('admin.posts.action', ['action' => 'edit', 'id' => 0]) ?>" style="margin-top:20px;"
-           class="btn btn-default pull-right btn-success"> Create new Post
+        <a href="<?= $this->url('admin.events.action', ['action' => 'edit', 'id' => 0]) ?>" style="margin-top:20px;"
+           class="btn btn-default pull-right btn-success"> Create new Event
         </a>
     </div>
 </div><br/>
@@ -23,9 +23,9 @@
                 <td style="width:90px;"><?= date("d.m.Y", strtotime($one->published_at)); ?></td>
                 <td style="width:70px;">
                         <span class="pull-right">
-                            <a href="<?= $this->url('admin.posts.action', ['action' => 'edit', 'id' => $one->article_id]) ?>">
+                            <a href="<?= $this->url('admin.events.action', ['action' => 'edit', 'id' => $one->article_id]) ?>">
                                 <i class="glyphicon glyphicon-pencil"></i></a> &nbsp; 
-                            <a href="<?= $this->url('admin.posts.action', ['action' => 'delete', 'id' => $one->article_id]) ?>"
+                            <a href="<?= $this->url('admin.events.action', ['action' => 'delete', 'id' => $one->article_id]) ?>"
                                onclick="if(!confirm('Are you sure?')){return false;}" class="text-danger">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </a>
@@ -36,10 +36,10 @@
         </tbody>
     </table>
 
-    <?= $this->paginationControl($list, 'Sliding', 'admin/pagination', ['route' => 'admin.posts']) ?>
+    <?= $this->paginationControl($list, 'Sliding', 'admin/pagination', ['route' => 'admin.events']) ?>
 
 <?php else: ?>
     <div class="jumbotron text-center">
-        <h3>There are no posts!</h3>
+        <h3>There are no events!</h3>
     </div>
 <?php endif; ?>
