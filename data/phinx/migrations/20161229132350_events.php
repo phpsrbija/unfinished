@@ -12,7 +12,7 @@ class Events extends AbstractMigration
         $this->table('article_events', ['id' => false])
             ->addColumn('article_uuid', 'binary', ['limit' => 16])
             ->addColumn('title', 'text')
-            ->addColumn('sub_title', 'text')
+            ->addColumn('sub_title', 'text', ['null' => true])
             ->addColumn('body', 'text')
             //
             ->addColumn('featured_img', 'text')
