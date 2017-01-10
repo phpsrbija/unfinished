@@ -14,12 +14,10 @@ class Events extends AbstractMigration
             ->addColumn('title', 'text')
             ->addColumn('sub_title', 'text', ['null' => true])
             ->addColumn('body', 'text')
-            //
-            ->addColumn('featured_img', 'text')
-            ->addColumn('main_img', 'text')
             ->addColumn('longitude', 'text')
             ->addColumn('latitude', 'text')
-            //
+            ->addColumn('featured_img', 'text', ['null' => true])
+            ->addColumn('main_img', 'text', ['null' => true])
             ->addForeignKey('article_uuid', 'articles', 'article_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->create();
 
