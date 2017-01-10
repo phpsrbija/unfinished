@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef99649b10ff61cb67881fa7f4d64ad1",
+    "content-hash": "2e5a024c9b0934f78601868c3c3eedb9",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -817,16 +817,16 @@
         },
         {
             "name": "tasmaniski/upload-helper",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tasmaniski/upload-helper.git",
-                "reference": "e1bdb324e97e0c5f6d0135f6d3b03786fb9300c6"
+                "reference": "59439b57a8c18fc3d53bf59b49cd491f9335930b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tasmaniski/upload-helper/zipball/e1bdb324e97e0c5f6d0135f6d3b03786fb9300c6",
-                "reference": "e1bdb324e97e0c5f6d0135f6d3b03786fb9300c6",
+                "url": "https://api.github.com/repos/tasmaniski/upload-helper/zipball/59439b57a8c18fc3d53bf59b49cd491f9335930b",
+                "reference": "59439b57a8c18fc3d53bf59b49cd491f9335930b",
                 "shasum": ""
             },
             "require": {
@@ -853,7 +853,7 @@
             "keywords": [
                 "upload helper"
             ],
-            "time": "2017-01-09T15:38:55+00:00"
+            "time": "2017-01-10T14:11:06+00:00"
         },
         {
             "name": "vend/mysql-uuid",
@@ -3621,7 +3621,7 @@
                 "github",
                 "test"
             ],
-            "time": "2016-01-20T17:44:41+00:00"
+            "time": "2016-01-20 17:44:41"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
