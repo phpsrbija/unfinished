@@ -1,6 +1,8 @@
 <?php
+
 namespace Core\Service;
 
+use UploadHelper\Upload;
 use Core\Mapper\ArticleMapper;
 use Core\Mapper\ArticleEventsMapper;
 use Core\Entity\ArticleType;
@@ -21,14 +23,16 @@ class EventService implements ArticleServiceInterface
     private $articleEventsMapper;
     private $articleFilter;
     private $eventFilter;
+    private $upload;
 
     public function __construct(ArticleMapper $articleMapper, ArticleEventsMapper $articleEventsMapper,
-                                ArticleFilter $articleFilter, EventFilter $eventFilter)
+                                ArticleFilter $articleFilter, EventFilter $eventFilter, Upload $upload)
     {
         $this->articleMapper       = $articleMapper;
         $this->articleEventsMapper = $articleEventsMapper;
         $this->articleFilter       = $articleFilter;
         $this->eventFilter         = $eventFilter;
+        $this->upload              = $upload;
     }
 
     public function fetchAllArticles($page, $limit)
@@ -61,6 +65,28 @@ class EventService implements ArticleServiceInterface
         $event                      = $eventFilter->getValues();
         $article['admin_user_uuid'] = $user->admin_user_uuid;
 
+        if($data['featured_img']['name']){
+            $image = $this->upload->filterImage($data, 'featured_img');
+            $name  = $this->upload->uploadFile($image, 'featured_img');
+            $path  = $this->upload->getWebPath($name);
+
+            $event['featured_img'] = $path;
+        }
+        else{
+            unset($data['featured_img']);
+        }
+
+        if($data['main_img']['name']){
+            $image = $this->upload->filterImage($data, 'main_img');
+            $name  = $this->upload->uploadFile($image, 'main_img');
+            $path  = $this->upload->getWebPath($name);
+
+            $event['main_img'] = $path;
+        }
+        else{
+            unset($data['main_img']);
+        }
+        
         if($id){
             $old = $this->articleEventsMapper->get($id);
             $this->articleMapper->update($article, ['article_uuid' => $old->article_uuid]);

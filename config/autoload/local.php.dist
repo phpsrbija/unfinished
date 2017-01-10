@@ -9,5 +9,9 @@ return [
             'dsn'      => 'mysql:dbname=unfinished;host=localhost',
             'username' => 'root',       // set DB username
             'password' => '12345',   // set DB password
-        ],
+    ],
+    'upload' => [
+        'public_path' => getcwd() . '/public/uploads/',
+        'non_public_path' => getcwd() . '/data/uploads/',
+    ]
 ];

@@ -10,6 +10,7 @@ use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Session\SessionManager;
+use Zend\Http\PhpEnvironment\Request;
 
 class EventController extends AbstractController
 {
@@ -48,8 +49,9 @@ class EventController extends AbstractController
     {
         try{
             $id   = $this->request->getAttribute('id');
-            $data = $this->request->getParsedBody();
             $user = $this->session->getStorage()->user;
+            $data = $this->request->getParsedBody();
+            $data += (new Request())->getFiles()->toArray();           //$this->request->getUploadedFiles();
 
             $this->eventService->saveArticle($user, $data, $id);
         }
@@ -77,4 +79,5 @@ class EventController extends AbstractController
             'Location', $this->router->generateUri('admin.events')
         );
     }
+
 }
