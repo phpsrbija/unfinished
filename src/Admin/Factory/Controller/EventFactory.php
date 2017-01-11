@@ -7,6 +7,7 @@ use Admin\Controller\EventController;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Core\Service\EventService;
+use Core\Service\TagService;
 use Zend\Expressive\Router\RouterInterface;
 
 class EventFactory
@@ -17,7 +18,8 @@ class EventFactory
             $container->get(TemplateRendererInterface::class),
             $container->get(RouterInterface::class),
             $container->get(EventService::class),
-            $container->get('session')
+            $container->get('session'),
+            $container->get(TagService::class)
         );
     }
 }

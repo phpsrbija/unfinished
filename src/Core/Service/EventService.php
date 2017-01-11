@@ -5,6 +5,7 @@ namespace Core\Service;
 use UploadHelper\Upload;
 use Core\Mapper\ArticleMapper;
 use Core\Mapper\ArticleEventsMapper;
+use Core\Mapper\TagsMapper;
 use Core\Entity\ArticleType;
 use Core\Filter\ArticleFilter;
 use Core\Exception\FilterException;
@@ -23,15 +24,17 @@ class EventService implements ArticleServiceInterface
     private $articleEventsMapper;
     private $articleFilter;
     private $eventFilter;
+    private $tagsMapper;
     private $upload;
 
     public function __construct(ArticleMapper $articleMapper, ArticleEventsMapper $articleEventsMapper,
-                                ArticleFilter $articleFilter, EventFilter $eventFilter, Upload $upload)
+                                ArticleFilter $articleFilter, EventFilter $eventFilter, TagsMapper $tagsMapper, Upload $upload)
     {
         $this->articleMapper       = $articleMapper;
         $this->articleEventsMapper = $articleEventsMapper;
         $this->articleFilter       = $articleFilter;
         $this->eventFilter         = $eventFilter;
+        $this->tagsMapper          = $tagsMapper;
         $this->upload              = $upload;
     }
 
@@ -49,9 +52,24 @@ class EventService implements ArticleServiceInterface
 
     public function fetchSingleArticle($articleId)
     {
-        return $this->articleEventsMapper->get($articleId);
+        $event = $this->articleEventsMapper->get($articleId);
+
+        if($event){
+            $event['tags'] = [];
+            foreach($this->articleMapper->getTages($articleId) as $tag){
+                $event['tags'][] = $tag->tag_id;
+            }
+        }
+
+        return $event;
     }
 
+    /**
+     * Validate/filter data than
+     * Upload image and pass it to the array for saving
+     * Save data
+     * Inser new tags tags
+     */
     public function saveArticle($user, $data, $id = null)
     {
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
@@ -86,11 +104,13 @@ class EventService implements ArticleServiceInterface
         else{
             unset($data['main_img']);
         }
-        
+
         if($id){
-            $old = $this->articleEventsMapper->get($id);
+            $old       = $this->articleEventsMapper->get($id);
+            $articleId = $old->article_uuid;
             $this->articleMapper->update($article, ['article_uuid' => $old->article_uuid]);
             $this->articleEventsMapper->update($event, ['article_uuid' => $old->article_uuid]);
+            $this->articleMapper->deleteTags($old->article_uuid);
         }
         else{
             $article['type']         = ArticleType::EVENT;
@@ -100,6 +120,12 @@ class EventService implements ArticleServiceInterface
 
             $this->articleMapper->insert($article);
             $this->articleEventsMapper->insert($event);
+            $articleId = $event['article_uuid'];
+        }
+
+        if(isset($data['tags'])){
+            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
+            $this->articleMapper->insertTags($tags, $articleId);
         }
     }
 
@@ -112,6 +138,7 @@ class EventService implements ArticleServiceInterface
         }
 
         $this->articleEventsMapper->delete(['article_uuid' => $event->article_uuid]);
+        $this->articleMapper->deleteTags($event->article_uuid);
         $this->articleMapper->delete(['article_uuid' => $event->article_uuid]);
     }
 

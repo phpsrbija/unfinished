@@ -6,6 +6,7 @@ namespace Admin\Controller;
 
 use Core\Service\EventService;
 use Core\Exception\FilterException;
+use Core\Service\TagService;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -18,13 +19,15 @@ class EventController extends AbstractController
     private $router;
     private $eventService;
     private $session;
+    private $tagService;
 
-    public function __construct(Template $template, Router $router, EventService $eventService, SessionManager $session)
+    public function __construct(Template $template, Router $router, EventService $eventService, SessionManager $session, TagService $tagService)
     {
         $this->template     = $template;
         $this->router       = $router;
         $this->eventService = $eventService;
         $this->session      = $session;
+        $this->tagService   = $tagService;
     }
 
     public function index() : \Psr\Http\Message\ResponseInterface
@@ -41,8 +44,9 @@ class EventController extends AbstractController
     {
         $id    = $this->request->getAttribute('id');
         $event = $this->eventService->fetchSingleArticle($id);
+        $tags  = $this->tagService->getAll();
 
-        return new HtmlResponse($this->template->render('admin::event/edit', ['event' => $event]));
+        return new HtmlResponse($this->template->render('admin::event/edit', ['event' => $event, 'tags' => $tags]));
     }
 
     public function save()

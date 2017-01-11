@@ -6,6 +6,7 @@ use UploadHelper\Upload;
 use Core\Mapper\ArticleMapper;
 use Core\Service\EventService;
 use Core\Mapper\ArticleEventsMapper;
+use Core\Mapper\TagsMapper;
 use Core\Filter\ArticleFilter;
 use Core\Filter\EventFilter;
 use Interop\Container\ContainerInterface;
@@ -26,6 +27,7 @@ class EventServiceFactory
             $container->get(ArticleEventsMapper::class),
             $container->get(ArticleFilter::class),
             $container->get(EventFilter::class),
+            $container->get(TagsMapper::class),
             $upload
         );
     }

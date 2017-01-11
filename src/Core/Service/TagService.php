@@ -106,6 +106,11 @@ class TagService
         return (bool)$this->tagsMapper->delete(['tag_id' => $tagId]);
     }
 
+    /**
+     * Returnall tags typically to populate select box
+     *
+     * @return \Zend\Db\ResultSet\ResultSet
+     */
     public function getAll()
     {
         return $this->tagsMapper->select();

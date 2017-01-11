@@ -78,7 +78,7 @@ class PostService implements ArticleServiceInterface
 
         if($article){
             $article['tags'] = [];
-            foreach($this->articlePostsMapper->getTages($articleId) as $tag){
+            foreach($this->articleMapper->getTages($articleId) as $tag){
                 $article['tags'][] = $tag->tag_id;
             }
         }
