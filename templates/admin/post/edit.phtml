@@ -35,10 +35,13 @@
     </div>
 
     <div class="form-group">
-        <?php foreach ($tags as $tag): ?>
-            <label><?=$tag->name?></label>
-            <input type="checkbox" name="tag_uuid[]" value="<?=$tag->tag_id?>" <?= ($post && in_array($tag->tag_id, $post->tags)) ? 'checked' : '' ?>/>
-        <?php endforeach ?>
+        <select multiple name="tag_uuid[]" style="width: 100%;">
+            <?php foreach($tags as $tag): ?>
+                <option value="<?= $tag->tag_id ?>" <?= ($post && in_array($tag->tag_id, $post->tags)) ? 'selected' : '' ?>>
+                    <?= $tag->name ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </div>
 
     <button type="submit" class="btn btn-default">Save</button>

@@ -65,10 +65,10 @@ class EventService implements ArticleServiceInterface
     }
 
     /**
-     * Validate/filter data than
-     * Upload image and pass it to the array for saving
-     * Save data
-     * Inser new tags tags
+     * 1. Validate/filter data
+     * 2. Upload image and add it to the array for saving
+     * 3. Save data (add/edit)
+     * 4. Inser new tags tags
      */
     public function saveArticle($user, $data, $id = null)
     {
