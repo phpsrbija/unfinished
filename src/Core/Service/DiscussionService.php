@@ -16,7 +16,7 @@ use MysqlUuid\Formats\Binary;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DbSelect;
 
-class DiscussionService implements ArticleServiceInterface
+class DiscussionService extends ArticleService
 {
     private $articleMapper;
     private $articleDiscussionsMapper;

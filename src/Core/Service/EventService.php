@@ -18,7 +18,7 @@ use Zend\Db\ResultSet\HydratingResultSet as ResultSet;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DbSelect;
 
-class EventService implements ArticleServiceInterface
+class EventService extends ArticleService
 {
     private $articleMapper;
     private $articleEventsMapper;

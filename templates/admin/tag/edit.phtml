@@ -15,7 +15,16 @@
         <input type="text" class="form-control" name="slug" placeholder="URL slug" value="<?= $tag ? $tag->slug : '' ?>">
     </div>
 
-    <button type="submit" class="btn btn-default">Save</button>
-    <a href="<?= $this->url('admin.tags') ?>" class="btn btn-default">Cancel</a>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Save</button>
+        <a href="<?= $this->url('admin.tags') ?>" class="btn btn-default">Cancel</a>
+
+        <?php if($tag): ?>
+            <a href="<?= $this->url('admin.tags.action', ['action' => 'delete', 'id' => $tag->tag_id]) ?>"
+               onclick="if(!confirm('Are you sure?')){return false;}" class="btn btn-danger pull-right">
+                Delete
+            </a>
+        <?php endif; ?>
+    </div>
 </form>
 <br/>

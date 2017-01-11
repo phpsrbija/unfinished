@@ -15,7 +15,7 @@ use MysqlUuid\Formats\Binary;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DbSelect;
 
-class PostService implements ArticleServiceInterface
+class PostService extends ArticleService
 {
     /**
      * @var ArticleMapper

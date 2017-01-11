@@ -25,12 +25,7 @@
                 <td style="width:70px;">
                     <span class="pull-right">
                         <a href="<?= $this->url('admin.tags.action', ['action' => 'edit', 'id' => $one->tag_id]) ?>">
-                            <i class="glyphicon glyphicon-pencil"></i></a>
-                        &nbsp;
-                        <a href="<?= $this->url('admin.tags.action', ['action' => 'delete', 'id' => $one->tag_id]) ?>"
-                           onclick="if(!confirm('Are you sure?')){return false;}" class="text-danger">
-                            <i class="glyphicon glyphicon-trash"></i>
-                        </a>
+                            <i class="glyphicon glyphicon-pencil"></i></a> &nbsp;
                     </span>
                 </td>
             </tr>

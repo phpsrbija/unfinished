@@ -78,6 +78,15 @@
         </select>
     </div>
 
-    <button type="submit" class="btn btn-default">Save</button>
-    <a href="<?= $this->url('admin.events') ?>" class="btn btn-default">Cancel</a>
-</form><br/>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Save</button>
+        <a href="<?= $this->url('admin.events') ?>" class="btn btn-default">Cancel</a>
+
+        <?php if($event): ?>
+            <a href="<?= $this->url('admin.events.action', ['action' => 'delete', 'id' => $event->article_id]) ?>"
+               onclick="if(!confirm('Are you sure?')){return false;}" class="btn btn-danger pull-right">
+                Delete
+            </a>
+        <?php endif; ?>
+    </div>
+</form>

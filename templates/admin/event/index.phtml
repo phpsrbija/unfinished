@@ -25,10 +25,6 @@
                         <span class="pull-right">
                             <a href="<?= $this->url('admin.events.action', ['action' => 'edit', 'id' => $one->article_id]) ?>">
                                 <i class="glyphicon glyphicon-pencil"></i></a> &nbsp; 
-                            <a href="<?= $this->url('admin.events.action', ['action' => 'delete', 'id' => $one->article_id]) ?>"
-                               onclick="if(!confirm('Are you sure?')){return false;}" class="text-danger">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </a>
                         </span>
                 </td>
             </tr>

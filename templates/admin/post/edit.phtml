@@ -44,8 +44,17 @@
         </select>
     </div>
 
-    <button type="submit" class="btn btn-default">Save</button>
-    <a href="<?= $this->url('admin.posts') ?>" class="btn btn-default">Cancel</a>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Save</button>
+        <a href="<?= $this->url('admin.posts') ?>" class="btn btn-default">Cancel</a>
+
+        <?php if($post): ?>
+        <a href="<?= $this->url('admin.posts.action', ['action' => 'delete', 'id' => $post->article_id]) ?>"
+           onclick="if(!confirm('Are you sure?')){return false;}" class="btn btn-danger pull-right">
+            Delete
+        </a>
+        <?php endif; ?>
+    </div>
 </form><br/>
 
 <script src="/js/tinymce/tinymce.min.js"></script>

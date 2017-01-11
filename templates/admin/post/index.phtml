@@ -22,14 +22,10 @@
                 <td><?= $one->title ?></td>
                 <td style="width:90px;"><?= date("d.m.Y", strtotime($one->published_at)); ?></td>
                 <td style="width:70px;">
-                        <span class="pull-right">
-                            <a href="<?= $this->url('admin.posts.action', ['action' => 'edit', 'id' => $one->article_id]) ?>">
-                                <i class="glyphicon glyphicon-pencil"></i></a> &nbsp; 
-                            <a href="<?= $this->url('admin.posts.action', ['action' => 'delete', 'id' => $one->article_id]) ?>"
-                               onclick="if(!confirm('Are you sure?')){return false;}" class="text-danger">
-                                <i class="glyphicon glyphicon-trash"></i>
-                            </a>
-                        </span>
+                    <span class="pull-right">
+                        <a href="<?= $this->url('admin.posts.action', ['action' => 'edit', 'id' => $one->article_id]) ?>">
+                            <i class="glyphicon glyphicon-pencil"></i></a> &nbsp;
+                    </span>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -37,7 +33,6 @@
     </table>
 
     <?= $this->paginationControl($list, 'Sliding', 'admin/pagination', ['route' => 'admin.posts']) ?>
-
 <?php else: ?>
     <div class="jumbotron text-center">
         <h3>There are no posts!</h3>
