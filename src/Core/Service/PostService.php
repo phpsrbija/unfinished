@@ -4,6 +4,7 @@ namespace Core\Service;
 use Core\Mapper\ArticleMapper;
 use Core\Mapper\ArticleTagsMapper;
 use Core\Mapper\ArticlePostsMapper;
+use Core\Mapper\TagsMapper;
 use Core\Entity\ArticleType;
 use Core\Filter\ArticleFilter;
 use Core\Exception\FilterException;
@@ -41,6 +42,8 @@ class PostService implements ArticleServiceInterface
      */
     private $articleTagsMapper;
 
+    private $tagsMapper;
+
     /**
      * PostService constructor.
      *
@@ -51,13 +54,14 @@ class PostService implements ArticleServiceInterface
      * @param ArticleTagsMapper $articleTagsMapper
      */
     public function __construct(ArticleMapper $articleMapper, ArticlePostsMapper $articlePostsMapper, ArticleFilter $articleFilter,
-                                PostFilter $postFilter, ArticleTagsMapper $articleTagsMapper)
+                                PostFilter $postFilter, ArticleTagsMapper $articleTagsMapper, TagsMapper $tagsMapper)
     {
         $this->articleMapper      = $articleMapper;
         $this->articlePostsMapper = $articlePostsMapper;
         $this->articleFilter      = $articleFilter;
         $this->postFilter         = $postFilter;
         $this->articleTagsMapper  = $articleTagsMapper;
+        $this->tagsMapper         = $tagsMapper;
     }
 
     public function fetchAllArticles($page, $limit)
@@ -103,6 +107,7 @@ class PostService implements ArticleServiceInterface
             $oldPost = $this->articlePostsMapper->get($id);
             $this->articleMapper->update($article, ['article_uuid' => $oldPost->article_uuid]);
             $this->articlePostsMapper->update($post, ['article_uuid' => $oldPost->article_uuid]);
+            $this->articleTagsMapper->delete(['article_uuid' => $oldPost->article_uuid]);
             $article['article_uuid'] = $oldPost->article_uuid;
         }
         else{
@@ -115,17 +120,9 @@ class PostService implements ArticleServiceInterface
             $this->articlePostsMapper->insert($post);
         }
 
-        //delete old tags
-        $this->articleTagsMapper->delete(['article_uuid' => $article['article_uuid']]);
-
-        //insert fresh tags
         if(isset($data['tag_uuid']) && $data['tag_uuid']){
-            foreach($data['tag_uuid'] as $tagUuid){
-                $tagUuid     = (new MysqlUuid($tagUuid))->toFormat(new Binary);
-                $articleTags = ['tag_uuid' => $tagUuid, 'article_uuid' => $article['article_uuid']];
-
-                $this->articleTagsMapper->insert($articleTags);
-            }
+            $tags = $this->tagsMapper->select(['tag_id' => $data['tag_uuid']]);
+            $this->articleMapper->insertTags($tags, $article['article_uuid']);
         }
     }
 

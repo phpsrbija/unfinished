@@ -5,6 +5,7 @@ namespace Core\Factory\Service;
 use Core\Mapper\ArticleMapper;
 use Core\Mapper\ArticleTagsMapper;
 use Core\Mapper\ArticlePostsMapper;
+use Core\Mapper\TagsMapper;
 use Core\Service\PostService;
 use Core\Filter\ArticleFilter;
 use Core\Filter\PostFilter;
@@ -23,7 +24,8 @@ class PostServiceFactory
             $container->get(ArticlePostsMapper::class),
             $container->get(ArticleFilter::class),
             $container->get(PostFilter::class),
-            $container->get(ArticleTagsMapper::class)
+            $container->get(ArticleTagsMapper::class),
+            $container->get(TagsMapper::class)
         );
     }
 }
