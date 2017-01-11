@@ -83,7 +83,7 @@ class UserController extends AbstractController
         return new HtmlResponse($this->template->render('admin::user/edit', ['user' => $user]));
     }
 
-    public function doedit()
+    public function save()
     {
         try{
             $userId = $this->request->getAttribute('id');

@@ -83,7 +83,7 @@ class DiscussionController extends AbstractController
         ));
     }
 
-    public function doedit()
+    public function save()
     {
         try{
             $id   = $this->request->getAttribute('id');

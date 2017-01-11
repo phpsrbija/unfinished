@@ -45,7 +45,7 @@ class EventController extends AbstractController
         return new HtmlResponse($this->template->render('admin::event/edit', ['event' => $event]));
     }
 
-    public function doedit()
+    public function save()
     {
         try{
             $id   = $this->request->getAttribute('id');

@@ -5,7 +5,7 @@
 <?php endif; ?>
 <br/>
 
-<form action="<?= $this->url('admin.tags.action', ['action' => 'doedit', 'id' => $tag ? $tag->tag_id : 0]) ?>"
+<form action="<?= $this->url('admin.tags.action', ['action' => 'save', 'id' => $tag ? $tag->tag_id : 0]) ?>"
       method="POST">
     <div class="form-group">
         <input type="text" class="form-control" name="name" placeholder="Tag name" value="<?= $tag ? $tag->name : '' ?>">

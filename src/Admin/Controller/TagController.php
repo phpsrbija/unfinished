@@ -73,7 +73,7 @@ class TagController extends AbstractController
         return new HtmlResponse($this->template->render('admin::tag/edit', ['tag' => $tag]));
     }
 
-    public function doedit()
+    public function save()
     {
         try{
             $id   = $this->request->getAttribute('id');

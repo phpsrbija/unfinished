@@ -5,7 +5,7 @@
 <?php endif; ?>
 <br/>
 
-<form action="<?= $this->url('admin.users.action', ['action' => 'doedit', 'id' => $user ? $user->admin_user_id : 0]) ?>" method="POST">
+<form action="<?= $this->url('admin.users.action', ['action' => 'save', 'id' => $user ? $user->admin_user_id : 0]) ?>" method="POST">
     <div class="form-group">
         <input type="text" class="form-control" name="first_name" placeholder="First name" value="<?= $user ? $user->first_name : '' ?>">
     </div>

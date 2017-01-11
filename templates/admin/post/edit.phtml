@@ -5,7 +5,7 @@
 <?php endif; ?>
 <br/>
 
-<form action="<?= $this->url('admin.posts.action', ['action' => 'doedit', 'id' => $post ? $post->article_id : 0]) ?>" method="POST" class="form articleForm">
+<form action="<?= $this->url('admin.posts.action', ['action' => 'save', 'id' => $post ? $post->article_id : 0]) ?>" method="POST" class="form articleForm">
     <div class="form-group">
         <input type="text" class="form-control" placeholder="title" name="title" value="<?= $post ? $post->title : ''; ?>" />
     </div>

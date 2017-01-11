@@ -90,7 +90,7 @@ class PostController extends AbstractController
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function doedit() : \Psr\Http\Message\ResponseInterface
+    public function save() : \Psr\Http\Message\ResponseInterface
     {
         try{
             $id   = $this->request->getAttribute('id');
