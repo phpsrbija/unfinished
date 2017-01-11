@@ -40,19 +40,16 @@ class DiscussionController extends AbstractController
 
     /**
      * DiscussionController constructor.
+     *
      * @param Template $template
      * @param Router $router
      * @param DiscussionService $discussionService
      * @param SessionManager $session
      * @param TagService $tagService
      */
-    public function __construct(
-        Template $template,
-        Router $router,
-        DiscussionService $discussionService,
-        SessionManager $session,
-        TagService $tagService
-    ) {
+    public function __construct(Template $template, Router $router, DiscussionService $discussionService,
+                                SessionManager $session, TagService $tagService)
+    {
         $this->template          = $template;
         $this->router            = $router;
         $this->discussionService = $discussionService;
@@ -73,14 +70,11 @@ class DiscussionController extends AbstractController
 
     public function edit(): \Psr\Http\Message\ResponseInterface
     {
-        $id   = $this->request->getAttribute('id');
-        $post = $this->discussionService->fetchSingleArticle($id);
-        $tags = $this->tagService->getPagination(1, 50);
-
-        return new HtmlResponse($this->template->render(
-            'admin::discussion/edit',
-            ['discussion' => $post, 'tags' => $tags]
-        ));
+        $id         = $this->request->getAttribute('id');
+        $discussion = $this->discussionService->fetchSingleArticle($id);
+        $tags       = $this->tagService->getAll();
+        
+        return new HtmlResponse($this->template->render('admin::discussion/edit', ['discussion' => $discussion, 'tags' => $tags]));
     }
 
     public function save()

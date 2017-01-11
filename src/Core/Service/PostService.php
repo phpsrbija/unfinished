@@ -120,8 +120,8 @@ class PostService implements ArticleServiceInterface
             $this->articlePostsMapper->insert($post);
         }
 
-        if(isset($data['tag_uuid']) && $data['tag_uuid']){
-            $tags = $this->tagsMapper->select(['tag_id' => $data['tag_uuid']]);
+        if(isset($data['tags']) && $data['tags']){
+            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
             $this->articleMapper->insertTags($tags, $article['article_uuid']);
         }
     }
