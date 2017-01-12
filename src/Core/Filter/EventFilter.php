@@ -26,9 +26,15 @@ class EventFilter implements InputFilterAwareInterface
             ]);
 
             $inputFilter->add([
-                'name'       => 'sub_title',
-                'required'   => false,
-                'filters'    => [['name' => 'StringTrim']]
+                'name'     => 'sub_title',
+                'required' => false,
+                'filters'  => [['name' => 'StringTrim']]
+            ]);
+
+            $inputFilter->add([
+                'name'     => 'place_name',
+                'required' => true,
+                'filters'  => [['name' => 'StringTrim']]
             ]);
 
             $inputFilter->add([

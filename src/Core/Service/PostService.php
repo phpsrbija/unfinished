@@ -56,6 +56,8 @@ class PostService extends ArticleService
     public function __construct(ArticleMapper $articleMapper, ArticlePostsMapper $articlePostsMapper, ArticleFilter $articleFilter,
                                 PostFilter $postFilter, ArticleTagsMapper $articleTagsMapper, TagsMapper $tagsMapper)
     {
+        parent::__construct($articleMapper, $articleFilter);
+
         $this->articleMapper      = $articleMapper;
         $this->articlePostsMapper = $articlePostsMapper;
         $this->articleFilter      = $articleFilter;
@@ -66,14 +68,9 @@ class PostService extends ArticleService
 
     public function fetchAllArticles($page, $limit)
     {
-        $select           = $this->articlePostsMapper->getPaginationSelect();
-        $paginatorAdapter = new DbSelect($select, $this->articleMapper->getAdapter());
-        $paginator        = new Paginator($paginatorAdapter);
+        $select = $this->articlePostsMapper->getPaginationSelect();
 
-        $paginator->setCurrentPageNumber($page);
-        $paginator->setItemCountPerPage($limit);
-
-        return $paginator;
+        return $this->getPagination($select, $page, $limit);
     }
 
     public function fetchSingleArticle($articleId)
@@ -135,8 +132,7 @@ class PostService extends ArticleService
         }
 
         $this->articleTagsMapper->delete(['article_uuid' => $post->article_uuid]);
-        $this->articlePostsMapper->delete(['article_uuid' => $post->article_uuid]);
-        $this->articleMapper->delete(['article_uuid' => $post->article_uuid]);
+        $this->delete($post->article_uuid);
     }
 
 }

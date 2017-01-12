@@ -30,6 +30,8 @@ class EventService extends ArticleService
     public function __construct(ArticleMapper $articleMapper, ArticleEventsMapper $articleEventsMapper,
                                 ArticleFilter $articleFilter, EventFilter $eventFilter, TagsMapper $tagsMapper, Upload $upload)
     {
+        parent::__construct($articleMapper, $articleFilter);
+
         $this->articleMapper       = $articleMapper;
         $this->articleEventsMapper = $articleEventsMapper;
         $this->articleFilter       = $articleFilter;
@@ -40,14 +42,9 @@ class EventService extends ArticleService
 
     public function fetchAllArticles($page, $limit)
     {
-        $select           = $this->articleEventsMapper->getPaginationSelect();
-        $paginatorAdapter = new DbSelect($select, $this->articleMapper->getAdapter());
-        $paginator        = new Paginator($paginatorAdapter);
+        $select = $this->articleEventsMapper->getPaginationSelect();
 
-        $paginator->setCurrentPageNumber($page);
-        $paginator->setItemCountPerPage($limit);
-
-        return $paginator;
+        return $this->getPagination($select, $page, $limit);
     }
 
     public function fetchSingleArticle($articleId)
@@ -138,8 +135,7 @@ class EventService extends ArticleService
         }
 
         $this->articleEventsMapper->delete(['article_uuid' => $event->article_uuid]);
-        $this->articleMapper->deleteTags($event->article_uuid);
-        $this->articleMapper->delete(['article_uuid' => $event->article_uuid]);
+        $this->delete($event->article_uuid);
     }
 
 }

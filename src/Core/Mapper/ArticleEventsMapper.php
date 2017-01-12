@@ -44,7 +44,7 @@ class ArticleEventsMapper extends AbstractTableGateway implements AdapterAwareIn
     public function get($id)
     {
         $select = $this->getSql()->select()
-            ->columns(['title', 'sub_title', 'body', 'longitude', 'latitude', 'featured_img', 'main_img'])
+            ->columns(['title', 'sub_title', 'body', 'longitude', 'latitude', 'featured_img', 'main_img', 'place_name'])
             ->join('articles', 'article_events.article_uuid = articles.article_uuid')
             ->where(['articles.article_id' => $id]);
 

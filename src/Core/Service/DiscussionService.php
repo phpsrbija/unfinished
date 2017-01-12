@@ -13,8 +13,6 @@ use Core\Exception\FilterException;
 use Ramsey\Uuid\Uuid;
 use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
-use Zend\Paginator\Paginator;
-use Zend\Paginator\Adapter\DbSelect;
 
 class DiscussionService extends ArticleService
 {
@@ -28,6 +26,8 @@ class DiscussionService extends ArticleService
     public function __construct(ArticleMapper $articleMapper, ArticleDiscussionsMapper $articleDiscussionsMapper, ArticleFilter $articleFilter,
                                 DiscussionFilter $discussionFilter, ArticleTagsMapper $articleTagsMapper, TagsMapper $tagsMapper)
     {
+        parent::__construct($articleMapper, $articleFilter);
+
         $this->articleMapper            = $articleMapper;
         $this->articleDiscussionsMapper = $articleDiscussionsMapper;
         $this->articleFilter            = $articleFilter;
@@ -38,14 +38,9 @@ class DiscussionService extends ArticleService
 
     public function fetchAllArticles($page, $limit)
     {
-        $select           = $this->articleDiscussionsMapper->getPaginationSelect();
-        $paginatorAdapter = new DbSelect($select, $this->articleMapper->getAdapter());
-        $paginator        = new Paginator($paginatorAdapter);
+        $select = $this->articleDiscussionsMapper->getPaginationSelect();
 
-        $paginator->setCurrentPageNumber($page);
-        $paginator->setItemCountPerPage($limit);
-
-        return $paginator;
+        return $this->getPagination($select, $page, $limit);
     }
 
     public function fetchSingleArticle($articleId)
@@ -53,10 +48,7 @@ class DiscussionService extends ArticleService
         $discussion = $this->articleDiscussionsMapper->get($articleId);
 
         if($discussion){
-            $discussion['tags'] = [];
-            foreach($this->articleMapper->getTages($articleId) as $tag){
-                $discussion['tags'][] = $tag->tag_id;
-            }
+            $discussion['tags'] = $this->getTagIds($articleId);
         }
 
         return $discussion;
@@ -107,7 +99,6 @@ class DiscussionService extends ArticleService
         }
 
         $this->articleDiscussionsMapper->delete(['article_uuid' => $discussion->article_uuid]);
-        $this->articleMapper->deleteTags($discussion->article_uuid);
-        $this->articleMapper->delete(['article_uuid' => $discussion->article_uuid]);
+        $this->delete($discussion->article_uuid);
     }
 }

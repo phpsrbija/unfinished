@@ -21,7 +21,11 @@
     </div>
 
     <div class="form-group">
-        <input type="text" class="form-control" rows="3" placeholder="URL slug" name="slug" value="<?= $event ? $event->slug : ''; ?>">
+        <input type="text" class="form-control" placeholder="URL slug" name="slug" value="<?= $event ? $event->slug : ''; ?>">
+    </div>
+
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Place name" name="place_name" value="<?= $event ? $event->place_name : ''; ?>">
     </div>
 
     <div class="form-group">
@@ -51,7 +55,6 @@
         <input type="file" name="main_img">
         <p class="help-block">Choose image (png or gif) to be main for this event.</p>
     </div>
-
 
     <div class="form-group">
         <input type="text" class="form-control" placeholder="longitude" name="longitude" value="<?= $event ? $event->longitude : ''; ?>" />
@@ -90,3 +93,15 @@
         <?php endif; ?>
     </div>
 </form>
+
+
+<script src="/js/tinymce/tinymce.min.js"></script>
+<script src="/js/initTinyMce.js"></script>
+
+<script>
+    initMce('#body', '100%', 300, true);
+
+    $('.articleForm').on('submit', function(e) {
+        tinyMCE.triggerSave();
+    });
+</script>

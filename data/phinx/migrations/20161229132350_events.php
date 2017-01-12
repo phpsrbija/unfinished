@@ -13,6 +13,7 @@ class Events extends AbstractMigration
             ->addColumn('article_uuid', 'binary', ['limit' => 16])
             ->addColumn('title', 'text')
             ->addColumn('sub_title', 'text', ['null' => true])
+            ->addColumn('place_name', 'text')
             ->addColumn('body', 'text')
             ->addColumn('longitude', 'text')
             ->addColumn('latitude', 'text')
@@ -49,8 +50,9 @@ class Events extends AbstractMigration
                 'body'         => $faker->paragraph(15),
                 'longitude'    => $faker->longitude,
                 'latitude'     => $faker->latitude,
-                'main_img'     => 'xxx',
-                'featured_img' => 'xxx'
+                'place_name'   => $faker->sentence(1),
+                'main_img'     => '',
+                'featured_img' => ''
             ];
 
             $this->insert('articles', $article);
