@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2e5a024c9b0934f78601868c3c3eedb9",
+    "content-hash": "bdc2b072ca0cf634a28a2ea573044c53",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -817,16 +817,16 @@
         },
         {
             "name": "tasmaniski/upload-helper",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tasmaniski/upload-helper.git",
-                "reference": "59439b57a8c18fc3d53bf59b49cd491f9335930b"
+                "reference": "72429e2be99934e43df2b1a099b51d7672f92ae5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tasmaniski/upload-helper/zipball/59439b57a8c18fc3d53bf59b49cd491f9335930b",
-                "reference": "59439b57a8c18fc3d53bf59b49cd491f9335930b",
+                "url": "https://api.github.com/repos/tasmaniski/upload-helper/zipball/72429e2be99934e43df2b1a099b51d7672f92ae5",
+                "reference": "72429e2be99934e43df2b1a099b51d7672f92ae5",
                 "shasum": ""
             },
             "require": {
@@ -853,7 +853,7 @@
             "keywords": [
                 "upload helper"
             ],
-            "time": "2017-01-10T14:11:06+00:00"
+            "time": "2017-01-12T10:07:55+00:00"
         },
         {
             "name": "vend/mysql-uuid",
@@ -1339,16 +1339,16 @@
         },
         {
             "name": "zendframework/zend-expressive-template",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-template.git",
-                "reference": "2aac4050ebcf9a2c883dc23cf74671da02a66a7b"
+                "reference": "23922f96b32ab6e64fc551ec06b81fd047828765"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-template/zipball/2aac4050ebcf9a2c883dc23cf74671da02a66a7b",
-                "reference": "2aac4050ebcf9a2c883dc23cf74671da02a66a7b",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-template/zipball/23922f96b32ab6e64fc551ec06b81fd047828765",
+                "reference": "23922f96b32ab6e64fc551ec06b81fd047828765",
                 "shasum": ""
             },
             "require": {
@@ -1356,7 +1356,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.7",
-                "squizlabs/php_codesniffer": "^2.3"
+                "zendframework/zend-coding-standard": "~1.0.0"
             },
             "suggest": {
                 "zendframework/zend-expressive-platesrenderer": "^0.1 to use the Plates template renderer",
@@ -1384,7 +1384,7 @@
                 "expressive",
                 "template"
             ],
-            "time": "2016-01-28T15:44:23+00:00"
+            "time": "2017-01-11T18:42:34+00:00"
         },
         {
             "name": "zendframework/zend-expressive-zendrouter",
@@ -1442,38 +1442,38 @@
         },
         {
             "name": "zendframework/zend-expressive-zendviewrenderer",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-expressive-zendviewrenderer.git",
-                "reference": "163e684ba3772a729a5e71abc9db14fb2574971f"
+                "reference": "10dfc00405df10e74fc047e2ad31be5245ef1c13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-expressive-zendviewrenderer/zipball/163e684ba3772a729a5e71abc9db14fb2574971f",
-                "reference": "163e684ba3772a729a5e71abc9db14fb2574971f",
+                "url": "https://api.github.com/repos/zendframework/zend-expressive-zendviewrenderer/zipball/10dfc00405df10e74fc047e2ad31be5245ef1c13",
+                "reference": "10dfc00405df10e74fc047e2ad31be5245ef1c13",
                 "shasum": ""
             },
             "require": {
                 "container-interop/container-interop": "^1.1",
-                "php": "^5.5 || ^7.0",
+                "php": "^5.6 || ^7.0",
                 "psr/http-message": "^1.0",
-                "zendframework/zend-expressive-helpers": "^1.1 || ^2.0",
-                "zendframework/zend-expressive-template": "^1.0.1",
-                "zendframework/zend-filter": "^2.6.1",
-                "zendframework/zend-i18n": "^2.6",
+                "zendframework/zend-expressive-helpers": "^1.1 || ^2.2 || ^3.0",
+                "zendframework/zend-expressive-router": "^1.3.2 || ^2.0",
+                "zendframework/zend-expressive-template": "^1.0.4",
                 "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3",
-                "zendframework/zend-view": "^2.6.5"
+                "zendframework/zend-view": "^2.8.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.7",
-                "squizlabs/php_codesniffer": "^2.3"
+                "malukenho/docheader": "^0.1.5",
+                "phpunit/phpunit": "^5.7",
+                "zendframework/zend-coding-standard": "~1.0.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1-dev",
-                    "dev-develop": "1.2-dev"
+                    "dev-master": "1.2-dev",
+                    "dev-develop": "1.3-dev"
                 }
             },
             "autoload": {
@@ -1494,20 +1494,20 @@
                 "psr-7",
                 "zf2"
             ],
-            "time": "2016-03-23T17:26:10+00:00"
+            "time": "2017-01-11T21:41:29+00:00"
         },
         {
             "name": "zendframework/zend-file",
-            "version": "2.7.0",
+            "version": "2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-file.git",
-                "reference": "8936999f244011525671db8d6e35a2f2232d5060"
+                "reference": "888fd4852432ee61ffd48a66b6812387b4f83c02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-file/zipball/8936999f244011525671db8d6e35a2f2232d5060",
-                "reference": "8936999f244011525671db8d6e35a2f2232d5060",
+                "url": "https://api.github.com/repos/zendframework/zend-file/zipball/888fd4852432ee61ffd48a66b6812387b4f83c02",
+                "reference": "888fd4852432ee61ffd48a66b6812387b4f83c02",
                 "shasum": ""
             },
             "require": {
@@ -1517,6 +1517,7 @@
             "require-dev": {
                 "fabpot/php-cs-fixer": "1.7.*",
                 "phpunit/phpunit": "~4.0",
+                "zendframework/zend-coding-standard": "~1.0.0",
                 "zendframework/zend-filter": "^2.6.1",
                 "zendframework/zend-i18n": "^2.6",
                 "zendframework/zend-progressbar": "^2.5.2",
@@ -1550,7 +1551,7 @@
                 "file",
                 "zf2"
             ],
-            "time": "2016-04-28T19:21:43+00:00"
+            "time": "2017-01-11T17:07:45+00:00"
         },
         {
             "name": "zendframework/zend-filter",
