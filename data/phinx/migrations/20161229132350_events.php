@@ -4,6 +4,7 @@ use Phinx\Migration\AbstractMigration;
 use Core\Entity\ArticleType;
 use MysqlUuid\Formats\Binary;
 use MysqlUuid\Uuid;
+use UploadHelper\Upload;
 
 class Events extends AbstractMigration
 {
@@ -28,8 +29,23 @@ class Events extends AbstractMigration
             $ids[] = $r['admin_user_uuid'];
         }
 
-        $faker = Faker\Factory::create();
-        $count = rand(250, 300);
+        $faker  = Faker\Factory::create();
+        $upload = new Upload('/var/www/unfinished/public/uploads/', '/var/www/unfinished/data/uploads/');
+        $count  = rand(25, 300);
+
+        // Download N images and set it randomly to the events
+        for($i = 0; $i < 5; $i++){
+            $image       = $faker->image();
+            $destination = $upload->getPath(basename($image));
+            rename($image, $destination);
+            $mainImg[] = substr($destination, strlen('/var/www/unfinished/public'));
+
+            $image       = $faker->image();
+            $destination = $upload->getPath(basename($image));
+            rename($image, $destination);
+            $featuredImg[] = substr($destination, strlen('/var/www/unfinished/public'));
+        }
+
         for($i = 0; $i < $count; $i++){
             $id        = $faker->uuid;
             $mysqluuid = (new Uuid($id))->toFormat(new Binary());
@@ -51,8 +67,8 @@ class Events extends AbstractMigration
                 'longitude'    => $faker->longitude,
                 'latitude'     => $faker->latitude,
                 'place_name'   => $faker->sentence(1),
-                'main_img'     => '',
-                'featured_img' => ''
+                'main_img'     => $mainImg[array_rand($mainImg)],
+                'featured_img' => $featuredImg[array_rand($featuredImg)]
             ];
 
             $this->insert('articles', $article);
