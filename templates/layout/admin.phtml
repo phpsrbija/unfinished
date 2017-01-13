@@ -5,6 +5,8 @@ $this->headLink()
     ->prependStylesheet('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
 
 $this->inlineScript()
+    ->prependFile('/js/initTinyMce.js')
+    ->prependFile('/js/tinymce/tinymce.min.js')
     ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
     ->prependFile('https://code.jquery.com/jquery-3.1.0.slim.min.js');
 ?>
@@ -30,7 +32,7 @@ $this->inlineScript()
                 <li><a href="<?= $this->url('admin') ?>">Dashboard</a></li>
                 <li><a href="<?= $this->url('admin.posts') ?>">Posts</a></li>
                 <li><a href="<?= $this->url('admin.events') ?>">Events</a></li>
-                <li><a href="<?= $this->url('admin') ?>">Videos</a></li>
+                <li><a href="<?= $this->url('admin.videos') ?>">Videos</a></li>
                 <li><a href="<?= $this->url('admin.discussions') ?>">Discussions</a></li>
                 <li><a href="<?= $this->url('admin.tags') ?>">Tags</a></li>
                 <li><a href="<?= $this->url('admin.users') ?>">Users</a></li>

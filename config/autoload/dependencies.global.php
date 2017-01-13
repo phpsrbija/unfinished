@@ -23,6 +23,7 @@ return [
             Core\Service\PostService::class                           => Core\Factory\Service\PostServiceFactory::class,
             Core\Service\DiscussionService::class                     => Core\Factory\Service\DiscussionServiceFactory::class,
             Core\Service\EventService::class                          => Core\Factory\Service\EventServiceFactory::class,
+            Core\Service\VideoService::class                          => Core\Factory\Service\VideoServiceFactory::class,
 
             // Mappers
             Core\Mapper\AdminUsersMapper::class                       => Core\Factory\MapperFactory::class,
@@ -32,6 +33,7 @@ return [
             Core\Mapper\ArticleDiscussionsMapper::class               => Core\Factory\MapperFactory::class,
             Core\Mapper\ArticleTagsMapper::class                      => Core\Factory\MapperFactory::class,
             Core\Mapper\ArticleEventsMapper::class                    => Core\Factory\MapperFactory::class,
+            Core\Mapper\ArticleVideosMapper::class                    => Core\Factory\MapperFactory::class,
 
             // Filters
             Core\Filter\TagFilter::class                              => InvokableFactory::class,
@@ -40,6 +42,7 @@ return [
             Core\Filter\PostFilter::class                             => InvokableFactory::class,
             Core\Filter\DiscussionFilter::class                       => InvokableFactory::class,
             Core\Filter\EventFilter::class                            => InvokableFactory::class,
+            Core\Filter\VideoFilter::class                            => InvokableFactory::class,
         ],
     ],
 ];
