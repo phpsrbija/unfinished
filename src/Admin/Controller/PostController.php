@@ -9,6 +9,7 @@ use Core\Service\TagService;
 use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Core\Exception\FilterException;
+use Zend\Http\PhpEnvironment\Request;
 
 class PostController extends AbstractController
 {
@@ -86,7 +87,10 @@ class PostController extends AbstractController
     }
 
     /**
-     * Add/Edit  article action
+     * Add/Edit article action
+     *
+     * @throws FilterException if filter fails
+     * @throws \Exception
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -94,8 +98,9 @@ class PostController extends AbstractController
     {
         try{
             $id   = $this->request->getAttribute('id');
-            $data = $this->request->getParsedBody();
             $user = $this->session->getStorage()->user;
+            $data = $this->request->getParsedBody();
+            $data += (new Request())->getFiles()->toArray();
 
             $this->postService->saveArticle($user, $data, $id);
         }
@@ -110,6 +115,12 @@ class PostController extends AbstractController
         return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.posts'));
     }
 
+    /**
+     * Delete post by id.
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     * @throws \Exception
+     */
     public function delete() : \Psr\Http\Message\ResponseInterface
     {
         try{

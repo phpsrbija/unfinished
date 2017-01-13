@@ -4,6 +4,7 @@ use Phinx\Migration\AbstractMigration;
 use MysqlUuid\Formats\Binary;
 use MysqlUuid\Uuid;
 use Core\Entity\ArticleType;
+use UploadHelper\Upload;
 
 class Posts extends AbstractMigration
 {
@@ -14,6 +15,8 @@ class Posts extends AbstractMigration
             ->addColumn('title', 'text')
             ->addColumn('body', 'text')
             ->addColumn('lead', 'text')
+            ->addColumn('featured_img', 'text', ['null' => true])
+            ->addColumn('main_img', 'text', ['null' => true])
             ->addForeignKey('article_uuid', 'articles', 'article_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->create();
 
@@ -23,8 +26,23 @@ class Posts extends AbstractMigration
             $ids[] = $r['admin_user_uuid'];
         }
 
-        $faker = Faker\Factory::create();
-        $count = rand(250, 300);
+        $faker  = Faker\Factory::create();
+        $upload = new Upload('/var/www/unfinished/public/uploads/', '/var/www/unfinished/data/uploads/');
+        $count  = rand(25, 300);
+
+        // Download N images and set it randomly to posts
+        for($i = 0; $i < 5; $i++){
+            $image       = $faker->image();
+            $destination = $upload->getPath(basename($image));
+            rename($image, $destination);
+            $mainImg[] = substr($destination, strlen('/var/www/unfinished/public'));
+
+            $image       = $faker->image();
+            $destination = $upload->getPath(basename($image));
+            rename($image, $destination);
+            $featuredImg[] = substr($destination, strlen('/var/www/unfinished/public'));
+        }
+
         for($i = 0; $i < $count; $i++){
             $id        = $faker->uuid;
             $mysqluuid = (new Uuid($id))->toFormat(new Binary());
@@ -43,7 +61,9 @@ class Posts extends AbstractMigration
                 'article_uuid' => $mysqluuid,
                 'title'        => $title,
                 'body'         => $faker->paragraph(15),
-                'lead'         => $faker->paragraph(5)
+                'lead'         => $faker->paragraph(5),
+                'main_img'     => $mainImg[array_rand($mainImg)],
+                'featured_img' => $featuredImg[array_rand($featuredImg)]
             ];
 
             $this->insert('articles', $article);
