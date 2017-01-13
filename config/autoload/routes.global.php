@@ -15,9 +15,9 @@ return [
             Admin\Controller\UserController::class       => Admin\Factory\Controller\UserFactory::class,
             Admin\Controller\TagController::class        => Admin\Factory\Controller\TagFactory::class,
             Admin\Controller\PostController::class       => Admin\Factory\Controller\PostFactory::class,
-            Admin\Controller\ArticleController::class    => Admin\Factory\Controller\ArticleFactory::class,
             Admin\Controller\DiscussionController::class => Admin\Factory\Controller\DiscussionFactory::class,
             Admin\Controller\EventController::class      => Admin\Factory\Controller\EventFactory::class,
+            Admin\Controller\VideoController::class      => Admin\Factory\Controller\VideoFactory::class,
 
             // Db
             Zend\Db\Adapter\AdapterInterface::class      => Zend\Db\Adapter\AdapterServiceFactory::class,
@@ -126,6 +126,18 @@ return [
             'name'            => 'admin.events.action',
             'path'            => '/admin/events/:action/:id',
             'middleware'      => Admin\Controller\EventController::class,
+            'allowed_methods' => ['GET', 'POST']
+        ],
+        [
+            'name'            => 'admin.videos',
+            'path'            => '/admin/videos',
+            'middleware'      => Admin\Controller\VideoController::class,
+            'allowed_methods' => ['GET', 'POST']
+        ],
+        [
+            'name'            => 'admin.videos.action',
+            'path'            => '/admin/videos/:action/:id',
+            'middleware'      => Admin\Controller\VideoController::class,
             'allowed_methods' => ['GET', 'POST']
         ]
     ],

@@ -8,16 +8,16 @@ use Zend\Db\TableGateway\AbstractTableGateway;
 use Core\Entity\ArticleType;
 
 /**
- * Class ArticlePostsMapper.
+ * Class ArticleVideosMapper.
  *
  * @package Core\Mapper
  */
-class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInterface
+class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareInterface
 {
     /**
      * @var string
      */
-    protected $table = 'article_posts';
+    protected $table = 'article_videos';
 
     /**
      * Db adapter setter method,
@@ -34,7 +34,7 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
     {
         return $this->getSql()->select()
             ->columns(['title', 'body', 'lead'])
-            ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
+            ->join('articles', 'article_videos.article_uuid = articles.article_uuid')
             ->where(['articles.type' => ArticleType::POST])
             ->order(['created_at' => 'desc']);
     }
@@ -42,8 +42,8 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
     public function get($id)
     {
         $select = $this->getSql()->select()
-            ->columns(['title', 'body', 'lead', 'featured_img', 'main_img'])
-            ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
+            ->columns(['title', 'body', 'lead', 'featured_img', 'main_img', 'embed_code'])
+            ->join('articles', 'article_videos.article_uuid = articles.article_uuid')
             ->where(['articles.article_id' => $id]);
 
         return $this->selectWith($select)->current();

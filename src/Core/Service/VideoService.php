@@ -4,19 +4,18 @@ namespace Core\Service;
 
 use Core\Mapper\ArticleMapper;
 use Core\Mapper\ArticleTagsMapper;
-use Core\Mapper\ArticlePostsMapper;
+use Core\Mapper\ArticleVideosMapper;
 use Core\Mapper\TagsMapper;
 use Core\Entity\ArticleType;
 use Core\Filter\ArticleFilter;
 use Core\Exception\FilterException;
-use Core\Filter\PostFilter;
+use Core\Filter\VideoFilter;
 use Ramsey\Uuid\Uuid;
 use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
 use UploadHelper\Upload;
-use Zend\Paginator\Paginator;
 
-class PostService extends ArticleService
+class VideoService extends ArticleService
 {
     /**
      * @var ArticleMapper
@@ -24,9 +23,9 @@ class PostService extends ArticleService
     private $articleMapper;
 
     /**
-     * @var ArticlePostsMapper
+     * @var ArticleVideosMapper
      */
-    private $articlePostsMapper;
+    private $articleVideosMapper;
 
     /**
      * @var ArticleFilter
@@ -34,9 +33,9 @@ class PostService extends ArticleService
     private $articleFilter;
 
     /**
-     * @var PostFilter
+     * @var VideoFilter
      */
-    private $postFilter;
+    private $videosFilter;
 
     /**
      * @var ArticleTagsMapper
@@ -54,46 +53,46 @@ class PostService extends ArticleService
     private $upload;
 
     /**
-     * PostService constructor.
+     * VideosService constructor.
      *
      * @param ArticleMapper $articleMapper
-     * @param ArticlePostsMapper $articlePostsMapper
+     * @param ArticleVideosMapper $articleVideosMapper
      * @param ArticleFilter $articleFilter
-     * @param PostFilter $postFilter
+     * @param VideoFilter $videosFilter
      * @param ArticleTagsMapper $articleTagsMapper
      * @param TagsMapper $tagsMapper
      * @param Upload $upload
      */
     public function __construct(
         ArticleMapper $articleMapper,
-        ArticlePostsMapper $articlePostsMapper,
+        ArticleVideosMapper $articleVideosMapper,
         ArticleFilter $articleFilter,
-        PostFilter $postFilter,
+        VideoFilter $videosFilter,
         ArticleTagsMapper $articleTagsMapper,
         TagsMapper $tagsMapper,
         Upload $upload
     ) {
         parent::__construct($articleMapper, $articleFilter);
 
-        $this->articleMapper      = $articleMapper;
-        $this->articlePostsMapper = $articlePostsMapper;
-        $this->articleFilter      = $articleFilter;
-        $this->postFilter         = $postFilter;
-        $this->articleTagsMapper  = $articleTagsMapper;
-        $this->tagsMapper         = $tagsMapper;
-        $this->upload             = $upload;
+        $this->articleMapper       = $articleMapper;
+        $this->articleVideosMapper = $articleVideosMapper;
+        $this->articleFilter       = $articleFilter;
+        $this->videosFilter        = $videosFilter;
+        $this->articleTagsMapper   = $articleTagsMapper;
+        $this->tagsMapper          = $tagsMapper;
+        $this->upload              = $upload;
     }
 
-    public function fetchAllArticles($page, $limit) : Paginator
+    public function fetchAllArticles($page, $limit)
     {
-        $select = $this->articlePostsMapper->getPaginationSelect();
+        $select = $this->articleVideosMapper->getPaginationSelect();
 
         return $this->getPagination($select, $page, $limit);
     }
 
     public function fetchSingleArticle($articleId)
     {
-        $article = $this->articlePostsMapper->get($articleId);
+        $article = $this->articleVideosMapper->get($articleId);
 
         if($article){
             $article['tags'] = [];
@@ -108,14 +107,14 @@ class PostService extends ArticleService
     public function saveArticle($user, $data, $id = null)
     {
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
-        $postFilter    = $this->postFilter->getInputFilter()->setData($data);
+        $videosFilter    = $this->videosFilter->getInputFilter()->setData($data);
 
-        if (!$articleFilter->isValid() || !$postFilter->isValid()) {
-            throw new FilterException($articleFilter->getMessages() + $postFilter->getMessages());
+        if (!$articleFilter->isValid() || !$videosFilter->isValid()) {
+            throw new FilterException($articleFilter->getMessages() + $videosFilter->getMessages());
         }
 
         $article                    = $articleFilter->getValues();
-        $post                       = $postFilter->getValues();
+        $videos                       = $videosFilter->getValues();
         $article['admin_user_uuid'] = $user->admin_user_uuid;
 
         if ($data['featured_img']['name']) {
@@ -123,7 +122,7 @@ class PostService extends ArticleService
             $name  = $this->upload->uploadFile($image, 'featured_img');
             $path  = $this->upload->getWebPath($name);
 
-            $post['featured_img'] = $path;
+            $videos['featured_img'] = $path;
         } else {
             unset($data['featured_img']);
         }
@@ -133,25 +132,25 @@ class PostService extends ArticleService
             $name  = $this->upload->uploadFile($image, 'main_img');
             $path  = $this->upload->getWebPath($name);
 
-            $post['main_img'] = $path;
+            $videos['main_img'] = $path;
         } else {
             unset($data['main_img']);
         }
 
         if ($id) {
-            $oldPost = $this->articlePostsMapper->get($id);
-            $this->articleMapper->update($article, ['article_uuid' => $oldPost->article_uuid]);
-            $this->articlePostsMapper->update($post, ['article_uuid' => $oldPost->article_uuid]);
-            $this->articleTagsMapper->delete(['article_uuid' => $oldPost->article_uuid]);
-            $article['article_uuid'] = $oldPost->article_uuid;
+            $oldVideos = $this->articleVideosMapper->get($id);
+            $this->articleMapper->update($article, ['article_uuid' => $oldVideos->article_uuid]);
+            $this->articleVideosMapper->update($videos, ['article_uuid' => $oldVideos->article_uuid]);
+            $this->articleTagsMapper->delete(['article_uuid' => $oldVideos->article_uuid]);
+            $article['article_uuid'] = $oldVideos->article_uuid;
         } else {
             $article['type']         = ArticleType::POST;
             $article['article_id']   = Uuid::uuid1()->toString();
             $article['article_uuid'] = (new MysqlUuid($article['article_id']))->toFormat(new Binary);
-            $post['article_uuid']    = $article['article_uuid'];
+            $videos['article_uuid']    = $article['article_uuid'];
 
             $this->articleMapper->insert($article);
-            $this->articlePostsMapper->insert($post);
+            $this->articleVideosMapper->insert($videos);
         }
 
         if(isset($data['tags']) && $data['tags']){
@@ -162,14 +161,14 @@ class PostService extends ArticleService
 
     public function deleteArticle($id)
     {
-        $post = $this->articlePostsMapper->get($id);
+        $videos = $this->articleVideosMapper->get($id);
 
-        if(!$post){
+        if(!$videos){
             throw new \Exception('Article not found!');
         }
 
-        $this->articleTagsMapper->delete(['article_uuid' => $post->article_uuid]);
-        $this->delete($post->article_uuid);
+        $this->articleTagsMapper->delete(['article_uuid' => $videos->article_uuid]);
+        $this->delete($videos->article_uuid);
     }
 
 }
