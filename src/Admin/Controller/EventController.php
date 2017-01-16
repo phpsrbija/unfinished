@@ -65,7 +65,7 @@ class EventController extends AbstractController
             }
         }
         catch(FilterException $fe){
-            var_dump($fe->getArrayMessages());
+            $messages = $fe->getArrayMessages();
             throw $fe;
         }
         catch(\Exception $e){

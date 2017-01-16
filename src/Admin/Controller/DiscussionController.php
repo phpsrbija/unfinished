@@ -73,7 +73,7 @@ class DiscussionController extends AbstractController
         $id         = $this->request->getAttribute('id');
         $discussion = $this->discussionService->fetchSingleArticle($id);
         $tags       = $this->tagService->getAll();
-        
+
         return new HtmlResponse($this->template->render('admin::discussion/edit', ['discussion' => $discussion, 'tags' => $tags]));
     }
 
@@ -87,7 +87,7 @@ class DiscussionController extends AbstractController
             $this->discussionService->saveArticle($user, $data, $id);
         }
         catch(FilterException $fe){
-            var_dump($fe->getArrayMessages());
+            $messages = $fe->getArrayMessages();
             throw $fe;
         }
         catch(\Exception $e){

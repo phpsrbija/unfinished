@@ -94,7 +94,7 @@ class UserController extends AbstractController
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.users'));
         }
         catch(FilterException $fe){
-            var_dump($fe->getArrayMessages());
+            $messages = $fe->getArrayMessages();
             throw $fe;
         }
         catch(\Exception $e){

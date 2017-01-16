@@ -105,7 +105,7 @@ class VideoController extends AbstractController
             $this->videoService->saveArticle($user, $data, $id);
         }
         catch(FilterException $fe){
-            var_dump($fe->getArrayMessages());
+            $messages = $fe->getArrayMessages();
             throw $fe;
         }
         catch(\Exception $e){
