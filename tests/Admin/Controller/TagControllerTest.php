@@ -12,7 +12,15 @@ class TagControllerTest extends \PHPUnit_Framework_TestCase
         $template->expects(static::once())
             ->method('render')
             ->will(static::returnValue('test'));
-        $tagController = new \Admin\Controller\TagController($template);
-        static::assertInstanceOf(\Zend\Diactoros\Response\HtmlResponse::class, $tagController->index());
+        $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
+            ->getMockForAbstractClass();
+        $tagService = $this->getMockBuilder(\Core\Service\TagService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $request = new \Zend\Diactoros\ServerRequest();
+        $request = $request->withAttribute('action', 'index');
+        $response = new \Zend\Diactoros\Response();
+        $tagController = new \Admin\Controller\TagController($template, $router, $tagService);
+        static::assertInstanceOf(\Zend\Diactoros\Response\HtmlResponse::class, $tagController($request, $response));
     }
 }
