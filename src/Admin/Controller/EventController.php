@@ -55,9 +55,14 @@ class EventController extends AbstractController
             $id   = $this->request->getAttribute('id');
             $user = $this->session->getStorage()->user;
             $data = $this->request->getParsedBody();
-            $data += (new Request())->getFiles()->toArray();           //$this->request->getUploadedFiles();
+            $data += (new Request())->getFiles()->toArray();
 
-            $this->eventService->saveArticle($user, $data, $id);
+            if($id){
+                $this->eventService->updateArticle($data, $id);
+            }
+            else{
+                $this->eventService->createArticle($user, $data);
+            }
         }
         catch(FilterException $fe){
             var_dump($fe->getArrayMessages());
