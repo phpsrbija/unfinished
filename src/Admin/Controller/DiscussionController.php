@@ -84,7 +84,13 @@ class DiscussionController extends AbstractController
             $data = $this->request->getParsedBody();
             $user = $this->session->getStorage()->user;
 
-            $this->discussionService->saveArticle($user, $data, $id);
+            if($id){
+                $this->discussionService->updateArticle($data, $id);
+            }
+            else{
+                $this->discussionService->createArticle($user, $data);
+            }
+
         }
         catch(FilterException $fe){
             $messages = $fe->getArrayMessages();

@@ -56,6 +56,11 @@ class DiscussionService extends ArticleService
 
     public function saveArticle($user, $data, $id = null)
     {
+        throw new \Exception('Depracticated!');
+    }
+
+    public function createArticle($user, $data)
+    {
         $articleFilter    = $this->articleFilter->getInputFilter()->setData($data);
         $discussionFilter = $this->discussionFilter->getInputFilter()->setData($data);
 
@@ -63,26 +68,43 @@ class DiscussionService extends ArticleService
             throw new FilterException($articleFilter->getMessages() + $discussionFilter->getMessages());
         }
 
-        $article                    = $articleFilter->getValues();
-        $discussion                 = $discussionFilter->getValues();
-        $article['admin_user_uuid'] = $user->admin_user_uuid;
+        $id   = Uuid::uuid1()->toString();
+        $uuId = (new MysqlUuid($id))->toFormat(new Binary);
 
-        if($id){
-            $old = $this->articleDiscussionsMapper->get($id);
-            $this->articleMapper->update($article, ['article_uuid' => $old->article_uuid]);
-            $this->articleDiscussionsMapper->update($discussion, ['article_uuid' => $old->article_uuid]);
-            $this->articleTagsMapper->delete(['article_uuid' => $old->article_uuid]);
-            $article['article_uuid'] = $old->article_uuid;
-        }
-        else{
-            $article['type']            = ArticleType::DISCUSSION;
-            $article['article_id']      = Uuid::uuid1()->toString();
-            $article['article_uuid']    = (new MysqlUuid($article['article_id']))->toFormat(new Binary);
-            $discussion['article_uuid'] = $article['article_uuid'];
+        $article = $articleFilter->getValues() + [
+                'admin_user_uuid' => $user->admin_user_uuid,
+                'type'            => ArticleType::DISCUSSION,
+                'article_id'      => $id,
+                'article_uuid'    => $uuId
+            ];
 
-            $this->articleMapper->insert($article);
-            $this->articleDiscussionsMapper->insert($discussion);
+        $discussion = $discussionFilter->getValues() + ['article_uuid' => $uuId];
+
+        $this->articleMapper->insert($article);
+        $this->articleDiscussionsMapper->insert($discussion);
+
+        if(isset($data['tags'])){
+            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
+            $this->articleMapper->insertTags($tags, $article['article_uuid']);
         }
+    }
+
+    public function updateArticle($data, $id)
+    {
+        $article          = $this->articleDiscussionsMapper->get($id);
+        $articleFilter    = $this->articleFilter->getInputFilter()->setData($data);
+        $discussionFilter = $this->discussionFilter->getInputFilter()->setData($data);
+
+        if(!$articleFilter->isValid() || !$discussionFilter->isValid()){
+            throw new FilterException($articleFilter->getMessages() + $discussionFilter->getMessages());
+        }
+
+        $article    = $articleFilter->getValues() + ['article_uuid' => $article->article_uuid];
+        $discussion = $discussionFilter->getValues();
+
+        $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
+        $this->articleDiscussionsMapper->update($discussion, ['article_uuid' => $article['article_uuid']]);
+        $this->articleTagsMapper->delete(['article_uuid' => $article['article_uuid']]);
 
         if(isset($data['tags'])){
             $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
