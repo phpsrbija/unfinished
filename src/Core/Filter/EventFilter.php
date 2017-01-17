@@ -48,6 +48,20 @@ class EventFilter implements InputFilterAwareInterface
             ]);
 
             $inputFilter->add([
+                'name'       => 'start_at',
+                'required'   => true,
+                'filters'    => [['name' => 'StringTrim']],
+                'validators' => [['name' => 'NotEmpty'], ['name' => 'Date', 'options' => ['format' => 'Y-m-d H:i:s']]]
+            ]);
+
+            $inputFilter->add([
+                'name'       => 'end_at',
+                'required'   => true,
+                'filters'    => [['name' => 'StringTrim']],
+                'validators' => [['name' => 'NotEmpty'], ['name' => 'Date', 'options' => ['format' => 'Y-m-d H:i:s']]]
+            ]);
+
+            $inputFilter->add([
                 'name'       => 'longitude',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],

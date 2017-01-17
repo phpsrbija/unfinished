@@ -20,6 +20,8 @@ class Events extends AbstractMigration
             ->addColumn('latitude', 'text')
             ->addColumn('featured_img', 'text', ['null' => true])
             ->addColumn('main_img', 'text', ['null' => true])
+            ->addColumn('start_at', 'datetime')
+            ->addColumn('end_at', 'datetime')
             ->addForeignKey('article_uuid', 'articles', 'article_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->create();
 
@@ -47,6 +49,7 @@ class Events extends AbstractMigration
         }
 
         for($i = 0; $i < $count; $i++){
+            $start     = rand(1, 20);
             $id        = $faker->uuid;
             $mysqluuid = (new Uuid($id))->toFormat(new Binary());
             $title     = $faker->sentence(5, 15);
@@ -68,7 +71,9 @@ class Events extends AbstractMigration
                 'latitude'     => $faker->latitude,
                 'place_name'   => $faker->sentence(1),
                 'main_img'     => $mainImg[array_rand($mainImg)],
-                'featured_img' => $featuredImg[array_rand($featuredImg)]
+                'featured_img' => $featuredImg[array_rand($featuredImg)],
+                'start_at'     => date("Y-m-d H:i:s", strtotime("+$start  day +$start hours")),
+                'end_at'       => date("Y-m-d H:i:s", strtotime("+$start  day +" . ($start + rand(1, 5)) . " hours"))
             ];
 
             $this->insert('articles', $article);
