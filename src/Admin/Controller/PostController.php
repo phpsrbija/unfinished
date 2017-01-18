@@ -102,7 +102,6 @@ class PostController extends AbstractController
             $data = $this->request->getParsedBody();
             $data += (new Request())->getFiles()->toArray();
 
-            //$this->postService->saveArticle($user, $data, $id);
             if($id){
                 $this->postService->updateArticle($data, $id);
             }

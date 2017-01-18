@@ -102,7 +102,12 @@ class VideoController extends AbstractController
             $data = $this->request->getParsedBody();
             $data += (new Request())->getFiles()->toArray();
 
-            $this->videoService->saveArticle($user, $data, $id);
+            if($id){
+                $this->videoService->updateArticle($data, $id);
+            }
+            else{
+                $this->videoService->createArticle($user, $data);
+            }
         }
         catch(FilterException $fe){
             $messages = $fe->getArrayMessages();

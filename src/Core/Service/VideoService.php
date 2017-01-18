@@ -71,7 +71,8 @@ class VideoService extends ArticleService
         ArticleTagsMapper $articleTagsMapper,
         TagsMapper $tagsMapper,
         Upload $upload
-    ) {
+    )
+    {
         parent::__construct($articleMapper, $articleFilter);
 
         $this->articleMapper       = $articleMapper;
@@ -106,52 +107,71 @@ class VideoService extends ArticleService
 
     public function saveArticle($user, $data, $id = null)
     {
-        $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
-        $videosFilter    = $this->videosFilter->getInputFilter()->setData($data);
+        throw new \Exception('Depracticated');
+    }
 
-        if (!$articleFilter->isValid() || !$videosFilter->isValid()) {
+    public function createArticle($user, $data)
+    {
+        $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
+        $videosFilter  = $this->videosFilter->getInputFilter()->setData($data);
+
+        if(!$articleFilter->isValid() || !$videosFilter->isValid()){
             throw new FilterException($articleFilter->getMessages() + $videosFilter->getMessages());
         }
 
-        $article                    = $articleFilter->getValues();
-        $videos                       = $videosFilter->getValues();
-        $article['admin_user_uuid'] = $user->admin_user_uuid;
+        $id   = Uuid::uuid1()->toString();
+        $uuId = (new MysqlUuid($id))->toFormat(new Binary);
 
-        if ($data['featured_img']['name']) {
-            $image = $this->upload->filterImage($data, 'featured_img');
-            $name  = $this->upload->uploadFile($image, 'featured_img');
-            $path  = $this->upload->getWebPath($name);
+        $article = $articleFilter->getValues() + [
+                'admin_user_uuid' => $user->admin_user_uuid,
+                'type'            => ArticleType::POST,
+                'article_id'      => $id,
+                'article_uuid'    => $uuId
+            ];
 
-            $videos['featured_img'] = $path;
-        } else {
-            unset($data['featured_img']);
+        $videos = $videosFilter->getValues() + [
+                'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
+                'main_img'     => $this->upload->uploadImage($data, 'main_img'),
+                'article_uuid' => $uuId
+            ];
+
+        $this->articleMapper->insert($article);
+        $this->articleVideosMapper->insert($videos);
+
+        if(isset($data['tags']) && $data['tags']){
+            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
+            $this->articleMapper->insertTags($tags, $article['article_uuid']);
+        }
+    }
+
+    public function updateArticle($data, $id)
+    {
+        $article       = $this->articleVideosMapper->get($id);
+        $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
+        $videosFilter  = $this->videosFilter->getInputFilter()->setData($data);
+
+        if(!$articleFilter->isValid() || !$videosFilter->isValid()){
+            throw new FilterException($articleFilter->getMessages() + $videosFilter->getMessages());
         }
 
-        if ($data['main_img']['name']) {
-            $image = $this->upload->filterImage($data, 'main_img');
-            $name  = $this->upload->uploadFile($image, 'main_img');
-            $path  = $this->upload->getWebPath($name);
+        $article = $articleFilter->getValues() + ['article_uuid' => $article->article_uuid];
+        $videos  = $videosFilter->getValues() + [
+                'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
+                'main_img'     => $this->upload->uploadImage($data, 'main_img')
+            ];
 
-            $videos['main_img'] = $path;
-        } else {
-            unset($data['main_img']);
+        // We dont want to force user to re-upload image on edit
+        if(!$videos['featured_img']){
+            unset($videos['featured_img']);
         }
 
-        if ($id) {
-            $oldVideos = $this->articleVideosMapper->get($id);
-            $this->articleMapper->update($article, ['article_uuid' => $oldVideos->article_uuid]);
-            $this->articleVideosMapper->update($videos, ['article_uuid' => $oldVideos->article_uuid]);
-            $this->articleTagsMapper->delete(['article_uuid' => $oldVideos->article_uuid]);
-            $article['article_uuid'] = $oldVideos->article_uuid;
-        } else {
-            $article['type']         = ArticleType::POST;
-            $article['article_id']   = Uuid::uuid1()->toString();
-            $article['article_uuid'] = (new MysqlUuid($article['article_id']))->toFormat(new Binary);
-            $videos['article_uuid']    = $article['article_uuid'];
-
-            $this->articleMapper->insert($article);
-            $this->articleVideosMapper->insert($videos);
+        if(!$videos['main_img']){
+            unset($videos['main_img']);
         }
+
+        $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
+        $this->articleVideosMapper->update($videos, ['article_uuid' => $article['article_uuid']]);
+        $this->articleTagsMapper->delete(['article_uuid' => $article['article_uuid']]);
 
         if(isset($data['tags']) && $data['tags']){
             $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
@@ -161,14 +181,14 @@ class VideoService extends ArticleService
 
     public function deleteArticle($id)
     {
-        $videos = $this->articleVideosMapper->get($id);
+        $video = $this->articleVideosMapper->get($id);
 
-        if(!$videos){
+        if(!$video){
             throw new \Exception('Article not found!');
         }
 
-        $this->articleTagsMapper->delete(['article_uuid' => $videos->article_uuid]);
-        $this->delete($videos->article_uuid);
+        $this->articleVideosMapper->delete(['article_uuid' => $video->article_uuid]);
+        $this->delete($video->article_uuid);
     }
 
 }
