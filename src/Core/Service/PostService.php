@@ -64,15 +64,10 @@ class PostService extends ArticleService
      * @param TagsMapper $tagsMapper
      * @param Upload $upload
      */
-    public function __construct(
-        ArticleMapper $articleMapper,
-        ArticlePostsMapper $articlePostsMapper,
-        ArticleFilter $articleFilter,
-        PostFilter $postFilter,
-        ArticleTagsMapper $articleTagsMapper,
-        TagsMapper $tagsMapper,
-        Upload $upload
-    ) {
+    public function __construct(ArticleMapper $articleMapper, ArticlePostsMapper $articlePostsMapper, ArticleFilter $articleFilter,
+        PostFilter $postFilter, ArticleTagsMapper $articleTagsMapper, TagsMapper $tagsMapper, Upload $upload
+    )
+    {
         parent::__construct($articleMapper, $articleFilter);
 
         $this->articleMapper      = $articleMapper;
@@ -107,52 +102,71 @@ class PostService extends ArticleService
 
     public function saveArticle($user, $data, $id = null)
     {
+        throw new \Exception('Depracticated!');
+    }
+
+    public function createArticle($user, $data)
+    {
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
         $postFilter    = $this->postFilter->getInputFilter()->setData($data);
 
-        if (!$articleFilter->isValid() || !$postFilter->isValid()) {
+        if(!$articleFilter->isValid() || !$postFilter->isValid()){
             throw new FilterException($articleFilter->getMessages() + $postFilter->getMessages());
         }
 
-        $article                    = $articleFilter->getValues();
-        $post                       = $postFilter->getValues();
-        $article['admin_user_uuid'] = $user->admin_user_uuid;
+        $id   = Uuid::uuid1()->toString();
+        $uuId = (new MysqlUuid($id))->toFormat(new Binary);
 
-        if ($data['featured_img']['name']) {
-            $image = $this->upload->filterImage($data, 'featured_img');
-            $name  = $this->upload->uploadFile($image, 'featured_img');
-            $path  = $this->upload->getWebPath($name);
+        $article = $articleFilter->getValues() + [
+                'admin_user_uuid' => $user->admin_user_uuid,
+                'type'            => ArticleType::POST,
+                'article_id'      => $id,
+                'article_uuid'    => $uuId
+            ];
 
-            $post['featured_img'] = $path;
-        } else {
-            unset($data['featured_img']);
+        $post = $postFilter->getValues() + [
+                'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
+                'main_img'     => $this->upload->uploadImage($data, 'main_img'),
+                'article_uuid' => $article['article_uuid']
+            ];
+
+        $this->articleMapper->insert($article);
+        $this->articlePostsMapper->insert($post);
+
+        if(isset($data['tags']) && $data['tags']){
+            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
+            $this->articleMapper->insertTags($tags, $article['article_uuid']);
+        }
+    }
+
+    public function updateArticle($data, $id)
+    {
+        $article       = $this->articlePostsMapper->get($id);
+        $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
+        $postFilter    = $this->postFilter->getInputFilter()->setData($data);
+
+        if(!$articleFilter->isValid() || !$postFilter->isValid()){
+            throw new FilterException($articleFilter->getMessages() + $postFilter->getMessages());
         }
 
-        if ($data['main_img']['name']) {
-            $image = $this->upload->filterImage($data, 'main_img');
-            $name  = $this->upload->uploadFile($image, 'main_img');
-            $path  = $this->upload->getWebPath($name);
+        $article = $articleFilter->getValues() + ['article_uuid' => $article->article_uuid];
+        $post    = $postFilter->getValues() + [
+                'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
+                'main_img'     => $this->upload->uploadImage($data, 'main_img')
+            ];
 
-            $post['main_img'] = $path;
-        } else {
-            unset($data['main_img']);
+        // We dont want to force user to re-upload image on edit
+        if(!$post['featured_img']){
+            unset($post['featured_img']);
         }
 
-        if ($id) {
-            $oldPost = $this->articlePostsMapper->get($id);
-            $this->articleMapper->update($article, ['article_uuid' => $oldPost->article_uuid]);
-            $this->articlePostsMapper->update($post, ['article_uuid' => $oldPost->article_uuid]);
-            $this->articleTagsMapper->delete(['article_uuid' => $oldPost->article_uuid]);
-            $article['article_uuid'] = $oldPost->article_uuid;
-        } else {
-            $article['type']         = ArticleType::POST;
-            $article['article_id']   = Uuid::uuid1()->toString();
-            $article['article_uuid'] = (new MysqlUuid($article['article_id']))->toFormat(new Binary);
-            $post['article_uuid']    = $article['article_uuid'];
-
-            $this->articleMapper->insert($article);
-            $this->articlePostsMapper->insert($post);
+        if(!$post['main_img']){
+            unset($post['main_img']);
         }
+
+        $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
+        $this->articlePostsMapper->update($post, ['article_uuid' => $article['article_uuid']]);
+        $this->articleTagsMapper->delete(['article_uuid' => $article['article_uuid']]);
 
         if(isset($data['tags']) && $data['tags']){
             $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
@@ -168,7 +182,7 @@ class PostService extends ArticleService
             throw new \Exception('Article not found!');
         }
 
-        $this->articleTagsMapper->delete(['article_uuid' => $post->article_uuid]);
+        $this->articlePostsMapper->delete(['article_uuid' => $post->article_uuid]);
         $this->delete($post->article_uuid);
     }
 

@@ -90,7 +90,6 @@ class DiscussionController extends AbstractController
             else{
                 $this->discussionService->createArticle($user, $data);
             }
-
         }
         catch(FilterException $fe){
             $messages = $fe->getArrayMessages();
