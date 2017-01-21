@@ -2,13 +2,13 @@
 declare(strict_types = 1);
 namespace Test\Admin\Factory\Controller;
 
-class PostFactoryTest extends \PHPUnit_Framework_TestCase
+class VideoFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testPostFactoryShouldCreateExpectedPostControllerInstance()
     {
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $postService = $this->getMockBuilder(\Core\Service\PostService::class)
+        $videoService = $this->getMockBuilder(\Core\Service\VideoService::class)
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $session = $this->getMockBuilder(\Zend\Session\SessionManager::class)
@@ -26,7 +26,7 @@ class PostFactoryTest extends \PHPUnit_Framework_TestCase
             ->will(static::returnValue($template));
         $container->expects(static::at(1))
             ->method('get')
-            ->will(static::returnValue($postService));
+            ->will(static::returnValue($videoService));
         $container->expects(static::at(2))
             ->method('get')
             ->will(static::returnValue($session));
@@ -36,7 +36,7 @@ class PostFactoryTest extends \PHPUnit_Framework_TestCase
         $container->expects(static::at(4))
             ->method('get')
             ->will(static::returnValue($tagService));
-        $postFactory = new \Admin\Factory\Controller\PostFactory();
-        static::assertInstanceOf(\Admin\Controller\PostController::class, $postFactory($container));
+        $postFactory = new \Admin\Factory\Controller\VideoFactory();
+        static::assertInstanceOf(\Admin\Controller\VideoController::class, $postFactory($container));
     }
 }

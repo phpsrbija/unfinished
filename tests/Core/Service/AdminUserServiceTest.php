@@ -26,7 +26,10 @@ class AdminUserServiceTest extends \PHPUnit_Framework_TestCase
         $adminUsersMapper->expects(static::once())
             ->method('getByEmail')
             ->will(static::returnValue($userData));
-        $adminUserService = new \Core\Service\AdminUserService($bcrypt, $adminUsersMapper);
+        $adminUserFilter = $this->getMockBuilder(\Core\Filter\AdminUserFilter::class)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $adminUserService = new \Core\Service\AdminUserService($bcrypt, $adminUsersMapper, $adminUserFilter);
         static::assertSame($userData, $adminUserService->loginUser('admin@example.org', 'secret'));
     }
 
@@ -53,7 +56,10 @@ class AdminUserServiceTest extends \PHPUnit_Framework_TestCase
         $adminUsersMapper->expects(static::once())
             ->method('getByEmail')
             ->will(static::returnValue($userData));
-        $adminUserService = new \Core\Service\AdminUserService($bcrypt, $adminUsersMapper);
+        $adminUserFilter = $this->getMockBuilder(\Core\Filter\AdminUserFilter::class)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $adminUserService = new \Core\Service\AdminUserService($bcrypt, $adminUsersMapper ,$adminUserFilter);
         $adminUserService->loginUser('admin@example.org', 'secret');
     }
 
@@ -72,7 +78,10 @@ class AdminUserServiceTest extends \PHPUnit_Framework_TestCase
         $adminUsersMapper->expects(static::once())
             ->method('getByEmail')
             ->will(static::returnValue($userData));
-        $adminUserService = new \Core\Service\AdminUserService($bcrypt, $adminUsersMapper);
+        $adminUserFilter = $this->getMockBuilder(\Core\Filter\AdminUserFilter::class)
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+        $adminUserService = new \Core\Service\AdminUserService($bcrypt, $adminUsersMapper, $adminUserFilter);
         $adminUserService->loginUser('admin@example.org', 'secret');
     }
 }
