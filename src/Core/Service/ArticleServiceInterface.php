@@ -24,13 +24,24 @@ interface ArticleServiceInterface
      * @return ArticleEntity
      */
     public function fetchSingleArticle($articleId);
+    
+    /**
+     * When you want to add new article.
+     *
+     * @param $user User array from the session. We will use user_id to know who create the article.
+     * @param $data
+     * @return mixed
+     */
+    public function createArticle($user, $data);
 
     /**
-     * Updates article model.
+     * Update one article.
      *
-     * @return bool
+     * @param $data
+     * @param $id
+     * @return mixed
      */
-    public function saveArticle($user, $data, $id = null);
+    public function updateArticle($data, $id);
 
     /**
      * Deletes a single article entity.
