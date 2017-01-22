@@ -100,23 +100,32 @@ class AdminUserService
      */
     public function getUser($userId)
     {
-        if(!$userId){
-            return;
-        }
-
         $user = $this->adminUsersMapper->get($userId);
 
         return $user;
     }
 
+    public function registerNewUser($data)
+    {
+        $filter = $this->adminUserFilter->getInputFilter()->setData($data);
+
+        if(!$filter->isValid()){
+            throw new FilterException($filter->getMessages());
+        }
+
+        $data = $filter->getValues();
+        unset($data['confirm_password']);
+        $data['password']        = $this->crypt->create($data['password']);
+        $data['admin_user_id']   = Uuid::uuid1()->toString();
+        $data['admin_user_uuid'] = (new MysqlUuid($data['admin_user_id']))->toFormat(new Binary);
+
+        return $this->adminUsersMapper->insert($data);
+    }
+
     /**
-     * Update or Insert user.
-     *
-     * @param  Array $data  Data from POST
-     * @param  null $userId UUID of user if we want to edit or 0 to add new user
-     * @throws \Exception
+     * Refactor it.
      */
-    public function save($data, $userId = 0)
+    public function updateUser($data, $userId)
     {
         $filter = $this->adminUserFilter->getInputFilter()->setData($data);
 
@@ -128,14 +137,7 @@ class AdminUserService
         unset($data['confirm_password']);
         $data['password'] = $this->crypt->create($data['password']);
 
-        if($userId){
-            $this->adminUsersMapper->update($data, ['admin_user_id' => $userId]);
-        }
-        else{
-            $data['admin_user_id']   = Uuid::uuid1()->toString();
-            $data['admin_user_uuid'] = (new MysqlUuid($data['admin_user_id']))->toFormat(new Binary);
-            $this->adminUsersMapper->insert($data);
-        }
+        return $this->adminUsersMapper->update($data, ['admin_user_id' => $userId]);
     }
 
     /**

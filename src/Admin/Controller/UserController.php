@@ -89,7 +89,12 @@ class UserController extends AbstractController
             $userId = $this->request->getAttribute('id');
             $data   = $this->request->getParsedBody();
 
-            $this->adminUserService->save($data, $userId);
+            if($userId){
+                $this->adminUserService->updateUser($data, $userId);
+            }
+            else{
+                $this->adminUserService->registerNewUser($data);
+            }
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.users'));
         }

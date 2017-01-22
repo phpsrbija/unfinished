@@ -79,7 +79,12 @@ class TagController extends AbstractController
             $id   = $this->request->getAttribute('id');
             $data = $this->request->getParsedBody();
 
-            $this->tagService->save($data, $id);
+            if($id){
+                $this->tagService->updateTag($data, $id);
+            }
+            else{
+                $this->tagService->createTag($data);
+            }
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.tags'));
         }

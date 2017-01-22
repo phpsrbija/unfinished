@@ -68,13 +68,12 @@ class TagService
     }
 
     /**
-     * Update or Insert tag.
+     * Create new tag.
      *
-     * @param  Array $data Data from POST
-     * @param  null $tagId UUID of tag if we want to edit or 0 to add new tag
-     * @throws \Exception
+     * @param $data
+     * @throws FilterException
      */
-    public function save($data, $tagId = 0)
+    public function createTag($data)
     {
         $filter = $this->tagFilter->getInputFilter()->setData($data);
 
@@ -82,17 +81,35 @@ class TagService
             throw new FilterException($filter->getMessages());
         }
 
+        $data             = $filter->getValues();
+        $data['tag_id']   = Uuid::uuid1()->toString();
+        $data['tag_uuid'] = (new MysqlUuid($data['tag_id']))->toFormat(new Binary);
+
+        $this->tagsMapper->insert($data);
+    }
+
+    /**
+     * Update existing tag.
+     *
+     * @param $data
+     * @param $tagId
+     * @throws FilterException
+     * @throws \Exception
+     */
+    public function updateTag($data, $tagId)
+    {
+        if(!$this->getTag($tagId)){
+            throw new \Exception('Tag dos not exist.');
+        }
+
+        $filter = $this->tagFilter->getInputFilter()->setData($data);
+
+        if(!$filter->isValid()){
+            throw new FilterException($filter->getMessages());
+        }
+
         $data = $filter->getValues();
-
-        if($tagId){
-            $this->tagsMapper->update($data, ['tag_id' => $tagId]);
-        }
-        else{
-            $data['tag_id']   = Uuid::uuid1()->toString();
-            $data['tag_uuid'] = (new MysqlUuid($data['tag_id']))->toFormat(new Binary);
-
-            $this->tagsMapper->insert($data);
-        }
+        $this->tagsMapper->update($data, ['tag_id' => $tagId]);
     }
 
     /**
