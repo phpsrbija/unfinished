@@ -5,6 +5,21 @@
 <?php endif; ?>
 <br/>
 
+<!-- Make better style with the theme css/html - notify -->
+<?php if($errors): ?>
+    <?php foreach($errors as $input => $inputErrors): ?>
+        <div class="bg-danger" style="padding:0.5em; margin:0.5em;">
+            <?= $input ?>
+            <ul>
+            <?php foreach($inputErrors as  $error): ?>
+                <li><?= $error ?></li>
+            <?php endforeach; ?>
+            <ul/>
+        </div>
+    <?php endforeach;?>
+    <br/>
+<?php endif; ?>
+
 <form action="<?= $this->url('admin.discussions.action', ['action' => 'save', 'id' => $discussion ? $discussion->article_id : 0]) ?>" method="POST" class="form articleForm">
     <div class="form-group">
         <input type="text" class="form-control" placeholder="title" name="title" value="<?= $discussion ? $discussion->title : ''; ?>" />

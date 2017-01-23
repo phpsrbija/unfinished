@@ -68,13 +68,21 @@ class DiscussionController extends AbstractController
         return new HtmlResponse($this->template->render('admin::discussion/index', ['list' => $discussions]));
     }
 
-    public function edit(): \Psr\Http\Message\ResponseInterface
+    public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
         $id         = $this->request->getAttribute('id');
         $discussion = $this->discussionService->fetchSingleArticle($id);
         $tags       = $this->tagService->getAll();
 
-        return new HtmlResponse($this->template->render('admin::discussion/edit', ['discussion' => $discussion, 'tags' => $tags]));
+        if($this->request->getParsedBody()){
+            $discussion = (object)($this->request->getParsedBody() + (array)$discussion);
+        }
+
+        return new HtmlResponse($this->template->render('admin::discussion/edit', [
+            'discussion' => $discussion,
+            'tags'       => $tags,
+            'errors'     => $errors
+        ]));
     }
 
     public function save()
@@ -92,8 +100,7 @@ class DiscussionController extends AbstractController
             }
         }
         catch(FilterException $fe){
-            $messages = $fe->getArrayMessages();
-            throw $fe;
+            return $this->edit($fe->getArrayMessages());
         }
         catch(\Exception $e){
             throw $e;
