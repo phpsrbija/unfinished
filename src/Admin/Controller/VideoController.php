@@ -4,7 +4,7 @@ namespace Admin\Controller;
 
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
-use Core\Service\VideoService;
+use Core\Service\Article\VideoService;
 use Core\Service\TagService;
 use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;

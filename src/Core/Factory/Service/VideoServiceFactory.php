@@ -6,7 +6,7 @@ use Core\Mapper\ArticleMapper;
 use Core\Mapper\ArticleTagsMapper;
 use Core\Mapper\ArticleVideosMapper;
 use Core\Mapper\TagsMapper;
-use Core\Service\VideoService;
+use Core\Service\Article\VideoService;
 use Core\Filter\ArticleFilter;
 use Core\Filter\VideoFilter;
 use Interop\Container\ContainerInterface;

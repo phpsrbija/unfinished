@@ -4,7 +4,7 @@ namespace Admin\Controller;
 
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
-use Core\Service\PostService;
+use Core\Service\Article\PostService;
 use Core\Service\TagService;
 use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;

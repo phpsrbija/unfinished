@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Core\Service;
+namespace Core\Service\Article;
 
 use Core\Mapper\ArticleMapper;
 use Core\Mapper\ArticleTagsMapper;

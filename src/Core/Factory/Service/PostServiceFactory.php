@@ -6,7 +6,7 @@ use Core\Mapper\ArticleMapper;
 use Core\Mapper\ArticleTagsMapper;
 use Core\Mapper\ArticlePostsMapper;
 use Core\Mapper\TagsMapper;
-use Core\Service\PostService;
+use Core\Service\Article\PostService;
 use Core\Filter\ArticleFilter;
 use Core\Filter\PostFilter;
 use Interop\Container\ContainerInterface;

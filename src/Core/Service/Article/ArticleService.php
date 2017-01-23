@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Service;
+namespace Core\Service\Article;
 
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DbSelect;

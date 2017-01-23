@@ -4,7 +4,7 @@ namespace Core\Factory\Service;
 
 use UploadHelper\Upload;
 use Core\Mapper\ArticleMapper;
-use Core\Service\EventService;
+use Core\Service\Article\EventService;
 use Core\Mapper\ArticleEventsMapper;
 use Core\Mapper\TagsMapper;
 use Core\Filter\ArticleFilter;

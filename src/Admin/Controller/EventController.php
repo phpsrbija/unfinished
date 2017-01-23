@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Admin\Controller;
 
-use Core\Service\EventService;
+use Core\Service\Article\EventService;
 use Core\Exception\FilterException;
 use Core\Service\TagService;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
