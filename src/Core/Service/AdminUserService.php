@@ -127,15 +127,30 @@ class AdminUserService
      */
     public function updateUser($data, $userId)
     {
+        $user   = $this->getUser($userId);
         $filter = $this->adminUserFilter->getInputFilter()->setData($data);
+
+        // we dont want to force user to enter the password again
+        if($data['password'] == ''){
+            $filter->remove('password');
+            $filter->remove('confirm_password');
+        }
+
+        // if we want to keep same email
+        if($user->email == $data['email']){
+            $filter->remove('email');
+        }
 
         if(!$filter->isValid()){
             throw new FilterException($filter->getMessages());
         }
 
         $data = $filter->getValues();
-        unset($data['confirm_password']);
-        $data['password'] = $this->crypt->create($data['password']);
+
+        if(isset($data['password'])){
+            unset($data['confirm_password']);
+            $data['password'] = $this->crypt->create($data['password']);
+        }
 
         return $this->adminUsersMapper->update($data, ['admin_user_id' => $userId]);
     }
