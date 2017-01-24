@@ -1,11 +1,28 @@
-<?php if(isset($video)):?>
+<?php if(isset($video->article_id) && $video->article_id):?>
     <h2>Edit video</h2>
 <?php else: ?>
     <h2>Create new video</h2>
 <?php endif; ?>
 <br/>
 
-<form action="<?= $this->url('admin.videos.action', ['action' => 'save', 'id' => $video ? $video->article_id : 0]) ?>" method="POST" class="form articleForm" enctype="multipart/form-data">
+<!-- Make better style with the theme css/html - notify -->
+<?php if($errors): ?>
+    <?php foreach($errors as $input => $inputErrors): ?>
+        <div class="bg-danger" style="padding:0.5em; margin:0.5em;">
+            <?= $input ?>
+            <ul>
+                <?php foreach($inputErrors as  $error): ?>
+                    <li><?= $error ?></li>
+                <?php endforeach; ?>
+                <ul/>
+        </div>
+    <?php endforeach;?>
+    <br/>
+<?php endif; ?>
+
+<form action="<?= $this->url('admin.videos.action', ['action' => 'save', 'id' => $video ? $video->article_id : 0]) ?>"
+      method="POST" class="form articleForm" enctype="multipart/form-data">
+    
     <div class="form-group">
         <input type="text" class="form-control" placeholder="title" name="title" value="<?= $video ? $video->title : ''; ?>" />
     </div>
@@ -35,7 +52,7 @@
     </div>
 
     <div class="form-group">
-        <?php if($video && $video->featured_img): ?>
+        <?php if(isset($video->featured_img) && $video->featured_img): ?>
             <img src="<?= $video->featured_img ?>" style="max-width: 200px;"/>
         <?php endif; ?>
     </div>
@@ -47,7 +64,7 @@
     </div>
 
     <div class="form-group">
-        <?php if($video && $video->main_img): ?>
+        <?php if(isset($video->main_img) && $video->main_img): ?>
             <img src="<?= $video->main_img ?>" style="max-width: 200px;"/>
         <?php endif; ?>
     </div>
@@ -68,7 +85,7 @@
     <div class="form-group">
         <select multiple name="tags[]" style="width: 100%;">
             <?php foreach($tags as $tag): ?>
-                <option value="<?= $tag->tag_id ?>" <?= ($video && in_array($tag->tag_id, $video->tags)) ? 'selected' : '' ?>>
+                <option value="<?= $tag->tag_id ?>" <?= (isset($video->tags) && in_array($tag->tag_id, $video->tags)) ? 'selected' : '' ?>>
                     <?= $tag->name ?>
                 </option>
             <?php endforeach; ?>
@@ -114,4 +131,19 @@
 //        });
 //    });
 //");
+?>
+
+<script src="/js/tinymce/tinymce.min.js"></script>
+<script src="/js/initTinyMce.js"></script>
+
+<?php
+$this->inlineScript()->appendScript("
+    $(document).ready(function() {
+        initMce('#body', '100%', 300, true);
+
+        $('.articleForm').on('submit', function(e) {
+            tinyMCE.triggerSave();
+        });
+    });
+");
 ?>

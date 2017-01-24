@@ -55,11 +55,11 @@ class VideoController extends AbstractController
         TagService $tagService
     )
     {
-        $this->template    = $template;
+        $this->template     = $template;
         $this->videoService = $videoService;
-        $this->session     = $session;
-        $this->router      = $router;
-        $this->tagService  = $tagService;
+        $this->session      = $session;
+        $this->router       = $router;
+        $this->tagService   = $tagService;
     }
 
     public function index() : HtmlResponse
@@ -67,7 +67,7 @@ class VideoController extends AbstractController
         $params = $this->request->getQueryParams();
         $page   = isset($params['page']) ? $params['page'] : 1;
         $limit  = isset($params['limit']) ? $params['limit'] : 15;
-        $videos  = $this->videoService->fetchAllArticles($page, $limit);
+        $videos = $this->videoService->fetchAllArticles($page, $limit);
 
         return new HtmlResponse($this->template->render('admin::video/index', ['list' => $videos]));
     }
@@ -77,13 +77,22 @@ class VideoController extends AbstractController
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function edit() : \Psr\Http\Message\ResponseInterface
+    public function edit($errors = []) : \Psr\Http\Message\ResponseInterface
     {
-        $id   = $this->request->getAttribute('id');
+        $id    = $this->request->getAttribute('id');
         $video = $this->videoService->fetchSingleArticle($id);
-        $tags = $this->tagService->getAll();
+        $tags  = $this->tagService->getAll();
 
-        return new HtmlResponse($this->template->render('admin::video/edit', ['video' => $video, 'tags' => $tags]));
+        if($this->request->getParsedBody()){
+            $video             = (object)($this->request->getParsedBody() + (array)$video);
+            $video->article_id = $id;
+        }
+
+        return new HtmlResponse($this->template->render('admin::video/edit', [
+            'video'  => $video,
+            'tags'   => $tags,
+            'errors' => $errors
+        ]));
     }
 
     /**
@@ -91,7 +100,6 @@ class VideoController extends AbstractController
      *
      * @throws FilterException if filter fails
      * @throws \Exception
-     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function save() : \Psr\Http\Message\ResponseInterface
@@ -110,8 +118,7 @@ class VideoController extends AbstractController
             }
         }
         catch(FilterException $fe){
-            $messages = $fe->getArrayMessages();
-            throw $fe;
+            return $this->edit($fe->getArrayMessages());
         }
         catch(\Exception $e){
             throw $e;
@@ -128,9 +135,10 @@ class VideoController extends AbstractController
      */
     public function delete() : \Psr\Http\Message\ResponseInterface
     {
-        try {
+        try{
             $this->videoService->deleteArticle($this->request->getAttribute('id'));
-        } catch(\Exception $e) {
+        }
+        catch(\Exception $e){
             throw $e;
         }
 

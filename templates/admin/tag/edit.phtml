@@ -1,9 +1,25 @@
-<?php if($tag): ?>
+<?php if(isset($tag->tag_id) && $tag->tag_id): ?>
     <h2>Edit tag "<?= $tag->name ?>"</h2>
 <?php else: ?>
     <h2>Add new tag</h2>
 <?php endif; ?>
 <br/>
+
+<!-- Make better style with the theme css/html - notify -->
+<?php if($errors): ?>
+    <?php foreach($errors as $input => $inputErrors): ?>
+        <div class="bg-danger" style="padding:0.5em; margin:0.5em;">
+            <?= $input ?>
+            <ul>
+                <?php foreach($inputErrors as  $error): ?>
+                    <li><?= $error ?></li>
+                <?php endforeach; ?>
+            <ul/>
+        </div>
+    <?php endforeach;?>
+    <br/>
+<?php endif; ?>
+
 
 <form action="<?= $this->url('admin.tags.action', ['action' => 'save', 'id' => $tag ? $tag->tag_id : 0]) ?>"
       method="POST">

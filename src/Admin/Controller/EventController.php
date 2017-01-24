@@ -40,13 +40,22 @@ class EventController extends AbstractController
         return new HtmlResponse($this->template->render('admin::event/index', ['list' => $events]));
     }
 
-    public function edit(): \Psr\Http\Message\ResponseInterface
+    public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
         $id    = $this->request->getAttribute('id');
         $event = $this->eventService->fetchSingleArticle($id);
         $tags  = $this->tagService->getAll();
 
-        return new HtmlResponse($this->template->render('admin::event/edit', ['event' => $event, 'tags' => $tags]));
+        if($this->request->getParsedBody()){
+            $event             = (object)($this->request->getParsedBody() + (array)$event);
+            $event->article_id = $id;
+        }
+
+        return new HtmlResponse($this->template->render('admin::event/edit', [
+            'event'  => $event,
+            'tags'   => $tags,
+            'errors' => $errors
+        ]));
     }
 
     public function save()
@@ -65,8 +74,7 @@ class EventController extends AbstractController
             }
         }
         catch(FilterException $fe){
-            $messages = $fe->getArrayMessages();
-            throw $fe;
+            return $this->edit($fe->getArrayMessages());
         }
         catch(\Exception $e){
             throw $e;

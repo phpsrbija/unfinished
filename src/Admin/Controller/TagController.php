@@ -65,12 +65,17 @@ class TagController extends AbstractController
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function edit(): \Psr\Http\Message\ResponseInterface
+    public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
         $id  = $this->request->getAttribute('id');
         $tag = $this->tagService->getTag($id);
 
-        return new HtmlResponse($this->template->render('admin::tag/edit', ['tag' => $tag]));
+        if($this->request->getParsedBody()){
+            $tag         = (object)($this->request->getParsedBody() + (array)$tag);
+            $tag->tag_id = $id;
+        }
+
+        return new HtmlResponse($this->template->render('admin::tag/edit', ['tag' => $tag, 'errors' => $errors]));
     }
 
     public function save()
@@ -89,8 +94,7 @@ class TagController extends AbstractController
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.tags'));
         }
         catch(FilterException $fe){
-            $messages = $fe->getArrayMessages();
-            throw $fe;
+            return $this->edit($fe->getArrayMessages());
         }
         catch(\Exception $e){
             throw $e;

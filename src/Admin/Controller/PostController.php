@@ -77,13 +77,22 @@ class PostController extends AbstractController
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function edit() : \Psr\Http\Message\ResponseInterface
+    public function edit($errors = []) : \Psr\Http\Message\ResponseInterface
     {
         $id   = $this->request->getAttribute('id');
         $post = $this->postService->fetchSingleArticle($id);
         $tags = $this->tagService->getAll();
 
-        return new HtmlResponse($this->template->render('admin::post/edit', ['post' => $post, 'tags' => $tags]));
+        if($this->request->getParsedBody()){
+            $post             = (object)($this->request->getParsedBody() + (array)$post);
+            $post->article_id = $id;
+        }
+
+        return new HtmlResponse($this->template->render('admin::post/edit', [
+            'post'   => $post,
+            'tags'   => $tags,
+            'errors' => $errors
+        ]));
     }
 
     /**
@@ -91,7 +100,6 @@ class PostController extends AbstractController
      *
      * @throws FilterException if filter fails
      * @throws \Exception
-     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function save() : \Psr\Http\Message\ResponseInterface
@@ -110,8 +118,7 @@ class PostController extends AbstractController
             }
         }
         catch(FilterException $fe){
-            $messages = $fe->getArrayMessages();
-            throw $fe;
+            return $this->edit($fe->getArrayMessages());
         }
         catch(\Exception $e){
             throw $e;
