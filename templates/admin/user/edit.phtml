@@ -1,9 +1,24 @@
-<?php if($user): ?>
+<?php if(isset($user->admin_user_id) && $user->admin_user_id): ?>
     <h2>Edit admin user "<?= $user->first_name . ' ' . $user->last_name ?>"</h2>
 <?php else: ?>
     <h2>Add new user</h2>
 <?php endif; ?>
 <br/>
+
+<!-- Make better style with the theme css/html - notify -->
+<?php if($errors): ?>
+    <?php foreach($errors as $input => $inputErrors): ?>
+        <div class="bg-danger" style="padding:0.5em; margin:0.5em;">
+            <?= $input ?>
+            <ul>
+                <?php foreach($inputErrors as  $error): ?>
+                    <li><?= $error ?></li>
+                <?php endforeach; ?>
+                <ul/>
+        </div>
+    <?php endforeach;?>
+    <br/>
+<?php endif; ?>
 
 <form action="<?= $this->url('admin.users.action', ['action' => 'save', 'id' => $user ? $user->admin_user_id : 0]) ?>" method="POST">
     <div class="form-group">

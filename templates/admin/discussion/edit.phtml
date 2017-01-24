@@ -1,4 +1,4 @@
-<?php if(isset($discussion)):?>
+<?php if(isset($discussion->article_id) && $discussion->article_id):?>
     <h2>Edit discussion</h2>
 <?php else: ?>
     <h2>Create new discussion</h2>
@@ -48,7 +48,7 @@
     <div class="form-group">
         <select multiple name="tags[]" style="width: 100%;">
             <?php foreach($tags as $tag): ?>
-                <option value="<?= $tag->tag_id ?>" <?= ($discussion && in_array($tag->tag_id, $discussion->tags)) ? 'selected' : '' ?>>
+                <option value="<?= $tag->tag_id ?>" <?= (isset($discussion->tags) && in_array($tag->tag_id, $discussion->tags)) ? 'selected' : '' ?>>
                     <?= $tag->name ?>
                 </option>
             <?php endforeach; ?>

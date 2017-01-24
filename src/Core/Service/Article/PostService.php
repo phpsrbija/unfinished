@@ -65,8 +65,7 @@ class PostService extends ArticleService
      * @param Upload $upload
      */
     public function __construct(ArticleMapper $articleMapper, ArticlePostsMapper $articlePostsMapper, ArticleFilter $articleFilter,
-        PostFilter $postFilter, ArticleTagsMapper $articleTagsMapper, TagsMapper $tagsMapper, Upload $upload
-    )
+                                PostFilter $postFilter, ArticleTagsMapper $articleTagsMapper, TagsMapper $tagsMapper, Upload $upload)
     {
         parent::__construct($articleMapper, $articleFilter);
 
@@ -98,11 +97,6 @@ class PostService extends ArticleService
         }
 
         return $article;
-    }
-
-    public function saveArticle($user, $data, $id = null)
-    {
-        throw new \Exception('Depracticated!');
     }
 
     public function createArticle($user, $data)

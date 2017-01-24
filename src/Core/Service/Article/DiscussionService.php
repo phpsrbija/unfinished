@@ -54,11 +54,6 @@ class DiscussionService extends ArticleService
         return $discussion;
     }
 
-    public function saveArticle($user, $data, $id = null)
-    {
-        throw new \Exception('Depracticated!');
-    }
-
     public function createArticle($user, $data)
     {
         $articleFilter    = $this->articleFilter->getInputFilter()->setData($data);

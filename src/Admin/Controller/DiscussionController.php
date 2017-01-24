@@ -75,7 +75,8 @@ class DiscussionController extends AbstractController
         $tags       = $this->tagService->getAll();
 
         if($this->request->getParsedBody()){
-            $discussion = (object)($this->request->getParsedBody() + (array)$discussion);
+            $discussion             = (object)($this->request->getParsedBody() + (array)$discussion);
+            $discussion->article_id = $id;
         }
 
         return new HtmlResponse($this->template->render('admin::discussion/edit', [

@@ -75,12 +75,17 @@ class UserController extends AbstractController
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function edit(): \Psr\Http\Message\ResponseInterface
+    public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
-        $userId = $this->request->getAttribute('id');
-        $user   = $this->adminUserService->getUser($userId);
+        $id   = $this->request->getAttribute('id');
+        $user = $this->adminUserService->getUser($id);
 
-        return new HtmlResponse($this->template->render('admin::user/edit', ['user' => $user]));
+        if($this->request->getParsedBody()){
+            $user                = (object)($this->request->getParsedBody() + (array)$user);
+            $user->admin_user_id = $id;
+        }
+
+        return new HtmlResponse($this->template->render('admin::user/edit', ['user' => $user, 'errors' => $errors]));
     }
 
     public function save()
@@ -99,8 +104,7 @@ class UserController extends AbstractController
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.users'));
         }
         catch(FilterException $fe){
-            $messages = $fe->getArrayMessages();
-            throw $fe;
+            return $this->edit($fe->getArrayMessages());
         }
         catch(\Exception $e){
             throw $e;
