@@ -22,7 +22,7 @@
 
 <form action="<?= $this->url('admin.videos.action', ['action' => 'save', 'id' => $video ? $video->article_id : 0]) ?>"
       method="POST" class="form articleForm" enctype="multipart/form-data">
-    
+
     <div class="form-group">
         <input type="text" class="form-control" placeholder="title" name="title" value="<?= $video ? $video->title : ''; ?>" />
     </div>
@@ -96,7 +96,7 @@
         <button type="submit" class="btn btn-default">Save</button>
         <a href="<?= $this->url('admin.videos') ?>" class="btn btn-default">Cancel</a>
 
-        <?php if($video): ?>
+        <?php if(isset($video->article_id) && $video->article_id): ?>
         <a href="<?= $this->url('admin.videos.action', ['action' => 'delete', 'id' => $video->article_id]) ?>"
            onclick="if(!confirm('Are you sure?')){return false;}" class="btn btn-danger pull-right">
             Delete

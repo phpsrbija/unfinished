@@ -59,7 +59,7 @@
         <button type="submit" class="btn btn-default">Save</button>
         <a href="<?= $this->url('admin.discussions') ?>" class="btn btn-default">Cancel</a>
 
-        <?php if($discussion): ?>
+        <?php if(isset($discussion->article_id) && $discussion->article_id): ?>
         <a href="<?= $this->url('admin.discussions.action', ['action' => 'delete', 'id' => $discussion->article_id]) ?>"
            onclick="if(!confirm('Are you sure?')){return false;}" class="btn btn-danger pull-right">
             Delete
