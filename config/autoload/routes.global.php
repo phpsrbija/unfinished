@@ -9,6 +9,15 @@ return [
             Web\Action\AboutAction::class                => Web\Factory\Action\TemplateFactory::class,
             Web\Action\ContactAction::class              => Web\Factory\Action\TemplateFactory::class,
 
+            // Legacy
+            Web\Legacy\SingleAction::class               => Web\Factory\Legacy\SingleFactory::class,
+            Web\Legacy\JoinAction::class                 => Web\Factory\Legacy\JoinFactory::class,
+            Web\Legacy\AboutAction::class                => Web\Factory\Legacy\AboutFactory::class,
+            Web\Legacy\StatutAction::class               => Web\Factory\Legacy\StatutFactory::class,
+            Web\Legacy\ContactAction::class              => Web\Factory\Legacy\ContactFactory::class,
+            Web\Legacy\ContactAction::class              => Web\Factory\Legacy\ContactFactory::class,
+            Web\Legacy\ListAction::class                 => Web\Factory\Legacy\ListFactory::class,
+
             // Admin
             Admin\Action\IndexAction::class              => Admin\Factory\Action\IndexFactory::class,
             Admin\Controller\AuthController::class       => Admin\Factory\Controller\AuthFactory::class,
@@ -25,6 +34,43 @@ return [
     ],
 
     'routes' => [
+        // Legacy
+        [
+            'name'       => 'single',
+            'path'       => '/single/:slug/',
+            'middleware' => Web\Legacy\SingleAction::class,
+        ],
+        [
+            'name'       => 'legacy.join',
+            'path'       => '/udruzenje/prikljuci-se/',
+            'middleware' => Web\Legacy\JoinAction::class,
+        ],
+        [
+            'name'       => 'legacy.statut',
+            'path'       => '/udruzenje/statut/',
+            'middleware' => Web\Legacy\StatutAction::class,
+        ],
+        [
+            'name'       => 'legacy.about',
+            'path'       => '/zdravo-svete/',
+            'middleware' => Web\Legacy\AboutAction::class,
+        ],
+        [
+            'name'       => 'legacy.contact',
+            'path'       => '/kontakt/',
+            'middleware' => Web\Legacy\ContactAction::class,
+        ],
+        [
+            'name'       => 'legacy.list',
+            'path'       => '/clanci/',
+            'middleware' => Web\Legacy\ListAction::class,
+        ],
+        [
+            'name'       => 'legacy.list.pagination',
+            'path'       => '/clanci/page/:page/',
+            'middleware' => Web\Legacy\ListAction::class,
+        ],
+
         // Web
         [
             'name'            => 'home',

@@ -1,0 +1,54 @@
+<div class="container" id="page">
+    <div class="container-inner">
+        <div class="main">
+            <div class="main-inner group">
+                <section class="content">
+                    <div class="page-title pad group">
+                        <h2>Kontakt</h2>
+                    </div><!--/.page-title-->
+                    <div class="pad group">
+                        <article class="group post-104 page type-page status-publish hentry">
+                            <div class="entry themeform">
+                                <div role="form" class="wpcf7" id="wpcf7-f130-p104-o1" dir="ltr">
+                                    <div class="screen-reader-response"></div>
+                                    <form id="contactForm" action="/kontakt/" method="post">
+                                        <p>Tvoje ime <span style="color:red">*</span><br>
+                                            <span class="wpcf7-form-control-wrap your-name">
+                                                <input name="name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" type="text">
+                                            </span> </p>
+                                        <p>Email adresa <span style="color:red">*</span><br>
+                                            <span class="wpcf7-form-control-wrap your-email">
+                                                <input name="email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" type="email"></span> </p>
+                                        <p>Naslov<br>
+                                            <span class="wpcf7-form-control-wrap your-subject"><input name="subject" value="" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" type="text"></span> </p>
+                                        <p>Poruka<br>
+                                            <span class="wpcf7-form-control-wrap your-message"><textarea name="message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false"></textarea></span> </p>
+                                        <p>
+                                            Pokaži nam da nisi bot<br>
+                                            DODATI CAPTCHU !!!! <br />
+                                            DODATI VALIDACIJU !!!!
+                                        </p>
+                                        <p><input value="Pošalji" id="submitContact" type="submit"></p>
+                                        <p style="font-size:12px">* obavezna polja</p>
+                                    </form>
+                                </div>
+                                <div class="clear"></div>
+                            </div><!--/.entry-->
+                        </article>
+                    </div><!--/.pad-->
+                </section>
+
+                <?= $this->partial('legacy::sidebar'); ?>
+
+            </div><!--/.main-inner-->
+        </div><!--/.main-->
+    </div><!--/.container-inner-->
+</div><!--/.container-->
+<script>
+    jQuery(document).ready(function() {
+        jQuery('#submitContact').click(function(e) {
+            e.preventDefault();
+            document.getElementById("contactForm").submit();
+        });
+    });
+</script>

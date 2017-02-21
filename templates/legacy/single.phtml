@@ -1,0 +1,32 @@
+<?php //var_dump($article); ?>
+
+
+<div class="container" id="page">
+    <div class="container-inner">
+        <div class="main">
+            <div class="main-inner group">
+                <section class="content">
+
+                    <div class="page-title pad group">
+                        <ul class="meta-single group">
+                            <h2 class="post-title"><?=$article->offsetGet('title')?></h2>
+                        </ul>
+                    </div><!--/.page-title-->
+
+                    <div class="pad group">
+                        <article class="group post-1070 page type-page status-publish hentry">
+                            <div class="entry themeform">
+                                <?=$article->offsetGet('body')?>
+
+                                <div class="clear"></div>
+                            </div><!--/.entry-->
+                        </article><!--/.post-->
+                    </div><!--/.pad-->
+                </section><!--/.content-->
+
+                <?= $this->partial('legacy::singleSidebar'); ?>
+
+            </div><!--/.main-inner-->
+        </div><!--/.main-->
+    </div><!--/.container-inner-->
+</div><!--/.container-->

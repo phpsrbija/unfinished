@@ -6,7 +6,7 @@ namespace Admin\Factory\Controller;
 use Admin\Controller\PostController;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Core\Service\PostService;
+use Core\Service\Article\PostService;
 use Core\Service\TagService;
 use Zend\Expressive\Router\RouterInterface;
 

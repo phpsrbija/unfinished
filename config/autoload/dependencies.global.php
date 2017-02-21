@@ -20,7 +20,7 @@ return [
             // Services
             Core\Service\AdminUserService::class                      => Core\Factory\Service\AdminUserServiceFactory::class,
             Core\Service\TagService::class                            => Core\Factory\Service\TagServiceFactory::class,
-            Core\Service\PostService::class                           => Core\Factory\Service\PostServiceFactory::class,
+            Core\Service\Article\PostService::class                           => Core\Factory\Service\PostServiceFactory::class,
             Core\Service\DiscussionService::class                     => Core\Factory\Service\DiscussionServiceFactory::class,
             Core\Service\EventService::class                          => Core\Factory\Service\EventServiceFactory::class,
             Core\Service\VideoService::class                          => Core\Factory\Service\VideoServiceFactory::class,

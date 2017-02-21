@@ -19,7 +19,7 @@ class PostController extends AbstractController
     private $template;
 
     /**
-     * @var \Core\Service\PostService
+     * @var \Core\Service\Article\PostService
      */
     private $postService;
 
