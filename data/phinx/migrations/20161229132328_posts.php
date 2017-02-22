@@ -20,6 +20,28 @@ class Posts extends AbstractMigration
             ->addForeignKey('article_uuid', 'articles', 'article_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->create();
 
+//        $this->insertDummyData();
+        $this->migrateOldArticles();
+    }
+
+    public function down()
+    {
+        $this->dropTable('article_posts');
+    }
+
+    private function migrateOldArticles()
+    {
+        $sql = file_get_contents(__DIR__ . "/migratedArticles.sql");
+
+        if ($this->execute($sql)) {
+            echo 'migrated articles...';
+        } else {
+            die('ne');
+        }
+    }
+
+    private function insertDummyData()
+    {
         $ids  = [];
         $rows = $this->fetchAll('select admin_user_uuid from admin_users;');
         foreach($rows as $r){
@@ -71,9 +93,13 @@ class Posts extends AbstractMigration
         }
     }
 
-    public function down()
+    private function migrateSql()
     {
-        $this->dropTable('article_posts');
+        $sql = file_get_contents(__DIR__ . "/migratedArticles.sql");
+        $sql = addslashes($sql);
+
+        return $sql;
     }
+
 }
 

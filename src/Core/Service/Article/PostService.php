@@ -85,6 +85,20 @@ class PostService extends ArticleService
         return $this->getPagination($select, $page, $limit);
     }
 
+    public function fetchSingleArticleBySlug($slug)
+    {
+        $article = $this->articlePostsMapper->getBySlug($slug);
+
+        if($article){
+            $article['tags'] = [];
+            foreach($this->articleMapper->getTages($article['article_uuid']) as $tag){
+                $article['tags'][] = $tag->tag_id;
+            }
+        }
+
+        return $article;
+    }
+
     public function fetchSingleArticle($articleId)
     {
         $article = $this->articlePostsMapper->get($articleId);

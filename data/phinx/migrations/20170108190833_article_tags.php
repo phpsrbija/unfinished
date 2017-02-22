@@ -15,6 +15,16 @@ class ArticleTags extends AbstractMigration
             ->addForeignKey('tag_uuid', 'tags', 'tag_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->create();
 
+//        $this->insertDummyData();
+    }
+
+    public function down()
+    {
+        $this->dropTable('article_tags');
+    }
+
+    public function insertDummyData()
+    {
         $tagIds = [];
         $tags   = $this->fetchAll('select tag_uuid from tags;');
         foreach($tags as $tag){
@@ -42,10 +52,5 @@ class ArticleTags extends AbstractMigration
 
             $this->insert('article_tags', $data);
         }
-    }
-
-    public function down()
-    {
-        $this->dropTable('article_tags');
     }
 }

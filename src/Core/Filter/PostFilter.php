@@ -31,7 +31,7 @@ class PostFilter implements InputFilterAwareInterface
                 'filters'    => [['name' => 'StringTrim']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 1500]],
+                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100000]],
                 ],
             ]);
 
