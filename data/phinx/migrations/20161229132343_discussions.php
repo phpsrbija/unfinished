@@ -17,6 +17,16 @@ class Discussions extends AbstractMigration
             ->addForeignKey('article_uuid', 'articles', 'article_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->create();
 
+//        $this->insertDummyData();
+    }
+
+    public function down()
+    {
+        $this->dropTable('article_discussions');
+    }
+
+    private function insertDummyData()
+    {
         $ids  = [];
         $rows = $this->fetchAll('select admin_user_uuid from admin_users;');
         foreach($rows as $r){
@@ -48,10 +58,5 @@ class Discussions extends AbstractMigration
             $this->insert('articles', $article);
             $this->insert('article_discussions', $post);
         }
-    }
-
-    public function down()
-    {
-        $this->dropTable('article_discussions');
     }
 }
