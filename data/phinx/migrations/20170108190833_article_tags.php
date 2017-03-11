@@ -4,6 +4,11 @@ use Phinx\Migration\AbstractMigration;
 use MysqlUuid\Formats\Binary;
 use MysqlUuid\Uuid;
 
+/**
+ * Old data migration need to happend now, since this table is last that is critical in order to execute required sql.
+ *
+ * Class ArticleTags
+ */
 class ArticleTags extends AbstractMigration
 {
     public function up()
@@ -16,11 +21,20 @@ class ArticleTags extends AbstractMigration
             ->create();
 
 //        $this->insertDummyData();
+        $this->migrateOldArticles();
     }
 
     public function down()
     {
         $this->dropTable('article_tags');
+    }
+
+    private function migrateOldArticles()
+    {
+        $sql = file_get_contents(__DIR__ . "/migratedArticles.sql");
+        if ($this->execute(addslashes($sql))) {
+            echo 'migrated articles...';
+        }
     }
 
     public function insertDummyData()

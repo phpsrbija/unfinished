@@ -21,25 +21,12 @@ class Posts extends AbstractMigration
             ->create();
 
 //        $this->insertDummyData();
-        $this->migrateOldArticles();
     }
 
     public function down()
     {
         $this->dropTable('article_posts');
     }
-
-    private function migrateOldArticles()
-    {
-        $sql = file_get_contents(__DIR__ . "/migratedArticles.sql");
-
-        if ($this->execute($sql)) {
-            echo 'migrated articles...';
-        } else {
-            die('ne');
-        }
-    }
-
     private function insertDummyData()
     {
         $ids  = [];
@@ -92,14 +79,5 @@ class Posts extends AbstractMigration
             $this->insert('article_posts', $post);
         }
     }
-
-    private function migrateSql()
-    {
-        $sql = file_get_contents(__DIR__ . "/migratedArticles.sql");
-        $sql = addslashes($sql);
-
-        return $sql;
-    }
-
 }
 
