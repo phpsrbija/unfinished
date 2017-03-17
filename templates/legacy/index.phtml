@@ -1,0 +1,277 @@
+<div class="container" id="page">
+    <div class="container-inner">
+        <div class="main">
+            <div class="main-inner group">
+                <section class="content">
+                    <div class="page-title pad group">
+                        <h2>PHPSrbija</h2>
+                    </div><!--/.page-title-->
+                    <div class="pad group">
+                        <script type="text/javascript">
+                            // Check if first slider image is loaded, and load flexslider on document ready
+                            jQuery(document).ready(function(){
+                                var firstImage = jQuery('#flexslider-featured').find('img').filter(':first'),
+                                    checkforloaded = setInterval(function() {
+                                        var image = firstImage.get(0);
+                                        if (image.complete || image.readyState == 'complete' || image.readyState == 4) {
+                                            clearInterval(checkforloaded);
+
+                                            jQuery('#flexslider-featured').flexslider({
+                                                animation: "slide",
+                                                useCSS: false, // Fix iPad flickering issue
+                                                slideshow: false,
+                                                directionNav: true,
+                                                controlNav: true,
+                                                pauseOnHover: true,
+                                                slideshowSpeed: 7000,
+                                                animationSpeed: 400,
+                                                smoothHeight: true,
+                                                touch: false
+                                            });
+
+                                        }
+                                    }, 20);
+                            });
+                        </script>
+
+                        <div class="featured flexslider" id="flexslider-featured">
+                            <ul class="slides">
+                                <li>
+                                    <article id="post-1641" class="group post-1641 post type-post status-publish format-standard has-post-thumbnail hentry category-konferencije">
+                                        <div class="post-inner post-hover">
+
+                                            <div class="post-thumbnail">
+                                                <a href="/single/true-north-php-2016-report/" title="True North PHP 2016 Review">
+                                                    <img width="720" height="340" src="/wp-includes/images/tnphp_logo-720x340.png" class="attachment-thumb-large size-thumb-large wp-post-image" alt="" />																			</a>
+                                            </div><!--/.post-thumbnail-->
+
+                                            <div class="post-meta group">
+                                                <p class="post-category"><a href="/clanci/">Vesti</a></p>
+                                                <p class="post-date">12 nov, 2016</p>
+                                            </div><!--/.post-meta-->
+
+                                            <h2 class="post-title">
+                                                <a href="/single/true-north-php-2016-report/" rel="bookmark" title="True North PHP 2016 Review">True North PHP 2016 Review</a>
+                                            </h2><!--/.post-title-->
+
+                                            <div class="entry excerpt">
+                                                <p>Three months ago the two of us, Dusan Lukic and Milan Popovic,  came up with an idea to visit TrueNorthPHP, one of the most famous php conferences, happening in Toronto, Canada. Since we heard&#46;&#46;&#46;</p>
+                                            </div><!--/.entry-->
+
+                                        </div><!--/.post-inner-->
+                                    </article><!--/.post-->				</li>
+                                <li>
+                                    <article id="post-1609" class="group post-1609 post type-post status-publish format-standard has-post-thumbnail hentry category-konferencije tag-bulgaria-php tag-conference">
+                                        <div class="post-inner post-hover">
+
+                                            <div class="post-thumbnail">
+                                                <a href="/single/bulgaria-php-2016-report/" title="Bulgaria PHP 2016 report">
+                                                    <img width="720" height="340" src="/wp-includes/images/bgphp16-720x340.png" class="attachment-thumb-large size-thumb-large wp-post-image" />
+                                                </a>
+                                            </div><!--/.post-thumbnail-->
+
+                                            <div class="post-meta group">
+                                                <p class="post-category"><a href="/clanci/" rel="category tag">Vesti</a></p>
+                                                <p class="post-date">14 okt, 2016</p>
+                                            </div><!--/.post-meta-->
+
+                                            <h2 class="post-title">
+                                                <a href="/single/bulgaria-php-2016-report/" rel="bookmark" title="Bulgaria PHP 2016 report">Bulgaria PHP 2016 report</a>
+                                            </h2><!--/.post-title-->
+
+                                            <div class="entry excerpt">
+                                                <p>This past weekend our crew visited a second edition of a Bulgaria PHP Conference. If you followed #bgphp16 hashtag on social networks, you&#8217;re aware how amazing it was. Indeed, it has been a wonderful&#46;&#46;&#46;</p>
+                                            </div><!--/.entry-->
+
+                                        </div><!--/.post-inner-->
+                                    </article><!--/.post-->				</li>
+                                <li>
+                                    <article id="post-1587" class="group post-1587 post type-post status-publish format-standard has-post-thumbnail hentry category-vesti">
+                                        <div class="post-inner post-hover">
+
+                                            <div class="post-thumbnail">
+                                                <a href="/single/rezultati-ankete-zene-i-devojke-u-it-svetu/" title="Rezultati ankete &#8222;Žene i devojke u IT svetu&#8220;">
+                                                    <img width="720" height="340" src="/wp-includes/images/Women-in-Tech1-720x340.jpg" class="attachment-thumb-large size-thumb-large wp-post-image" alt="" />
+                                                </a>
+                                            </div><!--/.post-thumbnail-->
+
+                                            <div class="post-meta group">
+                                                <p class="post-category"><a href="/clanci/" rel="category tag">Vesti</a></p>
+                                                <p class="post-date">5 sep, 2016</p>
+                                            </div><!--/.post-meta-->
+
+                                            <h2 class="post-title">
+                                                <a href="/single/rezultati-ankete-zene-i-devojke-u-it-svetu/" rel="bookmark" title="Rezultati ankete &#8222;Žene i devojke u IT svetu&#8220;">Rezultati ankete &#8222;Žene i devojke u IT svetu&#8220;</a>
+                                            </h2><!--/.post-title-->
+
+                                            <div class="entry excerpt">
+                                                <p>U svetu informacionih tehnologija i računarskih nauka dominiraju muškarci kako brojčano tako i što se tiče pozicija na kojima su. To je činjenica koja nije upitna. Ono oko čega se moze sporiti jeste da li&#46;&#46;&#46;</p>
+                                            </div><!--/.entry-->
+
+                                        </div><!--/.post-inner-->
+                                    </article><!--/.post-->				</li>
+
+                            </ul>
+                        </div><!--/.featured-->
+
+
+
+                        <div class="post-list group">
+                            <div class="post-row">				<article id="post-1582" class="group post-1582 post type-post status-publish format-standard has-post-thumbnail hentry category-php-srbija-2 category-vesti tag-nis tag-php tag-php-programeri-nis tag-tilda">
+                                    <div class="post-inner post-hover">
+
+                                        <div class="post-thumbnail">
+                                            <a href="/single/drugo-okupljanje-php-programera-u-nisu/" title="Drugo okupljanje PHP programera u Nišu">
+                                                <img width="520" height="245" src="/wp-includes/images/PHPSrbija-Logo-520x245.jpg" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="" />
+                                            </a>
+                                        </div><!--/.post-thumbnail-->
+
+                                        <div class="post-meta group">
+                                            <p class="post-category"><a href="/clanci/" rel="category tag">Vesti</a></p>
+                                            <p class="post-date">15 avg, 2016</p>
+                                        </div><!--/.post-meta-->
+
+                                        <h2 class="post-title">
+                                            <a href="/single/drugo-okupljanje-php-programera-u-nisu/" rel="bookmark" title="Drugo okupljanje PHP programera u Nišu">Drugo okupljanje PHP programera u Nišu</a>
+                                        </h2><!--/.post-title-->
+
+                                        <div class="entry excerpt">
+                                            <p>Sledimo najbolje prakse pa i ove godine organizujemo jedan meetup u Nišu. Kao i prošlogodišnji meetup i ovaj će se održati u Tilda coworking prostoru koji nam je i ovog puta ustupio naš veliki&#46;&#46;&#46;</p>
+                                        </div><!--/.entry-->
+
+                                    </div><!--/.post-inner-->
+                                </article><!--/.post-->									<article id="post-1555" class="group post-1555 post type-post status-publish format-standard has-post-thumbnail hentry category-konferencije tag-conference tag-phpsrb16">
+                                    <div class="post-inner post-hover">
+
+                                        <div class="post-thumbnail">
+                                            <a href="/single/thank-you-for-great-php-serbia-conference-2016/" title="Thank you for taking part in PHP Serbia Conference 2016">
+                                                <img width="520" height="245" src="/wp-includes/images/13308666_783031318499670_811069475423259327_o-520x245.jpg" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="" />
+                                            </a>
+                                        </div><!--/.post-thumbnail-->
+
+                                        <div class="post-meta group">
+                                            <p class="post-category"><a href="/clanci/" rel="category tag">Vesti</a></p>
+                                            <p class="post-date">17 jun, 2016</p>
+                                        </div><!--/.post-meta-->
+
+                                        <h2 class="post-title">
+                                            <a href="/single/thank-you-for-great-php-serbia-conference-2016/" rel="bookmark" title="Thank you for taking part in PHP Serbia Conference 2016">Thank you for taking part in PHP Serbia Conference 2016</a>
+                                        </h2><!--/.post-title-->
+
+                                        <div class="entry excerpt">
+                                            <p>It’s been more than two weeks since the PHP Serbia Conference 2016 and we are still under impression of how great this conference was. We have worked hard over the past 7 months, and&#46;&#46;&#46;</p>
+                                        </div><!--/.entry-->
+
+                                    </div><!--/.post-inner-->
+                                </article><!--/.post-->					</div><div class="post-row">				<article id="post-1548" class="group post-1548 post type-post status-publish format-standard has-post-thumbnail hentry category-konferencije category-vesti">
+                                    <div class="post-inner post-hover">
+
+                                        <div class="post-thumbnail">
+                                            <a href="/single/prva-agile-serbia-konferencija-na-balkanu/" title="Prva &#8222;Agile Serbia Konferencija&#8220; na Balkanu">
+                                                <img width="520" height="245" src="/wp-includes/images/1st-Agile-Serbia-Conference-Announcement-520x245.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="" />
+                                            </a>
+                                        </div><!--/.post-thumbnail-->
+
+                                        <div class="post-meta group">
+                                            <p class="post-category"><a href="/clanci/" rel="category tag">Vesti</a></p>
+                                            <p class="post-date">28 mar, 2016</p>
+                                        </div><!--/.post-meta-->
+
+                                        <h2 class="post-title">
+                                            <a href="/single/prva-agile-serbia-konferencija-na-balkanu/" rel="bookmark" title="Prva &#8222;Agile Serbia Konferencija&#8220; na Balkanu">Prva &#8222;Agile Serbia Konferencija&#8220; na Balkanu</a>
+                                        </h2><!--/.post-title-->
+
+                                        <div class="entry excerpt">
+                                            <p>April 2016. je rezervisan za još jedan Agile Month, niz događaja posvećenih agilnom razvoju softvera, već prepoznatljiv u Srbiji i regionu. Ove godine, aprilski Agile Month će okupiti više od 300 predstavnika biznis i&#46;&#46;&#46;</p>
+                                        </div><!--/.entry-->
+
+                                    </div><!--/.post-inner-->
+                                </article><!--/.post-->									<article id="post-1539" class="group post-1539 post type-post status-publish format-standard has-post-thumbnail hentry category-vesti">
+                                    <div class="post-inner post-hover">
+
+                                        <div class="post-thumbnail">
+                                            <a href="/single/itkonekt/" title="ITkonekt &#8211; najveći online IT događaj u regionu">
+                                                <img width="520" height="245" src="/wp-includes/images/index-520x245.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="" />
+                                            </a>
+                                        </div><!--/.post-thumbnail-->
+
+                                        <div class="post-meta group">
+                                            <p class="post-category"><a href="/clanci/" rel="category tag">Vesti</a></p>
+                                            <p class="post-date">23 mar, 2016</p>
+                                        </div><!--/.post-meta-->
+
+                                        <h2 class="post-title">
+                                            <a href="/single/itkonekt/" rel="bookmark" title="ITkonekt &#8211; najveći online IT događaj u regionu">ITkonekt &#8211; najveći online IT događaj u regionu</a>
+                                        </h2><!--/.post-title-->
+
+                                        <div class="entry excerpt">
+                                            <p>Poslovi u IT-ju, IT konferencija, networking, zabava Najbolje IT kompanije, organizacije, startupovi i gejming studiji iz regiona, okupiće se na online ITkonektu, koji se održava od 31.marta do 2. aprila. Ovo je prvi regionalni&#46;&#46;&#46;</p>
+                                        </div><!--/.entry-->
+
+                                    </div><!--/.post-inner-->
+                                </article><!--/.post-->					</div><div class="post-row">				<article id="post-1532" class="group post-1532 post type-post status-publish format-standard has-post-thumbnail hentry category-vesti">
+                                    <div class="post-inner post-hover">
+
+                                        <div class="post-thumbnail">
+                                            <a href="/single/ko-je-najpozeljniji-poslodavac-u-srbiji/" title="Ko je najpoželjniji IT poslodavac u Srbiji?">
+                                                <img width="520" height="245" src="/wp-includes/images/najpozeljniji-poslodavac-520x245.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="" />
+                                            </a>
+                                        </div><!--/.post-thumbnail-->
+
+                                        <div class="post-meta group">
+                                            <p class="post-category"><a href="/clanci/" rel="category tag">Vesti</a></p>
+                                            <p class="post-date">17 mar, 2016</p>
+                                        </div><!--/.post-meta-->
+
+                                        <h2 class="post-title">
+                                            <a href="/single/ko-je-najpozeljniji-poslodavac-u-srbiji/" rel="bookmark" title="Ko je najpoželjniji IT poslodavac u Srbiji?">Ko je najpoželjniji IT poslodavac u Srbiji?</a>
+                                        </h2><!--/.post-title-->
+
+                                        <div class="entry excerpt">
+                                            <p>Za koju IT kompaniju biste voleli da radite? &nbsp; Popunite anketu, recite nam svoje mišljenje. Pomozite da saznamo ko su najpoželjniji IT poslodavci u Srbiji i šta ih čini tako zanimljivim. Popunite kratko istraživanje&#46;&#46;&#46;</p>
+                                        </div><!--/.entry-->
+
+                                    </div><!--/.post-inner-->
+                                </article><!--/.post-->									<article id="post-1508" class="group post-1508 post type-post status-publish format-standard has-post-thumbnail hentry category-konferencije tag-conference tag-konferencija tag-php-konferencije tag-php-srbija">
+                                    <div class="post-inner post-hover">
+
+                                        <div class="post-thumbnail">
+                                            <a href="/single/new-chapter-of-the-conferences-organization/" title="New chapter of the conferences organization">
+                                                <img width="520" height="245" src="/wp-includes/images/phpsrb161-520x245.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="" />
+                                            </a>
+                                        </div><!--/.post-thumbnail-->
+
+                                        <div class="post-meta group">
+                                            <p class="post-category"><a href="/clanci/" rel="category tag">Vesti</a></p>
+                                            <p class="post-date">8 mar, 2016</p>
+                                        </div><!--/.post-meta-->
+
+                                        <h2 class="post-title">
+                                            <a href="/single/new-chapter-of-the-conferences-organization/" rel="bookmark" title="New chapter of the conferences organization">New chapter of the conferences organization</a>
+                                        </h2><!--/.post-title-->
+
+                                        <div class="entry excerpt">
+                                            <p>Late winter and early spring is the time of a year when “PHP Srbija” traditionally announces some major events. One might think that we have slowed down and relaxed a bit, as there was&#46;&#46;&#46;</p>
+                                        </div><!--/.entry-->
+
+                                    </div><!--/.post-inner-->
+                                </article><!--/.post-->					</div><div class="post-row"></div>			</div><!--/.post-list-->
+
+                        <nav class="pagination group">
+                            <div class='wp-pagenavi'>
+                                <span class="pages"><a href="/clanci/">Pogledajte sve vesti</a></span>
+<!--                                <span class='pages'>Stranica 1 od 8</span><span class='current'>1</span><a class="page larger" href="http://phpsrbija.rs/page/2/">2</a><a class="page larger" href="http://phpsrbija.rs/page/3/">3</a><a class="page larger" href="http://phpsrbija.rs/page/4/">4</a><a class="page larger" href="http://phpsrbija.rs/page/5/">5</a><span class='extend'>...</span><a class="nextpostslink" rel="next" href="http://phpsrbija.rs/page/2/">»</a><a class="last" href="http://phpsrbija.rs/page/8/">Poslednja »</a>-->
+                            </div>	</nav><!--/.pagination-->
+
+
+                    </div><!--/.pad-->
+
+                </section><!--/.content-->
+
+
+                <?= $this->partial('legacy::sidebar'); ?>
+
+            </div><!--/.main-inner-->
+        </div><!--/.main-->
+    </div><!--/.container-inner-->
+</div><!--/.container-->
