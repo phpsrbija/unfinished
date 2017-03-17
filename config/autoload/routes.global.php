@@ -17,6 +17,7 @@ return [
             Web\Legacy\ContactAction::class              => Web\Factory\Legacy\ContactFactory::class,
             Web\Legacy\ContactAction::class              => Web\Factory\Legacy\ContactFactory::class,
             Web\Legacy\ListAction::class                 => Web\Factory\Legacy\ListFactory::class,
+            Web\Legacy\IndexAction::class               => Web\Factory\Legacy\IndexFactory::class,
 
             // Admin
             Admin\Action\IndexAction::class              => Admin\Factory\Action\IndexFactory::class,
@@ -70,14 +71,15 @@ return [
             'path'       => '/clanci/page/:page/',
             'middleware' => Web\Legacy\ListAction::class,
         ],
-
-        // Web
         [
             'name'            => 'home',
             'path'            => '/',
-            'middleware'      => Web\Action\IndexAction::class,
+            'middleware'      => Web\Legacy\IndexAction::class,
             'allowed_methods' => ['GET'],
         ],
+
+        // Web
+
         [
             'name'       => 'about',
             'path'       => '/about-us',
