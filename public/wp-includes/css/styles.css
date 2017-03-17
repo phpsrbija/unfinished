@@ -103,3 +103,6 @@ div.wpcf7 input[type="file"] {
 div.wpcf7 input[type="file"]:disabled {
     cursor: default;
 }
+.contactname {
+    display:none;
+}
