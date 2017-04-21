@@ -20,7 +20,7 @@ class PostServiceFactory
      */
     public function __invoke(ContainerInterface $container) : PostService
     {
-        $config = $container->get('config')->upload;
+        $config = $container->get('config')['upload'];
         $upload = new Upload($config['public_path'], $config['non_public_path']);
 
         return new PostService(
