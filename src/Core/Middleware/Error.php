@@ -39,10 +39,10 @@ final class Error
      */
     public function __invoke($ex, Request $request, Response $response) : HtmlResponse
     {
-        if ($ex instanceof \Exception) {
+        if($ex instanceof \Exception) {
             $code    = $ex->getCode() === 0 ? 500 : $ex->getCode();
             $message = $ex->getMessage();
-        } elseif (is_int($ex)) {
+        } elseif(is_int($ex)) {
             $code    = $ex;
             $message = 'Application Error!';
         } else {
@@ -53,10 +53,10 @@ final class Error
         return new HtmlResponse(
             $this->template->render(
                 'error::error', [
-                'exception' => $ex,
-                'status'    => $code,
-                'reason'    => $message,
-                'layout'    => 'layout/no'
+                    'exception' => $ex,
+                    'status'    => $code,
+                    'reason'    => $message,
+                    'layout'    => 'layout/no'
                 ]
             ), $code
         );

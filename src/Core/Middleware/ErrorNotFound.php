@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Core\Middleware;
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -32,12 +33,12 @@ final class ErrorNotFound
     /**
      * Invoked when middleware is executed.
      *
-     * @param  Request       $request  request
-     * @param  Response      $response response
-     * @param  callable|null $next     next in line
+     * @param  Request $request    request
+     * @param  Response $response  response
+     * @param  callable|null $next next in line
      * @return HtmlResponse
      */
-    public function __invoke(Request $request, Response $response, callable $next = null) : HtmlResponse
+    public function __invoke(Request $request, Response $response, callable $next = null): HtmlResponse
     {
         return new HtmlResponse($this->template->render('error::404'), 404);
     }

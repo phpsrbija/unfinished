@@ -24,7 +24,7 @@ class ListFactory
      */
     public function __invoke(ContainerInterface $container) : ListAction
     {
-        $config = $container->get('config')->upload;
+        $config = $container->get('config')['upload'];
         $upload = new Upload($config['public_path'], $config['non_public_path']);
 
         return new ListAction(
