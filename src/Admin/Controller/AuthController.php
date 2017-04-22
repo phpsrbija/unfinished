@@ -63,7 +63,7 @@ final class AuthController extends AbstractController
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
 
-        return new HtmlResponse($this->template->render('admin::login'));
+        return new HtmlResponse($this->template->render('admin::login', ['layout' => false]));
     }
 
     /**

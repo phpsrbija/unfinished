@@ -1,6 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Login - PHPSerbia Admin!</title>
+
+    <!-- Bootstrap -->
+    <link href="/admin_assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/admin_assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/admin_assets/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="/admin_assets/vendors/animate.css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/admin_assets/build/css/custom.css" rel="stylesheet">
+</head>
+<body class="login">
+
+<div>
+    <a class="hiddenanchor" id="forgot"></a>
+    <a class="hiddenanchor" id="signin"></a>
+
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <form action="<?php echo $this->url('auth', ['action' => 'loginhandle']); ?>" method="POST" autocomplete="off">
+                    <h1>Admin Login</h1>
+
+                    <div>
+                        <input type="text" class="form-control" name="email" placeholder="Email" required=""/>
+                    </div>
+                    <div>
+                        <input type="password" class="form-control" placeholder="Password" name="password" required=""/>
+                    </div>
+                    <div>
+                        <button type="submit" type="submit" class="btn btn-default btn-block">Log In</button>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <p class="change_link">
+                            <a href="#forgot" class="to_register"> Lost your password? </a>
+                        </p>
+
+                        <div class="clearfix"></div>
+                        <br/>
+
+                        <div>
+                            <h1><i class="fa fa-bank"></i> PHPSerbia!</h1>
+
+                            <p>©2012-2017 All Rights Reserved. PHPSerbia!</p>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <div id="forgot" class="animate form forgot_form">
+            <section class="login_content">
+                <form>
+                    <h1>Forgot Password</h1>
+
+                    <div>
+                        <input type="email" class="form-control" placeholder="Email" required=""/>
+                    </div>
+
+
+                    <div>
+                        <a class="btn btn-default btn-block submit" href="#">Send Link</a>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="separator">
+                        <p class="change_link">Already a member ?
+                            <a href="#signin" class="to_register"> Log in </a>
+                        </p>
+
+                        <div class="clearfix"></div>
+                        <br/>
+
+                        <div>
+                            <h1><i class="fa fa-bank"></i> PHPSerbia!</h1>
+
+                            <p>©2012-2017 All Rights Reserved. PHPSerbia!</p>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+<?php /*
 <form class="form-signin" action="<?php echo $this->url('auth', ['action' => 'loginhandle']); ?>" method="POST" autocomplete="off">
     <h2 class="text-center"><span class="ks-red">Login to <b>UNFINISHED</b></span></h2>
     <input type="text" autocomplete="on" class="form-control" placeholder="Email address" name="email"><br/>
     <input type="password" autocomplete="on" class="form-control" placeholder="Password" name="password"><br/>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Go Go Go</button>
-</form>
+</form> */ ?>
