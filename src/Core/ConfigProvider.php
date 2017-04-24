@@ -59,11 +59,12 @@ class ConfigProvider
                     'middleware' => [Middleware\ErrorNotFound::class],
                     'priority'   => -10,
                 ],
-                'error'    => [
-                    'middleware' => [Middleware\Error::class],
-                    'error'      => true,
-                    'priority'   => -1,
-                ],
+
+                //'error'    => [
+                //    'middleware' => [Middleware\Error::class],
+                //    'error'      => true,
+                //    'priority'   => -1,
+                //],
             ],
         ];
     }
