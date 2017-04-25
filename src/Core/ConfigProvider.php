@@ -41,8 +41,6 @@ class ConfigProvider
                     Filter\VideoFilter::class              => InvokableFactory::class,
 
                     // Register custom Middlewares
-                    Middleware\Error::class                => Factory\Middleware\ErrorFactory::class,
-                    Middleware\ErrorNotFound::class        => Factory\Middleware\ErrorNotFoundFactory::class,
                     Middleware\AdminAuth::class            => Factory\Middleware\AdminAuthFactory::class,
                 ],
             ],
@@ -57,17 +55,10 @@ class ConfigProvider
 
                 'error404' => [
                     'middleware' => [
-                        Middleware\ErrorNotFound::class,
                         \Zend\Expressive\Middleware\NotFoundHandler::class
                     ],
                     'priority'   => -10,
                 ],
-
-                //'error' => [
-                //    'middleware' => [Middleware\Error::class],
-                //    'error'      => true,
-                //    'priority'   => -1,
-                //],
             ],
         ];
     }
