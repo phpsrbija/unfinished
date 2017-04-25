@@ -36,5 +36,12 @@ return [
             ],
             'priority'   => 1,
         ],
+
+        // Custom error middleware
+        //'error'    => [
+        //    'middleware' => [\Core\Middleware\Error::class],
+        //    'error'      => true,
+        //    'priority'   => 1000000,
+        //],
     ],
 ];
