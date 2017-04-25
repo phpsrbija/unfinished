@@ -3,14 +3,9 @@
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 
-// Load configuration
-$config = require __DIR__ . '/config.php';
-
-// Build container
-$container = new ServiceManager();
+$config    = require __DIR__ . '/config.php';                                   // Load configuration
+$container = new ServiceManager();                                              // Build container
 (new Config($config['dependencies']))->configureServiceManager($container);
-
-// Inject config
-$container->setService('config', $config);
+$container->setService('config', $config);                        // Inject config
 
 return $container;

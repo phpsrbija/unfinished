@@ -36,11 +36,5 @@ return [
             ],
             'priority'   => 1,
         ],
-
-        //'error'    => [
-        //    'middleware' => [\Zend\Expressive\Middleware\NotFoundHandler::class],
-        //    'error'      => true,
-        //    'priority'   => -1,
-        //],
     ],
 ];
