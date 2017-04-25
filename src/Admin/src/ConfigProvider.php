@@ -7,15 +7,13 @@ class ConfigProvider
     public function __invoke()
     {
         return [
-
             'templates' => [
-                'map'    => [
-                    // different layouts per package
-                    'layout/admin'     => 'templates/layout/admin.phtml',
-                    'admin/pagination' => 'templates/admin/partial/pagination.phtml'
+                'map'   => [
+                    'layout/admin'     => __DIR__ . '/../templates/layout/admin.phtml',
+                    'admin/pagination' => __DIR__ . '/../templates/admin/partial/pagination.phtml'
                 ],
-                'paths'  => [
-                    'admin' => ['templates/admin'],
+                'paths' => [
+                    'admin' => [__DIR__ . '/../templates/admin'],
                 ],
             ],
 

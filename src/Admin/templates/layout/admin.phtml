@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Unfinished CMS</title>
+
+    <!-- Bootstrap -->
+    <link href="/admin_assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/admin_assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/admin_assets/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="/admin_assets/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link href="/admin_assets/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="/admin_assets/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="/admin_assets/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="/admin_assets/build/css/custom.min.css" rel="stylesheet">
+</head>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="<?= $this->url('admin') ?>" class="site_title"><i class="fa fa-bank"></i> <span>Unfinished CMS</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img src="/admin_assets/images/img.jpg" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>Aleksandar Varničić</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br/>
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <ul class="nav side-menu">
+                            <li>
+                                <a href="<?= $this->url('admin') ?>"><i class="fa fa-windows"></i>Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="<?= $this->url('admin.posts') ?>"><i class="fa fa-archive"></i>Posts</a>
+                            </li>
+                            <li>
+                                <a href="<?= $this->url('admin.events') ?>"><i class="fa fa-beer"></i>Events</a>
+                            </li>
+                            <li>
+                                <a href="<?= $this->url('admin.videos') ?>"><i class="fa fa-play"></i>Videos</a>
+                            </li>
+                            <li>
+                                <a href="<?= $this->url('admin.discussions') ?>"><i class="fa fa-commenting"></i>Discussions</a>
+                            </li>
+                            <li>
+                                <a href="<?= $this->url('admin.tags') ?>"><i class="fa fa-tags"></i>Tags</a>
+                            </li>
+                            <li>
+                                <a href="<?= $this->url('admin.users') ?>"><i class="fa fa-user-secret"></i>Admin Users</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- menu footer buttons -->
+                <div class="sidebar-footer hidden-small">
+                    <a data-toggle="tooltip" data-placement="top" title="Profile">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Lock">
+                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Logout"
+                       href="<?= $this->url('auth', ['action' => 'logout']) ?>">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
+                </div>
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
+                                <img src="/admin_assets/images/img.jpg" alt="">Aleksandar Varničić
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-user pull-right"></i> Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="glyphicon glyphicon-cog pull-right"></i> Settings
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-book pull-right"></i> Help
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?= $this->url('auth', ['action' => 'logout']) ?>">
+                                        <i class="fa fa-sign-out pull-right"></i> Log Out
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <?= $this->content ?>
+        </div>
+        <!-- /page content -->
+
+        <?php /* We dont need a footer in Admin CMS
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                ©2012-2017 All Rights Reserved. <a href="http://phpsrbija.rs" target="_blank">PHPSerbia</a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content --> */ ?>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="/admin_assets/vendors/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/admin_assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="/admin_assets/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="/admin_assets/vendors/nprogress/nprogress.js"></script>
+<!-- Chart.js -->
+<script src="/admin_assets/vendors/Chart.js/dist/Chart.min.js"></script>
+<!-- gauge.js -->
+<script src="/admin_assets/vendors/gauge.js/dist/gauge.min.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="/admin_assets/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<!-- iCheck -->
+<script src="/admin_assets/vendors/iCheck/icheck.min.js"></script>
+<!-- Skycons -->
+<script src="/admin_assets/vendors/skycons/skycons.js"></script>
+<!-- Flot -->
+<script src="/admin_assets/vendors/Flot/jquery.flot.js"></script>
+<script src="/admin_assets/vendors/Flot/jquery.flot.pie.js"></script>
+<script src="/admin_assets/vendors/Flot/jquery.flot.time.js"></script>
+<script src="/admin_assets/vendors/Flot/jquery.flot.stack.js"></script>
+<script src="/admin_assets/vendors/Flot/jquery.flot.resize.js"></script>
+<!-- Flot plugins -->
+<script src="/admin_assets/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+<script src="/admin_assets/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+<script src="/admin_assets/vendors/flot.curvedlines/curvedLines.js"></script>
+<!-- DateJS -->
+<script src="/admin_assets/vendors/DateJS/build/date.js"></script>
+<!-- JQVMap -->
+<script src="/admin_assets/vendors/jqvmap/dist/jquery.vmap.js"></script>
+<script src="/admin_assets/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+<script src="/admin_assets/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="/admin_assets/vendors/moment/min/moment.min.js"></script>
+<script src="/admin_assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="/admin_assets/build/js/custom.min.js"></script>
+
+<!-- initTinyMce scripts -->
+<script src="/js/tinymce/tinymce.min.js"></script>
+<script src="/js/initTinyMce.js"></script>
+
+<?= $this->inlineScript(); ?>
+
+</body>
+</html>

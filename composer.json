@@ -44,7 +44,7 @@
         "psr-4": {
             "Web\\": "src/Web/",
             "Core\\": "src/Core/",
-            "Admin\\": "src/Admin/"
+            "Admin\\": "src/Admin/src/"
         }
     },
     "scripts": {
