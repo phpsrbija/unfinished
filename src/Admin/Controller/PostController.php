@@ -69,7 +69,7 @@ class PostController extends AbstractController
         $limit  = isset($params['limit']) ? $params['limit'] : 15;
         $posts  = $this->postService->fetchAllArticles($page, $limit);
 
-        return new HtmlResponse($this->template->render('admin::post/index', ['list' => $posts]));
+        return new HtmlResponse($this->template->render('admin::post/index', ['list' => $posts, 'layout' => 'layout/admin']));
     }
 
     /**
@@ -91,7 +91,8 @@ class PostController extends AbstractController
         return new HtmlResponse($this->template->render('admin::post/edit', [
             'post'   => $post,
             'tags'   => $tags,
-            'errors' => $errors
+            'errors' => $errors,
+            'layout' => 'layout/admin'
         ]));
     }
 

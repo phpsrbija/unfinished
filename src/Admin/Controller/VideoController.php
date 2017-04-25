@@ -69,7 +69,7 @@ class VideoController extends AbstractController
         $limit  = isset($params['limit']) ? $params['limit'] : 15;
         $videos = $this->videoService->fetchAllArticles($page, $limit);
 
-        return new HtmlResponse($this->template->render('admin::video/index', ['list' => $videos]));
+        return new HtmlResponse($this->template->render('admin::video/index', ['list' => $videos, 'layout' => 'layout/admin']));
     }
 
     /**
@@ -91,7 +91,8 @@ class VideoController extends AbstractController
         return new HtmlResponse($this->template->render('admin::video/edit', [
             'video'  => $video,
             'tags'   => $tags,
-            'errors' => $errors
+            'errors' => $errors,
+            'layout' => 'layout/admin'
         ]));
     }
 

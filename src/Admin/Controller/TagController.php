@@ -57,7 +57,7 @@ class TagController extends AbstractController
 
         $tags = $this->tagService->getPagination($page, $limit);
 
-        return new HtmlResponse($this->template->render('admin::tag/index', ['list' => $tags]));
+        return new HtmlResponse($this->template->render('admin::tag/index', ['list' => $tags, 'layout' => 'layout/admin']));
     }
 
     /**
@@ -75,7 +75,11 @@ class TagController extends AbstractController
             $tag->tag_id = $id;
         }
 
-        return new HtmlResponse($this->template->render('admin::tag/edit', ['tag' => $tag, 'errors' => $errors]));
+        return new HtmlResponse($this->template->render('admin::tag/edit', [
+            'tag'    => $tag,
+            'errors' => $errors,
+            'layout' => 'layout/admin'
+        ]));
     }
 
     public function save()

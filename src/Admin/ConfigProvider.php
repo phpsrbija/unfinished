@@ -9,7 +9,6 @@ class ConfigProvider
         return [
 
             'templates' => [
-                'layout' => 'layout/default',
                 'map'    => [
                     // different layouts per package
                     'layout/admin'     => 'templates/layout/admin.phtml',

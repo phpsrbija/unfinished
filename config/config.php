@@ -4,9 +4,15 @@ use Zend\ConfigAggregator\ConfigAggregator;
 use Zend\ConfigAggregator\PhpFileProvider;
 
 $configManager = new ConfigAggregator([
+    // FW modules
+    \Zend\Router\ConfigProvider::class,
+    \Zend\Validator\ConfigProvider::class,
+
+    // App modules
     \Admin\ConfigProvider::class,
     \Core\ConfigProvider::class,
     \Web\ConfigProvider::class,
+
     new PhpFileProvider('config/autoload/{{,*.}global,{,*.}local}.php'),
 ]);
 

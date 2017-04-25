@@ -39,6 +39,6 @@ final class IndexAction
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
-        return new HtmlResponse($this->template->render('admin::index'));
+        return new HtmlResponse($this->template->render('admin::index', ['layout' => 'layout/admin']));
     }
 }

@@ -37,7 +37,7 @@ class EventController extends AbstractController
         $limit  = isset($params['limit']) ? $params['limit'] : 15;
         $events = $this->eventService->fetchAllArticles($page, $limit);
 
-        return new HtmlResponse($this->template->render('admin::event/index', ['list' => $events]));
+        return new HtmlResponse($this->template->render('admin::event/index', ['list' => $events, 'layout' => 'layout/admin']));
     }
 
     public function edit($errors = []): \Psr\Http\Message\ResponseInterface
@@ -54,7 +54,8 @@ class EventController extends AbstractController
         return new HtmlResponse($this->template->render('admin::event/edit', [
             'event'  => $event,
             'tags'   => $tags,
-            'errors' => $errors
+            'errors' => $errors,
+            'layout' => 'layout/admin'
         ]));
     }
 
