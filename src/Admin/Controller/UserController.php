@@ -67,7 +67,7 @@ class UserController extends AbstractController
 
         $adminUsers = $this->adminUserService->getPagination($page, $limit, $user->admin_user_id);
 
-        return new HtmlResponse($this->template->render('admin::user/index', ['list' => $adminUsers]));
+        return new HtmlResponse($this->template->render('admin::user/index', ['list' => $adminUsers, 'layout' => 'layout/admin']));
     }
 
     /**
@@ -85,7 +85,11 @@ class UserController extends AbstractController
             $user->admin_user_id = $id;
         }
 
-        return new HtmlResponse($this->template->render('admin::user/edit', ['user' => $user, 'errors' => $errors]));
+        return new HtmlResponse($this->template->render('admin::user/edit', [
+            'user'   => $user,
+            'errors' => $errors,
+            'layout' => 'layout/admin'
+        ]));
     }
 
     public function save()

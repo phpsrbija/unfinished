@@ -56,7 +56,7 @@ final class Error
                     'exception' => $ex,
                     'status'    => $code,
                     'reason'    => $message,
-                    'layout'    => 'layout/no'
+                    'layout'    => false
                 ]
             ), $code
         );

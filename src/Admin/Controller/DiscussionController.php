@@ -65,7 +65,7 @@ class DiscussionController extends AbstractController
 
         $discussions = $this->discussionService->fetchAllArticles($page, $limit);
 
-        return new HtmlResponse($this->template->render('admin::discussion/index', ['list' => $discussions]));
+        return new HtmlResponse($this->template->render('admin::discussion/index', ['list' => $discussions, 'layout' => 'layout/admin']));
     }
 
     public function edit($errors = []): \Psr\Http\Message\ResponseInterface
@@ -82,7 +82,8 @@ class DiscussionController extends AbstractController
         return new HtmlResponse($this->template->render('admin::discussion/edit', [
             'discussion' => $discussion,
             'tags'       => $tags,
-            'errors'     => $errors
+            'errors'     => $errors,
+            'layout'     => 'layout/admin'
         ]));
     }
 
