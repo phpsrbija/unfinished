@@ -1,40 +1,71 @@
-<div class="row">
-    <h2 class="col-md-6">Posts list</h2>
-    <div class="col-md-6">
-        <a href="<?= $this->url('admin.posts.action', ['action' => 'edit', 'id' => 0]) ?>" style="margin-top:20px;"
-           class="btn btn-default pull-right btn-success"> Create new Post
-        </a>
-    </div>
-</div><br/>
-
-<?php if($list->getTotalItemCount() > 0): ?>
-    <table class="table table-hover table-striped ">
-        <thead>
-        <tr>
-            <th>Title</th>
-            <th>Published</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach($list as $one): ?>
-            <tr>
-                <td><?= $one->title ?></td>
-                <td style="width:90px;"><?= date("d.m.Y", strtotime($one->published_at)); ?></td>
-                <td style="width:70px;">
-                    <span class="pull-right">
-                        <a href="<?= $this->url('admin.posts.action', ['action' => 'edit', 'id' => $one->article_id]) ?>">
-                            <i class="glyphicon glyphicon-pencil"></i></a> &nbsp;
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Posts
+                <small> / List of all written posts.</small>
+            </h3>
+        </div>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
                     </span>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
-
-    <?= $this->paginationControl($list, 'Sliding', 'admin/pagination', ['route' => 'admin.posts']) ?>
-<?php else: ?>
-    <div class="jumbotron text-center">
-        <h3>There are no posts!</h3>
+                </div>
+            </div>
+        </div>
     </div>
-<?php endif; ?>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <a href="<?= $this->url('admin.posts.action', ['action' => 'edit', 'id' => 0]) ?>"
+                       class="btn btn-default pull-right btn-success"> Write new Post
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <?php if($list->getTotalItemCount() > 0): ?>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Title</th>
+                                <th>Published</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach($list as $one): ?>
+                                <tr>
+                                    <th>
+                                        <span class="label label-<?= $one->status ? 'success' : 'danger' ?>"><?= $one->status ? 'PUBLISHED' : 'OFF' ?></span>
+                                    </th>
+                                    <td><?= $one->title ?></td>
+                                    <td><?= date("d.m.Y H:i", strtotime($one->published_at)); ?></td>
+                                    <td>
+                                        <span class="pull-right">
+                                            <a href="<?= $this->url('admin.posts.action', ['action' => 'edit', 'id' => $one->article_id]) ?>">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </a> &nbsp;
+                                        </span>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <?= $this->paginationControl($list, 'Sliding', 'admin/pagination', ['route' => 'admin.posts']) ?>
+                    <?php else: ?>
+                        <div class="col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="jumbotron text-center">
+                                <h3>There are no Posts!</h3>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
