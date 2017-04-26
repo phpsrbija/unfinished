@@ -18,10 +18,16 @@
     </div>
     <div class="clearfix"></div>
     <div class="row">
-        <?php if($list->getTotalItemCount() > 0): ?>
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <a href="<?= $this->url('admin.posts.action', ['action' => 'edit', 'id' => 0]) ?>"
+                       class="btn btn-default pull-right btn-success"> Write new Post
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <?php if($list->getTotalItemCount() > 0): ?>
                         <table class="table">
                             <thead>
                             <tr>
@@ -51,15 +57,15 @@
                             </tbody>
                         </table>
                         <?= $this->paginationControl($list, 'Sliding', 'admin/pagination', ['route' => 'admin.posts']) ?>
-                    </div>
+                    <?php else: ?>
+                        <div class="col-md-offset-3 col-sm-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="jumbotron text-center">
+                                <h3>There are no posts!</h3>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
-        <?php else: ?>
-            <div class="col-md-offset-3 col-sm-3 col-md-6 col-sm-6 col-xs-12">
-                <div class="jumbotron text-center">
-                    <h3>There are no posts!</h3>
-                </div>
-            </div>
-        <?php endif; ?>
+        </div>
     </div>
 </div>
