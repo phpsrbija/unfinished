@@ -12,7 +12,7 @@ class ArticleFilter implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if(!$this->inputFilter){
+        if(!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
             $inputFilter->add([
@@ -33,10 +33,9 @@ class ArticleFilter implements InputFilterAwareInterface
             ]);
 
             $inputFilter->add([
-                'name'       => 'status',
-                'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
-                'validators' => [['name' => 'NotEmpty'], ['name' => 'Digits']]
+                'name'     => 'status',
+                'required' => false,
+                'filters'  => [['name' => 'Boolean']],
             ]);
 
             $this->inputFilter = $inputFilter;

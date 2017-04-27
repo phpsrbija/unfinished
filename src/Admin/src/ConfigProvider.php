@@ -10,7 +10,7 @@ class ConfigProvider
             'templates' => [
                 'map'   => [
                     'layout/admin'     => __DIR__ . '/../templates/layout/admin.phtml',
-                    'admin/pagination' => __DIR__ . '/../templates/admin/partial/pagination.phtml'
+                    'admin/pagination' => __DIR__ . '/../templates/admin/partial/pagination.phtml',
                 ],
                 'paths' => [
                     'admin' => [__DIR__ . '/../templates/admin'],
