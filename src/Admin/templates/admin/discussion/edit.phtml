@@ -1,84 +1,146 @@
-<?php if(isset($discussion->article_id) && $discussion->article_id):?>
-    <h2>Edit discussion</h2>
-<?php else: ?>
-    <h2>Create new discussion</h2>
-<?php endif; ?>
-<br/>
-
-<!-- Make better style with the theme css/html - notify -->
-<?php if($errors): ?>
-    <?php foreach($errors as $input => $inputErrors): ?>
-        <div class="bg-danger" style="padding:0.5em; margin:0.5em;">
-            <?= $input ?>
-            <ul>
-            <?php foreach($inputErrors as  $error): ?>
-                <li><?= $error ?></li>
-            <?php endforeach; ?>
-            <ul/>
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    <?php if(isset($discussion->article_id) && $discussion->article_id): ?>
+                        <h2>Discussion: "<?= $discussion->title ?>"</h2>
+                    <?php else: ?>
+                        <h2>Make a Discussion</h2>
+                    <?php endif; ?>
+                </h2>
+                <a href="<?= $this->url('admin.discussions') ?>" class="btn btn-default pull-right">
+                    <i class="fa fa-reply"></i> Back
+                </a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content"><br/>
+                <form class="form-horizontal form-label-left" method="POST"
+                      action="<?= $this->url('admin.discussions.action', ['action' => 'save', 'id' => $discussion ? $discussion->article_id : 0]) ?>">
+                    <div class="row">
+                        <div class="col-md-8 col-xs-12">
+                            <!-- Content part -->
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <textarea class="form-control" id="body" name="body"
+                                              placeholder="Write content..."><?= $discussion ? $discussion->body : '' ?></textarea>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->body) ? implode('. ', (array)$errors->body) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- \Content part -->
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                            <!-- Rest configuration for Post -->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Title</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="title" placeholder="Title"
+                                           value="<?= $discussion ? $discussion->title : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->title) ? implode('. ', (array)$errors->title) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Published Date</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12  has-feedback">
+                                    <input type="text" class="form-control has-feedback-left" id="published_at_calendar"
+                                           name="published_at"
+                                           value="<?= $discussion ? $discussion->published_at : '' ?>"
+                                           placeholder="Published Date" aria-describedby="inputSuccess2Status2">
+                                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->published_at) ? implode('. ', (array)$errors->published_at) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">URL Slug</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="slug" placeholder="URL Slug"
+                                           value="<?= $discussion ? $discussion->slug : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->slug) ? implode('. ', (array)$errors->slug) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Tags</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select class="select2_multiple form-control" multiple="multiple" name="tags[]">
+                                        <?php foreach($tags as $tag): ?>
+                                            <option value="<?= $tag->tag_id ?>" <?= (isset($discussion->tags) && in_array($tag->tag_id, $discussion->tags)) ? 'selected' : '' ?>>
+                                                <?= $tag->name ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Published</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="status" <?= (isset($discussion->status) && $discussion->status == 1) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->status) ? implode('. ', (array)$errors->status) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-sm-offset-3 col-md-9 col-sm-9 col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-success">Save</button>
+                                    <br/>
+                                    <a type="button" class="btn btn-default btn-block"
+                                       href="<?= $this->url('admin.discussions') ?>"> Cancel
+                                    </a>
+                                    <?php if(isset($discussion->article_id) && $discussion->article_id): ?>
+                                        <br/>
+                                        <a href="<?= $this->url('admin.discussions.action', ['action' => 'delete', 'id' => $discussion->article_id]) ?>"
+                                           onclick="if(!confirm('Are you sure?')){return false;}"
+                                           class="btn btn-danger btn-block"> Delete
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <!-- \Rest configuration for Post -->
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-    <?php endforeach;?>
-    <br/>
-<?php endif; ?>
-
-<form action="<?= $this->url('admin.discussions.action', ['action' => 'save', 'id' => $discussion ? $discussion->article_id : 0]) ?>" method="POST" class="form articleForm">
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="title" name="title" value="<?= $discussion ? $discussion->title : ''; ?>" />
     </div>
-
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="publish date" name="published_at" value="<?= $discussion ? $discussion->published_at : ''; ?>" />
-        <i>format: yyyy-mm-dd H:i:s</i>
-    </div>
-
-    <div class="form-group">
-        <input type="text" class="form-control" rows="3" placeholder="URL slug" name="slug" value="<?= $discussion ? $discussion->slug : ''; ?>">
-    </div>
-
-    <div class="form-group">
-        <textarea id="body" class="form-control" name="body"><?= $discussion ? $discussion->body : '' ?></textarea>
-    </div>
-
-    <div class="form-group">
-        <select name="status" id="status" class="form-control">
-            <option value="0" <?= $discussion ? ($discussion->status == 0 ? 'selected' : '') : '' ?>>Unpublished</option>
-            <option value="1" <?= $discussion ? ($discussion->status == 1 ? 'selected' : '') : '' ?>>Published</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <select multiple name="tags[]" style="width: 100%;">
-            <?php foreach($tags as $tag): ?>
-                <option value="<?= $tag->tag_id ?>" <?= (isset($discussion->tags) && in_array($tag->tag_id, $discussion->tags)) ? 'selected' : '' ?>>
-                    <?= $tag->name ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-default">Save</button>
-        <a href="<?= $this->url('admin.discussions') ?>" class="btn btn-default">Cancel</a>
-
-        <?php if(isset($discussion->article_id) && $discussion->article_id): ?>
-        <a href="<?= $this->url('admin.discussions.action', ['action' => 'delete', 'id' => $discussion->article_id]) ?>"
-           onclick="if(!confirm('Are you sure?')){return false;}" class="btn btn-danger pull-right">
-            Delete
-        </a>
-        <?php endif; ?>
-    </div>
-</form>
-
-<script src="/js/tinymce/tinymce.min.js"></script>
-<script src="/js/initTinyMce.js"></script>
-
+</div>
 <?php
 $this->inlineScript()->appendScript("
     $(document).ready(function() {
-        initMce('#body', '100%', 300, true);
+        initMce('#body', '100%', 500, true);
 
         $('.articleForm').on('submit', function(e) {
             tinyMCE.triggerSave();
         });
+        
+        $('#published_at_calendar').daterangepicker({
+            timePicker24Hour: true,
+            timePicker: true,
+            locale: {
+                format: 'YYYY-MM-DD HH:mm:ss'
+            },
+            singleDatePicker: true
+		}, function(start, end, label) {
+	        // console.log(start.toISOString(), end.toISOString(), label);
+		});
     });
 ");
 ?>
