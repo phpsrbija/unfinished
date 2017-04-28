@@ -25,17 +25,16 @@ $this->inlineScript()
 </head>
 <body>
 <div class="container">
-    <div class="header clearfix">
-        <h3 class="text-muted">UnFin&trade;</h3>
-    </div>
 
-    <div id="content">
-        <?= $this->content; ?>
-    </div>
+    <center>
+        <div id="content">
+            <?= $this->content; ?>
+        </div>
 
-    <footer class="footer">
-        <p>&copy; PHP Serbia 2012 - <?= date('Y') ?> Made with ♥ in Serbia</p>
-    </footer>
+        <footer class="footer">
+            <p>&copy; PHP Serbia 2012 - <?= date('Y') ?> Made with ♥ in Serbia</p>
+        </footer>
+    </center>
 </div>
 <?= $this->inlineScript(); ?>
 </body>
