@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a630749de3ceabfd7376ddf190c6c4d7",
+    "content-hash": "e808b14072bb04ad66dc08469e30c2e6",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -958,16 +958,16 @@
         },
         {
             "name": "zendframework/zend-config-aggregator",
-            "version": "0.2.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-config-aggregator.git",
-                "reference": "633a0bf3030a68d2a71cb41a121ad930a52041ea"
+                "reference": "9494f491db02112c48777f1948a3b7ef71d674ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-config-aggregator/zipball/633a0bf3030a68d2a71cb41a121ad930a52041ea",
-                "reference": "633a0bf3030a68d2a71cb41a121ad930a52041ea",
+                "url": "https://api.github.com/repos/zendframework/zend-config-aggregator/zipball/9494f491db02112c48777f1948a3b7ef71d674ab",
+                "reference": "9494f491db02112c48777f1948a3b7ef71d674ab",
                 "shasum": ""
             },
             "require": {
@@ -986,6 +986,12 @@
                 "zendframework/zend-stdlib": "Allows removing configuration keys and globbing on Windows platform"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev",
+                    "dev-develop": "1.1-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Zend\\ConfigAggregator\\": "src/"
@@ -1002,7 +1008,7 @@
                 }
             ],
             "description": "Lightweight library for merging and caching application config",
-            "time": "2017-04-23T11:14:49+00:00"
+            "time": "2017-04-24T21:19:47+00:00"
         },
         {
             "name": "zendframework/zend-crypt",
