@@ -30,9 +30,14 @@
     <div class="login_wrapper">
         <div class="animate form login_form">
             <section class="login_content">
-                <form action="<?php echo $this->url('auth', ['action' => 'loginhandle']); ?>" method="POST" autocomplete="off">
+                <form action="<?php echo $this->url('auth', ['action' => 'loginhandle']); ?>" method="POST"
+                      autocomplete="off">
                     <h1>Admin Login</h1>
-
+                    <?php if($error): ?>
+                        <div class="alert alert-danger" style="text-shadow: none;"><strong>Invalid login!</strong></div>
+                        You want to be part of our crew? <br/><a href="#">Send request ></a>
+                        <br/><br/>
+                    <?php endif; ?>
                     <div>
                         <input type="text" class="form-control" name="email" placeholder="Email" required=""/>
                     </div>
@@ -42,9 +47,7 @@
                     <div>
                         <button type="submit" type="submit" class="btn btn-default btn-block">Log In</button>
                     </div>
-
                     <div class="clearfix"></div>
-
                     <div class="separator">
                         <p class="change_link">
                             <a href="#forgot" class="to_register"> Lost your password? </a>

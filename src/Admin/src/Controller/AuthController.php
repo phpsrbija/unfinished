@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Admin\Controller;
 
 use Core\Service\AdminUserService;
@@ -57,13 +58,13 @@ final class AuthController extends AbstractController
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function login() : \Psr\Http\Message\ResponseInterface
+    public function login($error = false): \Psr\Http\Message\ResponseInterface
     {
-        if($this->session->getStorage()->user){
+        if($this->session->getStorage()->user) {
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
 
-        return new HtmlResponse($this->template->render('admin::login', ['layout' => false]));
+        return new HtmlResponse($this->template->render('admin::login', ['layout' => false, 'error' => $error]));
     }
 
     /**
@@ -71,9 +72,9 @@ final class AuthController extends AbstractController
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function loginHandle() : \Psr\Http\Message\ResponseInterface
+    public function loginHandle(): \Psr\Http\Message\ResponseInterface
     {
-        if($this->session->getStorage()->user){
+        if($this->session->getStorage()->user) {
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
 
@@ -81,14 +82,16 @@ final class AuthController extends AbstractController
         $email    = isset($data['email']) ? $data['email'] : null;
         $password = isset($data['password']) ? $data['password'] : null;
 
-        try{
+        try {
             $this->session->getStorage()->user = $this->adminUserService->loginUser($email, $password);
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
-        catch(\Exception $e){
+        catch(\Exception $e) {
+            return $this->login($e->getMessage());
+
             //@todo set $e->getMessage() to flash messanger and print messages in next page
-            return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
+            //return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin'));
         }
     }
 
@@ -97,7 +100,7 @@ final class AuthController extends AbstractController
      *
      * @return static
      */
-    public function logout() : \Psr\Http\Message\ResponseInterface
+    public function logout(): \Psr\Http\Message\ResponseInterface
     {
         $this->session->getStorage()->clear('user');
 

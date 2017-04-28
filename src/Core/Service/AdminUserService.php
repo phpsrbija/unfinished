@@ -57,6 +57,10 @@ class AdminUserService
      */
     public function loginUser($email, $password)
     {
+        if(!$email || !$password){
+            throw new \Exception('Both email and password are required.', 400);
+        }
+
         $user = $this->adminUsersMapper->getByEmail($email);
 
         if(!$user){
