@@ -1,0 +1,33 @@
+<ul class="dd-list">
+    <?php foreach($menuNestedItems as $item): ?>
+        <li class="dd-item" data-id="<?= $item['id']; ?>">
+            <div class="dd-handle"><span class="title"><?= $item['title'] ?></span></div>
+
+            <div class="abs-actions">
+                <?php if($item['is_in_header']): ?>
+                    <span class="badge margin-right">header</span>
+                <?php endif; ?>
+
+                <?php if($item['is_in_footer']): ?>
+                    <span class="badge margin-right">footer</span>
+                <?php endif; ?>
+
+                <?php if($item['is_in_side']): ?>
+                    <span class="badge margin-right">side</span>
+                <?php endif; ?>
+
+                <span class="badge bg-<?= $item['is_active'] ? 'green' : 'red' ?> margin-right-one">
+                    <?= $item['is_active'] ? 'on' : 'off' ?>
+                </span>&nbsp; &nbsp;
+
+                <!-- Actions -->
+                <a href="<?= $this->url('admin.menu.action', ['action' => 'edit', 'id' => $item['id']]) ?>">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </a>
+            </div>
+            <?php if($item['children']): ?>
+                <?= $this->partial('partial/menu-level', ['menuNestedItems' => $item['children']]); ?>
+            <?php endif; ?>
+        </li>
+    <?php endforeach; ?>
+</ul>

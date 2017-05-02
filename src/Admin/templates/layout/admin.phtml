@@ -23,8 +23,11 @@
     <link href="/admin_assets/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
     <link href="/admin_assets/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- Nestable lists -->
+    <link href="/admin_assets/css/nestable.list.css" rel="stylesheet">
+
     <!-- Custom Theme Style -->
-    <link href="/admin_assets/build/css/custom.min.css" rel="stylesheet">
+    <link href="/admin_assets/build/css/custom.css" rel="stylesheet">
 </head>
 <body class="nav-md">
 <div class="container body">
@@ -44,19 +47,21 @@
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
+
                         <h2>Aleksandar Varničić</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
-
                 <br/>
-
                 <!-- sidebar menu -->
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                     <div class="menu_section">
                         <ul class="nav side-menu">
                             <li>
                                 <a href="<?= $this->url('admin') ?>"><i class="fa fa-windows"></i>Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="<?= $this->url('admin.menu') ?>"><i class="fa fa-sitemap"></i>Menu</a>
                             </li>
                             <li>
                                 <a href="<?= $this->url('admin.posts') ?>"><i class="fa fa-archive"></i>Posts</a>
@@ -201,6 +206,8 @@
 <!-- bootstrap-daterangepicker -->
 <script src="/admin_assets/vendors/moment/min/moment.min.js"></script>
 <script src="/admin_assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<script src="/admin_assets/js/jquery.nestable.js"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="/admin_assets/build/js/custom.min.js"></script>

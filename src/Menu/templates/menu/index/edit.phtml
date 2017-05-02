@@ -1,0 +1,208 @@
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    <?php if(isset($item->id) && $item->id): ?>
+                        <h2>Menu item: "<?= $item->title ?>"</h2>
+                    <?php else: ?>
+                        <h2>New Menu Item</h2>
+                    <?php endif; ?>
+                </h2>
+                <a href="<?= $this->url('admin.menu') ?>" class="btn btn-default pull-right">
+                    <i class="fa fa-reply"></i> Back
+                </a>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content"><br/>
+
+                <form class="form-horizontal form-label-left" method="POST"
+                      action="<?= $this->url('admin.menu.action', ['action' => 'save', 'id' => $item ? $item->id : 0]) ?>">
+                    <div class="row">
+                        <div class="col-md-8 col-xs-12">
+                            <!-- Menu items -->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Menu Title</label>
+
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="title" placeholder="Title"
+                                           value="<?= $item ? $item->title : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->title) ? implode('. ', (array)$errors->title) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Parent Item</label>
+
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select class="form-control" name="parent_id">
+                                        <option value="">Leave blank (top level)</option>
+                                        <?php foreach($menuItems as $menuItem): ?>
+                                            <option value="<?= $menuItem->id ?>"
+                                                <?= $item && $menuItem->id == $item->parent_id ? 'selected' : '' ?>
+                                                <?= !$menuItem->is_active ? 'disabled' : '' ?>><?= $menuItem->title ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->parent_id) ? implode('. ', (array)$errors->parent_id) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-sm-offset-3 col-md-9 col-sm-9 col-xs-12">
+                                    <div class="alert alert-info alert-dismissible fade in" role="alert">
+                                        <strong>With Menu Item you can:</strong>
+                                        <ul>
+                                            <li>Link Menu Item to the existing page (single page).</li>
+                                            <li>Link Menu Item to the existing category (list of posts/pages).</li>
+                                            <li>Internal or External links.</li>
+                                            <li>Leave it blank - no lead to any link.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Select page</label>
+
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select class="form-control" name="article_uuid">
+                                        <option value="">Choose page</option>
+                                        <?php /* foreach($this->article()->forSelect() as $article): ?>
+                                            <option value="<?= $article->id ?>"
+                                                <?= $item && $article->id == $item->article_uuid ? 'selected' : '' ?>
+                                                <?= !$article->is_published ? 'disabled' : '' ?>><?= $article->meta_title ?></option>
+                                        <?php endforeach; */ ?>
+                                    </select>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->article_uuid) ? implode('. ', (array)$errors->article_uuid) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Select category</label>
+
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select class="form-control" name="category_id">
+                                        <option value="">Choose category</option>
+                                        <?php /* foreach($this->article()->forSelect() as $article): ?>
+                                            <option value="<?= $article->id ?>"
+                                                <?= $item && $article->id == $item->article_uuid ? 'selected' : '' ?>
+                                                <?= !$article->is_published ? 'disabled' : '' ?>><?= $article->meta_title ?></option>
+                                        <?php endforeach; */ ?>
+                                    </select>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->category_id) ? implode('. ', (array)$errors->category_id) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">URL</label>
+
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="href" placeholder="Custom URL"
+                                           value="<?= $item ? $item->href : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->href) ? implode('. ', (array)$errors->href) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- \Content part -->
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                            <!-- Rest configuration for Post -->
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Active</label>
+
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="is_active" <?= (isset($item->is_active) && $item->is_active == 1) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->is_active) ? implode('. ', (array)$errors->is_active) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Header Menu</label>
+
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="is_in_header" <?= (isset($item->is_in_header) && $item->is_in_header == 1) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->is_in_header) ? implode('. ', (array)$errors->is_in_header) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Footer Menu</label>
+
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="is_in_footer" <?= (isset($item->is_in_footer) && $item->is_in_footer == 1) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->is_in_footer) ? implode('. ', (array)$errors->is_in_footer) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Side Menu</label>
+
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="is_in_side" <?= (isset($item->is_in_side) && $item->is_in_side == 1) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->is_in_side) ? implode('. ', (array)$errors->is_in_side) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-sm-offset-3 col-md-9 col-sm-9 col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-success">Save</button>
+                                    <br/>
+                                    <a type="button" class="btn btn-default btn-block"
+                                       href="<?= $this->url('admin.menu') ?>"> Cancel
+                                    </a>
+                                    <?php if(isset($item->id) && $item->id): ?>
+                                        <br/>
+                                        <a href="<?= $this->url('admin.menu.action', ['action' => 'delete', 'id' => $item->id]) ?>"
+                                           onclick="if(!confirm('Are you sure?')){return false;}"
+                                           class="btn btn-danger btn-block"> Delete
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <!-- \Rest configuration for Post -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -42,7 +42,8 @@
         "psr-4": {
             "Web\\": "src/Web/",
             "Core\\": "src/Core/",
-            "Admin\\": "src/Admin/src/"
+            "Admin\\": "src/Admin/src/",
+            "Menu\\": "src/Menu/src/"
         }
     },
     "scripts": {
