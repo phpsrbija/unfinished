@@ -1,22 +1,24 @@
 <?php
+
 declare(strict_types = 1);
-namespace Core\Mapper;
+
+namespace Category\Mapper;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
 use Zend\Db\TableGateway\AbstractTableGateway;
 
 /**
- * Class TagsMapper.
+ * Class CategoryMapper.
  *
  * @package Core\Mapper
  */
-class TagsMapper extends AbstractTableGateway implements AdapterAwareInterface
+class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterface
 {
     /**
      * @var string
      */
-    protected $table = 'tags';
+    protected $table = 'category';
 
     /**
      * Db adapter setter method,
@@ -31,7 +33,7 @@ class TagsMapper extends AbstractTableGateway implements AdapterAwareInterface
 
     public function get($id)
     {
-        return $this->select(['tag_id' => $id])->current();
+        return $this->select(['category_id' => $id])->current();
     }
 
     public function getPaginationSelect()

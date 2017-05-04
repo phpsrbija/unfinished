@@ -1,8 +1,8 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3>Tags
-                <small> / List of all tags.</small>
+            <h3>categorys
+                <small> / List of all categories.</small>
             </h3>
         </div>
         <div class="title_right">
@@ -21,8 +21,8 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <a href="<?= $this->url('admin.tags.action', ['action' => 'edit', 'id' => 0]) ?>"
-                       class="btn btn-default pull-right btn-success"> Create new Tag
+                    <a href="<?= $this->url('admin.categories.action', ['action' => 'edit', 'id' => 0]) ?>"
+                       class="btn btn-default pull-right btn-success"> Create new category
                     </a>
                     <div class="clearfix"></div>
                 </div>
@@ -43,7 +43,7 @@
                                     <td><?= $one->slug ?></td>
                                     <td>
                                         <span class="pull-right">
-                                            <a href="<?= $this->url('admin.tags.action', ['action' => 'edit', 'id' => $one->tag_id]) ?>">
+                                            <a href="<?= $this->url('admin.categories.action', ['action' => 'edit', 'id' => $one->category_id]) ?>">
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                             </a>
                                         </span>
@@ -52,11 +52,11 @@
                             <?php endforeach; ?>
                             </tbody>
                         </table>
-                        <?= $this->paginationControl($list, 'Sliding', 'admin/pagination', ['route' => 'admin.tags']) ?>
+                        <?= $this->paginationControl($list, 'Sliding', 'admin/pagination', ['route' => 'admin.categories']) ?>
                     <?php else: ?>
                         <div class="col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
                             <div class="jumbotron text-center">
-                                <h3>There are no Tags!</h3>
+                                <h3>There are no categories!</h3>
                             </div>
                         </div>
                     <?php endif; ?>

@@ -8,9 +8,9 @@ use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
 use Zend\Db\TableGateway\AbstractTableGateway;
 
-class ArticleTagsMapper extends AbstractTableGateway implements AdapterAwareInterface
+class ArticleCategoriesMapper extends AbstractTableGateway implements AdapterAwareInterface
 {
-    protected $table = 'article_tags';
+    protected $table = 'article_categories';
 
     public function setDbAdapter(Adapter $adapter)
     {

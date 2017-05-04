@@ -4,14 +4,14 @@ use Phinx\Migration\AbstractMigration;
 use MysqlUuid\Formats\Binary;
 use MysqlUuid\Uuid;
 
-class Tags extends AbstractMigration
+class Category extends AbstractMigration
 {
 
     public function up()
     {
-        $this->table('tags', ['id' => false, 'primary_key' => 'tag_uuid'])
-            ->addColumn('tag_uuid', 'binary', ['limit' => 16])
-            ->addColumn('tag_id', 'text')
+        $this->table('category', ['id' => false, 'primary_key' => 'category_uuid'])
+            ->addColumn('category_uuid', 'binary', ['limit' => 16])
+            ->addColumn('category_id', 'text')
             ->addColumn('name', 'text')
             ->addColumn('slug', 'text')
             ->create();
@@ -34,19 +34,19 @@ class Tags extends AbstractMigration
             $mysqluuid = (new Uuid($id))->toFormat(new Binary());
 
             $data = [
-                'tag_uuid' => $mysqluuid,
-                'tag_id'   => $id,
-                'name'     => $cat['name'],
-                'slug'     => $cat['slug'],
+                'category_uuid' => $mysqluuid,
+                'category_id'   => $id,
+                'name'          => $cat['name'],
+                'slug'          => $cat['slug'],
             ];
 
-            $this->insert('tags', $data);
+            $this->insert('category', $data);
         }
     }
 
     public function down()
     {
-        $this->dropTable('tags');
+        $this->dropTable('category');
     }
 
 }

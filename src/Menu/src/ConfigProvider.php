@@ -43,13 +43,6 @@ class ConfigProvider
                 ],
             ],
 
-            // ---- refactor this
-            //'controller_plugins' => [
-            //    'factories' => [
-            //        'menu' => Controller\Plugin\MenuItemsFactory::class,
-            //    ]
-            //],
-
             'view_helpers' => [
                 'factories' => [
                     'menu' => View\Helper\MenuItemsFactory::class,

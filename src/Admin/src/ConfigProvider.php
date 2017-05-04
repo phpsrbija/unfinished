@@ -22,7 +22,6 @@ class ConfigProvider
                     Action\IndexAction::class              => Factory\Action\IndexFactory::class,
                     Controller\AuthController::class       => Factory\Controller\AuthFactory::class,
                     Controller\UserController::class       => Factory\Controller\UserFactory::class,
-                    Controller\TagController::class        => Factory\Controller\TagFactory::class,
                     Controller\PostController::class       => Factory\Controller\PostFactory::class,
                     Controller\DiscussionController::class => Factory\Controller\DiscussionFactory::class,
                     Controller\EventController::class      => Factory\Controller\EventFactory::class,
@@ -71,18 +70,6 @@ class ConfigProvider
                     'name'            => 'admin.users.action',
                     'path'            => '/admin/users/:action/:id',
                     'middleware'      => Controller\UserController::class,
-                    'allowed_methods' => ['GET', 'POST']
-                ],
-                [
-                    'name'            => 'admin.tags',
-                    'path'            => '/admin/tags',
-                    'middleware'      => Controller\TagController::class,
-                    'allowed_methods' => ['GET'],
-                ],
-                [
-                    'name'            => 'admin.tags.action',
-                    'path'            => '/admin/tags/:action/:id',
-                    'middleware'      => Controller\TagController::class,
                     'allowed_methods' => ['GET', 'POST']
                 ],
                 [

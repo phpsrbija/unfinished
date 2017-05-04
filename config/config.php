@@ -13,6 +13,7 @@ $configManager = new ConfigAggregator([
     \Core\ConfigProvider::class,
     \Web\ConfigProvider::class,
     \Menu\ConfigProvider::class,
+    \Category\ConfigProvider::class,
 
     new PhpFileProvider('config/autoload/{{,*.}global,{,*.}local}.php'),
 ]);

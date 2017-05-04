@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Admin\Controller;
 
 use Core\Service\Article\DiscussionService;
-use Core\Service\TagService;
+use Category\Service\CategoryService;
 use Core\Exception\FilterException;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
@@ -14,30 +14,21 @@ use Zend\Session\SessionManager;
 
 class DiscussionController extends AbstractController
 {
-    /**
-     * @var Template
-     */
+    /** @var Template */
     private $template;
 
-    /**
-     * @var Router
-     */
+    /** @var Router */
     private $router;
 
-    /**
-     * @var DiscussionService
-     */
+    /** @var DiscussionService */
     private $discussionService;
 
-    /**
-     * @var SessionManager
-     */
+    /** @var SessionManager */
     private $session;
-    /**
-     * @var TagService
-     */
-    private $tagService;
 
+    /** @var CategoryService */
+    private $categoryService;
+    
     /**
      * DiscussionController constructor.
      *
@@ -45,19 +36,19 @@ class DiscussionController extends AbstractController
      * @param Router $router
      * @param DiscussionService $discussionService
      * @param SessionManager $session
-     * @param TagService $tagService
+     * @param CategoryService $categoryService
      */
     public function __construct(Template $template, Router $router, DiscussionService $discussionService,
-                                SessionManager $session, TagService $tagService)
+                                SessionManager $session, CategoryService $categoryService)
     {
         $this->template          = $template;
         $this->router            = $router;
         $this->discussionService = $discussionService;
         $this->session           = $session;
-        $this->tagService        = $tagService;
+        $this->categoryService   = $categoryService;
     }
 
-    public function index() : \Psr\Http\Message\ResponseInterface
+    public function index(): \Psr\Http\Message\ResponseInterface
     {
         $params = $this->request->getQueryParams();
         $page   = isset($params['page']) ? $params['page'] : 1;
@@ -72,16 +63,16 @@ class DiscussionController extends AbstractController
     {
         $id         = $this->request->getAttribute('id');
         $discussion = $this->discussionService->fetchSingleArticle($id);
-        $tags       = $this->tagService->getAll();
+        $categories = $this->categoryService->getAll();
 
-        if($this->request->getParsedBody()){
+        if($this->request->getParsedBody()) {
             $discussion             = (object)($this->request->getParsedBody() + (array)$discussion);
             $discussion->article_id = $id;
         }
 
         return new HtmlResponse($this->template->render('admin::discussion/edit', [
             'discussion' => $discussion,
-            'tags'       => $tags,
+            'categories' => $categories,
             'errors'     => $errors,
             'layout'     => 'layout/admin'
         ]));
@@ -89,22 +80,21 @@ class DiscussionController extends AbstractController
 
     public function save()
     {
-        try{
+        try {
             $id   = $this->request->getAttribute('id');
             $data = $this->request->getParsedBody();
             $user = $this->session->getStorage()->user;
 
-            if($id){
+            if($id) {
                 $this->discussionService->updateArticle($data, $id);
-            }
-            else{
+            } else {
                 $this->discussionService->createArticle($user, $data);
             }
         }
-        catch(FilterException $fe){
+        catch(FilterException $fe) {
             return $this->edit($fe->getArrayMessages());
         }
-        catch(\Exception $e){
+        catch(\Exception $e) {
             throw $e;
         }
 
@@ -113,10 +103,10 @@ class DiscussionController extends AbstractController
 
     public function delete()
     {
-        try{
+        try {
             $this->discussionService->deleteArticle($this->request->getAttribute('id'));
         }
-        catch(\Exception $e){
+        catch(\Exception $e) {
             throw $e;
         }
 

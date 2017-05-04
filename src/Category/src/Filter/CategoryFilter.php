@@ -1,12 +1,12 @@
 <?php
 
-namespace Core\Filter;
+namespace Category\Filter;
 
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-class TagFilter implements InputFilterAwareInterface
+class CategoryFilter implements InputFilterAwareInterface
 {
     protected $inputFilter;
 

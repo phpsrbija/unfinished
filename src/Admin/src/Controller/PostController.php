@@ -5,7 +5,7 @@ namespace Admin\Controller;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
 use Core\Service\Article\PostService;
-use Core\Service\TagService;
+use Category\Service\CategoryService;
 use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Core\Exception\FilterException;
@@ -34,9 +34,9 @@ class PostController extends AbstractController
     private $router;
 
     /**
-     * @var TagService
+     * @var CategoryService
      */
-    private $tagService;
+    private $categoryService;
 
     /**
      * PostController constructor.
@@ -45,21 +45,21 @@ class PostController extends AbstractController
      * @param PostService $postService
      * @param SessionManager $session
      * @param Router $router
-     * @param TagService $tagService
+     * @param CategoryService $categoryService
      */
     public function __construct(
         Template $template,
         PostService $postService,
         SessionManager $session,
         Router $router,
-        TagService $tagService
+        CategoryService $categoryService
     )
     {
-        $this->template    = $template;
-        $this->postService = $postService;
-        $this->session     = $session;
-        $this->router      = $router;
-        $this->tagService  = $tagService;
+        $this->template        = $template;
+        $this->postService     = $postService;
+        $this->session         = $session;
+        $this->router          = $router;
+        $this->categoryService = $categoryService;
     }
 
     public function index() : HtmlResponse
@@ -79,9 +79,9 @@ class PostController extends AbstractController
      */
     public function edit($errors = []) : \Psr\Http\Message\ResponseInterface
     {
-        $id   = $this->request->getAttribute('id');
-        $post = $this->postService->fetchSingleArticle($id);
-        $tags = $this->tagService->getAll();
+        $id         = $this->request->getAttribute('id');
+        $post       = $this->postService->fetchSingleArticle($id);
+        $categories = $this->categoryService->getAll();
 
         if($this->request->getParsedBody()){
             $post             = (object)($this->request->getParsedBody() + (array)$post);
@@ -89,10 +89,10 @@ class PostController extends AbstractController
         }
 
         return new HtmlResponse($this->template->render('admin::post/edit', [
-            'post'   => $post,
-            'tags'   => $tags,
-            'errors' => $errors,
-            'layout' => 'layout/admin'
+            'post'       => $post,
+            'categories' => $categories,
+            'errors'     => $errors,
+            'layout'     => 'layout/admin'
         ]));
     }
 
