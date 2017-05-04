@@ -5,7 +5,7 @@ namespace Core\Service\Article;
 use UploadHelper\Upload;
 use Core\Mapper\ArticleMapper;
 use Core\Mapper\ArticleEventsMapper;
-use Core\Mapper\TagsMapper;
+use Category\Mapper\CategoryMapper;
 use Core\Entity\ArticleType;
 use Core\Filter\ArticleFilter;
 use Core\Filter\EventFilter;
@@ -20,11 +20,11 @@ class EventService extends ArticleService
     private $articleEventsMapper;
     private $articleFilter;
     private $eventFilter;
-    private $tagsMapper;
+    private $categoryMapper;
     private $upload;
 
     public function __construct(ArticleMapper $articleMapper, ArticleEventsMapper $articleEventsMapper,
-                                ArticleFilter $articleFilter, EventFilter $eventFilter, TagsMapper $tagsMapper, Upload $upload)
+                                ArticleFilter $articleFilter, EventFilter $eventFilter, CategoryMapper $categoryMapper, Upload $upload)
     {
         parent::__construct($articleMapper, $articleFilter);
 
@@ -32,7 +32,7 @@ class EventService extends ArticleService
         $this->articleEventsMapper = $articleEventsMapper;
         $this->articleFilter       = $articleFilter;
         $this->eventFilter         = $eventFilter;
-        $this->tagsMapper          = $tagsMapper;
+        $this->categoryMapper      = $categoryMapper;
         $this->upload              = $upload;
     }
 
@@ -47,11 +47,8 @@ class EventService extends ArticleService
     {
         $event = $this->articleEventsMapper->get($articleId);
 
-        if($event){
-            $event['tags'] = [];
-            foreach($this->articleMapper->getTages($articleId) as $tag){
-                $event['tags'][] = $tag->tag_id;
-            }
+        if($event) {
+            $event['categories'] = $this->getCategoryIds($articleId);
         }
 
         return $event;
@@ -62,7 +59,7 @@ class EventService extends ArticleService
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
         $eventFilter   = $this->eventFilter->getInputFilter()->setData($data);
 
-        if(!$articleFilter->isValid() || !$eventFilter->isValid()){
+        if(!$articleFilter->isValid() || !$eventFilter->isValid()) {
             throw new FilterException($articleFilter->getMessages() + $eventFilter->getMessages());
         }
 
@@ -85,9 +82,9 @@ class EventService extends ArticleService
         $this->articleMapper->insert($article);
         $this->articleEventsMapper->insert($event);
 
-        if(isset($data['tags'])){
-            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
-            $this->articleMapper->insertTags($tags, $event['article_uuid']);
+        if(isset($data['categories']) && $data['categories']) {
+            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
+            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
         }
     }
 
@@ -97,7 +94,7 @@ class EventService extends ArticleService
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
         $eventFilter   = $this->eventFilter->getInputFilter()->setData($data);
 
-        if(!$articleFilter->isValid() || !$eventFilter->isValid()){
+        if(!$articleFilter->isValid() || !$eventFilter->isValid()) {
             throw new FilterException($articleFilter->getMessages() + $eventFilter->getMessages());
         }
 
@@ -108,21 +105,21 @@ class EventService extends ArticleService
             ];
 
         // We dont want to force user to re-upload image on edit
-        if(!$event['featured_img']){
+        if(!$event['featured_img']) {
             unset($event['featured_img']);
         }
 
-        if(!$event['main_img']){
+        if(!$event['main_img']) {
             unset($event['main_img']);
         }
 
         $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
         $this->articleEventsMapper->update($event, ['article_uuid' => $article['article_uuid']]);
-        $this->articleMapper->deleteTags($article['article_uuid']);
+        $this->articleMapper->deleteCategories($article['article_uuid']);
 
-        if(isset($data['tags'])){
-            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
-            $this->articleMapper->insertTags($tags, $article['article_uuid']);
+        if(isset($data['categories']) && $data['categories']) {
+            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
+            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
         }
     }
 
@@ -130,7 +127,7 @@ class EventService extends ArticleService
     {
         $event = $this->articleEventsMapper->get($id);
 
-        if(!$event){
+        if(!$event) {
             throw new \Exception('Article not found!');
         }
 

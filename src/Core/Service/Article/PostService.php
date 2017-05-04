@@ -1,11 +1,11 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Core\Service\Article;
 
 use Core\Mapper\ArticleMapper;
-use Core\Mapper\ArticleTagsMapper;
 use Core\Mapper\ArticlePostsMapper;
-use Core\Mapper\TagsMapper;
+use Category\Mapper\CategoryMapper;
 use Core\Entity\ArticleType;
 use Core\Filter\ArticleFilter;
 use Core\Exception\FilterException;
@@ -18,39 +18,22 @@ use Zend\Paginator\Paginator;
 
 class PostService extends ArticleService
 {
-    /**
-     * @var ArticleMapper
-     */
+    /** @var ArticleMapper */
     private $articleMapper;
 
-    /**
-     * @var ArticlePostsMapper
-     */
+    /** @var ArticlePostsMapper */
     private $articlePostsMapper;
 
-    /**
-     * @var ArticleFilter
-     */
+    /** @var ArticleFilter */
     private $articleFilter;
 
-    /**
-     * @var PostFilter
-     */
+    /** @var PostFilter */
     private $postFilter;
 
-    /**
-     * @var ArticleTagsMapper
-     */
-    private $articleTagsMapper;
+    /** @var CategoryMapper */
+    private $categoryMapper;
 
-    /**
-     * @var TagsMapper
-     */
-    private $tagsMapper;
-
-    /**
-     * @var Upload
-     */
+    /** @var Upload */
     private $upload;
 
     /**
@@ -60,12 +43,11 @@ class PostService extends ArticleService
      * @param ArticlePostsMapper $articlePostsMapper
      * @param ArticleFilter $articleFilter
      * @param PostFilter $postFilter
-     * @param ArticleTagsMapper $articleTagsMapper
-     * @param TagsMapper $tagsMapper
+     * @param CategoryMapper $categoryMapper
      * @param Upload $upload
      */
     public function __construct(ArticleMapper $articleMapper, ArticlePostsMapper $articlePostsMapper, ArticleFilter $articleFilter,
-                                PostFilter $postFilter, ArticleTagsMapper $articleTagsMapper, TagsMapper $tagsMapper, Upload $upload)
+                                PostFilter $postFilter, CategoryMapper $categoryMapper, Upload $upload)
     {
         parent::__construct($articleMapper, $articleFilter);
 
@@ -73,12 +55,11 @@ class PostService extends ArticleService
         $this->articlePostsMapper = $articlePostsMapper;
         $this->articleFilter      = $articleFilter;
         $this->postFilter         = $postFilter;
-        $this->articleTagsMapper  = $articleTagsMapper;
-        $this->tagsMapper         = $tagsMapper;
+        $this->categoryMapper     = $categoryMapper;
         $this->upload             = $upload;
     }
 
-    public function fetchAllArticles($page, $limit) : Paginator
+    public function fetchAllArticles($page, $limit): Paginator
     {
         $select = $this->articlePostsMapper->getPaginationSelect();
 
@@ -89,11 +70,8 @@ class PostService extends ArticleService
     {
         $article = $this->articlePostsMapper->getBySlug($slug);
 
-        if($article){
-            $article['tags'] = [];
-            foreach($this->articleMapper->getTages($article['article_uuid']) as $tag){
-                $article['tags'][] = $tag->tag_id;
-            }
+        if($article) {
+            $article['categories'] = $this->getCategoryIds($article->article_uuid);
         }
 
         return $article;
@@ -103,11 +81,8 @@ class PostService extends ArticleService
     {
         $article = $this->articlePostsMapper->get($articleId);
 
-        if($article){
-            $article['tags'] = [];
-            foreach($this->articleMapper->getTages($articleId) as $tag){
-                $article['tags'][] = $tag->tag_id;
-            }
+        if($article) {
+            $article['categories'] = $this->getCategoryIds($articleId);
         }
 
         return $article;
@@ -118,7 +93,7 @@ class PostService extends ArticleService
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
         $postFilter    = $this->postFilter->getInputFilter()->setData($data);
 
-        if(!$articleFilter->isValid() || !$postFilter->isValid()){
+        if(!$articleFilter->isValid() || !$postFilter->isValid()) {
             throw new FilterException($articleFilter->getMessages() + $postFilter->getMessages());
         }
 
@@ -141,9 +116,9 @@ class PostService extends ArticleService
         $this->articleMapper->insert($article);
         $this->articlePostsMapper->insert($post);
 
-        if(isset($data['tags']) && $data['tags']){
-            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
-            $this->articleMapper->insertTags($tags, $article['article_uuid']);
+        if(isset($data['categories']) && $data['categories']) {
+            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
+            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
         }
     }
 
@@ -153,7 +128,7 @@ class PostService extends ArticleService
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
         $postFilter    = $this->postFilter->getInputFilter()->setData($data);
 
-        if(!$articleFilter->isValid() || !$postFilter->isValid()){
+        if(!$articleFilter->isValid() || !$postFilter->isValid()) {
             throw new FilterException($articleFilter->getMessages() + $postFilter->getMessages());
         }
 
@@ -164,21 +139,21 @@ class PostService extends ArticleService
             ];
 
         // We dont want to force user to re-upload image on edit
-        if(!$post['featured_img']){
+        if(!$post['featured_img']) {
             unset($post['featured_img']);
         }
 
-        if(!$post['main_img']){
+        if(!$post['main_img']) {
             unset($post['main_img']);
         }
 
         $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
         $this->articlePostsMapper->update($post, ['article_uuid' => $article['article_uuid']]);
-        $this->articleTagsMapper->delete(['article_uuid' => $article['article_uuid']]);
+        $this->articleMapper->deleteCategories($article['article_uuid']);
 
-        if(isset($data['tags']) && $data['tags']){
-            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
-            $this->articleMapper->insertTags($tags, $article['article_uuid']);
+        if(isset($data['categories']) && $data['categories']) {
+            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
+            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
         }
     }
 
@@ -186,7 +161,7 @@ class PostService extends ArticleService
     {
         $post = $this->articlePostsMapper->get($id);
 
-        if(!$post){
+        if(!$post) {
             throw new \Exception('Article not found!');
         }
 

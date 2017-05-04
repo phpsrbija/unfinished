@@ -92,7 +92,7 @@ class CategoryService
      */
     public function updateCategory($data, $categoryId)
     {
-        if(!$this->getTag($categoryId)){
+        if(!$this->getCategory($categoryId)){
             throw new \Exception('CategoryId dos not exist.');
         }
 

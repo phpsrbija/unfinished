@@ -1,10 +1,10 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Core\Mapper;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
-use Zend\Db\ResultSet\ResultSetInterface;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Insert;
@@ -42,44 +42,41 @@ class ArticleMapper extends AbstractTableGateway implements AdapterAwareInterfac
         $this->insert($articleData);
     }
 
-    /**
-     * Return all tags for given article
-     */
-    public function getTages($articleId)
+    public function getCategories($articleId)
     {
         $select = $this->getSql()->select()
             ->columns([])
-            ->join('article_tags', 'articles.article_uuid = article_tags.article_uuid')
-            ->join('tags', 'article_tags.tag_uuid = tags.tag_uuid', ['name', 'slug', 'tag_id'])
+            ->join('article_categories', 'articles.article_uuid = article_categories.article_uuid')
+            ->join('category', 'article_categories.category_uuid = category.category_uuid', ['name', 'slug', 'category_id'])
             ->where(['articles.article_id' => $articleId]);
 
         return $this->selectWith($select);
     }
 
     /**
-     * Delete all tags for given article
+     * Delete all categories for given article
      */
-    public function deleteTags($id)
+    public function deleteCategories($id)
     {
         $platform    = $this->getAdapter()->getPlatform();
         $adapter     = $this->getAdapter();
-        $deleteQuery = (new Delete('article_tags'))->where(['article_uuid' => $id]);
+        $deleteQuery = (new Delete('article_categories'))->where(['article_uuid' => $id]);
 
         return $adapter->query($deleteQuery->getSqlString($platform))->execute();
     }
 
     /**
-     * @todo Refactore it to do a multi insert into MySQL
+     * @todo Refactore it - do a multi insert into MySQL
      */
-    public function insertTags($tags, $articleId)
+    public function insertCategories($categories, $articleId)
     {
         $platform = $this->getAdapter()->getPlatform();
         $adapter  = $this->getAdapter();
 
-        foreach($tags as $tag){
-            $insertQuery = (new Insert('article_tags'))->values([
-                'article_uuid' => $articleId,
-                'tag_uuid'     => $tag->tag_uuid
+        foreach($categories as $category) {
+            $insertQuery = (new Insert('article_categories'))->values([
+                'article_uuid'  => $articleId,
+                'category_uuid' => $category->category_uuid
             ]);
 
             $adapter->query($insertQuery->getSqlString($platform))->execute();

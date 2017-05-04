@@ -4,13 +4,15 @@ namespace Core\Service\Article;
 
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DbSelect;
+use Core\Mapper\ArticleMapper;
+use Core\Filter\ArticleFilter;
 
 abstract class ArticleService implements ArticleServiceInterface
 {
     private $articleMapper;
     private $articleFilter;
 
-    protected function __construct($articleMapper, $articleFilter)
+    protected function __construct(ArticleMapper $articleMapper, ArticleFilter $articleFilter)
     {
         $this->articleMapper = $articleMapper;
         $this->articleFilter = $articleFilter;
@@ -27,19 +29,19 @@ abstract class ArticleService implements ArticleServiceInterface
         return $paginator;
     }
 
-    public function getTagIds($articleId)
+    public function getCategoryIds($articleId)
     {
-        $tags = [];
-        foreach($this->articleMapper->getTages($articleId) as $tag){
-            $tags[] = $tag->tag_id;
+        $categories = [];
+        foreach($this->articleMapper->getCategories($articleId) as $category) {
+            $categories[] = $category->category_id;
         }
 
-        return $tags;
+        return $categories;
     }
 
     public function delete($articleId)
     {
-        $this->articleMapper->deleteTags($articleId);
+        $this->articleMapper->deleteCategories($articleId);
         $this->articleMapper->delete(['article_uuid' => $articleId]);
     }
 }

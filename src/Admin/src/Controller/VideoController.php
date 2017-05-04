@@ -1,11 +1,12 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Admin\Controller;
 
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
 use Core\Service\Article\VideoService;
-use Core\Service\TagService;
+use Category\Service\CategoryService;
 use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Core\Exception\FilterException;
@@ -34,9 +35,9 @@ class VideoController extends AbstractController
     private $router;
 
     /**
-     * @var TagService
+     * @var CategoryService
      */
-    private $tagService;
+    private $categoryService;
 
     /**
      * VideoController constructor.
@@ -45,24 +46,24 @@ class VideoController extends AbstractController
      * @param VideoService $videoService
      * @param SessionManager $session
      * @param Router $router
-     * @param TagService $tagService
+     * @param CategoryService $categoryService
      */
     public function __construct(
         Template $template,
         VideoService $videoService,
         SessionManager $session,
         Router $router,
-        TagService $tagService
+        CategoryService $categoryService
     )
     {
-        $this->template     = $template;
-        $this->videoService = $videoService;
-        $this->session      = $session;
-        $this->router       = $router;
-        $this->tagService   = $tagService;
+        $this->template        = $template;
+        $this->videoService    = $videoService;
+        $this->session         = $session;
+        $this->router          = $router;
+        $this->categoryService = $categoryService;
     }
 
-    public function index() : HtmlResponse
+    public function index(): HtmlResponse
     {
         $params = $this->request->getQueryParams();
         $page   = isset($params['page']) ? $params['page'] : 1;
@@ -77,22 +78,22 @@ class VideoController extends AbstractController
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function edit($errors = []) : \Psr\Http\Message\ResponseInterface
+    public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
-        $id    = $this->request->getAttribute('id');
-        $video = $this->videoService->fetchSingleArticle($id);
-        $tags  = $this->tagService->getAll();
+        $id         = $this->request->getAttribute('id');
+        $video      = $this->videoService->fetchSingleArticle($id);
+        $categories = $this->categoryService->getAll();
 
-        if($this->request->getParsedBody()){
+        if($this->request->getParsedBody()) {
             $video             = (object)($this->request->getParsedBody() + (array)$video);
             $video->article_id = $id;
         }
 
         return new HtmlResponse($this->template->render('admin::video/edit', [
-            'video'  => $video,
-            'tags'   => $tags,
-            'errors' => $errors,
-            'layout' => 'layout/admin'
+            'video'      => $video,
+            'categories' => $categories,
+            'errors'     => $errors,
+            'layout'     => 'layout/admin'
         ]));
     }
 
@@ -103,25 +104,24 @@ class VideoController extends AbstractController
      * @throws \Exception
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function save() : \Psr\Http\Message\ResponseInterface
+    public function save(): \Psr\Http\Message\ResponseInterface
     {
-        try{
+        try {
             $id   = $this->request->getAttribute('id');
             $user = $this->session->getStorage()->user;
             $data = $this->request->getParsedBody();
             $data += (new Request())->getFiles()->toArray();
 
-            if($id){
+            if($id) {
                 $this->videoService->updateArticle($data, $id);
-            }
-            else{
+            } else {
                 $this->videoService->createArticle($user, $data);
             }
         }
-        catch(FilterException $fe){
+        catch(FilterException $fe) {
             return $this->edit($fe->getArrayMessages());
         }
-        catch(\Exception $e){
+        catch(\Exception $e) {
             throw $e;
         }
 
@@ -134,12 +134,12 @@ class VideoController extends AbstractController
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \Exception
      */
-    public function delete() : \Psr\Http\Message\ResponseInterface
+    public function delete(): \Psr\Http\Message\ResponseInterface
     {
-        try{
+        try {
             $this->videoService->deleteArticle($this->request->getAttribute('id'));
         }
-        catch(\Exception $e){
+        catch(\Exception $e) {
             throw $e;
         }
 

@@ -1,11 +1,11 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Core\Service\Article;
 
+use Category\Mapper\CategoryMapper;
 use Core\Mapper\ArticleMapper;
-use Core\Mapper\ArticleTagsMapper;
 use Core\Mapper\ArticleVideosMapper;
-use Core\Mapper\TagsMapper;
 use Core\Entity\ArticleType;
 use Core\Filter\ArticleFilter;
 use Core\Exception\FilterException;
@@ -38,14 +38,9 @@ class VideoService extends ArticleService
     private $videosFilter;
 
     /**
-     * @var ArticleTagsMapper
+     * @var CategoryMapper
      */
-    private $articleTagsMapper;
-
-    /**
-     * @var TagsMapper
-     */
-    private $tagsMapper;
+    private $categoryMapper;
 
     /**
      * @var Upload
@@ -59,8 +54,7 @@ class VideoService extends ArticleService
      * @param ArticleVideosMapper $articleVideosMapper
      * @param ArticleFilter $articleFilter
      * @param VideoFilter $videosFilter
-     * @param ArticleTagsMapper $articleTagsMapper
-     * @param TagsMapper $tagsMapper
+     * @param CategoryMapper $categoryMapper
      * @param Upload $upload
      */
     public function __construct(
@@ -68,8 +62,7 @@ class VideoService extends ArticleService
         ArticleVideosMapper $articleVideosMapper,
         ArticleFilter $articleFilter,
         VideoFilter $videosFilter,
-        ArticleTagsMapper $articleTagsMapper,
-        TagsMapper $tagsMapper,
+        CategoryMapper $categoryMapper,
         Upload $upload
     )
     {
@@ -79,8 +72,7 @@ class VideoService extends ArticleService
         $this->articleVideosMapper = $articleVideosMapper;
         $this->articleFilter       = $articleFilter;
         $this->videosFilter        = $videosFilter;
-        $this->articleTagsMapper   = $articleTagsMapper;
-        $this->tagsMapper          = $tagsMapper;
+        $this->categoryMapper      = $categoryMapper;
         $this->upload              = $upload;
     }
 
@@ -95,11 +87,8 @@ class VideoService extends ArticleService
     {
         $article = $this->articleVideosMapper->get($articleId);
 
-        if($article){
-            $article['tags'] = [];
-            foreach($this->articleMapper->getTages($articleId) as $tag){
-                $article['tags'][] = $tag->tag_id;
-            }
+        if($article) {
+            $article['categories'] = $this->getCategoryIds($articleId);
         }
 
         return $article;
@@ -110,7 +99,7 @@ class VideoService extends ArticleService
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
         $videosFilter  = $this->videosFilter->getInputFilter()->setData($data);
 
-        if(!$articleFilter->isValid() || !$videosFilter->isValid()){
+        if(!$articleFilter->isValid() || !$videosFilter->isValid()) {
             throw new FilterException($articleFilter->getMessages() + $videosFilter->getMessages());
         }
 
@@ -133,9 +122,9 @@ class VideoService extends ArticleService
         $this->articleMapper->insert($article);
         $this->articleVideosMapper->insert($videos);
 
-        if(isset($data['tags']) && $data['tags']){
-            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
-            $this->articleMapper->insertTags($tags, $article['article_uuid']);
+        if(isset($data['categories']) && $data['categories']) {
+            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
+            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
         }
     }
 
@@ -145,7 +134,7 @@ class VideoService extends ArticleService
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
         $videosFilter  = $this->videosFilter->getInputFilter()->setData($data);
 
-        if(!$articleFilter->isValid() || !$videosFilter->isValid()){
+        if(!$articleFilter->isValid() || !$videosFilter->isValid()) {
             throw new FilterException($articleFilter->getMessages() + $videosFilter->getMessages());
         }
 
@@ -156,21 +145,21 @@ class VideoService extends ArticleService
             ];
 
         // We dont want to force user to re-upload image on edit
-        if(!$videos['featured_img']){
+        if(!$videos['featured_img']) {
             unset($videos['featured_img']);
         }
 
-        if(!$videos['main_img']){
+        if(!$videos['main_img']) {
             unset($videos['main_img']);
         }
 
         $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
         $this->articleVideosMapper->update($videos, ['article_uuid' => $article['article_uuid']]);
-        $this->articleTagsMapper->delete(['article_uuid' => $article['article_uuid']]);
+        $this->articleMapper->deleteCategories($article['article_uuid']);
 
-        if(isset($data['tags']) && $data['tags']){
-            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
-            $this->articleMapper->insertTags($tags, $article['article_uuid']);
+        if(isset($data['categories']) && $data['categories']) {
+            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
+            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
         }
     }
 
@@ -178,7 +167,7 @@ class VideoService extends ArticleService
     {
         $video = $this->articleVideosMapper->get($id);
 
-        if(!$video){
+        if(!$video) {
             throw new \Exception('Article not found!');
         }
 

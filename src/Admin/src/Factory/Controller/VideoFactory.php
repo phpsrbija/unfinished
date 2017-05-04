@@ -7,7 +7,7 @@ use Admin\Controller\VideoController;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Core\Service\VideoService;
-use Core\Service\TagService;
+use Category\Service\CategoryService;
 use Zend\Expressive\Router\RouterInterface;
 
 class VideoFactory
@@ -19,7 +19,7 @@ class VideoFactory
             $container->get(VideoService::class),
             $container->get('session'),
             $container->get(RouterInterface::class),
-            $container->get(TagService::class)
+            $container->get(CategoryService::class)
         );
     }
 }

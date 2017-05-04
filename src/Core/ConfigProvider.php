@@ -15,7 +15,6 @@ class ConfigProvider
 
                     // Services
                     Service\AdminUserService::class        => Factory\Service\AdminUserServiceFactory::class,
-                    Service\TagService::class              => Factory\Service\TagServiceFactory::class,
                     Service\Article\PostService::class     => Factory\Service\PostServiceFactory::class,
                     Service\DiscussionService::class       => Factory\Service\DiscussionServiceFactory::class,
                     Service\EventService::class            => Factory\Service\EventServiceFactory::class,
@@ -24,15 +23,13 @@ class ConfigProvider
                     // Mappers
                     Mapper\AdminUsersMapper::class         => Factory\MapperFactory::class,
                     Mapper\ArticleMapper::class            => Factory\MapperFactory::class,
-                    Mapper\TagsMapper::class               => Factory\MapperFactory::class,
+                    Mapper\ArticleCategoriesMapper::class  => Factory\MapperFactory::class,
                     Mapper\ArticlePostsMapper::class       => Factory\MapperFactory::class,
                     Mapper\ArticleDiscussionsMapper::class => Factory\MapperFactory::class,
-                    Mapper\ArticleTagsMapper::class        => Factory\MapperFactory::class,
                     Mapper\ArticleEventsMapper::class      => Factory\MapperFactory::class,
                     Mapper\ArticleVideosMapper::class      => Factory\MapperFactory::class,
 
                     // Filters
-                    Filter\TagFilter::class                => InvokableFactory::class,
                     Filter\AdminUserFilter::class          => Factory\FilterFactory::class,
                     Filter\ArticleFilter::class            => InvokableFactory::class,
                     Filter\PostFilter::class               => InvokableFactory::class,

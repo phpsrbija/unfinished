@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Admin\Controller;
 
 use Core\Service\Article\EventService;
 use Core\Exception\FilterException;
-use Core\Service\TagService;
+use Category\Service\CategoryService;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -19,18 +19,18 @@ class EventController extends AbstractController
     private $router;
     private $eventService;
     private $session;
-    private $tagService;
+    private $categoryService;
 
-    public function __construct(Template $template, Router $router, EventService $eventService, SessionManager $session, TagService $tagService)
+    public function __construct(Template $template, Router $router, EventService $eventService, SessionManager $session, CategoryService $categoryService)
     {
-        $this->template     = $template;
-        $this->router       = $router;
-        $this->eventService = $eventService;
-        $this->session      = $session;
-        $this->tagService   = $tagService;
+        $this->template        = $template;
+        $this->router          = $router;
+        $this->eventService    = $eventService;
+        $this->session         = $session;
+        $this->categoryService = $categoryService;
     }
 
-    public function index() : \Psr\Http\Message\ResponseInterface
+    public function index(): \Psr\Http\Message\ResponseInterface
     {
         $params = $this->request->getQueryParams();
         $page   = isset($params['page']) ? $params['page'] : 1;
@@ -42,42 +42,41 @@ class EventController extends AbstractController
 
     public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
-        $id    = $this->request->getAttribute('id');
-        $event = $this->eventService->fetchSingleArticle($id);
-        $tags  = $this->tagService->getAll();
+        $id         = $this->request->getAttribute('id');
+        $event      = $this->eventService->fetchSingleArticle($id);
+        $categories = $this->categoryService->getAll();
 
-        if($this->request->getParsedBody()){
+        if($this->request->getParsedBody()) {
             $event             = (object)($this->request->getParsedBody() + (array)$event);
             $event->article_id = $id;
         }
 
         return new HtmlResponse($this->template->render('admin::event/edit', [
-            'event'  => $event,
-            'tags'   => $tags,
-            'errors' => $errors,
-            'layout' => 'layout/admin'
+            'event'      => $event,
+            'categories' => $categories,
+            'errors'     => $errors,
+            'layout'     => 'layout/admin'
         ]));
     }
 
     public function save()
     {
-        try{
+        try {
             $id   = $this->request->getAttribute('id');
             $user = $this->session->getStorage()->user;
             $data = $this->request->getParsedBody();
             $data += (new Request())->getFiles()->toArray();
 
-            if($id){
+            if($id) {
                 $this->eventService->updateArticle($data, $id);
-            }
-            else{
+            } else {
                 $this->eventService->createArticle($user, $data);
             }
         }
-        catch(FilterException $fe){
+        catch(FilterException $fe) {
             return $this->edit($fe->getArrayMessages());
         }
-        catch(\Exception $e){
+        catch(\Exception $e) {
             throw $e;
         }
 
@@ -86,10 +85,10 @@ class EventController extends AbstractController
 
     public function delete()
     {
-        try{
+        try {
             $this->eventService->deleteArticle($this->request->getAttribute('id'));
         }
-        catch(\Exception $e){
+        catch(\Exception $e) {
             throw $e;
         }
 

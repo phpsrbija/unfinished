@@ -4,8 +4,7 @@ namespace Core\Service\Article;
 
 use Core\Mapper\ArticleMapper;
 use Core\Mapper\ArticleDiscussionsMapper;
-use Core\Mapper\ArticleTagsMapper;
-use Core\Mapper\TagsMapper;
+use Category\Mapper\CategoryMapper;
 use Core\Entity\ArticleType;
 use Core\Filter\ArticleFilter;
 use Core\Filter\DiscussionFilter;
@@ -20,11 +19,10 @@ class DiscussionService extends ArticleService
     private $articleDiscussionsMapper;
     private $articleFilter;
     private $discussionFilter;
-    private $articleTagsMapper;
-    private $tagsMapper;
+    private $categoryMapper;
 
     public function __construct(ArticleMapper $articleMapper, ArticleDiscussionsMapper $articleDiscussionsMapper, ArticleFilter $articleFilter,
-                                DiscussionFilter $discussionFilter, ArticleTagsMapper $articleTagsMapper, TagsMapper $tagsMapper)
+                                DiscussionFilter $discussionFilter, CategoryMapper $categoryMapper)
     {
         parent::__construct($articleMapper, $articleFilter);
 
@@ -32,8 +30,7 @@ class DiscussionService extends ArticleService
         $this->articleDiscussionsMapper = $articleDiscussionsMapper;
         $this->articleFilter            = $articleFilter;
         $this->discussionFilter         = $discussionFilter;
-        $this->articleTagsMapper        = $articleTagsMapper;
-        $this->tagsMapper               = $tagsMapper;
+        $this->categoryMapper           = $categoryMapper;
     }
 
     public function fetchAllArticles($page, $limit)
@@ -47,8 +44,8 @@ class DiscussionService extends ArticleService
     {
         $discussion = $this->articleDiscussionsMapper->get($articleId);
 
-        if($discussion){
-            $discussion['tags'] = $this->getTagIds($articleId);
+        if($discussion) {
+            $discussion['categories'] = $this->getCategoryIds($articleId);
         }
 
         return $discussion;
@@ -59,7 +56,7 @@ class DiscussionService extends ArticleService
         $articleFilter    = $this->articleFilter->getInputFilter()->setData($data);
         $discussionFilter = $this->discussionFilter->getInputFilter()->setData($data);
 
-        if(!$articleFilter->isValid() || !$discussionFilter->isValid()){
+        if(!$articleFilter->isValid() || !$discussionFilter->isValid()) {
             throw new FilterException($articleFilter->getMessages() + $discussionFilter->getMessages());
         }
 
@@ -78,9 +75,9 @@ class DiscussionService extends ArticleService
         $this->articleMapper->insert($article);
         $this->articleDiscussionsMapper->insert($discussion);
 
-        if(isset($data['tags'])){
-            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
-            $this->articleMapper->insertTags($tags, $article['article_uuid']);
+        if(isset($data['categories']) && $data['categories']) {
+            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
+            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
         }
     }
 
@@ -90,7 +87,7 @@ class DiscussionService extends ArticleService
         $articleFilter    = $this->articleFilter->getInputFilter()->setData($data);
         $discussionFilter = $this->discussionFilter->getInputFilter()->setData($data);
 
-        if(!$articleFilter->isValid() || !$discussionFilter->isValid()){
+        if(!$articleFilter->isValid() || !$discussionFilter->isValid()) {
             throw new FilterException($articleFilter->getMessages() + $discussionFilter->getMessages());
         }
 
@@ -99,11 +96,11 @@ class DiscussionService extends ArticleService
 
         $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
         $this->articleDiscussionsMapper->update($discussion, ['article_uuid' => $article['article_uuid']]);
-        $this->articleTagsMapper->delete(['article_uuid' => $article['article_uuid']]);
+        $this->articleMapper->deleteCategories($article['article_uuid']);
 
-        if(isset($data['tags'])){
-            $tags = $this->tagsMapper->select(['tag_id' => $data['tags']]);
-            $this->articleMapper->insertTags($tags, $article['article_uuid']);
+        if(isset($data['categories']) && $data['categories']) {
+            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
+            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
         }
     }
 
@@ -111,7 +108,7 @@ class DiscussionService extends ArticleService
     {
         $discussion = $this->articleDiscussionsMapper->get($id);
 
-        if(!$discussion){
+        if(!$discussion) {
             throw new \Exception('Article not found!');
         }
 

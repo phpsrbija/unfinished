@@ -119,12 +119,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Tags</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Categories</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <select class="select2_multiple form-control" multiple="multiple" name="tags[]">
-                                        <?php foreach($tags as $tag): ?>
-                                            <option value="<?= $tag->tag_id ?>" <?= (isset($post->tags) && in_array($tag->tag_id, $post->tags)) ? 'selected' : '' ?>>
-                                                <?= $tag->name ?>
+                                    <select class="select2_multiple form-control" multiple="multiple" name="categories[]">
+                                        <?php foreach($categories as $category): ?>
+                                            <option value="<?= $category->category_id ?>" <?= (isset($post->categories) &&
+                                                in_array($category->category_id, $post->categories)) ? 'selected' : '' ?>>
+                                                <?= $category->name ?>
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
