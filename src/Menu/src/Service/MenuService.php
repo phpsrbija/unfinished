@@ -5,11 +5,15 @@ namespace Menu\Service;
 use Menu\Mapper\MenuMapper;
 use Menu\Filter\MenuFilter;
 use Core\Exception\FilterException;
+use Category\Service\CategoryService;
+use Core\Service\Article\PostService;
 
 class MenuService
 {
     private $menuMapper;
     private $menuFilter;
+    private $categoryService;
+    private $postService;
 
     /**
      * We store menu items in DB as flat structure,
@@ -51,10 +55,12 @@ class MenuService
         return $result;
     }
 
-    public function __construct(MenuMapper $menuMapper, MenuFilter $menuFilter)
+    public function __construct(MenuMapper $menuMapper, MenuFilter $menuFilter, CategoryService $categoryService, PostService $postService)
     {
-        $this->menuMapper = $menuMapper;
-        $this->menuFilter = $menuFilter;
+        $this->menuMapper      = $menuMapper;
+        $this->menuFilter      = $menuFilter;
+        $this->categoryService = $categoryService;
+        $this->postService     = $postService;
     }
 
     public function getNestedAll()
@@ -78,6 +84,20 @@ class MenuService
         }
 
         $data = $filter->getValues();
+
+        if($data['article_id']){
+            $article = $this->postService->fetchSingleArticle($data['article_id']);
+            $data['article_uuid'] = $article->article_uuid;
+        }
+        elseif($data['category_id']){
+            $category = $this->categoryService->getCategory($data['category_id']);
+            $data['category_uuid'] = $category->category_uuid;
+        }
+        elseif($data['href']){
+
+        }
+
+        unset($data['article_id'], $data['category_id']);
 
         if($id){
             return $this->menuMapper->updateMenuItem($data, $id);

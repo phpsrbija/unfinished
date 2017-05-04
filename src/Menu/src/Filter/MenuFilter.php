@@ -20,7 +20,7 @@ class MenuFilter implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if(!$this->inputFilter){
+        if(!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
             $inputFilter->add([
@@ -50,12 +50,20 @@ class MenuFilter implements InputFilterAwareInterface
             ]);
 
             $inputFilter->add([
-                'name'       => 'article_uuid',
+                'name'       => 'article_id',
                 'required'   => false,
                 'filters'    => [['name' => 'Null']],
                 'validators' => [
-                    ['name' => 'Digits'],
-                    ['name' => RecordExists::class, 'options' => ['table' => 'article', 'field' => 'id', 'adapter' => $this->db]]
+                    ['name' => RecordExists::class, 'options' => ['table' => 'articles', 'field' => 'article_id', 'adapter' => $this->db]]
+                ]
+            ]);
+
+            $inputFilter->add([
+                'name'       => 'category_id',
+                'required'   => false,
+                'filters'    => [['name' => 'Null']],
+                'validators' => [
+                    ['name' => RecordExists::class, 'options' => ['table' => 'category', 'field' => 'category_id', 'adapter' => $this->db]]
                 ]
             ]);
 

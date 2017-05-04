@@ -73,13 +73,13 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Select page</label>
 
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <select class="form-control" name="article_uuid">
+                                    <select class="form-control" name="article_id">
                                         <option value="">Choose page</option>
-                                        <?php /* foreach($this->article()->forSelect() as $article): ?>
-                                            <option value="<?= $article->id ?>"
-                                                <?= $item && $article->id == $item->article_uuid ? 'selected' : '' ?>
-                                                <?= !$article->is_published ? 'disabled' : '' ?>><?= $article->meta_title ?></option>
-                                        <?php endforeach; */ ?>
+                                        <?php foreach($this->article()->forSelect() as $article): ?>
+                                            <option value="<?= $article->article_id ?>">
+                                                <?= $article->slug ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
                                     <ul class="parsley-errors-list">
                                         <li class="">
@@ -94,11 +94,12 @@
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <select class="form-control" name="category_id">
                                         <option value="">Choose category</option>
-                                        <?php /* foreach($this->article()->forSelect() as $article): ?>
-                                            <option value="<?= $article->id ?>"
-                                                <?= $item && $article->id == $item->article_uuid ? 'selected' : '' ?>
-                                                <?= !$article->is_published ? 'disabled' : '' ?>><?= $article->meta_title ?></option>
-                                        <?php endforeach; */ ?>
+                                        <?php foreach($this->category()->forSelect() as $category): ?>
+                                            <option value="<?= $category->category_id ?>"
+                                                <?= $item && $category->category_id == $item->category_id ? 'selected' : '' ?>>
+                                                <?= $category->name ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
                                     <ul class="parsley-errors-list">
                                         <li class="">

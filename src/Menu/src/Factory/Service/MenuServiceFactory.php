@@ -6,6 +6,8 @@ use Interop\Container\ContainerInterface;
 use Menu\Service\MenuService;
 use Menu\Mapper\MenuMapper;
 use Menu\Filter\MenuFilter;
+use Category\Service\CategoryService;
+use Core\Service\Article\PostService;
 
 class MenuServiceFactory
 {
@@ -13,7 +15,9 @@ class MenuServiceFactory
     {
         return new MenuService(
             $container->get(MenuMapper::class),
-            $container->get(MenuFilter::class)
+            $container->get(MenuFilter::class),
+            $container->get(CategoryService::class),
+            $container->get(PostService::class)
         );
     }
 
