@@ -31,19 +31,20 @@ class MenuService
         $refs      = [];
         $result    = [];
 
-        while(count($flatArray) > 0) {
-            for($i = count($flatArray) - 1; $i >= 0; $i--) {
-                if(!isset($flatArray[$i]['children'])) {
+        while(count($flatArray) > 0){
+            for($i = count($flatArray) - 1; $i >= 0; $i--){
+                if(!isset($flatArray[$i]['children'])){
                     $flatArray[$i]['children'] = [];
                 }
 
-                if(!$flatArray[$i]["parent_id"]) {
+                if(!$flatArray[$i]["parent_id"]){
                     $result[$flatArray[$i]["menu_id"]] = $flatArray[$i];
                     $refs[$flatArray[$i]["menu_id"]]   = &$result[$flatArray[$i]["menu_id"]];
                     unset($flatArray[$i]);
                     $flatArray = array_values($flatArray);
-                } else if($flatArray[$i]["parent_id"] != 0) {
-                    if(array_key_exists($flatArray[$i]["parent_id"], $refs)) {
+                }
+                else if($flatArray[$i]["parent_id"] != 0){
+                    if(array_key_exists($flatArray[$i]["parent_id"], $refs)){
                         $o                                               = $flatArray[$i];
                         $refs[$flatArray[$i]["menu_id"]]                 = $o;
                         $refs[$flatArray[$i]["parent_id"]]["children"][] = &$refs[$flatArray[$i]["menu_id"]];
@@ -81,32 +82,35 @@ class MenuService
     {
         $filter = $this->menuFilter->getInputFilter()->setData($data);
 
-        if(!$filter->isValid()) {
+        if(!$filter->isValid()){
             throw new FilterException($filter->getMessages());
+        }
+
+        if(count(array_filter([$data['article_id'], $data['category_id'], $data['href']])) > 1){
+            throw new \Exception('You need to set only one link. Post, Category or Href.');
         }
 
         $data = $filter->getValues();
 
-        if($data['article_id']) {
+        if($data['article_id']){
             $article               = $this->postService->fetchSingleArticle($data['article_id']);
             $data['article_uuid']  = $article->article_uuid;
             $data['category_uuid'] = null;
             $data['href']          = null;
-        } elseif($data['category_id']) {
+        }
+        elseif($data['category_id']){
             $category              = $this->categoryService->getCategory($data['category_id']);
             $data['category_uuid'] = $category->category_uuid;
             $data['article_uuid']  = null;
             $data['href']          = null;
-        } elseif($data['href']) {
-            $data['category_uuid'] = null;
-            $data['article_uuid']  = null;
         }
 
         unset($data['article_id'], $data['category_id']);
 
-        if($id) {
+        if($id){
             return $this->menuMapper->updateMenuItem($data, $id);
-        } else {
+        }
+        else{
             $data['menu_id']   = Uuid::uuid1()->toString();
             $data['menu_uuid'] = (new MysqlUuid($data['menu_id']))->toFormat(new Binary);
 
@@ -118,7 +122,7 @@ class MenuService
     {
         $children = $this->menuMapper->select(['parent_id' => $id]);
 
-        if($children->count()) {
+        if($children->count()){
             throw new \Exception('This Menu Item has child items', 400);
         }
 
@@ -132,24 +136,33 @@ class MenuService
 
     public function updateMenuOrder($menuOrder)
     {
-        if(!$menuOrder) {
+        if(!$menuOrder){
             return true;
         }
 
-        $orderNo = 1;
-        $this->updateLevel(null, $menuOrder, $orderNo);
+        try{
+            $this->menuMapper->getAdapter()->getDriver()->getConnection()->beginTransaction();
+            $orderNo = 1;
+            $this->updateLevel(null, $menuOrder, $orderNo);
+            $this->menuMapper->getAdapter()->getDriver()->getConnection()->commit();
+        }
+        catch(\Exception $e){
+            $this->menuMapper->getAdapter()->getDriver()->getConnection()->rollback();
+
+            throw $e;
+        }
 
         return true;
     }
 
     private function updateLevel($parentId = null, $children, &$orderNo)
     {
-        foreach($children as $v) {
-            if(isset($v->children)) {
+        foreach($children as $v){
+            if(isset($v->children)){
                 $this->menuMapper->update(['order_no' => $orderNo++, 'parent_id' => $parentId], ['menu_id' => $v->id]);
-
                 $this->updateLevel($v->id, $v->children, $orderNo);
-            } else {
+            }
+            else{
                 $this->menuMapper->update(['order_no' => $orderNo++, 'parent_id' => $parentId], ['menu_id' => $v->id]);
             }
         }
