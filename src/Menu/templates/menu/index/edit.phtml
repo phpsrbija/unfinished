@@ -3,7 +3,7 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2>
-                    <?php if(isset($item->id) && $item->id): ?>
+                    <?php if(isset($item->menu_id) && $item->menu_id): ?>
                         <h2>Menu item: "<?= $item->title ?>"</h2>
                     <?php else: ?>
                         <h2>New Menu Item</h2>
@@ -18,7 +18,7 @@
             <div class="x_content"><br/>
 
                 <form class="form-horizontal form-label-left" method="POST"
-                      action="<?= $this->url('admin.menu.action', ['action' => 'save', 'id' => $item ? $item->id : 0]) ?>">
+                      action="<?= $this->url('admin.menu.action', ['action' => 'save', 'id' => $item ? $item->menu_id : 0]) ?>">
                     <div class="row">
                         <div class="col-md-8 col-xs-12">
                             <!-- Menu items -->
@@ -37,14 +37,15 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Parent Item</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Parent Menu</label>
 
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <select class="form-control" name="parent_id">
-                                        <option value="">Leave blank (top level)</option>
+                                        <option value="">None (top level)</option>
                                         <?php foreach($menuItems as $menuItem): ?>
-                                            <option value="<?= $menuItem->id ?>"
-                                                <?= $item && $menuItem->id == $item->parent_id ? 'selected' : '' ?>
+                                            <?php if($item && $menuItem->menu_id == $item->menu_id) continue; ?>
+                                            <option value="<?= $menuItem->menu_id ?>"
+                                                <?= $item && $menuItem->menu_id == $item->parent_id ? 'selected' : '' ?>
                                                 <?= !$menuItem->is_active ? 'disabled' : '' ?>><?= $menuItem->title ?></option>
                                         <?php endforeach; ?>
                                     </select>
@@ -55,15 +56,14 @@
                                     </ul>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <div class="col-md-offset-3 col-sm-offset-3 col-md-9 col-sm-9 col-xs-12">
                                     <div class="alert alert-info alert-dismissible fade in" role="alert">
-                                        <strong>With Menu Item you can:</strong>
+                                        <strong>Link in the Menu:</strong>
                                         <ul>
                                             <li>Link Menu Item to the existing page (single page).</li>
                                             <li>Link Menu Item to the existing category (list of posts/pages).</li>
-                                            <li>Internal or External links.</li>
+                                            <li>Enter an URL (Internal or External links).</li>
                                             <li>Leave it blank - no lead to any link.</li>
                                         </ul>
                                     </div>
@@ -73,17 +73,18 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Select page</label>
 
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <select class="form-control" name="article_uuid">
-                                        <option value="">Choose page</option>
-                                        <?php /* foreach($this->article()->forSelect() as $article): ?>
-                                            <option value="<?= $article->id ?>"
-                                                <?= $item && $article->id == $item->article_uuid ? 'selected' : '' ?>
-                                                <?= !$article->is_published ? 'disabled' : '' ?>><?= $article->meta_title ?></option>
-                                        <?php endforeach; */ ?>
+                                    <select class="form-control" name="article_id">
+                                        <option value="">None</option>
+                                        <?php foreach($this->post()->forSelect() as $article): ?>
+                                            <option value="<?= $article->article_id ?>"
+                                                <?= $item && $article->article_id == $item->article_id ? 'selected' : '' ?>>
+                                                <?= $article->title ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
                                     <ul class="parsley-errors-list">
                                         <li class="">
-                                            <?= (isset($errors->article_uuid) ? implode('. ', (array)$errors->article_uuid) : ''); ?>
+                                            <?= (isset($errors->article_id) ? implode('. ', (array)$errors->article_id) : ''); ?>
                                         </li>
                                     </ul>
                                 </div>
@@ -93,12 +94,13 @@
 
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <select class="form-control" name="category_id">
-                                        <option value="">Choose category</option>
-                                        <?php /* foreach($this->article()->forSelect() as $article): ?>
-                                            <option value="<?= $article->id ?>"
-                                                <?= $item && $article->id == $item->article_uuid ? 'selected' : '' ?>
-                                                <?= !$article->is_published ? 'disabled' : '' ?>><?= $article->meta_title ?></option>
-                                        <?php endforeach; */ ?>
+                                        <option value="">None</option>
+                                        <?php foreach($this->category()->forSelect() as $category): ?>
+                                            <option value="<?= $category->category_id ?>"
+                                                <?= $item && $category->category_id == $item->category_id ? 'selected' : '' ?>>
+                                                <?= $category->name ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
                                     <ul class="parsley-errors-list">
                                         <li class="">
@@ -189,9 +191,9 @@
                                     <a type="button" class="btn btn-default btn-block"
                                        href="<?= $this->url('admin.menu') ?>"> Cancel
                                     </a>
-                                    <?php if(isset($item->id) && $item->id): ?>
+                                    <?php if(isset($item->menu_id) && $item->menu_id): ?>
                                         <br/>
-                                        <a href="<?= $this->url('admin.menu.action', ['action' => 'delete', 'id' => $item->id]) ?>"
+                                        <a href="<?= $this->url('admin.menu.action', ['action' => 'delete', 'id' => $item ? $item->menu_id : 0]) ?>"
                                            onclick="if(!confirm('Are you sure?')){return false;}"
                                            class="btn btn-danger btn-block"> Delete
                                         </a>

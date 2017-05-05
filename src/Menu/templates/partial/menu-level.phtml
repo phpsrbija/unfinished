@@ -1,6 +1,6 @@
 <ul class="dd-list">
     <?php foreach($menuNestedItems as $item): ?>
-        <li class="dd-item" data-id="<?= $item['id']; ?>">
+        <li class="dd-item" data-id="<?= $item['menu_id']; ?>">
             <div class="dd-handle"><span class="title"><?= $item['title'] ?></span></div>
 
             <div class="abs-actions">
@@ -21,7 +21,7 @@
                 </span>&nbsp; &nbsp;
 
                 <!-- Actions -->
-                <a href="<?= $this->url('admin.menu.action', ['action' => 'edit', 'id' => $item['id']]) ?>">
+                <a href="<?= $this->url('admin.menu.action', ['action' => 'edit', 'id' => $item['menu_id']]) ?>">
                     <i class="glyphicon glyphicon-pencil"></i>
                 </a>
             </div>

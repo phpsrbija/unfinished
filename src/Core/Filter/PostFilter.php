@@ -12,7 +12,7 @@ class PostFilter implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if(!$this->inputFilter){
+        if(!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
             $inputFilter->add([
@@ -43,6 +43,12 @@ class PostFilter implements InputFilterAwareInterface
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 50000]],
                 ],
+            ]);
+
+            $inputFilter->add([
+                'name'     => 'has_layout',
+                'required' => false,
+                'filters'  => [['name' => 'Boolean']],
             ]);
 
             $this->inputFilter = $inputFilter;

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Menu\Controller;
 
@@ -39,11 +39,17 @@ class IndexController extends AbstractController
 
     public function edit($errors = [])
     {
-        $id = $this->request->getAttribute('id');
+        $id   = $this->request->getAttribute('id');
+        $item = $this->menuService->get($id);
+
+        if($this->request->getParsedBody()) {
+            $item          = (object)($this->request->getParsedBody() + (array)$item);
+            $item->menu_id = $id;
+        }
 
         return new HtmlResponse($this->template->render('menu::index/edit', [
             'id'        => $id,
-            'item'      => $this->menuService->get($id),
+            'item'      => $item,
             'menuItems' => $this->menuService->getForSelect(),
             'errors'    => $errors,
             'layout'    => 'layout/admin'
@@ -52,7 +58,7 @@ class IndexController extends AbstractController
 
     public function save()
     {
-        try{
+        try {
             $id   = $this->request->getAttribute('id');
             $data = $this->request->getParsedBody();
 
@@ -60,23 +66,23 @@ class IndexController extends AbstractController
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.menu'));
         }
-        catch(FilterException $fe){
+        catch(FilterException $fe) {
             return $this->edit($fe->getArrayMessages());
         }
-        catch(\Exception $e){
+        catch(\Exception $e) {
             throw $e;
         }
     }
 
     public function delete()
     {
-        try{
+        try {
             $id = $this->request->getAttribute('id');
             $this->menuService->delete($id);
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.menu'));
         }
-        catch(\Exception $e){
+        catch(\Exception $e) {
             throw $e;
         }
     }

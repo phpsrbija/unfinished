@@ -169,4 +169,8 @@ class PostService extends ArticleService
         $this->delete($post->article_uuid);
     }
 
+    public function getForSelect()
+    {
+        return $this->articlePostsMapper->getAll();
+    }
 }

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Core\Mapper;
 
 use Zend\Db\Adapter\Adapter;
@@ -42,7 +43,7 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
     public function get($id)
     {
         $select = $this->getSql()->select()
-            ->columns(['title', 'body', 'lead', 'featured_img', 'main_img'])
+            ->columns(['title', 'body', 'lead', 'featured_img', 'main_img', 'has_layout'])
             ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
             ->where(['articles.article_id' => $id]);
 
@@ -57,6 +58,14 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
             ->where(['articles.slug' => $slug]);
 
         return $this->selectWith($select)->current();
+    }
+
+    public function getAll()
+    {
+        $select = $this->getSql()->select()
+            ->join('articles', 'article_posts.article_uuid = articles.article_uuid', ['article_id']);
+
+        return $this->selectWith($select);
     }
 
 }

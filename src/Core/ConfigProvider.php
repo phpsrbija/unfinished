@@ -57,6 +57,12 @@ class ConfigProvider
                     'priority'   => -10,
                 ],
             ],
+
+            'view_helpers' => [
+                'factories' => [
+                    'post' => View\Helper\PostHelperFactory::class,
+                ],
+            ],
         ];
     }
 }
