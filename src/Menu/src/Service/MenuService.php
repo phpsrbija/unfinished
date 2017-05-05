@@ -2,6 +2,9 @@
 
 namespace Menu\Service;
 
+use Ramsey\Uuid\Uuid;
+use MysqlUuid\Uuid as MysqlUuid;
+use MysqlUuid\Formats\Binary;
 use Menu\Mapper\MenuMapper;
 use Menu\Filter\MenuFilter;
 use Core\Exception\FilterException;
@@ -28,23 +31,22 @@ class MenuService
         $refs      = [];
         $result    = [];
 
-        while(count($flatArray) > 0){
-            for($i = count($flatArray) - 1; $i >= 0; $i--){
-                if(!isset($flatArray[$i]['children'])){
+        while(count($flatArray) > 0) {
+            for($i = count($flatArray) - 1; $i >= 0; $i--) {
+                if(!isset($flatArray[$i]['children'])) {
                     $flatArray[$i]['children'] = [];
                 }
 
-                if(!$flatArray[$i]["parent_id"]){
-                    $result[$flatArray[$i]["id"]] = $flatArray[$i];
-                    $refs[$flatArray[$i]["id"]]   = &$result[$flatArray[$i]["id"]];
+                if(!$flatArray[$i]["parent_id"]) {
+                    $result[$flatArray[$i]["menu_id"]] = $flatArray[$i];
+                    $refs[$flatArray[$i]["menu_id"]]   = &$result[$flatArray[$i]["menu_id"]];
                     unset($flatArray[$i]);
                     $flatArray = array_values($flatArray);
-                }
-                else if($flatArray[$i]["parent_id"] != 0){
-                    if(array_key_exists($flatArray[$i]["parent_id"], $refs)){
+                } else if($flatArray[$i]["parent_id"] != 0) {
+                    if(array_key_exists($flatArray[$i]["parent_id"], $refs)) {
                         $o                                               = $flatArray[$i];
-                        $refs[$flatArray[$i]["id"]]                      = $o;
-                        $refs[$flatArray[$i]["parent_id"]]["children"][] = &$refs[$flatArray[$i]["id"]];
+                        $refs[$flatArray[$i]["menu_id"]]                 = $o;
+                        $refs[$flatArray[$i]["parent_id"]]["children"][] = &$refs[$flatArray[$i]["menu_id"]];
                         unset($flatArray[$i]);
                         $flatArray = array_values($flatArray);
                     }
@@ -72,44 +74,55 @@ class MenuService
 
     public function get($id)
     {
-        return $this->menuMapper->select(['id' => $id])->current();
+        return $this->menuMapper->get($id);
     }
 
     public function save($data, $id = 0)
     {
         $filter = $this->menuFilter->getInputFilter()->setData($data);
 
-        if(!$filter->isValid()){
+        if(!$filter->isValid()) {
             throw new FilterException($filter->getMessages());
         }
 
         $data = $filter->getValues();
 
-        if($data['article_id']){
-            $article = $this->postService->fetchSingleArticle($data['article_id']);
-            $data['article_uuid'] = $article->article_uuid;
-        }
-        elseif($data['category_id']){
-            $category = $this->categoryService->getCategory($data['category_id']);
+        if($data['article_id']) {
+            $article               = $this->postService->fetchSingleArticle($data['article_id']);
+            $data['article_uuid']  = $article->article_uuid;
+            $data['category_uuid'] = null;
+            $data['href']          = null;
+        } elseif($data['category_id']) {
+            $category              = $this->categoryService->getCategory($data['category_id']);
             $data['category_uuid'] = $category->category_uuid;
-        }
-        elseif($data['href']){
-
+            $data['article_uuid']  = null;
+            $data['href']          = null;
+        } elseif($data['href']) {
+            $data['category_uuid'] = null;
+            $data['article_uuid']  = null;
         }
 
         unset($data['article_id'], $data['category_id']);
 
-        if($id){
+        if($id) {
             return $this->menuMapper->updateMenuItem($data, $id);
-        }
-        else{
+        } else {
+            $data['menu_id']   = Uuid::uuid1()->toString();
+            $data['menu_uuid'] = (new MysqlUuid($data['menu_id']))->toFormat(new Binary);
+
             return $this->menuMapper->insertMenuItem($data);
         }
     }
 
     public function delete($id)
     {
-        return $this->menuMapper->delete(['id' => $id]);
+        $children = $this->menuMapper->select(['parent_id' => $id]);
+
+        if($children->count()) {
+            throw new \Exception('This Menu Item has child items', 400);
+        }
+
+        return $this->menuMapper->delete(['menu_id' => $id]);
     }
 
     public function getForSelect()
@@ -119,7 +132,7 @@ class MenuService
 
     public function updateMenuOrder($menuOrder)
     {
-        if(!$menuOrder){
+        if(!$menuOrder) {
             return true;
         }
 
@@ -131,14 +144,13 @@ class MenuService
 
     private function updateLevel($parentId = null, $children, &$orderNo)
     {
-        foreach($children as $v){
-            if(isset($v->children)){
-                $this->menuMapper->update(['order_no' => $orderNo++, 'parent_id' => $parentId], ['id' => $v->id]);
+        foreach($children as $v) {
+            if(isset($v->children)) {
+                $this->menuMapper->update(['order_no' => $orderNo++, 'parent_id' => $parentId], ['menu_id' => $v->id]);
 
                 $this->updateLevel($v->id, $v->children, $orderNo);
-            }
-            else{
-                $this->menuMapper->update(['order_no' => $orderNo++, 'parent_id' => $parentId], ['id' => $v->id]);
+            } else {
+                $this->menuMapper->update(['order_no' => $orderNo++, 'parent_id' => $parentId], ['menu_id' => $v->id]);
             }
         }
     }

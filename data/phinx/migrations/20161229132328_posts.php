@@ -17,6 +17,7 @@ class Posts extends AbstractMigration
             ->addColumn('lead', 'text')
             ->addColumn('featured_img', 'text', ['null' => true])
             ->addColumn('main_img', 'text', ['null' => true])
+            ->addColumn('has_layout', 'boolean', ['default' => true])
             ->addForeignKey('article_uuid', 'articles', 'article_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->create();
 
@@ -27,11 +28,12 @@ class Posts extends AbstractMigration
     {
         $this->dropTable('article_posts');
     }
+
     private function insertDummyData()
     {
         $ids  = [];
         $rows = $this->fetchAll('select admin_user_uuid from admin_users;');
-        foreach($rows as $r){
+        foreach($rows as $r) {
             $ids[] = $r['admin_user_uuid'];
         }
 
@@ -40,7 +42,7 @@ class Posts extends AbstractMigration
         $count  = rand(25, 300);
 
         // Download N images and set it randomly to posts
-        for($i = 0; $i < 5; $i++){
+        for($i = 0; $i < 5; $i++) {
             $image       = $faker->image();
             $destination = $upload->getPath(basename($image));
             rename($image, $destination);
@@ -52,7 +54,7 @@ class Posts extends AbstractMigration
             $featuredImg[] = substr($destination, strlen('/var/www/unfinished/public'));
         }
 
-        for($i = 0; $i < $count; $i++){
+        for($i = 0; $i < $count; $i++) {
             $id        = $faker->uuid;
             $mysqluuid = (new Uuid($id))->toFormat(new Binary());
             $title     = $faker->sentence(7, 20);

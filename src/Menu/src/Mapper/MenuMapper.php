@@ -18,7 +18,6 @@ class MenuMapper extends AbstractTableGateway implements AdapterAwareInterface
     public function selectAll()
     {
         $select = $this->getSql()->select()
-            //->join('articles', 'articles.id = menu.article_id', ['url_slug'], 'left')
             ->order(['order_no' => 'asc']);
 
         return $this->selectWith($select);
@@ -33,15 +32,25 @@ class MenuMapper extends AbstractTableGateway implements AdapterAwareInterface
 
     public function updateMenuItem($data, $id)
     {
-        $this->update($data, ['id' => $id]);
+        $this->update($data, ['menu_id' => $id]);
 
         return $id;
+    }
+
+    public function get($id)
+    {
+        $select = $this->getSql()->select()
+            ->join('articles', 'articles.article_uuid = menu.article_uuid', ['article_id'], 'left')
+            ->join('category', 'category.category_uuid = menu.category_uuid', ['category_id'], 'left')
+            ->where(['menu_id' => $id]);
+
+        return $this->selectWith($select)->current();
     }
 
     public function forSelect()
     {
         $select = $this->getSql()->select()
-            ->columns(['id', 'title', 'is_active'])
+            ->columns(['menu_id', 'title', 'is_active'])
             ->order(['is_active' => 'desc']);
 
         return $this->selectWith($select);

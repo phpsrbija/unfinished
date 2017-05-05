@@ -60,7 +60,7 @@ class ConfigProvider
 
             'view_helpers' => [
                 'factories' => [
-                    'article' => View\Helper\ArticleHelperFactory::class,
+                    'post' => View\Helper\PostHelperFactory::class,
                 ],
             ],
         ];

@@ -44,8 +44,7 @@ class MenuFilter implements InputFilterAwareInterface
                 'required'   => false,
                 'filters'    => [['name' => 'Null']],
                 'validators' => [
-                    ['name' => 'Digits'],
-                    ['name' => RecordExists::class, 'options' => ['table' => 'menu', 'field' => 'id', 'adapter' => $this->db]]
+                    ['name' => RecordExists::class, 'options' => ['table' => 'menu', 'field' => 'menu_id', 'adapter' => $this->db]]
                 ]
             ]);
 

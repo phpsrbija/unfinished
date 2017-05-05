@@ -144,6 +144,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Has Layout</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="has_layout" <?= (isset($post->has_layout) && $post->has_layout == 1) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->has_layout) ? implode('. ', (array)$errors->has_layout) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-md-offset-3 col-sm-offset-3 col-md-9 col-sm-9 col-xs-12">
                                     <button type="submit" class="btn btn-block btn-success">Save</button>
                                     <br/>
