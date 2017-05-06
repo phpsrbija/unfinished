@@ -20,7 +20,7 @@ class MenuFilter implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if(!$this->inputFilter) {
+        if(!$this->inputFilter){
             $inputFilter = new InputFilter();
 
             $inputFilter->add([
@@ -37,15 +37,6 @@ class MenuFilter implements InputFilterAwareInterface
                 'name'     => 'href',
                 'required' => false,
                 'filters'  => [['name' => 'StripTags'], ['name' => 'StringTrim']]
-            ]);
-
-            $inputFilter->add([
-                'name'       => 'parent_id',
-                'required'   => false,
-                'filters'    => [['name' => 'Null']],
-                'validators' => [
-                    ['name' => RecordExists::class, 'options' => ['table' => 'menu', 'field' => 'menu_id', 'adapter' => $this->db]]
-                ]
             ]);
 
             $inputFilter->add([

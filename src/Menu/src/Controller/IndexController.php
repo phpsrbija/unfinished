@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Menu\Controller;
 
@@ -42,7 +42,7 @@ class IndexController extends AbstractController
         $id   = $this->request->getAttribute('id');
         $item = $this->menuService->get($id);
 
-        if($this->request->getParsedBody()) {
+        if($this->request->getParsedBody()){
             $item          = (object)($this->request->getParsedBody() + (array)$item);
             $item->menu_id = $id;
         }
@@ -58,31 +58,36 @@ class IndexController extends AbstractController
 
     public function save()
     {
-        try {
+        try{
             $id   = $this->request->getAttribute('id');
             $data = $this->request->getParsedBody();
 
-            $this->menuService->save($data, $id);
+            if($id){
+                $this->menuService->updateMenuItem($data, $id);
+            }
+            else{
+                $this->menuService->addMenuItem($data);
+            }
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.menu'));
         }
-        catch(FilterException $fe) {
+        catch(FilterException $fe){
             return $this->edit($fe->getArrayMessages());
         }
-        catch(\Exception $e) {
+        catch(\Exception $e){
             throw $e;
         }
     }
 
     public function delete()
     {
-        try {
+        try{
             $id = $this->request->getAttribute('id');
             $this->menuService->delete($id);
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.menu'));
         }
-        catch(\Exception $e) {
+        catch(\Exception $e){
             throw $e;
         }
     }

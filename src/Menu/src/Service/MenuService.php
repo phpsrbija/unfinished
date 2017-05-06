@@ -78,44 +78,21 @@ class MenuService
         return $this->menuMapper->get($id);
     }
 
-    public function save($data, $id = 0)
+    public function addMenuItem($data)
     {
-        $filter = $this->menuFilter->getInputFilter()->setData($data);
+        $data = $this->filterMenuItem($data);
 
-        if(!$filter->isValid()){
-            throw new FilterException($filter->getMessages());
-        }
+        $data['menu_id']   = Uuid::uuid1()->toString();
+        $data['menu_uuid'] = (new MysqlUuid($data['menu_id']))->toFormat(new Binary);
 
-        if(count(array_filter([$data['article_id'], $data['category_id'], $data['href']])) > 1){
-            throw new \Exception('You need to set only one link. Post, Category or Href.');
-        }
+        return $this->menuMapper->insertMenuItem($data);
+    }
 
-        $data = $filter->getValues();
+    public function updateMenuItem($data, $id)
+    {
+        $data = $this->filterMenuItem($data);
 
-        if($data['article_id']){
-            $article               = $this->postService->fetchSingleArticle($data['article_id']);
-            $data['article_uuid']  = $article->article_uuid;
-            $data['category_uuid'] = null;
-            $data['href']          = null;
-        }
-        elseif($data['category_id']){
-            $category              = $this->categoryService->getCategory($data['category_id']);
-            $data['category_uuid'] = $category->category_uuid;
-            $data['article_uuid']  = null;
-            $data['href']          = null;
-        }
-
-        unset($data['article_id'], $data['category_id']);
-
-        if($id){
-            return $this->menuMapper->updateMenuItem($data, $id);
-        }
-        else{
-            $data['menu_id']   = Uuid::uuid1()->toString();
-            $data['menu_uuid'] = (new MysqlUuid($data['menu_id']))->toFormat(new Binary);
-
-            return $this->menuMapper->insertMenuItem($data);
-        }
+        return $this->menuMapper->updateMenuItem($data, $id);
     }
 
     public function delete($id)
@@ -166,5 +143,39 @@ class MenuService
                 $this->menuMapper->update(['order_no' => $orderNo++, 'parent_id' => $parentId], ['menu_id' => $v->id]);
             }
         }
+    }
+
+    private function filterMenuItem($data)
+    {
+        $filter = $this->menuFilter->getInputFilter()->setData($data);
+
+        if(!$filter->isValid()){
+            throw new FilterException($filter->getMessages());
+        }
+
+        if(count(array_filter([$data['article_id'], $data['category_id'], $data['href']])) > 1){
+            throw new \Exception('You need to set only one link. Post, Category or Href.');
+        }
+
+        $data = $filter->getValues();
+
+        if($data['article_id']){
+            $article               = $this->postService->fetchSingleArticle($data['article_id']);
+            $data['article_uuid']  = $article->article_uuid;
+            $data['category_uuid'] = null;
+        }
+        elseif($data['category_id']){
+            $category              = $this->categoryService->getCategory($data['category_id']);
+            $data['category_uuid'] = $category->category_uuid;
+            $data['article_uuid']  = null;
+        }
+        else{
+            $data['article_uuid']  = null;
+            $data['category_uuid'] = null;
+        }
+
+        unset($data['article_id'], $data['category_id']);
+
+        return $data;
     }
 }
