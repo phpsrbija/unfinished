@@ -6,7 +6,7 @@ namespace Category\Controller;
 
 use Category\Service\CategoryService;
 use Core\Exception\FilterException;
-use Admin\Controller\AbstractController;
+use Core\Controller\AbstractController;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
