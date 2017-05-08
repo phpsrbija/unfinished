@@ -34,7 +34,7 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
     public function getPaginationSelect()
     {
         return $this->getSql()->select()
-            ->columns(['title', 'body', 'lead', 'featured_img', 'main_img'])
+            ->columns(['title', 'body', 'lead', 'featured_img', 'main_img', 'is_homepage'])
             ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
             ->where(['articles.type' => ArticleType::POST])
             ->order(['created_at' => 'desc']);
@@ -43,9 +43,18 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
     public function get($id)
     {
         $select = $this->getSql()->select()
-            ->columns(['title', 'body', 'lead', 'featured_img', 'main_img', 'has_layout'])
+            ->columns(['title', 'body', 'lead', 'featured_img', 'main_img', 'has_layout', 'is_homepage'])
             ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
             ->where(['articles.article_id' => $id]);
+
+        return $this->selectWith($select)->current();
+    }
+
+    public function getHomepage()
+    {
+        $select = $this->getSql()->select()
+            ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
+            ->where(['article_posts.is_homepage' => true, 'articles.status' => 1]);
 
         return $this->selectWith($select)->current();
     }

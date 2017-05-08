@@ -6,8 +6,7 @@ return [
     'dependencies'        => [
         'factories' => [
             Helper\ServerUrlMiddleware::class => Helper\ServerUrlMiddlewareFactory::class,
-            Helper\UrlHelperMiddleware::class => Helper\UrlHelperMiddlewareFactory::class,
-            Web\Middleware\Layout::class      => Web\Factory\Middleware\LayoutFactory::class,
+            Helper\UrlHelperMiddleware::class => Helper\UrlHelperMiddlewareFactory::class
         ],
     ],
     // This can be used to seed pre- and/or post-routing middleware
@@ -29,7 +28,6 @@ return [
                 \Zend\Expressive\Middleware\ImplicitHeadMiddleware::class,
                 \Zend\Expressive\Middleware\ImplicitOptionsMiddleware::class,
                 \Zend\Expressive\Helper\UrlHelperMiddleware::class,
-                \Web\Middleware\Layout::class,
                 // Introspect the routing results; this might include: route-based authentication and validation etc.
 
                 Zend\Expressive\Container\ApplicationFactory::DISPATCH_MIDDLEWARE,

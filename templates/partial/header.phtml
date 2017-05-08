@@ -1,0 +1,23 @@
+<!-- this theme support two level navigation -->
+<ul class="nav navbar-nav">
+    <?php foreach($this->menu()->getHeaderMenu() as $item): ?>
+        <li>
+        <?php if(!$item['children']): ?>
+            <?php $link = $item['href'] ? : ($item['article_slug'] ? : ($item['category_slug']) ? : '#') ?>
+            <a href="<?= $link ?>"><?= $item['title'] ?></a>
+        <?php else: ?>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <?= $item['title'] ?> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <?php foreach($item['children'] as $child): ?>
+                        <?php $link = $child['href'] ? : ($child['article_slug'] ? : ($child['category_slug']) ? : '#') ?>
+                        <li><a href="<?= $link ?>"><?= $child['title'] ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
+        <?php endif; ?>
+        </li>
+    <?php endforeach; ?>
+</ul>
