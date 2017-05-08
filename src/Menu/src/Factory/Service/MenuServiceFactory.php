@@ -7,7 +7,7 @@ use Menu\Service\MenuService;
 use Menu\Mapper\MenuMapper;
 use Menu\Filter\MenuFilter;
 use Category\Service\CategoryService;
-use Core\Service\Article\PostService;
+use Article\Service\PostService;
 
 class MenuServiceFactory
 {

@@ -5,8 +5,8 @@ namespace Menu\Controller;
 
 use Menu\Service\MenuService;
 use Core\Exception\FilterException;
+use Core\Controller\AbstractController;
 use Zend\Diactoros\Response\JsonResponse;
-use Admin\Controller\AbstractController;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;

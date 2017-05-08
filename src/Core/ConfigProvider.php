@@ -2,8 +2,6 @@
 
 namespace Core;
 
-use Zend\ServiceManager\Factory\InvokableFactory;
-
 class ConfigProvider
 {
     public function __invoke()
@@ -11,34 +9,19 @@ class ConfigProvider
         return [
             'dependencies' => [
                 'factories' => [
-                    'session'                              => Factory\SessionFactory::class,
+                    'session'                       => Factory\SessionFactory::class,
 
                     // Services
-                    Service\AdminUserService::class        => Factory\Service\AdminUserServiceFactory::class,
-                    Service\Article\PostService::class     => Factory\Service\PostServiceFactory::class,
-                    Service\DiscussionService::class       => Factory\Service\DiscussionServiceFactory::class,
-                    Service\EventService::class            => Factory\Service\EventServiceFactory::class,
-                    Service\VideoService::class            => Factory\Service\VideoServiceFactory::class,
+                    Service\AdminUserService::class => Factory\Service\AdminUserServiceFactory::class,
 
                     // Mappers
-                    Mapper\AdminUsersMapper::class         => Factory\MapperFactory::class,
-                    Mapper\ArticleMapper::class            => Factory\MapperFactory::class,
-                    Mapper\ArticleCategoriesMapper::class  => Factory\MapperFactory::class,
-                    Mapper\ArticlePostsMapper::class       => Factory\MapperFactory::class,
-                    Mapper\ArticleDiscussionsMapper::class => Factory\MapperFactory::class,
-                    Mapper\ArticleEventsMapper::class      => Factory\MapperFactory::class,
-                    Mapper\ArticleVideosMapper::class      => Factory\MapperFactory::class,
+                    Mapper\AdminUsersMapper::class  => Factory\MapperFactory::class,
 
                     // Filters
-                    Filter\AdminUserFilter::class          => Factory\FilterFactory::class,
-                    Filter\ArticleFilter::class            => InvokableFactory::class,
-                    Filter\PostFilter::class               => InvokableFactory::class,
-                    Filter\DiscussionFilter::class         => InvokableFactory::class,
-                    Filter\EventFilter::class              => InvokableFactory::class,
-                    Filter\VideoFilter::class              => InvokableFactory::class,
+                    Filter\AdminUserFilter::class   => Factory\FilterFactory::class,
 
                     // Register custom Middlewares
-                    Middleware\AdminAuth::class            => Factory\Middleware\AdminAuthFactory::class,
+                    Middleware\AdminAuth::class     => Factory\Middleware\AdminAuthFactory::class,
                 ],
             ],
 
@@ -58,11 +41,6 @@ class ConfigProvider
                 ],
             ],
 
-            'view_helpers' => [
-                'factories' => [
-                    'post' => View\Helper\PostHelperFactory::class,
-                ],
-            ],
         ];
     }
 }

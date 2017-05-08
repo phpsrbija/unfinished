@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Admin\Controller;
 
+use Core\Controller\AbstractController;
 use Core\Service\AdminUserService;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;

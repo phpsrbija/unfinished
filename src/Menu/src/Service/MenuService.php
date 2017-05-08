@@ -9,7 +9,7 @@ use Menu\Mapper\MenuMapper;
 use Menu\Filter\MenuFilter;
 use Core\Exception\FilterException;
 use Category\Service\CategoryService;
-use Core\Service\Article\PostService;
+use Article\Service\PostService;
 
 class MenuService
 {
