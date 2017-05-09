@@ -189,4 +189,10 @@ class PostService extends ArticleService
 
         return $article;
     }
+
+    public function getCategories($articleId)
+    {
+        return $this->articleMapper->getCategories($articleId);
+    }
+
 }

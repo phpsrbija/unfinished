@@ -12,7 +12,7 @@ class CategoryFilter implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if(!$this->inputFilter){
+        if(!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
             $inputFilter->add([
@@ -28,7 +28,7 @@ class CategoryFilter implements InputFilterAwareInterface
             $inputFilter->add([
                 'name'       => 'slug',
                 'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
+                'filters'    => [['name' => 'StringTrim', 'options' => ['charlist' => '/']]],
                 'validators' => [
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
