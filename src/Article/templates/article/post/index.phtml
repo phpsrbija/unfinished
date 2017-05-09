@@ -33,6 +33,7 @@
                             <tr>
                                 <th>Status</th>
                                 <th>Title</th>
+                                <th>URI</th>
                                 <th>Published</th>
                                 <th></th>
                             </tr>
@@ -43,7 +44,13 @@
                                     <th>
                                         <span class="label label-<?= $one->status ? 'success' : 'danger' ?>"><?= $one->status ? 'PUBLISHED' : 'OFF' ?></span>
                                     </th>
-                                    <td><?= $one->title ?></td>
+                                    <td>
+                                        <?= $one->title ?>
+                                        <?php if($one->is_homepage): ?>
+                                            <span class="label label-info pull-right">HOMEPAGE</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?= $one->slug; ?></td>
                                     <td><?= date("d.m.Y H:i", strtotime($one->published_at)); ?></td>
                                     <td>
                                         <span class="pull-right">

@@ -15,10 +15,26 @@ class MenuMapper extends AbstractTableGateway implements AdapterAwareInterface
         $this->adapter = $adapter;
     }
 
-    public function selectAll()
+    public function selectAll($isActive = null, $filter = [])
     {
         $select = $this->getSql()->select()
+            ->join('category', 'menu.category_uuid = category.category_uuid', ['category_name' => 'name', 'category_slug' => 'slug'], 'left')
+            ->join('articles', 'articles.article_uuid = menu.article_uuid', ['article_id', 'article_slug' => 'slug'], 'left')
             ->order(['order_no' => 'asc']);
+
+        if($isActive !== null) {
+            $select->where(['is_active' => $isActive]);
+        }
+
+        if($filter) {
+            if(isset($filter['is_in_header'])) {
+                $select->where(['is_in_header' => $filter['is_in_header']]);
+            } elseif(isset($filter['is_in_footer'])) {
+                $select->where(['is_in_footer' => $filter['is_in_footer']]);
+            } elseif(isset($filter['is_in_side'])) {
+                $select->where(['is_in_side' => $filter['is_in_side']]);
+            }
+        }
 
         return $this->selectWith($select);
     }

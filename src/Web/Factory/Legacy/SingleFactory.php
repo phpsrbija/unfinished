@@ -5,7 +5,7 @@ namespace Web\Factory\Legacy;
 use Web\Legacy\SingleAction;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Core\Service\Article\PostService;
+use Article\Service\PostService;
 
 
 /**

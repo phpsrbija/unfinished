@@ -2,30 +2,27 @@
 
 namespace Web;
 
-use Zend\ServiceManager\Factory\InvokableFactory;
-
 class ConfigProvider
 {
     public function __invoke()
     {
         return [
             'templates' => [
-                'map'    => [
-                    'layout/legacy'    => 'templates/layout/legacy.phtml',
+                'map'   => [
+                    'layout/legacy' => 'templates/layout/legacy.phtml',
+                    'layout/web'    => 'templates/layout/web.phtml',
                 ],
-                'paths'  => [
-                    'web'    => ['templates/web'],
-                    'legacy' => ['templates/legacy'],
+                'paths' => [
+                    'templates' => ['templates'],
+                    'web'       => ['templates/web'],
+                    'legacy'    => ['templates/legacy'],
                 ],
             ],
 
             'dependencies' => [
                 'factories' => [
                     // Web
-                    Action\PingAction::class    => InvokableFactory::class,
-                    Action\IndexAction::class   => Factory\Action\IndexFactory::class,
-                    Action\AboutAction::class   => Factory\Action\TemplateFactory::class,
-                    Action\ContactAction::class => Factory\Action\TemplateFactory::class,
+                    Action\HomeAction::class    => Factory\Action\HomeActionFactory::class,
 
                     // Legacy
                     Legacy\SingleAction::class  => Factory\Legacy\SingleFactory::class,
@@ -40,6 +37,13 @@ class ConfigProvider
             ],
 
             'routes' => [
+                // New
+                [
+                    'name'       => 'home',
+                    'path'       => '/',
+                    'middleware' => Action\HomeAction::class
+                ],
+
                 // Legacy
                 [
                     'name'       => 'single',
@@ -76,31 +80,12 @@ class ConfigProvider
                     'path'       => '/clanci/page/:page/',
                     'middleware' => Legacy\ListAction::class,
                 ],
-                [
-                    'name'            => 'home',
-                    'path'            => '/',
-                    'middleware'      => Legacy\IndexAction::class,
-                    'allowed_methods' => ['GET'],
-                ],
-
-                // Web
-                [
-                    'name'       => 'about',
-                    'path'       => '/about-us',
-                    'middleware' => Action\AboutAction::class,
-                ],
-                [
-                    'name'       => 'contact',
-                    'path'       => '/contact-us',
-                    'middleware' => Action\ContactAction::class,
-                ],
-                [
-                    'name'            => 'api.ping',
-                    'path'            => '/api/ping',
-                    'middleware'      => Action\PingAction::class,
-                    'allowed_methods' => ['GET'],
-                ],
-
+                //[
+                //    'name'            => 'home',
+                //    'path'            => '/',
+                //    'middleware'      => Legacy\IndexAction::class,
+                //    'allowed_methods' => ['GET'],
+                //],
             ],
         ];
     }

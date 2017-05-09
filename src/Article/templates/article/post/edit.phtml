@@ -121,7 +121,8 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Categories</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <select class="select2_multiple form-control" multiple="multiple" name="categories[]">
+                                    <select class="select2_multiple form-control" multiple="multiple"
+                                            name="categories[]">
                                         <?php foreach($categories as $category): ?>
                                             <option value="<?= $category->category_id ?>" <?= (isset($post->categories) &&
                                                 in_array($category->category_id, $post->categories)) ? 'selected' : '' ?>>
@@ -135,7 +136,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Published</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="checkbox" class="js-switch" value="1"
-                                           name="status" <?= (isset($post->status) && $post->status == 1) ? 'checked' : ''; ?> />
+                                           name="status" <?= (isset($post->status) && $post->status == 0) ? '' : 'checked'; ?> />
                                     <ul class="parsley-errors-list">
                                         <li class="">
                                             <?= (isset($errors->status) ? implode('. ', (array)$errors->status) : ''); ?>
@@ -147,10 +148,22 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Has Layout</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="checkbox" class="js-switch" value="1"
-                                           name="has_layout" <?= (isset($post->has_layout) && $post->has_layout == 1) ? 'checked' : ''; ?> />
+                                           name="has_layout" <?= (isset($post->has_layout) && $post->has_layout == 0) ? '' : 'checked'; ?> />
                                     <ul class="parsley-errors-list">
                                         <li class="">
                                             <?= (isset($errors->has_layout) ? implode('. ', (array)$errors->has_layout) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Homepage</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="is_homepage" <?= (isset($post->is_homepage) && $post->is_homepage == 1) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->is_homepage) ? implode('. ', (array)$errors->is_homepage) : ''); ?>
                                         </li>
                                     </ul>
                                 </div>

@@ -19,8 +19,26 @@ class MenuItems extends AbstractHelper
         return $this;
     }
 
+    /**
+     * Get all menu items
+     */
     public function forMenu()
     {
         return $this->menuService->getNestedAll();
+    }
+
+    public function getHeaderMenu()
+    {
+        return $this->menuService->getNestedAll(true, ['is_in_header' => true]);
+    }
+
+    public function getFooterMenu()
+    {
+        return $this->menuService->getNestedAll(true, ['is_in_footer' => true]);
+    }
+
+    public function getSideMenu()
+    {
+        return $this->menuService->getNestedAll(true, ['is_in_side' => true]);
     }
 }

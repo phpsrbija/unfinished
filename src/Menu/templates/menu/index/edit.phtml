@@ -57,7 +57,7 @@
                                         <?php foreach($this->post()->forSelect() as $article): ?>
                                             <option value="<?= $article->article_id ?>"
                                                 <?= $item && $article->article_id == $item->article_id ? 'selected' : '' ?>>
-                                                <?= $article->title ?>
+                                                <?= $article->title ?> - (<?= $article->slug ?>)
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
@@ -77,7 +77,7 @@
                                         <?php foreach($this->category()->forSelect() as $category): ?>
                                             <option value="<?= $category->category_id ?>"
                                                 <?= $item && $category->category_id == $item->category_id ? 'selected' : '' ?>>
-                                                <?= $category->name ?>
+                                                <?= $category->name ?> - (<?= $category->slug ?>)
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
