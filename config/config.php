@@ -9,12 +9,12 @@ $configManager = new ConfigAggregator([
     \Zend\Validator\ConfigProvider::class,
 
     // App modules
-    \Admin\ConfigProvider::class,
-    \Core\ConfigProvider::class,
     \Web\ConfigProvider::class,
-    \Menu\ConfigProvider::class,
     \Category\ConfigProvider::class,
     \Article\ConfigProvider::class,
+    \Menu\ConfigProvider::class,
+    \Admin\ConfigProvider::class,
+    \Core\ConfigProvider::class,
 
     new PhpFileProvider('config/autoload/{{,*.}global,{,*.}local}.php'),
 ]);

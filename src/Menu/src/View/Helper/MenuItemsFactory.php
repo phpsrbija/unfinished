@@ -2,8 +2,8 @@
 
 namespace Menu\View\Helper;
 
-use Interop\Container\ContainerInterface;
 use Menu\Service\MenuService;
+use Interop\Container\ContainerInterface;
 
 class MenuItemsFactory
 {

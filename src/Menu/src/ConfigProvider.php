@@ -45,7 +45,8 @@ class ConfigProvider
 
             'view_helpers' => [
                 'factories' => [
-                    'menu' => View\Helper\MenuItemsFactory::class,
+                    'menu'    => View\Helper\MenuItemsFactory::class,
+                    'menuUrl' => View\Helper\MenuUrlHelperFactory::class
                 ],
             ],
         ];

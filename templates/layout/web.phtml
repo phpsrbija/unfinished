@@ -48,12 +48,10 @@
             <?php foreach($this->menu()->getFooterMenu() as $item): ?>
                 <?php if($item['children']): ?>
                     <?php foreach($item['children'] as $child): ?>
-                        <?php $link = $child['href'] ? : ($child['article_slug'] ? : ($child['category_slug']) ? : '#') ?>
-                        <li><a href="<?= $link ?>"><?= $child['title'] ?></a></li>
+                        <li><a href="<?= $this->menuUrl($child) ?>"><?= $child['title'] ?></a></li>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <?php $link = $item['href'] ? : ($item['article_slug'] ? : ($item['category_slug']) ? : '#') ?>
-                    <li><a href="<?= $link ?>"><?= $item['title'] ?></a></li>
+                    <li><a href="<?= $this->menuUrl($item) ?>"><?= $item['title'] ?></a></li>
                 <?php endif; ?>
             <?php endforeach; ?>
         </ul>

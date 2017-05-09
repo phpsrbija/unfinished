@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Category\Mapper;
 
@@ -39,6 +39,17 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
     public function getPaginationSelect()
     {
         $select = $this->getSql()->select()->order(['name' => 'asc']);
+
+        return $select;
+    }
+
+    public function getCategoryPostsSelect($categoryId)
+    {
+        $select = $this->getSql()->select()
+            ->columns([])
+            ->join('article_categories', 'article_categories.category_uuid = category.category_uuid', [])
+            ->join('articles', 'articles.article_uuid = article_categories.article_uuid', '*')
+            ->where(['category_id' => $categoryId]);
 
         return $select;
     }

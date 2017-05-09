@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Web\Action;
 
 use Article\Service\PostService;
+use Category\Service\CategoryService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
@@ -23,15 +24,19 @@ class CategoryAction
     /** @var PostService */
     private $postService;
 
+    /** @var CategoryService */
+    private $categoryService;
+
     /**
      * CategoryAction constructor.
      *
      * @param Template $template
      */
-    public function __construct(Template $template, PostService $postService)
+    public function __construct(Template $template, PostService $postService, CategoryService $categoryService)
     {
-        $this->template    = $template;
-        $this->postService = $postService;
+        $this->template        = $template;
+        $this->postService     = $postService;
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -43,17 +48,24 @@ class CategoryAction
      * @return HtmlResponse
      * @throws \Exception
      */
-    public function __invoke(Request $request, Response $response, callable $next = null): HtmlResponse
+    public function __invoke(Request $request, Response $response, callable $next = null)
     {
+        $urlSlug = $request->getAttribute('category');
 
-        $category = '123';//$this->postService->getHomepage();
+        $category = $this->categoryService->getCategoryBySlug($urlSlug);
 
-        //if(!$article) {
-        //    throw new \Exception('You need to set homepage!', 404);
-        //}
+        if(!$category) {
+            $response = $response->withStatus(404);
 
-        return new HtmlResponse($this->template->render('web::home', [
-            'article' => $category
+            return $next($request, $response, new \Exception("Category by URL does not exist!", 404));
+        }
+
+        $posts = $this->categoryService->getCategoryPostsPagination($category, 1);
+
+        return new HtmlResponse($this->template->render('web::category', [
+            'layout'   => 'layout/web',
+            'category' => $category,
+            'posts'    => $posts
         ]));
     }
 

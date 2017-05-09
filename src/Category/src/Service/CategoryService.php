@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Category\Service;
 
@@ -62,6 +62,17 @@ class CategoryService
     }
 
     /**
+     * Return one category for given URL Slug
+     *
+     * @param String $urlSlug
+     * @return array|\ArrayObject|null
+     */
+    public function getCategoryBySlug($urlSlug)
+    {
+        return $this->categoryMapper->select(['slug' => $urlSlug])->current();
+    }
+
+    /**
      * Create new category.
      *
      * @param $data
@@ -71,7 +82,7 @@ class CategoryService
     {
         $filter = $this->categoryFilter->getInputFilter()->setData($data);
 
-        if(!$filter->isValid()){
+        if(!$filter->isValid()) {
             throw new FilterException($filter->getMessages());
         }
 
@@ -92,13 +103,13 @@ class CategoryService
      */
     public function updateCategory($data, $categoryId)
     {
-        if(!$this->getCategory($categoryId)){
+        if(!$this->getCategory($categoryId)) {
             throw new \Exception('CategoryId dos not exist.');
         }
 
         $filter = $this->categoryFilter->getInputFilter()->setData($data);
 
-        if(!$filter->isValid()){
+        if(!$filter->isValid()) {
             throw new FilterException($filter->getMessages());
         }
 
@@ -125,5 +136,17 @@ class CategoryService
     public function getAll()
     {
         return $this->categoryMapper->select();
+    }
+
+    public function getCategoryPostsPagination($category, $page = 1): Paginator
+    {
+        $select           = $this->categoryMapper->getCategoryPostsSelect($category->category_id);
+        $paginatorAdapter = new DbSelect($select, $this->categoryMapper->getAdapter());
+        $paginator        = new Paginator($paginatorAdapter);
+
+        $paginator->setCurrentPageNumber($page);
+        $paginator->setItemCountPerPage(10);
+
+        return $paginator;
     }
 }

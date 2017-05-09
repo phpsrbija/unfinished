@@ -18,7 +18,7 @@ class ArticleFilter implements InputFilterAwareInterface
             $inputFilter->add([
                 'name'       => 'slug',
                 'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
+                'filters'    => [['name' => 'StringTrim', 'options' => ['charlist' => '/']]],
                 'validators' => [
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
