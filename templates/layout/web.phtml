@@ -43,10 +43,18 @@
     <hr>
     <div class="container">
         <p class="text-muted">Your sexy footer.</p>
+        <!-- Flat style parent and children items -->
         <ul class="">
             <?php foreach($this->menu()->getHeaderMenu() as $item): ?>
-                <?php $link = $item['href'] ? : ($item['article_slug'] ? : ($item['category_slug']) ? : '#') ?>
-                <li><a href="<?= $link ?>"><?= $item['title'] ?></a></li>
+                <?php if($item['children']): ?>
+                    <?php foreach($item['children'] as $child): ?>
+                        <?php $link = $child['href'] ? : ($child['article_slug'] ? : ($child['category_slug']) ? : '#') ?>
+                        <li><a href="<?= $link ?>"><?= $child['title'] ?></a></li>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <?php $link = $item['href'] ? : ($item['article_slug'] ? : ($item['category_slug']) ? : '#') ?>
+                    <li><a href="<?= $link ?>"><?= $item['title'] ?></a></li>
+                <?php endif; ?>
             <?php endforeach; ?>
         </ul>
     </div>

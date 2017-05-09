@@ -72,7 +72,7 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
     public function getAll()
     {
         $select = $this->getSql()->select()
-            ->join('articles', 'article_posts.article_uuid = articles.article_uuid', ['article_id']);
+            ->join('articles', 'article_posts.article_uuid = articles.article_uuid', ['article_id', 'slug']);
 
         return $this->selectWith($select);
     }
