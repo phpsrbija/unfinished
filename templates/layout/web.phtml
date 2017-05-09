@@ -45,7 +45,7 @@
         <p class="text-muted">Your sexy footer.</p>
         <!-- Flat style parent and children items -->
         <ul class="">
-            <?php foreach($this->menu()->getHeaderMenu() as $item): ?>
+            <?php foreach($this->menu()->getFooterMenu() as $item): ?>
                 <?php if($item['children']): ?>
                     <?php foreach($item['children'] as $child): ?>
                         <?php $link = $child['href'] ? : ($child['article_slug'] ? : ($child['category_slug']) ? : '#') ?>
