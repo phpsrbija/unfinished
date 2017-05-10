@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Article\Mapper;
 
 use Zend\Db\Adapter\Adapter;
@@ -30,13 +31,20 @@ class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareIn
         $this->adapter = $adapter;
     }
 
-    public function getPaginationSelect()
+    public function getPaginationSelect($isActive = null)
     {
-        return $this->getSql()->select()
+        $select = $this->getSql()->select()
             ->columns(['title', 'body', 'lead'])
             ->join('articles', 'article_videos.article_uuid = articles.article_uuid')
+            ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['admin_user_id', 'first_name', 'last_name'])
             ->where(['articles.type' => ArticleType::POST])
             ->order(['created_at' => 'desc']);
+
+        if($isActive !== null) {
+            $select->where(['articles.status' => (int)$isActive]);
+        }
+
+        return $select;
     }
 
     public function get($id)

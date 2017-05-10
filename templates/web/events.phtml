@@ -1,0 +1,10 @@
+<i><b>Events</b></i>
+<hr/>
+<?php foreach($events as $event): ?>
+    <a href="<?= $this->url('event', ['event_id' => $event->article_id]) ?>"><?= $event->title ?></a>
+    <br/>
+    <b><?= $event->first_name . ' ' . $event->last_name ?> | <?= $event->published_at ?></b>
+
+    <hr/>
+<?php endforeach; ?>
+
