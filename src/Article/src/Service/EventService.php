@@ -43,6 +43,14 @@ class EventService extends ArticleService
         return $this->getPagination($select, $page, $limit);
     }
 
+    public function fetchWebArticles($page = 1, $limit = 10)
+    {
+        $status = 1;
+        $select = $this->articleEventsMapper->getPaginationSelect($status);
+
+        return $this->getPagination($select, $page, $limit);
+    }
+
     public function fetchSingleArticle($articleId)
     {
         $event = $this->articleEventsMapper->get($articleId);

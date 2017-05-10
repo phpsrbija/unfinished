@@ -138,12 +138,19 @@ class CategoryService
         return $this->categoryMapper->select();
     }
 
+    /**
+     * Get posts - articles with type == Posts
+     *
+     * @param $category
+     * @param int $page
+     * @return Paginator
+     */
     public function getCategoryPostsPagination($category, $page = 1): Paginator
     {
         $select           = $this->categoryMapper->getCategoryPostsSelect($category->category_id);
         $paginatorAdapter = new DbSelect($select, $this->categoryMapper->getAdapter());
         $paginator        = new Paginator($paginatorAdapter);
-
+        
         $paginator->setCurrentPageNumber($page);
         $paginator->setItemCountPerPage(10);
 

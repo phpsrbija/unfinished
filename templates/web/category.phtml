@@ -1,11 +1,15 @@
-Category:
-<pre><?php var_dump($category); ?></pre>
-
-<hr/>
-Articles:
+Category: <i><b><?= $category->name; ?></b></i>
 <hr/>
 
 <?php foreach($posts as $post): ?>
-<pre><?php var_dump($post); ?></pre>
+
+    <a href="<?= $this->url('post', ['segment_1' => $category->slug, 'segment_2' => $post->slug]) ?>">
+        <?= $post->title ?>
+    </a>
+    <br/><br/>
+    <?= $post->lead ?><br/><br/>
+    <b>By: <?= $post->first_name . ' ' . $post->last_name ?> </b> |
+    <b>Published: <?= $post->published_at ?></b><br/>
+    <hr/>
 <?php endforeach; ?>
 

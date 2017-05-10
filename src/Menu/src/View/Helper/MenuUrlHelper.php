@@ -34,7 +34,7 @@ class MenuUrlHelper extends AbstractHelper
     public function __invoke($menuItem)
     {
         if($menuItem['href']) {
-            return $menuItem['href'];
+            return strpos($menuItem['href'], 'http') === 0 ? $menuItem['href'] : '/' . $menuItem['href'];
         }
         elseif($menuItem['article_slug']) {
             // @todo refactor - break categories into single category per article...
