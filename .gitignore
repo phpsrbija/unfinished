@@ -1,7 +1,7 @@
 .idea
 .vagrant
 .~lock.*
-vendor/
+/vendor/
 docker/mysql_data
 data/phinx/phinx.php
 *.DS_Store
