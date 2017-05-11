@@ -27,7 +27,6 @@ function initMce(selector, width, height, trusted) {
         plugins += " code ";
     }
 
-
     tinyMCE.init({
         selector: selector,
         width: width,

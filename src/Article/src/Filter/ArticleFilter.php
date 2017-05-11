@@ -38,6 +38,12 @@ class ArticleFilter implements InputFilterAwareInterface
                 'filters'  => [['name' => 'Boolean']],
             ]);
 
+            $inputFilter->add([
+                'name'     => 'is_wysiwyg_editor',
+                'required' => false,
+                'filters'  => [['name' => 'Boolean']],
+            ]);
+
             $this->inputFilter = $inputFilter;
         }
 

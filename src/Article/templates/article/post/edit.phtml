@@ -24,7 +24,8 @@
 
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <textarea class="form-control" id="body" name="body"
-                                              placeholder="Write content..."><?= $post ? $post->body : '' ?></textarea>
+                                              placeholder="Write content..."
+                                              rows="30"><?= $post ? $post->body : '' ?></textarea>
                                     <ul class="parsley-errors-list">
                                         <li class="">
                                             <?= (isset($errors->body) ? implode('. ', (array)$errors->body) : ''); ?>
@@ -55,7 +56,6 @@
                                            name="published_at" value="<?= $post ? $post->published_at : '' ?>"
                                            placeholder="Published Date" aria-describedby="inputSuccess2Status2">
                                     <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-
                                     <ul class="parsley-errors-list">
                                         <li class="">
                                             <?= (isset($errors->published_at) ? implode('. ', (array)$errors->published_at) : ''); ?>
@@ -169,6 +169,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">WYSIWYG</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1" id="is_wysiwyg_editor"
+                                           name="is_wysiwyg_editor" <?= (isset($post->is_wysiwyg_editor) && $post->is_wysiwyg_editor == 1) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->is_wysiwyg_editor) ? implode('. ', (array)$errors->is_wysiwyg_editor) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-md-offset-3 col-sm-offset-3 col-md-9 col-sm-9 col-xs-12">
                                     <button type="submit" class="btn btn-block btn-success">Save</button>
                                     <br/>
@@ -185,7 +197,6 @@
                                     <?php endif; ?>
                                 </div>
                             </div>
-
                             <!-- \Rest configuration for Post -->
                         </div>
                     </div>
@@ -194,15 +205,24 @@
         </div>
     </div>
 </div>
-<?php
-$this->inlineScript()->appendScript("
+
+<?php if(isset($post->is_wysiwyg_editor) && $post->is_wysiwyg_editor): ?>
+    <?php
+    $this->inlineScript()->appendScript("
     $(document).ready(function() {
         initMce('#body', '100%', 500, true);
-
         $('.articleForm').on('submit', function(e) {
             tinyMCE.triggerSave();
         });
-        
+    });
+    ");
+    ?>
+<?php endif; ?>
+
+
+<?php
+$this->inlineScript()->appendScript("
+    $(document).ready(function() {
         $('#published_at_calendar').daterangepicker({
             timePicker24Hour: true,
             timePicker: true,
@@ -213,6 +233,22 @@ $this->inlineScript()->appendScript("
 		}, function(start, end, label) {
 	        // console.log(start.toISOString(), end.toISOString(), label);
 		});
+		
+		var changeCheckbox = document.querySelector('#is_wysiwyg_editor');
+		changeCheckbox.onchange = function() {
+		    if(changeCheckbox.checked){
+		        initMce('#body', '100%', 500, true);
+                $('.articleForm').on('submit', function(e) {
+                    tinyMCE.triggerSave();
+                });
+		    }
+		    else{
+		        tinyMCE.remove();
+		    }  
+        };
     });
 ");
 ?>
+
+
+
