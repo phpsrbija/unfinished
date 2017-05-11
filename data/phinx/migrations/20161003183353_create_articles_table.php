@@ -15,6 +15,7 @@ class CreateArticlesTable extends AbstractMigration
             ->addColumn('type', 'integer')// see Core\Entity\ArticleType
             ->addColumn('status', 'integer')// active, not active, ...
             ->addColumn('admin_user_uuid', 'binary', ['limit' => 16])
+            ->addColumn('is_wysiwyg_editor', 'boolean', ['default' => false])
             ->addForeignKey('admin_user_uuid', 'admin_users', 'admin_user_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->addIndex('type', ['name' => 'type_INDEX'])
             ->addIndex('published_at', ['name' => 'published_at_INDEX'])
