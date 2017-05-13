@@ -49,7 +49,7 @@ class ConfigProvider
                 // Different article types
                 [
                     'name'       => 'videos',
-                    'path'       => '/videos',
+                    'path'       => '/php-videos/',
                     'middleware' => Action\VideosAction::class
                 ],
                 [
@@ -59,7 +59,7 @@ class ConfigProvider
                 ],
                 [
                     'name'       => 'events',
-                    'path'       => '/events',
+                    'path'       => '/events/',
                     'middleware' => Action\EventsAction::class
                 ],
                 [
