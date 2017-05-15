@@ -1,9 +1,10 @@
 <?php
 
-namespace Article\View\Helper;
+namespace Article\Factory\View\Helper;
 
-use Interop\Container\ContainerInterface;
+use Article\View\Helper\PostHelper;
 use Article\Service\PostService;
+use Interop\Container\ContainerInterface;
 
 class PostHelperFactory
 {
