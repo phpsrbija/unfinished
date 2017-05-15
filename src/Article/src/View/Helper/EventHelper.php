@@ -19,4 +19,9 @@ class EventHelper extends AbstractHelper
         return $this;
     }
 
+    public function getLatest($limit = 4)
+    {
+        return $this->eventService->fetchLatest($limit);
+    }
+
 }

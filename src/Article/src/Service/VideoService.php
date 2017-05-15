@@ -91,6 +91,11 @@ class VideoService extends ArticleService
         return $this->getPagination($select, $page, $limit);
     }
 
+    public function fetchLatest($limit)
+    {
+        return $this->articleVideosMapper->getLatest($limit);
+    }
+
     public function fetchSingleArticle($articleId)
     {
         $article = $this->articleVideosMapper->get($articleId);

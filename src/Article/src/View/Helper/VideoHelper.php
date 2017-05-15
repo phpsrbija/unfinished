@@ -19,4 +19,9 @@ class VideoHelper extends AbstractHelper
         return $this;
     }
 
+    public function getLatest($limit = 4)
+    {
+        return $this->videoService->fetchLatest($limit);
+    }
+
 }

@@ -1,3 +1,4 @@
+<!-- First Event -->
 <a href="#" class="link active-news">
     <div class="active-news-box" data-mobile-active-src="" data-tablet-active-src="" data-desktop-active-src="">
         <img class="active-news-box-mask" src="/images/news-mask.png">
@@ -8,107 +9,40 @@
         <div class="author"></div>
     </div>
 </a>
+<!-- \First Event -->
+
+<!-- Latest 4 Events -->
 <div class="news-wrapper">
-    <a href="#" class="link news selected"
-       data-mobile-src="/images/news/1/mobile.jpg"
-       data-tablet-src="/images/news/1/tablet.jpg"
-       data-desktop-src="/images/news/1/desktop.jpg">
-
-        <div class="image-wrapper">
-            <img src="/images/news/1/thumbnail.jpg">
-            <div class="date-outer-wrapper">
-                <div class="headline">MEETUP</div>
-                <div class="date-inner-wrapper">
-                    <div class="date">10</div>
-                    <div class="month">MAR</div>
+    <?php foreach($this->event()->getLatest() as $count => $event): ?>
+        <a href="#" class="link news <?= $count == 0 ? 'selected' : '' ?>"
+           data-mobile-src="<?= $event->featured_img ?>"
+           data-tablet-src="<?= $event->featured_img ?>"
+           data-desktop-src="<?= $event->featured_img ?>">
+            <div class="image-wrapper">
+                <img src="<?= $event->main_img ?>">
+                <div class="date-outer-wrapper">
+                    <div class="headline">MEETUP</div>
+                    <div class="date-inner-wrapper">
+                        <div class="date"><?= date("d", strtotime($event->start_at)); ?></div>
+                        <div class="month"><?= date("F", strtotime($event->start_at)); ?></div>
+                    </div>
                 </div>
+                <button class="btn btn-share">PODELI</button>
+                <div class="news-box-hover"></div>
             </div>
-            <button class="btn btn-share">PODELI</button>
-            <div class="news-box-hover"></div>
-        </div>
-        <div class="news-box-content">
-            <div class="time-place"><span>19h</span>@<span>KC Grad</span></div>
-            <div class="title">Pozivamo vas na poslednji PHP Srbija Meetup u ovoj godini. ☺</div>
-            <div class="details"></div>
-            <div class="author">PHP Srbija</div>
-        </div>
-    </a>
-
-    <a href="#" class="link news"
-       data-mobile-src="/images/news/2/mobile.jpg"
-       data-tablet-src="/images/news/2/tablet.jpg"
-       data-desktop-src="/images/news/2/desktop.jpg">
-
-        <div class="image-wrapper">
-            <img src="/images/news/2/thumbnail.jpg">
-            <div class="date-outer-wrapper">
-                <div class="headline">WORKSHOP</div>
-                <div class="date-inner-wrapper">
-                    <div class="date">15</div>
-                    <div class="month">apr</div>
+            <div class="news-box-content">
+                <div class="time-place">
+                    <span><?= date("h", strtotime($event->start_at)); ?>h</span>@
+                    <span><?= $event->place_name ?></span>
                 </div>
+                <div class="title"><?= $event->title ?></div>
+                <div class="details"></div>
+                <div class="author">PHP Srbija</div>
             </div>
-            <button class="btn btn-share">PODELI</button>
-            <div class="news-box-hover"></div>
-        </div>
-        <div class="news-box-content">
-            <div class="time-place"><span>19h</span>@<span>KC Grad</span></div>
-            <div class="title">PHP Srbija Conference 2017</div>
-            <div class="details">Najveća regionalna PHP konferencija</div>
-            <div class="author">PHP Srbija</div>
-        </div>
-    </a>
-
-    <a href="#" class="link news"
-       data-mobile-src="/images/news/3/mobile.jpg"
-       data-tablet-src="/images/news/3/tablet.jpg"
-       data-desktop-src="/images/news/3/desktop.jpg">
-
-        <div class="image-wrapper">
-            <img src="/images/news/3/thumbnail.jpg">
-            <div class="date-outer-wrapper">
-                <div class="headline">MEETUP</div>
-                <div class="date-inner-wrapper">
-                    <div class="date">10</div>
-                    <div class="month">MAR</div>
-                </div>
-            </div>
-            <button class="btn btn-share">PODELI</button>
-            <div class="news-box-hover"></div>
-        </div>
-        <div class="news-box-content">
-            <div class="time-place"><span>19h</span>@<span>KC Grad</span></div>
-            <div class="title">ITkonekt – najveći online IT događaj u regionu</div>
-            <div class="details"></div>
-            <div class="author">PHP Srbija</div>
-        </div>
-    </a>
-
-    <a href="#" class="link news"
-       data-mobile-src="/images/news/4/mobile.jpg"
-       data-tablet-src="/images/news/4/tablet.jpg"
-       data-desktop-src="/images/news/4/desktop.jpg">
-
-        <div class="image-wrapper">
-            <img src="/images/news/4/thumbnail.jpg">
-            <div class="date-outer-wrapper">
-                <div class="headline">CONFERENCE</div>
-                <div class="date-inner-wrapper">
-                    <div class="date">20</div>
-                    <div class="month">MAY</div>
-                </div>
-            </div>
-            <button class="btn btn-share">PODELI</button>
-            <div class="news-box-hover"></div>
-        </div>
-        <div class="news-box-content">
-            <div class="time-place"><span>19h</span>@<span>KC Grad</span></div>
-            <div class="title">ITkonekt – najveći online IT događaj u regionu</div>
-            <div class="details"></div>
-            <div class="author">PHP Srbija</div>
-        </div>
-    </a>
+        </a>
+    <?php endforeach; ?>
 </div>
+<!-- \Latest 4 Events -->
 
 <div class="forum">
     <div class="headline">Poslednje sa Foruma</div>
@@ -286,130 +220,48 @@
     </div>
 </div>
 
+<!-- Video section -->
 <div class="videos">
     <div class="slider-video-wrapper">
         <div class="headline">Video Materijali</div>
         <div class="slider slider-video">
-            <div class="video-slide">
-                <div class="video-wrapper">
-                    <video poster="/images/videos/placeholder.jpg">
-                        <source src="/videos/test.mp4" type="video/mp4">
-                    </video>
-                    <div class="slider-video-hover-box"></div>
-                    <div class="video-content-wrapper">
-                        <div class="title">Propustili ste mesečni meetup #1?</div>
-                        <div class="description">Quo Vadis? - Srđan Vranac</div>
-                        <button class="btn btn-play icon-play"></button>
+            <?php foreach($this->video()->getLatest() as $video): ?>
+                <div class="video-slide">
+                    <div class="video-wrapper">
+                        <video poster="<?= $video->main_img ?>">
+                            <source src="/videos/test.mp4" type="video/mp4">
+                        </video>
+                        <div class="slider-video-hover-box"></div>
+                        <div class="video-content-wrapper">
+                            <div class="title"><?= $video->title ?></div>
+                            <div class="description"><?= $video->lead ?></div>
+                            <button class="btn btn-play icon-play"></button>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="video-slide">
-                <div class="video-wrapper">
-                    <video poster="/images/videos/placeholder2.jpg">
-                        <source src="/videos/test.mp4" type="video/mp4">
-                    </video>
-                    <div class="slider-video-hover-box"></div>
-                    <div class="video-content-wrapper">
-                        <div class="title">Propustili ste mesečni meetup #2?</div>
-                        <div class="description">Quo Vadis? - Srđan Vranac</div>
-                        <button class="btn btn-play icon-play"></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="video-slide">
-                <div class="video-wrapper">
-                    <video poster="/images/videos/placeholder.jpg">
-                        <source src="/videos/test.mp4" type="video/mp4">
-                    </video>
-                    <div class="slider-video-hover-box"></div>
-                    <div class="video-content-wrapper">
-                        <div class="title">Propustili ste mesečni meetup #3?</div>
-                        <div class="description">Quo Vadis? - Srđan Vranac</div>
-                        <button class="btn btn-play icon-play"></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="video-slide">
-                <div class="video-wrapper">
-                    <video poster="/images/videos/placeholder2.jpg">
-                        <source src="/videos/test.mp4" type="video/mp4">
-                    </video>
-                    <div class="slider-video-hover-box"></div>
-                    <div class="video-content-wrapper">
-                        <div class="title">Propustili ste mesečni meetup #4?</div>
-                        <div class="description">Quo Vadis? - Srđan Vranac</div>
-                        <button class="btn btn-play icon-play"></button>
-                    </div>
-                </div>
-            </div>
-
-
+            <?php endforeach; ?>
         </div>
-        <a class="link video" href="#">Pogledaj sve video zapise</a>
+        <a class="link video" href="/php-videos/">Pogledaj sve video zapise</a>
     </div>
     <div class="slider slider-thumbnail">
-        <div class="video-slide">
-            <div class="video-wrapper">
-                <video poster="/images/videos/placeholder.jpg">
-                    <source src="/videos/test.mp4" type="video/mp4">
-                </video>
-                <div class="slider-video-hover-box"></div>
-                <div class="video-content-wrapper">
-                    <div class="title">@@title</div>
-                    <div class="description">@@description</div>
-                    <button class="btn btn-play icon-play"></button>
+        <?php foreach($this->video()->getLatest() as $video): ?>
+            <div class="video-slide">
+                <div class="video-wrapper">
+                    <video poster="<?= $video->main_img ?>">
+                        <source src="/videos/test.mp4" type="video/mp4">
+                    </video>
+                    <div class="slider-video-hover-box"></div>
+                    <div class="video-content-wrapper">
+                        <div class="title"><?= $video->title ?></div>
+                        <div class="description"><?= $video->lead ?></div>
+                        <button class="btn btn-play icon-play"></button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="video-slide">
-            <div class="video-wrapper">
-                <video poster="/images/videos/placeholder2.jpg">
-                    <source src="/videos/test.mp4" type="video/mp4">
-                </video>
-                <div class="slider-video-hover-box"></div>
-                <div class="video-content-wrapper">
-                    <div class="title">@@title</div>
-                    <div class="description">@@description</div>
-                    <button class="btn btn-play icon-play"></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="video-slide">
-            <div class="video-wrapper">
-                <video poster="/images/videos/placeholder.jpg">
-                    <source src="/videos/test.mp4" type="video/mp4">
-                </video>
-                <div class="slider-video-hover-box"></div>
-                <div class="video-content-wrapper">
-                    <div class="title">@@title</div>
-                    <div class="description">@@description</div>
-                    <button class="btn btn-play icon-play"></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="video-slide">
-            <div class="video-wrapper">
-                <video poster="/images/videos/placeholder2.jpg">
-                    <source src="/videos/test.mp4" type="video/mp4">
-                </video>
-                <div class="slider-video-hover-box"></div>
-                <div class="video-content-wrapper">
-                    <div class="title">@@title</div>
-                    <div class="description">@@description</div>
-                    <button class="btn btn-play icon-play"></button>
-                </div>
-            </div>
-        </div>
-
+        <?php endforeach; ?>
     </div>
 </div>
-
+<!-- \Video section -->
 
 <div class="posts">
     <div class="headline">Ostali Članci & Aktuelnosti</div>
@@ -654,5 +506,3 @@
         </article>
     </div>
 </div>
-
-<?php // $article->body; ?>
