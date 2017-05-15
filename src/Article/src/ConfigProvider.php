@@ -99,7 +99,9 @@ class ConfigProvider
 
             'view_helpers' => [
                 'factories' => [
-                    'post' => View\Helper\PostHelperFactory::class,
+                    'post'  => Factory\View\Helper\PostHelperFactory::class,
+                    'event' => Factory\View\Helper\EventHelperFactory::class,
+                    'video' => Factory\View\Helper\VideoHelperFactory::class,
                 ],
             ],
 
