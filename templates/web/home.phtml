@@ -45,175 +45,39 @@
 <!-- \Latest 4 Events -->
 
 <div class="forum">
-    <div class="headline">Poslednje sa Foruma</div>
+    <div class="headline">Poslednje sa foruma</div>
     <ul class="tags-wrapper">
-        <li><a class="link tag" href="#">frameworks</a></li>
-        <li><a class="link tag" href="#">magento</a></li>
-        <li><a class="link tag" href="#">php mvc</a></li>
-        <li><a class="link tag" href="#">design patterns</a></li>
+        <?php foreach($this->category()->forWeb() as $category): ?>
+            <li><a class="link tag" href="#"><?= strtolower($category['name']) ?></a></li>
+        <?php endforeach; ?>
     </ul>
     <div class="forum-box-wrapper">
-        <div class="forum-box" data-active-tag="frameworks">
-            <a href="#" class="image-wrapper">
-                <img src="/images/forum/1.jpg">
-                <div class="name">Ivan Ilić</div>
-            </a>
-            <div class="question-wrapper">
-                <a href="#" class="question">Koji framework preporučujete za početak?</a>
-                <div class="tag">FRAMEWORKS<span class="circle">●</span><span class="posted">Pre 9 minuta</span></div>
-                <div class="comment-wrapper">
-                    <a href="#">Komentariši</a>
+        <?php foreach($this->category()->forWeb() as $category): ?>
+            <?php foreach($category['posts'] as $post): ?>
+                <div class="forum-box" data-active-tag="<?= strtolower($category['name']) ?>">
+                    <a href="#" class="image-wrapper">
+                        <img src="/images/forum/1.jpg">
+                        <div class="name"><?= $post['first_name'] . ' ' . $post['last_name'] ?></div>
+                    </a>
+                    <div class="question-wrapper">
+                        <a href="#" class="question"><?= $post['title'] ?></a>
+                        <div class="tag">
+                            <?= $category['name'] ?>
+                            <span class="circle">●</span>
+                            <span class="posted"><?= date('d.m.y H:i', strtotime($post['published_at'])) ?>h</span>
+                        </div>
+                        <div class="comment-wrapper">
+                            <a href="#">Komentariši</a>
+                        </div>
+                    </div>
+                    <div class="response-wrapper active">
+                        <div class="response-number">0</div>
+                        <div class="response-text">odgovora</div>
+                    </div>
                 </div>
-            </div>
-            <div class="response-wrapper active">
-                <div class="response-number">8</div>
-                <div class="response-text">odgovora</div>
-            </div>
-        </div>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
 
-        <div class="forum-box" data-active-tag="magento">
-            <a href="#" class="image-wrapper">
-                <img src="/images/forum/1.jpg">
-                <div class="name">Marko Nikolić</div>
-            </a>
-            <div class="question-wrapper">
-                <a href="#" class="question">Koji framework preporučujete za početak?</a>
-                <div class="tag">MAGENTO<span class="circle">●</span><span class="posted">Pre 9 minuta</span></div>
-                <div class="comment-wrapper">
-                    <a href="#">Komentariši</a>
-                </div>
-            </div>
-            <div class="response-wrapper">
-                <div class="response-number">8</div>
-                <div class="response-text">odgovora</div>
-            </div>
-        </div>
-
-        <div class="forum-box" data-active-tag="php mvc">
-            <a href="#" class="image-wrapper">
-                <img src="/images/forum/1.jpg">
-                <div class="name">Aca Nesović</div>
-            </a>
-            <div class="question-wrapper">
-                <a href="#" class="question">Koji framework preporučujete za početak?</a>
-                <div class="tag">PHP MVC<span class="circle">●</span><span class="posted">Pre 9 minuta</span></div>
-                <div class="comment-wrapper">
-                    <a href="#">Komentariši</a>
-                </div>
-            </div>
-            <div class="response-wrapper">
-                <div class="response-number">8</div>
-                <div class="response-text">odgovora</div>
-            </div>
-
-
-        </div>
-
-        <div class="forum-box" data-active-tag="frameworks">
-            <a href="#" class="image-wrapper">
-                <img src="/images/forum/1.jpg">
-                <div class="name">Ivan Ilić</div>
-            </a>
-            <div class="question-wrapper">
-                <a href="#" class="question">Koji framework preporučujete za početak?</a>
-                <div class="tag">FRAMEWORKS<span class="circle">●</span><span class="posted">Pre 9 minuta</span></div>
-                <div class="comment-wrapper">
-                    <a href="#">Komentariši</a>
-                </div>
-            </div>
-            <div class="response-wrapper">
-                <div class="response-number">8</div>
-                <div class="response-text">odgovora</div>
-            </div>
-        </div>
-
-        <div class="forum-box" data-active-tag="magento">
-            <a href="#" class="image-wrapper">
-                <img src="/images/forum/1.jpg">
-                <div class="name">Marko Nikolić</div>
-            </a>
-            <div class="question-wrapper">
-                <a href="#" class="question">Koji framework preporučujete za početak?</a>
-                <div class="tag">MAGENTO<span class="circle">●</span><span class="posted">Pre 9 minuta</span></div>
-                <div class="comment-wrapper">
-                    <a href="#">Komentariši</a>
-                </div>
-            </div>
-            <div class="response-wrapper active">
-                <div class="response-number">8</div>
-                <div class="response-text">odgovora</div>
-            </div>
-        </div>
-        <div class="forum-box" data-active-tag="php mvc">
-            <a href="#" class="image-wrapper">
-                <img src="/images/forum/1.jpg">
-                <div class="name">Aca Nesović</div>
-            </a>
-            <div class="question-wrapper">
-                <a href="#" class="question">Koji framework preporučujete za početak?</a>
-                <div class="tag">PHP MVC<span class="circle">●</span><span class="posted">Pre 9 minuta</span></div>
-                <div class="comment-wrapper">
-                    <a href="#">Komentariši</a>
-                </div>
-            </div>
-            <div class="response-wrapper">
-                <div class="response-number">8</div>
-                <div class="response-text">odgovora</div>
-            </div>
-        </div>
-
-        <div class="forum-box" data-active-tag="frameworks">
-            <a href="#" class="image-wrapper">
-                <img src="/images/forum/1.jpg">
-                <div class="name">Ivan Ilić</div>
-            </a>
-            <div class="question-wrapper">
-                <a href="#" class="question">Koji framework preporučujete za početak?</a>
-                <div class="tag">FRAMEWORKS<span class="circle">●</span><span class="posted">Pre 9 minuta</span></div>
-                <div class="comment-wrapper">
-                    <a href="#">Komentariši</a>
-                </div>
-            </div>
-            <div class="response-wrapper">
-                <div class="response-number">8</div>
-                <div class="response-text">odgovora</div>
-            </div>
-        </div>
-
-        <div class="forum-box" data-active-tag="magento">
-            <a href="#" class="image-wrapper">
-                <img src="/images/forum/1.jpg">
-                <div class="name">Marko Nikolić</div>
-            </a>
-            <div class="question-wrapper">
-                <a href="#" class="question">Koji framework preporučujete za početak?</a>
-                <div class="tag">MAGENTO<span class="circle">●</span><span class="posted">Pre 9 minuta</span></div>
-                <div class="comment-wrapper">
-                    <a href="#">Komentariši</a>
-                </div>
-            </div>
-            <div class="response-wrapper">
-                <div class="response-number">8</div>
-                <div class="response-text">odgovora</div>
-            </div>
-        </div>
-        <div class="forum-box" data-active-tag="php mvc">
-            <a href="#" class="image-wrapper">
-                <img src="/images/forum/1.jpg">
-                <div class="name">Aca Nesović</div>
-            </a>
-            <div class="question-wrapper">
-                <a href="#" class="question">Koji framework preporučujete za početak?</a>
-                <div class="tag">PHP MVC<span class="circle">●</span><span class="posted">Pre 9 minuta</span></div>
-                <div class="comment-wrapper">
-                    <a href="#">Komentariši</a>
-                </div>
-            </div>
-            <div class="response-wrapper active">
-                <div class="response-number">8</div>
-                <div class="response-text">odgovora</div>
-            </div>
-        </div>
         <div class="show-more">
             <a class="btn btn-white" data-history data-ajax="/forum-1.html" href="/forum/2">UČITAJ JOŠ SA FORUMA</a>
         </div>
