@@ -137,92 +137,29 @@
 </div>
 <!-- \Video section -->
 
+
+<!-- Latest Blog Posts -->
 <div class="posts">
     <div class="headline">Ostali Članci & Aktuelnosti</div>
-    <article class="post-box main">
-        <div class="image-wrapper" data-desktop-active-src="/images/posts/main.jpg">
-            <img src="/images/posts/main.jpg">
-            <div class="post-box-hover"></div>
-        </div>
-        <div class="post-box-content">
-            <div class="section">Anketa</div>
-            <a href="#" class="title"><span>Rezultati ankete „Žene i devojke u IT svetu“</span></a>
-            <a href="#" class="author">PHP Srbija</a>
-        </div>
-    </article>
 
-    <article class="post-box">
-        <div class="image-wrapper" data-desktop-active-src="/images/posts/1.jpg">
-            <img src="/images/posts/1.jpg">
-            <div class="post-box-hover"></div>
-        </div>
-        <div class="post-box-content">
-            <div class="section">Utisci sa Konferencije</div>
-            <a href="#" class="title"><span>True North PHP 2016 Review and much more...</span></a>
-            <a href="#" class="author">PHP Srbija</a>
-        </div>
-    </article>
-
-    <article class="post-box">
-        <div class="image-wrapper" data-desktop-active-src="/images/posts/2.jpg">
-            <img src="/images/posts/2.jpg">
-            <div class="post-box-hover"></div>
-        </div>
-        <div class="post-box-content">
-            <div class="section">Izveštaj</div>
-            <a href="#" class="title"><span>Kreator- PHP-a dolazi u Beograd</span></a>
-            <a href="#" class="author">PHP Srbija</a>
-        </div>
-    </article>
-
-    <article class="post-box">
-        <div class="image-wrapper" data-desktop-active-src="/images/posts/3.jpg">
-            <img src="/images/posts/3.jpg">
-            <div class="post-box-hover"></div>
-        </div>
-        <div class="post-box-content">
-            <div class="section">Anketa</div>
-            <a href="#" class="title"><span>Prva „Agile Serbia Konferencija“</span></a>
-            <a href="#" class="author">PHP Srbija</a>
-        </div>
-    </article>
-
-    <article class="post-box">
-        <div class="image-wrapper" data-desktop-active-src="/images/posts/4.jpg">
-            <img src="/images/posts/4.jpg">
-            <div class="post-box-hover"></div>
-        </div>
-        <div class="post-box-content">
-            <div class="section">Utisci sa Konferencije</div>
-            <a href="#" class="title"><span>Kreator- PHP-a dolazi u Beograd</span></a>
-            <a href="#" class="author">PHP Srbija</a>
-        </div>
-    </article>
-
-    <article class="post-box">
-        <div class="image-wrapper" data-desktop-active-src="/images/posts/5.jpg">
-            <img src="/images/posts/5.jpg">
-            <div class="post-box-hover"></div>
-        </div>
-        <div class="post-box-content">
-            <div class="section">Izveštaj</div>
-            <a href="#" class="title"><span>Prva „Agile Serbia Konferencija u Beogradu“</span></a>
-            <a href="#" class="author">PHP Srbija</a>
-        </div>
-    </article>
-
-    <article class="post-box">
-        <div class="image-wrapper" data-desktop-active-src="/images/posts/6.jpg">
-            <img src="/images/posts/6.jpg">
-            <div class="post-box-hover"></div>
-        </div>
-        <div class="post-box-content">
-            <div class="section">Anketa</div>
-            <a href="#" class="title"><span>True North PHP 2016 Review</span></a>
-            <a href="#" class="author">PHP Srbija</a>
-        </div>
-    </article>
+    <?php foreach($this->post()->forWeb() as $count => $post): ?>
+        <article class="post-box <?= $count == 0 ? 'main' : '' ?>">
+            <div class="image-wrapper" data-desktop-active-src="<?= $post->main_img ?>">
+                <img src="<?= $post->main_img ?>">
+                <div class="post-box-hover"></div>
+            </div>
+            <div class="post-box-content">
+                <div class="section"><?= $post->category_name ?></div>
+                <a href="<?= $this->url('post', ['segment_1' => $post['category_slug'], 'segment_2' => $post['slug']]) ?>"
+                   class="title">
+                    <span><?= $post->title ?></span>
+                </a>
+                <a href="#" class="author"><?= $post->first_name . ' ' . $post->last_name ?></a>
+            </div>
+        </article>
+    <?php endforeach; ?>
 </div>
+<!-- \Latest Blog Posts -->
 
 <div class="social-network">
     <div class="headline">Pratite nas i koristite <a href="#">#PHPSrbija</a></div>

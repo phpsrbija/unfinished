@@ -26,4 +26,12 @@ class PostHelper extends AbstractHelper
     {
         return $this->postService->getForSelect();
     }
+
+    public function forWeb()
+    {
+        $limit = 7;
+
+        return $this->postService->getLatestWeb($limit);
+    }
+
 }
