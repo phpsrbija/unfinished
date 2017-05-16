@@ -195,4 +195,9 @@ class PostService extends ArticleService
         return $this->articleMapper->getCategories($articleId);
     }
 
+    public function getLatestWeb($limit)
+    {
+        return $this->articlePostsMapper->getLatest($limit);
+    }
+
 }

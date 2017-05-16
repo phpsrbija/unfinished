@@ -8,6 +8,7 @@ use Zend\View\Helper\AbstractHelper;
 class CategoryHelper extends AbstractHelper
 {
     private $categoryService;
+    private $categoriesWithPosts;
 
     public function __construct(CategoryService $categoryService)
     {
@@ -24,8 +25,18 @@ class CategoryHelper extends AbstractHelper
         return $this->categoryService->getAll();
     }
 
+    /**
+     * We need to return X categories with Y posts in every category sorted by magic for homepage.
+     * magic = most viewed, most comments, most appropriate for the user etc. etc.
+     *
+     * for now return just latest.
+     */
     public function forWeb()
     {
-        return $this->categoryService->getWebCategories();
+        if(!$this->categoriesWithPosts) {
+            $this->categoriesWithPosts = $this->categoryService->getWebCategories();
+        }
+
+        return $this->categoriesWithPosts;
     }
 }

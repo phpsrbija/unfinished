@@ -77,4 +77,22 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
         return $this->selectWith($select);
     }
 
+    /**
+     * @todo Refactor category and make 1-1 connection with articles
+     */
+    public function getLatest($limit = 10)
+    {
+        $select = $this->getSql()->select()
+            ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
+            ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['first_name', 'last_name'])
+            ->join('article_categories', 'article_categories.article_uuid = articles.article_uuid')
+            ->join('category', 'category.category_uuid = article_categories.category_uuid',
+                ['category_name' => 'name', 'category_id', 'category_slug' => 'slug'])
+            ->where(['articles.status' => 1])
+            ->order(['articles.published_at' => 'desc'])
+            ->limit($limit);
+
+        return $this->selectWith($select);
+    }
+
 }
