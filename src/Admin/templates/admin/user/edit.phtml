@@ -14,7 +14,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content"><br/>
-                <form class="form-horizontal form-label-left" method="POST"
+                <form class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data"
                       action="<?= $this->url('admin.users.action', ['action' => 'save', 'id' => $user ? $user->admin_user_id : 0]) ?>">
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
@@ -70,6 +70,42 @@
                             </ul>
                         </div>
                     </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Face image</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="file" class="form-control" name="face_img"
+                                   placeholder="Face image"
+                                   value="<?= isset($user->face_img) ? $user->face_img : '' ?>">
+                            <ul class="parsley-errors-list">
+                                <li class="">
+                                    <?= (isset($errors->face_img) ? implode('. ', (array)$errors->face_img) : ''); ?>
+                                </li>
+                            </ul>
+                            <?php if(isset($user->face_img) && $user->face_img): ?>
+                                <img src="<?= $user->face_img ?>" style="max-height: 100px;"/>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Profile image</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="file" class="form-control" name="profile_img" placeholder="Profile image"
+                                   value="<?= isset($user->profile_img) ? $user->profile_img : '' ?>">
+                            <ul class="parsley-errors-list">
+                                <li class="">
+                                    <?= (isset($errors->profile_img) ? implode('. ', (array)$errors->profile_img) : ''); ?>
+                                </li>
+                            </ul>
+                            <?php if(isset($user->profile_img) && $user->profile_img): ?>
+                                <img src="<?= $user->profile_img ?>" style="max-height: 100px;"/>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+
                     <div class="divider-dashed"></div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
