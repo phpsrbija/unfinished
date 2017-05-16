@@ -23,4 +23,9 @@ class CategoryHelper extends AbstractHelper
     {
         return $this->categoryService->getAll();
     }
+
+    public function forWeb()
+    {
+        return $this->categoryService->getWebCategories();
+    }
 }

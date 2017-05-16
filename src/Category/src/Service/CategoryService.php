@@ -139,6 +139,22 @@ class CategoryService
     }
 
     /**
+     * Return categories with posts/articles
+     */
+    public function getWebCategories()
+    {
+        $categories = $this->categoryMapper->getWeb()->toArray();
+
+        foreach($categories as $ctn => $category) {
+            $select                    = $this->categoryMapper->getCategoryPostsSelect($category['category_id'], 4);
+            $posts                     = $this->categoryMapper->selectWith($select)->toArray();
+            $categories[$ctn]['posts'] = $posts;
+        }
+
+        return $categories;
+    }
+
+    /**
      * Get posts - articles with type == Posts
      *
      * @param $category
@@ -150,7 +166,7 @@ class CategoryService
         $select           = $this->categoryMapper->getCategoryPostsSelect($category->category_id);
         $paginatorAdapter = new DbSelect($select, $this->categoryMapper->getAdapter());
         $paginator        = new Paginator($paginatorAdapter);
-        
+
         $paginator->setCurrentPageNumber($page);
         $paginator->setItemCountPerPage(10);
 
