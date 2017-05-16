@@ -7,6 +7,7 @@ namespace Category\Mapper;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
 use Zend\Db\TableGateway\AbstractTableGateway;
+use Zend\Db\Sql\Expression;
 
 /**
  * Class CategoryMapper.
@@ -70,6 +71,7 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
         $select = $this->getSql()->select()->limit($limit);
         $select->where->notEqualTo('slug', 'php-videos');
         $select->where->notEqualTo('slug', 'events');
+        $select->order(new Expression('rand()'));
 
         return $this->selectWith($select);
     }
