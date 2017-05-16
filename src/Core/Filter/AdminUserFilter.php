@@ -19,7 +19,7 @@ class AdminUserFilter implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if(!$this->inputFilter){
+        if(!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
             $inputFilter->add([
@@ -52,6 +52,12 @@ class AdminUserFilter implements InputFilterAwareInterface
                     ['name' => 'dbnorecordexists', 'options' => ['adapter' => $this->adapter, 'table' => 'admin_users', 'field' => 'email']],
 
                 ],
+            ]);
+
+            $inputFilter->add([
+                'name'     => 'introduction',
+                'required' => false,
+                'filters'  => [['name' => 'StringTrim']]
             ]);
 
             $inputFilter->add([

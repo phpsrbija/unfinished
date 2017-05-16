@@ -51,6 +51,13 @@ class ConfigProvider
                     'allowed_methods' => ['GET', 'POST']
                 ],
             ],
+
+            'view_helpers' => [
+                'factories' => [
+                    'admin' => Factory\View\Helper\AdminUserHelperFactory::class,
+                ],
+            ],
+
         ];
     }
 }

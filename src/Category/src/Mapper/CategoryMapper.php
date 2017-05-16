@@ -51,7 +51,7 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
             ->join('article_categories', 'article_categories.category_uuid = category.category_uuid', [])
             ->join('articles', 'articles.article_uuid = article_categories.article_uuid', ['article_id', 'slug', 'admin_user_uuid', 'published_at'])
             ->join('article_posts', 'article_posts.article_uuid = articles.article_uuid', ['*'], 'right')
-            ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['admin_user_id', 'first_name', 'last_name'])
+            ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['admin_user_id', 'first_name', 'last_name', 'face_img'])
             ->where(['category_id' => $categoryId])
             ->where(['articles.status' => 1])
             ->order(['published_at' => 'desc']);

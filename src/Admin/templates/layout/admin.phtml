@@ -37,18 +37,15 @@
                 <div class="navbar nav_title" style="border: 0;">
                     <a href="<?= $this->url('admin') ?>" class="site_title"><i class="fa fa-bank"></i> <span>Unfinished CMS</span></a>
                 </div>
-
                 <div class="clearfix"></div>
-
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
-                        <img src="/admin_assets/images/img.jpg" alt="..." class="img-circle profile_img">
+                        <img src="<?= $this->admin()->face_img ?>" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-
-                        <h2>Aleksandar Varničić</h2>
+                        <h2><?= $this->admin()->first_name . ' ' . $this->admin()->last_name ?></h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -88,7 +85,8 @@
 
                 <!-- menu footer buttons -->
                 <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" data-placement="top" title="Profile">
+                    <a data-toggle="tooltip" data-placement="top" title="Profile"
+                       href="<?= $this->url('admin.users.action', ['action' => 'edit', 'id' => $this->admin()->admin_user_id]) ?>">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </a>
                     <a data-toggle="tooltip" data-placement="top" title="FullScreen">
@@ -117,12 +115,13 @@
                         <li class="">
                             <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown"
                                aria-expanded="false">
-                                <img src="/admin_assets/images/img.jpg" alt="">Aleksandar Varničić
+                                <img src="<?= $this->admin()->face_img ?>" alt="">
+                                <?= $this->admin()->first_name . ' ' . $this->admin()->last_name ?>
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
                                 <li>
-                                    <a href="#">
+                                    <a href="<?= $this->url('admin.users.action', ['action' => 'edit', 'id' => $this->admin()->admin_user_id]) ?>">
                                         <i class="fa fa-user pull-right"></i> Profile
                                     </a>
                                 </li>

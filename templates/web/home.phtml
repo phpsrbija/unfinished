@@ -44,30 +44,39 @@
 </div>
 <!-- \Latest 4 Events -->
 
+<!-- Latest Blog Posts in Categories -->
 <div class="forum">
+    <!-- Categories -->
     <div class="headline">Poslednje sa foruma</div>
     <ul class="tags-wrapper">
         <?php foreach($this->category()->forWeb() as $category): ?>
             <li><a class="link tag" href="#"><?= strtolower($category['name']) ?></a></li>
         <?php endforeach; ?>
     </ul>
+
+    <!-- Posts -->
     <div class="forum-box-wrapper">
         <?php foreach($this->category()->forWeb() as $category): ?>
             <?php foreach($category['posts'] as $post): ?>
                 <div class="forum-box" data-active-tag="<?= strtolower($category['name']) ?>">
                     <a href="#" class="image-wrapper">
-                        <img src="/images/forum/1.jpg">
+                        <img src="<?= $post['face_img'] ?>">
                         <div class="name"><?= $post['first_name'] . ' ' . $post['last_name'] ?></div>
                     </a>
                     <div class="question-wrapper">
-                        <a href="#" class="question"><?= $post['title'] ?></a>
+                        <a href="<?= $this->url('post', ['segment_1' => $category['slug'], 'segment_2' => $post['slug']]) ?>"
+                           class="question">
+                            <?= $post['title'] ?>
+                        </a>
                         <div class="tag">
                             <?= $category['name'] ?>
                             <span class="circle">●</span>
                             <span class="posted"><?= date('d.m.y H:i', strtotime($post['published_at'])) ?>h</span>
                         </div>
                         <div class="comment-wrapper">
-                            <a href="#">Komentariši</a>
+                            <a href="<?= $this->url('post', ['segment_1' => $category['slug'], 'segment_2' => $post['slug']]) ?>">
+                                Komentariši
+                            </a>
                         </div>
                     </div>
                     <div class="response-wrapper active">
@@ -83,6 +92,7 @@
         </div>
     </div>
 </div>
+<!-- \Latest Blog Posts in Categories -->
 
 <!-- Video section -->
 <div class="videos">
