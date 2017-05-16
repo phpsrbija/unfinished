@@ -16,6 +16,8 @@ class AdminUsers extends AbstractMigration
             ->addColumn('email', 'string', ['limit' => 128])
             ->addColumn('password', 'char', ['limit' => 60])
             ->addColumn('status', 'integer', ['default' => 0])// 0 => not active, 1 = active
+            ->addColumn('face_img', 'text', ['null' => true])
+            ->addColumn('profile_img', 'text', ['null' => true])
             ->addColumn('created_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('last_login', 'datetime', ['null' => true])
             ->addIndex(['email'], ['name' => 'email_INDEX'])
@@ -23,7 +25,7 @@ class AdminUsers extends AbstractMigration
 
         $faker = Faker\Factory::create();
         $count = rand(100, 150);
-        for($i = 0; $i < $count; $i++){
+        for($i = 0; $i < $count; $i++) {
             $id        = $faker->uuid;
             $mysqluuid = (new Uuid($id))->toFormat(new Binary());
             $data      = [

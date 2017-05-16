@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Admin\Controller;
 
@@ -11,6 +11,7 @@ use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Session\SessionManager;
+use Zend\Http\PhpEnvironment\Request;
 
 /**
  * Class UserController.
@@ -59,7 +60,7 @@ class UserController extends AbstractController
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function index() : \Psr\Http\Message\ResponseInterface
+    public function index(): \Psr\Http\Message\ResponseInterface
     {
         $user   = $this->session->getStorage()->user;
         $params = $this->request->getQueryParams();
@@ -81,7 +82,7 @@ class UserController extends AbstractController
         $id   = $this->request->getAttribute('id');
         $user = $this->adminUserService->getUser($id);
 
-        if($this->request->getParsedBody()){
+        if($this->request->getParsedBody()) {
             $user                = (object)($this->request->getParsedBody() + (array)$user);
             $user->admin_user_id = $id;
         }
@@ -95,36 +96,37 @@ class UserController extends AbstractController
 
     public function save()
     {
-        try{
+        try {
             $userId = $this->request->getAttribute('id');
             $data   = $this->request->getParsedBody();
+            $data   += (new Request())->getFiles()->toArray();
 
-            if($userId){
+            if($userId) {
                 $this->adminUserService->updateUser($data, $userId);
             }
-            else{
+            else {
                 $this->adminUserService->registerNewUser($data);
             }
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.users'));
         }
-        catch(FilterException $fe){
+        catch(FilterException $fe) {
             return $this->edit($fe->getArrayMessages());
         }
-        catch(\Exception $e){
+        catch(\Exception $e) {
             throw $e;
         }
     }
 
     public function delete()
     {
-        try{
+        try {
             $userId = $this->request->getAttribute('id');
             $this->adminUserService->delete($userId);
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.users'));
         }
-        catch(\Exception $e){
+        catch(\Exception $e) {
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.users'));
         }
     }
