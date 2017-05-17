@@ -1,13 +1,14 @@
 <br/><br/><br/><br/>
 
-<i><b>Video</b></i>
-<hr/>
-<?php foreach($posts as $post): ?>
-    <a href="<?= $this->url('video', ['video_id' => $post->article_id]) ?>"><?= $post->title ?></a>
-    <br/>
-    <?= $post->lead; ?><br/>
-    <b><?= $post->first_name . ' ' . $post->last_name ?> | <?= $post->published_at ?></b>
-
+<center>
+    <i><b>Video</b></i>
     <hr/>
-<?php endforeach; ?>
+    <?php foreach($posts as $post): ?>
+        <a href="<?= $this->url('video', ['video_id' => $post->article_id]) ?>"><?= $post->title ?></a>
+        <br/>
+        <?= $post->lead; ?><br/>
+        <b><?= $post->first_name . ' ' . $post->last_name ?> | <?= $post->published_at ?></b>
 
+        <hr/>
+    <?php endforeach; ?>
+</center>

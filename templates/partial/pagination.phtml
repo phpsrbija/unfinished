@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-sm-offset-5 col-sm-7">
+        <?php if($this->pageCount > 1): ?>
+            <ul class="pagination pull-left" style="margin:0px;">
+
+                <!-- Previous page link -->
+                <?php if(isset($this->previous)): ?>
+                    <li>
+                        <a href="<?php echo $this->url($this->route, isset($this->data) ? $this->data : []); ?>?page=<?php echo $this->previous; ?>">
+                            <span class=""><</span>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                        <a href="#">
+                            <span class=""><</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+
+                <!-- Next page link -->
+                <?php if(isset($this->next)): ?>
+                    <li>
+                        <a href="<?php echo $this->url($this->route, isset($this->data) ? $this->data : []); ?>?page=<?php echo $this->next; ?>">
+                            <span class="">></span>
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="disabled">
+                        <a href="#">
+                            <span class="">></span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        <?php endif; ?>
+    </div>
+</div>
+<br/>
+
+
