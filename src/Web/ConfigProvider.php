@@ -10,6 +10,7 @@ class ConfigProvider
             'templates' => [
                 'map'   => [
                     'layout/web' => 'templates/layout/web.phtml',
+                    'article/pagination' => 'templates/partial/pagination.phtml',
                 ],
                 'paths' => [
                     'templates' => ['templates'],
@@ -64,7 +65,7 @@ class ConfigProvider
                 ],
                 [
                     'name'       => 'event',
-                    'path'       => '/event/:event_id',
+                    'path'       => '/event/:event_slug',
                     'middleware' => Action\EventAction::class
                 ],
                 // \Different article types

@@ -155,6 +155,14 @@ class CategoryService
     }
 
     /**
+     * Return categories posts/articles
+     */
+    public function allWeb()
+    {
+        return $this->categoryMapper->getWeb(null, ['name' => 'asc']);
+    }
+
+    /**
      * Get posts - articles with type == Posts
      *
      * @param $category
@@ -163,12 +171,13 @@ class CategoryService
      */
     public function getCategoryPostsPagination($category, $page = 1): Paginator
     {
-        $select           = $this->categoryMapper->getCategoryPostsSelect($category->category_id);
+        $categoryid       = isset($category->category_id) ? $category->category_id : null;
+        $select           = $this->categoryMapper->getCategoryPostsSelect($categoryid, 10);
         $paginatorAdapter = new DbSelect($select, $this->categoryMapper->getAdapter());
         $paginator        = new Paginator($paginatorAdapter);
 
         $paginator->setCurrentPageNumber($page);
-        $paginator->setItemCountPerPage(10);
+        $paginator->setItemCountPerPage(5);
 
         return $paginator;
     }

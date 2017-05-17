@@ -50,22 +50,26 @@ class CategoryAction
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
-        $urlSlug = $request->getAttribute('category');
-
-        $category = $this->categoryService->getCategoryBySlug($urlSlug);
+        $params     = $request->getQueryParams();
+        $page       = isset($params['page']) ? $params['page'] : 1;
+        $urlSlug    = $request->getAttribute('category');
+        $categories = $this->categoryService->allWeb();
+        $category   = $this->categoryService->getCategoryBySlug($urlSlug);
 
         if(!$category) {
-            $response = $response->withStatus(404);
-
-            return $next($request, $response, new \Exception("Category by URL does not exist!", 404));
+            $category = (object)[
+                'name' => 'SveeEeEEeeEe',
+                'slug' => 'all'
+            ];
         }
 
-        $posts = $this->categoryService->getCategoryPostsPagination($category, 1);
+        $posts = $this->categoryService->getCategoryPostsPagination($category, $page);
 
         return new HtmlResponse($this->template->render('web::category', [
-            'layout'   => 'layout/web',
-            'category' => $category,
-            'posts'    => $posts
+            'layout'          => 'layout/web',
+            'categories'      => $categories,
+            'currentCategory' => $category,
+            'posts'           => $posts
         ]));
     }
 

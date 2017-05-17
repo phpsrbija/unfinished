@@ -1,12 +1,32 @@
 <br/><br/><br/><br/>
 
-<i><b>Events</b></i>
-<hr/>
-<?php foreach($events as $event): ?>
-    <a href="<?= $this->url('event', ['event_id' => $event->article_id]) ?>"><?= $event->title ?></a>
-    <br/>
-    <b><?= $event->first_name . ' ' . $event->last_name ?> | <?= $event->published_at ?></b>
-
+<center>
     <hr/>
-<?php endforeach; ?>
+    Naredna desavanja
+    <hr/>
+    <?php foreach($futureEvents as $event): ?>
+        <img src="<?= $event->main_img ?>" width="150"/> <br/>
+        <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>"><?= $event->title ?></a>
+        <br/>
+        (<?= $event->sub_title ?>)
+        <br/>
+        <b><?= $event->place_name ?> | <?= $event->published_at ?></b>
+        <br/><br/>
+    <?php endforeach; ?>
+    <hr/>
+    Predhodna desavanja
+    <hr/>
+    <?php foreach($pastEvents as $event): ?>
+        <img src="<?= $event->main_img ?>" width="150"/> <br/>
+        <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>"><?= $event->title ?></a>
+        <br/>
+        (<?= $event->sub_title ?>)
+        <br/>
+        <b><?= $event->place_name ?> | <?= $event->published_at ?></b>
+        <br/><br/>
+    <?php endforeach; ?>
+
+    <?= $this->paginationControl($pastEvents, 'Sliding', 'article/pagination', ['route' => 'category', 'data' => ['category' => 'events']]) ?>
+</center>
+
 

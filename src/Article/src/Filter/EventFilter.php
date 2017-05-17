@@ -12,7 +12,7 @@ class EventFilter implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if(!$this->inputFilter){
+        if(!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
             $inputFilter->add([
@@ -43,7 +43,7 @@ class EventFilter implements InputFilterAwareInterface
                 'filters'    => [['name' => 'StringTrim']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 1500]],
+                    ['name' => 'StringLength', 'options' => ['min' => 2]],
                 ],
             ]);
 

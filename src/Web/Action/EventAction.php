@@ -52,8 +52,8 @@ class EventAction
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
-        $eventId = $request->getAttribute('event_id');
-        $event   = $this->eventService->fetchSingleArticle($eventId);
+        $eventSlug = $request->getAttribute('event_slug');
+        $event     = $this->eventService->fetchEventBySlug($eventSlug);
 
         return new HtmlResponse($this->template->render('web::event', [
             'layout' => 'layout/web',

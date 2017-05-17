@@ -44,17 +44,20 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
         return $select;
     }
 
-    public function getCategoryPostsSelect($categoryId, $limit = null)
+    public function getCategoryPostsSelect($categoryId = null, $limit = null)
     {
         $select = $this->getSql()->select()
-            ->columns([])
+            ->columns(['category_name' => 'name'])
             ->join('article_categories', 'article_categories.category_uuid = category.category_uuid', [])
             ->join('articles', 'articles.article_uuid = article_categories.article_uuid', ['article_id', 'slug', 'admin_user_uuid', 'published_at'])
             ->join('article_posts', 'article_posts.article_uuid = articles.article_uuid', ['*'], 'right')
             ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['admin_user_id', 'first_name', 'last_name', 'face_img'])
-            ->where(['category_id' => $categoryId])
             ->where(['articles.status' => 1])
             ->order(['published_at' => 'desc']);
+
+        if($categoryId) {
+            $select->where(['category_id' => $categoryId]);
+        }
 
         if($limit) {
             $select->limit($limit);
@@ -66,12 +69,21 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
     /**
      * @todo Refactor and add TYPE into the category table. Than fetch only for blog_post type..
      */
-    public function getWeb($limit = 7)
+    public function getWeb($limit = 7, $order = null)
     {
-        $select = $this->getSql()->select()->limit($limit);
+        $select = $this->getSql()->select();
         $select->where->notEqualTo('slug', 'php-videos');
         $select->where->notEqualTo('slug', 'events');
-        $select->order(new Expression('rand()'));
+
+        if($limit) {
+            $select->limit($limit);
+        }
+
+        if($order) {
+            $select->order($order);
+        } else {
+            $select->order(new Expression('rand()'));
+        }
 
         return $this->selectWith($select);
     }

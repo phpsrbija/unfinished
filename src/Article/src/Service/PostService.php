@@ -72,7 +72,7 @@ class PostService extends ArticleService
         $article = $this->articlePostsMapper->getBySlug($slug);
 
         if($article) {
-            $article['categories'] = $this->getCategoryIds($article->article_uuid);
+            $article['categories'] = $this->getCategoryIds($article->article_id);
         }
 
         return $article;

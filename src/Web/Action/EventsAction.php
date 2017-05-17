@@ -52,12 +52,15 @@ class EventsAction
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
-        $posts = $this->eventService->fetchWebArticles();
+        $params       = $request->getQueryParams();
+        $page         = isset($params['page']) ? $params['page'] : 1;
+        $futureEvents = $this->eventService->fetchFutureEvents();
+        $pastEvents   = $this->eventService->fetchPastEventsPagination($page);
 
         return new HtmlResponse($this->template->render('web::events', [
-            'layout' => 'layout/web',
-            'events' => $posts
+            'layout'       => 'layout/web',
+            'futureEvents' => $futureEvents,
+            'pastEvents'   => $pastEvents
         ]));
     }
-
 }

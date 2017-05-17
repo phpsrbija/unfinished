@@ -1,17 +1,29 @@
 <br/><br/><br/><br/>
-
-Category: <i><b><?= $category->name; ?></b></i>
-<hr/>
-
-<?php foreach($posts as $post): ?>
-
-    <a href="<?= $this->url('post', ['segment_1' => $category->slug, 'segment_2' => $post->slug]) ?>">
-        <?= $post->title ?>
+<center>
+    <?php foreach($this->categories as $category): ?>
+        <a href="<?= $this->url('category', ['category' => $category->slug]) ?>">
+            <?= $category->name ?>
+        </a>  /
+    <?php endforeach; ?>
+    <a href="<?= $this->url('category', ['category' => 'all']) ?>">
+        SveeEeEEeeEe
     </a>
-    <br/><br/>
-    <?= $post->lead ?><br/><br/>
-    <b>By: <?= $post->first_name . ' ' . $post->last_name ?> </b> |
-    <b>Published: <?= $post->published_at ?></b><br/>
     <hr/>
-<?php endforeach; ?>
 
+    <br/><br/>
+    Category: <i><b><?= $this->currentCategory->name; ?></b></i>
+    <hr/>
+
+    <?php foreach($posts as $post): ?>
+        <img src="<?= $post->main_img ?>" width="150"><br/>
+        <a href="<?= $this->url('post', ['segment_1' => $category->slug, 'segment_2' => $post->slug]) ?>">
+            <?= $post->title ?>
+        </a>
+        <br/>
+        <b><?= $post->first_name . ' ' . $post->last_name ?> </b> /
+        <b><?= date('d.m.Y', strtotime($post->published_at)) ?></b> /
+        <b><?= $post->category_name ?></b>
+        <hr/>
+    <?php endforeach; ?>
+    <?= $this->paginationControl($posts, 'Sliding', 'article/pagination', ['route' => 'category', 'data' => ['category' => $this->currentCategory->slug]]) ?>
+</center>

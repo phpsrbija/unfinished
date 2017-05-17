@@ -57,6 +57,15 @@ class ArticleEventsMapper extends AbstractTableGateway implements AdapterAwareIn
         return $this->selectWith($select)->current();
     }
 
+    public function getBySlug($slug)
+    {
+        $select = $this->getSql()->select()
+            ->join('articles', 'article_events.article_uuid = articles.article_uuid')
+            ->where(['articles.slug' => $slug]);
+
+        return $this->selectWith($select)->current();
+    }
+
     public function getLatest($limit = 50)
     {
         $select = $this->getSql()->select()
@@ -66,5 +75,27 @@ class ArticleEventsMapper extends AbstractTableGateway implements AdapterAwareIn
             ->limit($limit);
 
         return $this->selectWith($select);
+    }
+
+    public function getFuture()
+    {
+        $select = $this->getSql()->select()
+            ->where(['articles.status' => 1])
+            ->join('articles', 'articles.article_uuid = article_events.article_uuid', ['article_id', 'slug', 'published_at']);
+
+        $select->where->greaterThanOrEqualTo('end_at', date('Y-m-d H:i:s'));
+
+        return $this->selectWith($select);
+    }
+
+    public function getPastSelect()
+    {
+        $select = $this->getSql()->select()
+            ->where(['articles.status' => 1])
+            ->join('articles', 'articles.article_uuid = article_events.article_uuid', ['article_id', 'slug', 'published_at']);
+
+        $select->where->lessThan('end_at', date('Y-m-d H:i:s'));
+
+        return $select;
     }
 }

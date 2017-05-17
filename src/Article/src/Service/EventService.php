@@ -43,7 +43,19 @@ class EventService extends ArticleService
         return $this->getPagination($select, $page, $limit);
     }
 
-    public function fetchWebArticles($page = 1, $limit = 10)
+    public function fetchFutureEvents()
+    {
+        return $this->articleEventsMapper->getFuture();
+    }
+
+    public function fetchPastEventsPagination($page = 1, $limit = 2)
+    {
+        $select = $this->articleEventsMapper->getPastSelect();
+
+        return $this->getPagination($select, $page, $limit);
+    }
+
+    public function fetchEvents($page = 1, $limit = 10)
     {
         $status = 1;
         $select = $this->articleEventsMapper->getPaginationSelect($status);
@@ -65,6 +77,11 @@ class EventService extends ArticleService
         }
 
         return $event;
+    }
+
+    public function fetchEventBySlug($slug)
+    {
+        return $this->articleEventsMapper->getBySlug($slug);
     }
 
     public function createArticle($user, $data)

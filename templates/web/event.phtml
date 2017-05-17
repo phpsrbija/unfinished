@@ -1,5 +1,27 @@
 <br/><br/><br/><br/>
 
-<b><?= $event->title ?></b>
+<div class="row">
+    <div class="col-md-2 col-md-offset-5">
+        (<b><?= $event->start_at ?> @ <?= $this->place_name ?></b>)
+        <br/>
+        <b><?= $event->title ?></b>
+        <br/>
+        <b> <img src="<?= $event->main_img ?>"/></b>
+        <br/>
+        <b><?= $event->sub_title ?></b>
+        <br/>
+        <hr/>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-6">
+        <b><?= $event->body ?></b>
+    </div>
+    <div class="col-md-2">
+        <?= $event->longitude ?>, <?= $event->latitude ?> <br/><br/>
+        <?= $event->place_name ?>,
+        <?= $event->start_at ?>
+    </div>
+</div>
 <br/><br/>
-<?= $event->body ?>
