@@ -236,77 +236,29 @@
     </div>
 </div>
 
+<!-- PHPSerbia UG members -->
 <div class="society">
     <div class="intro">
         <div class="meet">Upoznajte članove udruženja</div>
         <a class="link reload icon-reload" href="#"></a>
     </div>
+
     <div class="members">
-        <article>
-            <img src="/images/members/1.jpg">
-            <div class="hover-box">
-                <div class="center-box">
-                    <div class="inner-box y-centered">
-                        <p class="name">Nemanja Čedomirović</p>
-                        <p class="title">Jedan od osnivača Udruženja PHP Srbija.</p>
+        <?php foreach($this->webAdmin()->getRandom() as $user): ?>
+            <article>
+                <img src="<?= $user->profile_img ?>">
+                <div class="hover-box">
+                    <div class="center-box">
+                        <div class="inner-box y-centered">
+                            <p class="name"><?= $user->first_name . ' ' . $user->last_name ?></p>
+                            <p class="title"><?= $user->introduction ?></p>
+                        </div>
                     </div>
+                    <button class="btn btn-link icon-close"></button>
                 </div>
-                <button class="btn btn-link icon-close"></button>
-            </div>
+            </article>
+        <?php endforeach; ?>
 
-        </article>
-        <article>
-            <img src="/images/members/2.jpg">
-            <div class="hover-box">
-                <div class="center-box">
-                    <div class="inner-box y-centered">
-                        <p class="name">Nemanja Čedomirović</p>
-                        <p class="title">Jedan od osnivača Udruženja PHP Srbija.</p>
-                    </div>
-                </div>
-                <button class="btn btn-link icon-close"></button>
-            </div>
-
-        </article>
-        <article>
-            <img src="/images/members/3.jpg">
-            <div class="hover-box">
-                <div class="center-box">
-                    <div class="inner-box y-centered">
-                        <p class="name">Nemanja Čedomirović</p>
-                        <p class="title">Jedan od osnivača Udruženja PHP Srbija.</p>
-                    </div>
-                </div>
-                <button class="btn btn-link icon-close"></button>
-            </div>
-
-        </article>
-        <article>
-            <img src="/images/members/4.jpg">
-            <div class="hover-box">
-                <div class="center-box">
-                    <div class="inner-box y-centered">
-                        <p class="name">Nemanja Čedomirović</p>
-                        <p class="title">Jedan od osnivača Udruženja PHP Srbija.</p>
-                    </div>
-                </div>
-                <button class="btn btn-link icon-close"></button>
-            </div>
-
-        </article>
-        <article>
-            <img src="/images/members/5.jpg">
-            <div class="hover-box">
-                <div class="center-box">
-                    <div class="inner-box y-centered">
-                        <p class="name">Nemanja Čedomirović</p>
-                        <p class="title">Jedan od osnivača Udruženja PHP Srbija.</p>
-                    </div>
-                </div>
-                <button class="btn btn-link icon-close"></button>
-            </div>
-
-        </article>
         <article class="add">
             <a class="link abs-wrapper" href="#">
                 <div class="center">
@@ -317,3 +269,4 @@
         </article>
     </div>
 </div>
+<!-- \PHPSerbia UG members -->

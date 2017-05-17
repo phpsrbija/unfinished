@@ -1,10 +1,12 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Core\Mapper;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
 use Zend\Db\TableGateway\AbstractTableGateway;
+use Zend\Db\Sql\Expression;
 
 /**
  * Class AdminUsersMapper.
@@ -51,7 +53,7 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
      * @param  string $uuid admin user id
      * @return int number of affected rows
      */
-    public function updateLogin(string $userId) : int
+    public function updateLogin(string $userId): int
     {
         return $this->update(['last_login' => date('Y-m-d H:i:s')], ['admin_user_id' => $userId]);
     }
@@ -63,5 +65,15 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
         $select->where->notEqualTo('admin_user_id', $userId);
 
         return $select;
+    }
+
+    public function getRandom($limit)
+    {
+        $select = $this->getSql()->select()
+            ->where(['status' => 1])
+            ->order(new Expression('rand()'))
+            ->limit($limit);
+
+        return $this->selectWith($select);
     }
 }

@@ -189,4 +189,14 @@ class AdminUserService
     {
         return (bool)$this->adminUsersMapper->delete(['admin_user_id' => $userId]);
     }
+
+    /**
+     * Fetch random X users to show on homepage
+     *
+     * @param int $limit
+     */
+    public function getForWeb($limit = 10)
+    {
+        return $this->adminUsersMapper->getRandom($limit);
+    }
 }

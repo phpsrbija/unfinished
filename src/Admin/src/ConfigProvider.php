@@ -54,7 +54,8 @@ class ConfigProvider
 
             'view_helpers' => [
                 'factories' => [
-                    'admin' => Factory\View\Helper\AdminUserHelperFactory::class,
+                    'admin'    => Factory\View\Helper\AdminUserHelperFactory::class,
+                    'webAdmin' => Factory\View\Helper\WebAdminUserHelperFactory::class,
                 ],
             ],
 
