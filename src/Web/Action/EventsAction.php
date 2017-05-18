@@ -55,7 +55,7 @@ class EventsAction
         $params       = $request->getQueryParams();
         $page         = isset($params['page']) ? $params['page'] : 1;
         $futureEvents = $this->eventService->fetchFutureEvents();
-        $pastEvents   = $this->eventService->fetchPastEventsPagination($page);
+        $pastEvents   = $this->eventService->fetchPastEventsPagination($page, 3);
 
         return new HtmlResponse($this->template->render('web::events', [
             'layout'       => 'layout/web',

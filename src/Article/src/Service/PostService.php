@@ -89,6 +89,14 @@ class PostService extends ArticleService
         return $article;
     }
 
+    public function fetchNearestArticle($articlePublishedAt)
+    {
+        return [
+            $this->articlePostsMapper->getNear($articlePublishedAt, 1),
+            $this->articlePostsMapper->getNear($articlePublishedAt, -1),
+        ];
+    }
+
     public function createArticle($user, $data)
     {
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);

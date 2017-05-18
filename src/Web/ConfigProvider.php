@@ -9,7 +9,7 @@ class ConfigProvider
         return [
             'templates' => [
                 'map'   => [
-                    'layout/web' => 'templates/layout/web.phtml',
+                    'layout/web'         => 'templates/layout/web.phtml',
                     'article/pagination' => 'templates/partial/pagination.phtml',
                 ],
                 'paths' => [
@@ -55,7 +55,7 @@ class ConfigProvider
                 ],
                 [
                     'name'       => 'video',
-                    'path'       => '/video/:video_id',
+                    'path'       => '/video/:video_slug',
                     'middleware' => Action\VideoAction::class
                 ],
                 [

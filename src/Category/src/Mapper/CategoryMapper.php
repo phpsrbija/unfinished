@@ -47,7 +47,7 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
     public function getCategoryPostsSelect($categoryId = null, $limit = null)
     {
         $select = $this->getSql()->select()
-            ->columns(['category_name' => 'name'])
+            ->columns(['category_name' => 'name', 'category_slug' => 'slug'])
             ->join('article_categories', 'article_categories.category_uuid = category.category_uuid', [])
             ->join('articles', 'articles.article_uuid = article_categories.article_uuid', ['article_id', 'slug', 'admin_user_uuid', 'published_at'])
             ->join('article_posts', 'article_posts.article_uuid = articles.article_uuid', ['*'], 'right')

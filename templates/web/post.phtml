@@ -1,3 +1,4 @@
+<?php /*
 <br/><br/><br/><br/>
 
 <div class="row">
@@ -6,10 +7,77 @@
 
         <?= $post->title; ?><br/><br/>
 
-        <?= $post->first_name . ' ' . $post->last_name; ?> / <?= $post->published_at ?>
+         / <?=  ?>
 
         <hr/>
 
         <?= $post->body; ?>
     </div>
+</div> */ ?>
+<div class="blog-single">
+    <div class="headline">
+        <h1>
+            <?= $post->title ?>
+        </h1>
+        <div class="author">Autor: <strong><?= $post->first_name . ' ' . $post->last_name; ?></strong></div>
+        <div class="date">Datum:
+            <time><?= date('d.m.Y H:i', strtotime($post->published_at)) ?></time>
+        </div>
+        <ul class="tags-wrapper">
+            <li># <?= $post->category_name ?></li>
+        </ul>
+    </div>
+    <div class="blog-wrapper">
+        <div class="social-icons social-icon__vertical">
+            <div class="social-icon-shared">
+                <strong>142</strong>
+                <span>Podeljeno</span>
+            </div>
+            <a href="#" target="_blank">
+                <button class="btn btn-white social icon-facebook"></button>
+            </a>
+            <a href="#" target="_blank">
+                <button class="btn btn-white social icon-twitter"></button>
+            </a>
+            <a href="#" target="_blank">
+                <button class="btn btn-white social icon-linkedin"></button>
+            </a>
+        </div>
+        <div class="blog-text">
+            <?= $post->body ?>
+        </div>
+
+        <div class="show-more">
+            <a class="btn btn-white btn-block" data-history data-ajax="/blog-1.html" href="/comments/1">Prikaži 25
+                komentara</a>
+        </div>
+    </div>
 </div>
+
+<br/><br/>
+<div class="blog-pagination">
+    <div class="blog-prev pull-left">
+        <?php if($previous): ?>
+            <small>Prethodni članak</small>
+            <div class="title">
+                <a href="<?= $this->url('post', ['segment_1' => $previous->category_slug, 'segment_2' => $previous->slug]) ?>">
+                    <?= $previous->title ?>
+                </a>
+            </div>
+        <?php endif; ?>
+    </div>
+    <div class="blog-next pull-right">
+        <?php if($next): ?>
+            <small>Sledeći članak</small>
+            <div class="title">
+                <a href="<?= $this->url('post', ['segment_1' => $next->category_slug, 'segment_2' => $next->slug]) ?>">
+                    <?= $next->title ?>
+                </a>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+<br/><br/><br/><br/>
+
+
+<div style="clear: both;"></div>

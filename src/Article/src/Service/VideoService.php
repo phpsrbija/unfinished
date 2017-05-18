@@ -96,6 +96,11 @@ class VideoService extends ArticleService
         return $this->articleVideosMapper->getLatest($limit);
     }
 
+    public function fetchVideoBySlug($slug)
+    {
+        return $this->articleVideosMapper->getBySlug($slug);
+    }
+
     public function fetchSingleArticle($articleId)
     {
         $article = $this->articleVideosMapper->get($articleId);

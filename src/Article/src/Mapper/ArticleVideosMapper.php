@@ -34,11 +34,10 @@ class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareIn
     public function getPaginationSelect($isActive = null)
     {
         $select = $this->getSql()->select()
-            ->columns(['title', 'body', 'lead'])
-            ->join('articles', 'article_videos.article_uuid = articles.article_uuid')
+            ->join('articles', 'article_videos.article_uuid = articles.article_uuid', ['slug', 'published_at', 'status', 'article_id'])
             ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['admin_user_id', 'first_name', 'last_name'])
             ->where(['articles.type' => ArticleType::POST])
-            ->order(['created_at' => 'desc']);
+            ->order(['articles.created_at' => 'desc']);
 
         if($isActive !== null) {
             $select->where(['articles.status' => (int)$isActive]);
@@ -66,6 +65,15 @@ class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareIn
             ->limit($limit);
 
         return $this->selectWith($select);
+    }
+
+    public function getBySlug($slug)
+    {
+        $select = $this->getSql()->select()
+            ->join('articles', 'article_videos.article_uuid = articles.article_uuid')
+            ->where(['articles.slug' => $slug]);
+
+        return $this->selectWith($select)->current();
     }
 
 }
