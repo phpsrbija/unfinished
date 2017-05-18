@@ -1,32 +1,95 @@
-<br/><br/><br/><br/>
+<?php $event = $futureEvents->count() ? $futureEvents->current() : $pastEvents->current(); ?>
+<div class="event-page">
+    <div class="headline">
+        <div class="headline-container">
+            <div class="time-place">
+                <?= date('d M, H', strtotime($event->start_at)) ?>h
+            </div>
+            <div class="event-name"><?= $event->title ?></div>
+            <div class="instructor-image">
+                <img src="<?= $event->main_img ?>" alt="Author" width="100" height="100">
+            </div>
+            <div class="instructor-name"><?= $event->place_name ?></div>
+            <div class="event-title"><?= $event->sub_title ?></div>
+            <button class="btn btn-blue">Dolaziš?</button>
+        </div>
+    </div>
 
-<center>
-    <hr/>
-    Naredna desavanja
-    <hr/>
-    <?php foreach($futureEvents as $event): ?>
-        <img src="<?= $event->main_img ?>" width="150"/> <br/>
-        <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>"><?= $event->title ?></a>
-        <br/>
-        (<?= $event->sub_title ?>)
-        <br/>
-        <b><?= $event->place_name ?> | <?= $event->published_at ?></b>
-        <br/><br/>
-    <?php endforeach; ?>
-    <hr/>
-    Predhodna desavanja
-    <hr/>
-    <?php foreach($pastEvents as $event): ?>
-        <img src="<?= $event->main_img ?>" width="150"/> <br/>
-        <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>"><?= $event->title ?></a>
-        <br/>
-        (<?= $event->sub_title ?>)
-        <br/>
-        <b><?= $event->place_name ?> | <?= $event->published_at ?></b>
-        <br/><br/>
-    <?php endforeach; ?>
+    <div class="event-wrapper">
+        <!-- Future Events -->
+        <div class="event-status-title">Naredna dešavanja</div>
+        <div class="news-wrapper">
+            <?php foreach($futureEvents as $event): ?>
+                <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="link news">
+                    <div class="image-wrapper">
+                        <img src="<?= $event->main_img ?>">
+                        <div class="date-outer-wrapper">
+                            <div class="headline">Datum</div>
+                            <div class="date-inner-wrapper">
+                                <div class="date"><?= date('d', strtotime($event->start_at)) ?></div>
+                                <div class="month"><?= date('M', strtotime($event->start_at)) ?></div>
+                            </div>
+                        </div>
+                        <button class="btn btn-share">PODELI</button>
+                        <div class="news-box-hover"></div>
+                    </div>
+                    <div class="news-box-content">
+                        <div class="time-place">
+                            <span><?= date('H', strtotime($event->start_at)) ?>h</span>
+                            @<span><?= $event->place_name ?></span>
+                        </div>
+                        <div class="title">
+                            <?= $event->title ?>
+                        </div>
+                        <div class="details"></div>
+                        <div class="author">-</div>
+                    </div>
+                </a>
+            <?php endforeach; ?>
 
-    <?= $this->paginationControl($pastEvents, 'Sliding', 'article/pagination', ['route' => 'category', 'data' => ['category' => 'events']]) ?>
-</center>
+            <div class="event-be-instructor">
+                <a href="#">
+                    <img src="/images/event/be-instructor.jpg" alt="Prijavi se kao predavac">
+                </a>
+            </div>
+        </div>
+        <!-- \Future Events -->
 
+        <!-- Past Events -->
+        <div class="event-finished">
+            <div class="event-status-title">Prethodna dešavanja</div>
+            <div class="news-wrapper">
+                <?php foreach($pastEvents as $event): ?>
+                    <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="link news">
+                        <div class="image-wrapper">
+                            <img src="<?= $event->main_img ?>">
+                            <div class="date-outer-wrapper">
+                                <div class="headline">Datum</div>
+                                <div class="date-inner-wrapper">
+                                    <div class="date"><?= date('d', strtotime($event->start_at)) ?></div>
+                                    <div class="month"><?= date('M', strtotime($event->start_at)) ?></div>
+                                </div>
+                            </div>
+                            <button class="btn btn-share">PODELI</button>
+                            <div class="news-box-hover"></div>
+                        </div>
+                        <div class="news-box-content">
+                            <div class="time-place">
+                                <span><?= date('H', strtotime($event->start_at)) ?>h</span>@
+                                <span><?= $event->place_name ?></span>
+                            </div>
+                            <div class="title"><?= $event->title ?></div>
+                            <div class="details"></div>
+                            <div class="author">-</div>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
 
+                <div class="show-more">
+                    <?= $this->paginationControl($pastEvents, 'Sliding', 'article/pagination', ['route' => 'events']) ?>
+                </div>
+            </div>
+        </div>
+        <!-- \Past Events -->
+    </div>
+</div>

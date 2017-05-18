@@ -50,12 +50,13 @@ class VideosAction
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
-
-        $posts = $this->videoService->fetchWebArticles(1);
+        $params = $request->getQueryParams();
+        $page   = isset($params['page']) ? $params['page'] : 1;
+        $videos = $this->videoService->fetchWebArticles($page, 5);
 
         return new HtmlResponse($this->template->render('web::videos', [
             'layout' => 'layout/web',
-            'posts'  => $posts
+            'videos' => $videos
         ]));
     }
 

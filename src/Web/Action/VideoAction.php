@@ -52,8 +52,8 @@ class VideoAction
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
-        $videoId = $request->getAttribute('video_id');
-        $video   = $this->videoService->fetchSingleArticle($videoId);
+        $videoSlug = $request->getAttribute('video_slug');
+        $video     = $this->videoService->fetchVideoBySlug($videoSlug);
 
         return new HtmlResponse($this->template->render('web::video', [
             'layout' => 'layout/web',

@@ -48,7 +48,7 @@ class EventService extends ArticleService
         return $this->articleEventsMapper->getFuture();
     }
 
-    public function fetchPastEventsPagination($page = 1, $limit = 2)
+    public function fetchPastEventsPagination($page = 1, $limit = 10)
     {
         $select = $this->articleEventsMapper->getPastSelect();
 

@@ -1,29 +1,84 @@
-<br/><br/><br/><br/>
-<center>
-    <?php foreach($this->categories as $category): ?>
-        <a href="<?= $this->url('category', ['category' => $category->slug]) ?>">
-            <?= $category->name ?>
-        </a>  /
-    <?php endforeach; ?>
-    <a href="<?= $this->url('category', ['category' => 'all']) ?>">
-        SveeEeEEeeEe
-    </a>
-    <hr/>
+<div class="blog-page">
+    <!-- Categories -->
+    <div class="headline"><?= $currentCategory->name; ?></div>
+    <ul class="tags-wrapper">
+        <li><a class="link tag" href="<?= $this->url('category', ['category' => 'all']) ?>">SveeEeEEeeEe</a></li>
+        <?php foreach($this->categories as $category): ?>
+            <li>
+                <a class="link tag" href="<?= $this->url('category', ['category' => $category->slug]) ?>">
+                    <?= $category->name ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <!-- \Categories -->
 
-    <br/><br/>
-    Category: <i><b><?= $this->currentCategory->name; ?></b></i>
-    <hr/>
+    <div class="blog-wrapper">
+        <!-- Left side - list of latest blog posts  -->
+        <div class="blog-posts">
+            <div class="clearfix">
+                <?php foreach($posts as $post): ?>
+                    <a href="<?= $this->url('post', ['segment_1' => $post->category_slug, 'segment_2' => $post->slug]) ?>"
+                       class="link blog">
+                        <div class="image-wrapper">
+                            <img src="<?= $post->main_img ?>">
+                            <div class="blog-box-hover"></div>
+                        </div>
+                        <div class="blog-box-content">
+                            <div class="title"><?= $post->title ?></div>
+                            <time class="datetime">
+                                <?= date('M d, Y', strtotime($post['published_at'])) ?> /
+                                <?= $post->first_name . ' ' . $post->last_name[0] ?>.
+                            </time>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            </div>
 
-    <?php foreach($posts as $post): ?>
-        <img src="<?= $post->main_img ?>" width="150"><br/>
-        <a href="<?= $this->url('post', ['segment_1' => $category->slug, 'segment_2' => $post->slug]) ?>">
-            <?= $post->title ?>
-        </a>
-        <br/>
-        <b><?= $post->first_name . ' ' . $post->last_name ?> </b> /
-        <b><?= date('d.m.Y', strtotime($post->published_at)) ?></b> /
-        <b><?= $post->category_name ?></b>
-        <hr/>
-    <?php endforeach; ?>
-    <?= $this->paginationControl($posts, 'Sliding', 'article/pagination', ['route' => 'category', 'data' => ['category' => $this->currentCategory->slug]]) ?>
-</center>
+            <div class="show-more">
+                <?= $this->paginationControl($posts, 'Sliding', 'article/pagination',
+                    ['route' => 'category', 'data' => ['category' => $this->currentCategory->slug]]) ?>
+            </div>
+        </div>
+        <!-- \Left side - list of latest blog posts  -->
+
+        <div class="blog-sidebar">
+            <h4>Ne propustite</h4>
+
+            <!-- Two last events -->
+            <?php foreach($this->event()->getLatest(2) as $event): ?>
+                <article class="blog-post-sidebar">
+                    <div class="image-wrapper">
+                        <img src="<?= $event->main_img ?>">
+                        <div class="blog-box-hover"></div>
+                    </div>
+                    <div class="blog-box-sidebar-content">
+                        <a href="<?= $this->url('events') ?>" class="category">Dešavanja</a>
+                        <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>"
+                           class="title"><span><?= $event->title ?></span></a>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+            <!-- \Two last events -->
+
+            <!-- Latest blog posts -->
+            <?php foreach($this->post()->forWeb() as $post): ?>
+                <article class="blog-post-sidebar">
+                    <div class="image-wrapper">
+                        <img src="<?= $post->main_img ?>">
+                        <div class="blog-box-hover"></div>
+                    </div>
+                    <div class="blog-box-sidebar-content">
+                        <a href="<?= $this->url('category', ['category' => $post->category_slug]) ?>" class="category">
+                            <?= $post->category_name ?>
+                        </a>
+                        <a href="<?= $this->url('post', ['segment_1' => $post->category_slug, 'segment_2' => $post->slug]) ?>"
+                           class="title"><span><?= $post->title ?></span></a>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+            <!-- \Latest blog posts -->
+        </div>
+    </div>
+</div>
+

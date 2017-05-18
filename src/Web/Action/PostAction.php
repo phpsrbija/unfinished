@@ -51,12 +51,15 @@ class PostAction
         if($urlSlug2) {
             $categorySlug = $urlSlug1;
             $postSlug     = $urlSlug2;
-        } else {
+        }
+        else {
             $categorySlug = null;
             $postSlug     = $urlSlug1;
         }
 
         $post = $this->postService->fetchSingleArticleBySlug($postSlug);
+
+        list($previousPost, $nextPost) = $this->postService->fetchNearestArticle($post->published_at);
 
         if(!$post) {
             $response = $response->withStatus(404);
@@ -65,8 +68,10 @@ class PostAction
         }
 
         return new HtmlResponse($this->template->render('web::post', [
-            'layout' => 'layout/web',
-            'post'   => $post
+            'layout'   => 'layout/web',
+            'post'     => $post,
+            'previous' => $previousPost,
+            'next'     => $nextPost
         ]));
     }
 

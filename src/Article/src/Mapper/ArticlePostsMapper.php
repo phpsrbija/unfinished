@@ -50,6 +50,25 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
         return $this->selectWith($select)->current();
     }
 
+    public function getNear($publishedAt, $direction)
+    {
+        $select = $this->getSql()->select()
+            ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
+            ->join('article_categories', 'article_categories.article_uuid = articles.article_uuid', [])
+            ->join('category', 'category.category_uuid = article_categories.category_uuid', ['category_slug' => 'slug'])
+            ->limit(1);
+
+        if($direction > 0) {
+            $select->where->greaterThan('published_at', $publishedAt);
+            $select->order(['published_at' => 'asc']);
+        } elseif($direction < 0) {
+            $select->where->lessThan('published_at', $publishedAt);
+            $select->order(['published_at' => 'desc']);
+        }
+
+        return $this->selectWith($select)->current();
+    }
+
     public function getHomepage()
     {
         $select = $this->getSql()->select()
@@ -64,6 +83,8 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
         $select = $this->getSql()->select()
             ->columns(['title', 'body', 'lead', 'featured_img', 'main_img'])
             ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
+            ->join('article_categories', 'article_categories.article_uuid = articles.article_uuid', [])
+            ->join('category', 'category.category_uuid = article_categories.category_uuid', ['category_name' => 'name', 'category_slug' => 'slug'])
             ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['first_name', 'last_name'])
             ->where(['articles.slug' => $slug, 'articles.status' => 1]);
 

@@ -1,14 +1,48 @@
-<br/><br/><br/><br/>
+<?php $video = $videos->getItem(0); ?>
 
-<center>
-    <i><b>Video</b></i>
-    <hr/>
-    <?php foreach($posts as $post): ?>
-        <a href="<?= $this->url('video', ['video_id' => $post->article_id]) ?>"><?= $post->title ?></a>
-        <br/>
-        <?= $post->lead; ?><br/>
-        <b><?= $post->first_name . ' ' . $post->last_name ?> | <?= $post->published_at ?></b>
+<div class="video-page">
+    <div class="headline">
+        <img src="<?= $video->featured_img ?>" alt="Video BG">
+        <div class="headline-text">
+            <div class="category">Video</div>
+            <div class="title"><?= $video->title ?></div>
+            <div class="instructor">Predavač: <?= $video->title ?></div>
+            <a href="#" class="play-btn"></a>
+        </div>
+    </div>
 
-        <hr/>
-    <?php endforeach; ?>
-</center>
+    <ul class="tags-wrapper">
+        <!-- tags -- >
+        <li><a class="link tag" href="#">Sve</a></li>
+        <li><a class="link tag" href="#">Konferencija</a></li>
+        <li><a class="link tag" href="#">Meetup</a></li>
+        <li><a class="link tag" href="#">Video vesti</a></li>
+        <!-- tags -->
+    </ul>
+    <div class="video-wrapper">
+        <div class="video-posts">
+            <div class="clearfix">
+                <?php foreach($videos as $video): ?>
+                    <article class="video-post">
+                        <div class="image-wrapper">
+                            <img src="<?= $video->main_img ?>">
+                            <div class="video-box-hover">icon</div>
+                        </div>
+                        <div class="video-box-content">
+                            <div class="category">Video</div>
+                            <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>" class="title">
+                                <span><?= $video->title ?></span>
+                            </a>
+                            <div class="instructor">Predavač: <?= $video->title ?></div>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        </div>
+
+        <div class="show-more">
+            <?= $this->paginationControl($videos, 'Sliding', 'article/pagination', ['route' => 'videos']) ?>
+        </div>
+    </div>
+</div>
+
