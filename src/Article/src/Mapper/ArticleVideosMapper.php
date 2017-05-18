@@ -49,7 +49,7 @@ class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareIn
     public function get($id)
     {
         $select = $this->getSql()->select()
-            ->columns(['title', 'body', 'lead', 'featured_img', 'main_img', 'embed_code'])
+            ->columns(['title', 'body', 'lead', 'featured_img', 'main_img', 'video_url', 'sub_title'])
             ->join('articles', 'article_videos.article_uuid = articles.article_uuid')
             ->where(['articles.article_id' => $id]);
 

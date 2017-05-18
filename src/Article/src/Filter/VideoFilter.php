@@ -1,4 +1,5 @@
 <?php
+
 namespace Article\Filter;
 
 use Zend\InputFilter\InputFilter;
@@ -11,7 +12,7 @@ class VideoFilter implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if(!$this->inputFilter){
+        if(!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
             $inputFilter->add([
@@ -25,12 +26,22 @@ class VideoFilter implements InputFilterAwareInterface
             ]);
 
             $inputFilter->add([
+                'name'       => 'sub_title',
+                'required'   => false,
+                'filters'    => [['name' => 'StringTrim']],
+                'validators' => [
+                    ['name' => 'NotEmpty'],
+                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 500]],
+                ],
+            ]);
+
+            $inputFilter->add([
                 'name'       => 'body',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 5000]],
+                    ['name' => 'StringLength', 'options' => ['min' => 2]],
                 ],
             ]);
 
@@ -40,17 +51,17 @@ class VideoFilter implements InputFilterAwareInterface
                 'filters'    => [['name' => 'StringTrim']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 50000]],
+                    ['name' => 'StringLength', 'options' => ['min' => 2]],
                 ],
             ]);
 
             $inputFilter->add([
-                'name'       => 'embed_code',
+                'name'       => 'video_url',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 100, 'max' => 5000]],
+                    ['name' => 'StringLength'],
                 ],
             ]);
 

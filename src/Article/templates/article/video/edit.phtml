@@ -49,6 +49,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Sub Title</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="sub_title" placeholder="Sub Title"
+                                           value="<?= $video ? $video->sub_title : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->sub_title) ? implode('. ', (array)$errors->sub_title) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Published Date</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12  has-feedback">
                                     <input type="text" class="form-control has-feedback-left" id="published_at_calendar"
@@ -76,14 +88,14 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Embed code</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Video URL</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <div class="videoPreview"></div>
-                                    <textarea class="form-control" rows="3" name="embed_code"
-                                              placeholder="Embed code..."><?= $video ? $video->embed_code : '' ?></textarea>
+                                    <textarea class="form-control" rows="3" name="video_url"
+                                              placeholder="Video URL..."><?= $video ? $video->video_url : '' ?></textarea>
                                     <ul class="parsley-errors-list">
                                         <li class="">
-                                            <?= (isset($errors->embed_code) ? implode('. ', (array)$errors->embed_code) : ''); ?>
+                                            <?= (isset($errors->video_url) ? implode('. ', (array)$errors->video_url) : ''); ?>
                                         </li>
                                     </ul>
                                 </div>
@@ -134,7 +146,8 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Categories</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <select class="select2_multiple form-control" multiple="multiple" name="categories[]">
+                                    <select class="select2_multiple form-control" multiple="multiple"
+                                            name="categories[]">
                                         <?php foreach($categories as $category): ?>
                                             <option value="<?= $category->category_id ?>" <?= (isset($video->categories) && in_array($category->category_id, $video->categories)) ? 'selected' : '' ?>>
                                                 <?= $category->name ?>
