@@ -13,3 +13,20 @@ vagrant up
 ```
 
 Open in your browser unfinished.dev and voila!
+
+
+Road Map
+
+## Standard packages
+
+### Reafctoring 
+
+- Break article_categories into single category
+- Introduce a new package "Page"
+- Add type to the category (post, video, event, discussion...)
+- Pull apart Article package into separated packages per Article Type
+
+### New packages
+- Contact Us
+- News Letter
+
