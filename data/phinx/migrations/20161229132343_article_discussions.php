@@ -6,7 +6,7 @@ use MysqlUuid\Uuid;
 use Core\Entity\ArticleType;
 use MysqlUuid\Formats\PlainString;
 
-class Discussions extends AbstractMigration
+class ArticleDiscussions extends AbstractMigration
 {
     public function up()
     {

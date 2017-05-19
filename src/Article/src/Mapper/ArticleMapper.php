@@ -46,8 +46,7 @@ class ArticleMapper extends AbstractTableGateway implements AdapterAwareInterfac
     {
         $select = $this->getSql()->select()
             ->columns([])
-            ->join('article_categories', 'articles.article_uuid = article_categories.article_uuid')
-            ->join('category', 'article_categories.category_uuid = category.category_uuid', ['name', 'slug', 'category_id'])
+            ->join('category', 'category.category_uuid = articles.category_uuid', ['name', 'slug', 'category_id'])
             ->where(['articles.article_id' => $articleId]);
 
         return $this->selectWith($select);
@@ -58,11 +57,7 @@ class ArticleMapper extends AbstractTableGateway implements AdapterAwareInterfac
      */
     public function deleteCategories($id)
     {
-        $platform    = $this->getAdapter()->getPlatform();
-        $adapter     = $this->getAdapter();
-        $deleteQuery = (new Delete('article_categories'))->where(['article_uuid' => $id]);
-
-        return $adapter->query($deleteQuery->getSqlString($platform))->execute();
+        trigger_error('Do not use anymore 01!', E_USER_NOTICE);
     }
 
     /**
@@ -70,17 +65,7 @@ class ArticleMapper extends AbstractTableGateway implements AdapterAwareInterfac
      */
     public function insertCategories($categories, $articleId)
     {
-        $platform = $this->getAdapter()->getPlatform();
-        $adapter  = $this->getAdapter();
-
-        foreach($categories as $category) {
-            $insertQuery = (new Insert('article_categories'))->values([
-                'article_uuid'  => $articleId,
-                'category_uuid' => $category->category_uuid
-            ]);
-
-            $adapter->query($insertQuery->getSqlString($platform))->execute();
-        }
+        trigger_error('Do not use anymore 02!', E_USER_NOTICE);
     }
 
 }

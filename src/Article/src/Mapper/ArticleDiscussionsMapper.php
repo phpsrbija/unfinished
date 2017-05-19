@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Article\Mapper;
 
@@ -32,6 +32,7 @@ class ArticleDiscussionsMapper extends AbstractTableGateway implements AdapterAw
         $select = $this->getSql()->select()
             ->columns(['title', 'body'])
             ->join('articles', 'article_discussions.article_uuid = articles.article_uuid')
+            ->join('category', 'category.category_uuid = articles.category_uuid')
             ->where(['articles.article_id' => $id]);
 
         return $this->selectWith($select)->current();

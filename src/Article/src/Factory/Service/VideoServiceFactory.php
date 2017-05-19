@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Article\Factory\Service;
 
 use Article\Mapper\ArticleMapper;
-use Article\Mapper\ArticleCategoriesMapper;
 use Article\Mapper\ArticleVideosMapper;
 use Category\Mapper\CategoryMapper;
 use Article\Service\VideoService;

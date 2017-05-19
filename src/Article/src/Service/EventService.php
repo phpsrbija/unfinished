@@ -103,6 +103,9 @@ class EventService extends ArticleService
                 'article_uuid'    => $uuId
             ];
 
+        $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
+        unset($article['category_id']);
+
         $event = $eventFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
                 'main_img'     => $this->upload->uploadImage($data, 'main_img'),
@@ -111,11 +114,6 @@ class EventService extends ArticleService
 
         $this->articleMapper->insert($article);
         $this->articleEventsMapper->insert($event);
-
-        if(isset($data['categories']) && $data['categories']) {
-            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
-            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
-        }
     }
 
     public function updateArticle($data, $id)
@@ -134,6 +132,9 @@ class EventService extends ArticleService
                 'main_img'     => $this->upload->uploadImage($data, 'main_img')
             ];
 
+        $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
+        unset($article['category_id']);
+
         // We dont want to force user to re-upload image on edit
         if(!$event['featured_img']) {
             unset($event['featured_img']);
@@ -145,12 +146,6 @@ class EventService extends ArticleService
 
         $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
         $this->articleEventsMapper->update($event, ['article_uuid' => $article['article_uuid']]);
-        $this->articleMapper->deleteCategories($article['article_uuid']);
-
-        if(isset($data['categories']) && $data['categories']) {
-            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
-            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
-        }
     }
 
     public function deleteArticle($id)

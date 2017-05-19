@@ -31,7 +31,6 @@ class ConfigProvider
 
                     // Mappers
                     Mapper\ArticleMapper::class            => \Core\Factory\MapperFactory::class,
-                    Mapper\ArticleCategoriesMapper::class  => \Core\Factory\MapperFactory::class,
                     Mapper\ArticlePostsMapper::class       => \Core\Factory\MapperFactory::class,
                     Mapper\ArticleDiscussionsMapper::class => \Core\Factory\MapperFactory::class,
                     Mapper\ArticleEventsMapper::class      => \Core\Factory\MapperFactory::class,

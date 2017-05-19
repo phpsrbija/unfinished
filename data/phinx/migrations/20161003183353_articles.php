@@ -2,7 +2,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class CreateArticlesTable extends AbstractMigration
+class Articles extends AbstractMigration
 {
     public function up()
     {
@@ -16,6 +16,8 @@ class CreateArticlesTable extends AbstractMigration
             ->addColumn('status', 'integer')// active, not active, ...
             ->addColumn('admin_user_uuid', 'binary', ['limit' => 16])
             ->addColumn('is_wysiwyg_editor', 'boolean', ['default' => false])
+            ->addColumn('category_uuid', 'binary', ['limit' => 16])
+            ->addForeignKey('category_uuid', 'category', 'category_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->addForeignKey('admin_user_uuid', 'admin_users', 'admin_user_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->addIndex('type', ['name' => 'type_INDEX'])
             ->addIndex('published_at', ['name' => 'published_at_INDEX'])

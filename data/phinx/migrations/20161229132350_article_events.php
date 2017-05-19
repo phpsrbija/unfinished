@@ -6,7 +6,7 @@ use MysqlUuid\Formats\Binary;
 use MysqlUuid\Uuid;
 use UploadHelper\Upload;
 
-class Events extends AbstractMigration
+class ArticleEvents extends AbstractMigration
 {
     public function up()
     {
