@@ -8,6 +8,7 @@ use Article\Entity\ArticleType;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
 use Zend\Db\TableGateway\AbstractTableGateway;
+use Zend\Db\Sql\Expression;
 
 /**
  * Class ArticleEventsMapper.
@@ -81,7 +82,8 @@ class ArticleEventsMapper extends AbstractTableGateway implements AdapterAwareIn
     {
         $select = $this->getSql()->select()
             ->where(['articles.status' => 1])
-            ->join('articles', 'articles.article_uuid = article_events.article_uuid', ['article_id', 'slug', 'published_at']);
+            ->join('articles', 'articles.article_uuid = article_events.article_uuid', ['article_id', 'slug', 'published_at'])
+            ->order(new Expression('rand()'));
 
         $select->where->greaterThanOrEqualTo('end_at', date('Y-m-d H:i:s'));
 
@@ -92,7 +94,8 @@ class ArticleEventsMapper extends AbstractTableGateway implements AdapterAwareIn
     {
         $select = $this->getSql()->select()
             ->where(['articles.status' => 1])
-            ->join('articles', 'articles.article_uuid = article_events.article_uuid', ['article_id', 'slug', 'published_at']);
+            ->join('articles', 'articles.article_uuid = article_events.article_uuid', ['article_id', 'slug', 'published_at'])
+            ->order(['start_at' => 'desc']);
 
         $select->where->lessThan('end_at', date('Y-m-d H:i:s'));
 
