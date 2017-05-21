@@ -172,12 +172,12 @@ class CategoryService
     public function getCategoryPostsPagination($category, $page = 1): Paginator
     {
         $categoryid       = isset($category->category_id) ? $category->category_id : null;
-        $select           = $this->categoryMapper->getCategoryPostsSelect($categoryid, 10);
+        $select           = $this->categoryMapper->getCategoryPostsSelect($categoryid, 12);
         $paginatorAdapter = new DbSelect($select, $this->categoryMapper->getAdapter());
         $paginator        = new Paginator($paginatorAdapter);
 
         $paginator->setCurrentPageNumber($page);
-        $paginator->setItemCountPerPage(5);
+        $paginator->setItemCountPerPage(12);
 
         return $paginator;
     }
