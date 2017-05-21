@@ -2,7 +2,7 @@
     <div class="headline">
         <div class="headline-container">
             <div class="time-place"><?= date('d M, H', strtotime($event->start_at)) ?>h</div>
-            <div class="event-name">PhpSrbija Meetup #23</div>
+            <div class="event-name"><?= $event->title ?></div>
             <div class="instructor-image">
                 <img src="<?= $event->main_img ?>" alt="Author">
             </div>
@@ -41,16 +41,14 @@
         </div>
 
         <div class="event-description">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d5673.882573647932!2d20.3835064!3d44.6799781!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ssr!2s!4v1495377081245"
-                frameborder="0" style="border:0" allowfullscreen></iframe>
+            <iframe frameborder="0" style="border:0" allowfullscreen
+                    src="https://maps.google.com/maps?q=<?= $event->latitude ?>,<?= $event->longitude ?>&hl=es;z=14&amp;output=embed"></iframe>
+
 
             <ul class="list-users">
                 <li>
                     <div class="user-img">
-                        <img
-                            src="https://scontent.fbeg2-1.fna.fbcdn.net/v/t1.0-9/17883687_1644921735537095_6449325599752479724_n.jpg?oh=b17a882f7f90663aec2ceba78daf1b75&oe=597760C9"
-                            alt="User image">
+                        <img src="/images/event/instructor.jpg" alt="User image">
                     </div>
                     <strong>PHP Srbija</strong> Organizer, Event Host
                 </li>
