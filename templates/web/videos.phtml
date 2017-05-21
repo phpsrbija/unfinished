@@ -1,4 +1,5 @@
 <?php $video = $videos->getTotalItemCount() ? $videos->getItem(0) : null; ?>
+
 <div class="video-page">
     <div class="headline">
         <div class="image" style="background-image: url('<?= $video ? $video->featured_img : '' ?>')"></div>
@@ -21,18 +22,18 @@
         <div class="video-posts">
             <div class="clearfix">
                 <?php foreach($videos as $video): ?>
-                    <article class="video-post">
-                        <div class="image-wrapper">
+                    <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>" class="video-post">
+                        <div class="image-wrapper-none">
                             <img src="<?= $video->main_img ?>">
-                            <div class="video-box-hover">icon</div>
+
+                            <div class="video-box-hover"><img src="/images/videos/play.png" alt="Play"></div>
                         </div>
                         <div class="video-box-content">
                             <div class="category">Video</div>
-                            <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>#"
-                               class="title"><span><?= $video->title ?></span></a>
+                            <div class="title"><?= $video->title ?></div>
                             <div class="instructor">Predavač: <?= $video->sub_title ?></div>
                         </div>
-                    </article>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>
