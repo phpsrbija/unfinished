@@ -1,11 +1,11 @@
-<?php $video = $videos->getItem(0); ?>
+<?php $video = $videos->getTotalItemCount() ? $videos->getItem(0) : null; ?>
 <div class="video-page">
     <div class="headline">
-        <div class="image" style="background-image: url('<?= $video->featured_img ?>')"></div>
+        <div class="image" style="background-image: url('<?= $video ? $video->featured_img : '' ?>')"></div>
         <div class="headline-text">
             <div class="category">Video</div>
-            <div class="title"><?= $video->title ?></div>
-            <div class="instructor">Predavač: <?= $video->sub_title ?></div>
+            <div class="title"><?= $video ? $video->title : '' ?></div>
+            <div class="instructor">Predavač: <?= $video ? $video->sub_title : '' ?></div>
             <a href="#" class="play-btn"></a>
         </div>
     </div>
