@@ -114,7 +114,8 @@
                         <div class="video-content-wrapper">
                             <div class="title"><?= $video->title ?></div>
                             <div class="description"><?= $video->lead ?></div>
-                            <button class="btn btn-play icon-play"></button>
+                            <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>"
+                               class="btn btn-play icon-play"></a>
                         </div>
                     </div>
                 </div>

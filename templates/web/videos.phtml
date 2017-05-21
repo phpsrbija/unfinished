@@ -6,10 +6,13 @@
 
         <div class="headline-text">
             <div class="category">Video</div>
-            <div class="title"><?= $video ? $video->title : '' ?></div>
+            <div class="title">
+                <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>" class="title">
+                    <?= $video ? $video->title : '' ?>
+                </a>
+            </div>
             <div class="instructor">Predavač: <?= $video ? $video->sub_title : '' ?></div>
-            <a href="#" class="play-btn"></a></div>
-
+        </div>
     </div>
     <ul class="video-tags-wrapper">
         <!--
