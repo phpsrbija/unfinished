@@ -1,59 +1,103 @@
-<?php /*
-<div class="row">
-    <div class="col-md-2 col-md-offset-5">
-        (<b><?= $event->start_at ?> @ <?= $this->place_name ?></b>)
-        <br/>
-        <b><?= $event->title ?></b>
-        <br/>
-        <b> <img src="<?= $event->main_img ?>"/></b>
-        <br/>
-        <b><?= $event->sub_title ?></b>
-        <br/>
-        <hr/>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-offset-2 col-md-6">
-        <b><?= $event->body ?></b>
-    </div>
-    <div class="col-md-2">
-        <?= $event->longitude ?>, <?= $event->latitude ?> <br/><br/>
-        <?= $event->place_name ?>,
-        <?= $event->start_at ?>
-    </div>
-</div>
-<br/><br/>
- */ ?>
-
-<div class="blog-single">
+<div class="event-page">
     <div class="headline">
-        <h1>
-            <?= $event->title ?>
-        </h1>
-        <div class="author">Autor:
-            <strong>PHP Srbija</strong>
+        <div class="headline-container">
+            <div class="time-place"><?= date('d M, H', strtotime($event->start_at)) ?>h</div>
+            <div class="event-name">PhpSrbija Meetup #23</div>
+            <div class="instructor-image">
+                <img src="<?= $event->main_img ?>" alt="Author">
+            </div>
+            <div class="instructor-name"><?= $event->place_name ?></div>
+            <div class="event-title"><?= $event->sub_title ?></div>
+            <a href="#" class="btn btn-blue">Dolaziš?</a>
         </div>
-        <div class="date">Datum:
-            <time>21.02.2017</time>
-        </div>
-        <ul class="tags-wrapper">
-            <li># Konferencija</li>
-            <li># Agile</li>
-            <li># Beograd</li>
-        </ul>
     </div>
-    <div class="blog-wrapper">
 
+    <div class="event-single-wrapper">
+        <div class="social-share">
+            <div class="social-icons social-icon__vertical">
+                <div class="social-icon-shared">
+                    <strong>142</strong>
+                    <span>Podeljeno</span>
+                </div>
+                <a href="#" target="_blank">
+                    <button class="btn btn-white social icon-facebook"></button>
+                </a>
+                <a href="#" target="_blank">
+                    <button class="btn btn-white social icon-twitter"></button>
+                </a>
+                <a href="#" target="_blank">
+                    <button class="btn btn-white social icon-linkedin"></button>
+                </a>
+            </div>
+        </div>
+        <div class="event-text">
+            <?= $event->body ?>
+
+            <!--
+            <div class="show-more">
+                <a class="btn btn-white btn-block" href="#">Ostavite komentar</a>
+            </div>
+            -->
+        </div>
+
+        <div class="event-description">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d5673.882573647932!2d20.3835064!3d44.6799781!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ssr!2s!4v1495377081245"
+                frameborder="0" style="border:0" allowfullscreen></iframe>
+
+            <ul class="list-users">
+                <li>
+                    <div class="user-img">
+                        <img
+                            src="https://scontent.fbeg2-1.fna.fbcdn.net/v/t1.0-9/17883687_1644921735537095_6449325599752479724_n.jpg?oh=b17a882f7f90663aec2ceba78daf1b75&oe=597760C9"
+                            alt="User image">
+                    </div>
+                    <strong>PHP Srbija</strong> Organizer, Event Host
+                </li>
+                <li>
+                    <div class="user-img">
+                        <img src="/images/event/instructor.jpg" alt="User image">
+                    </div>
+                    <strong>Vladeta Radovanovic</strong> Organizer, Event Host
+                </li>
+                <li>
+                    <div class="user-img">
+                        <img src="/images/event/instructor.jpg" alt="User image">
+                    </div>
+                    <strong>PHP Srbija</strong> Organizer, Event Host
+                </li>
+                <li>
+                    <div class="user-img">
+                        <img src="/images/event/instructor.jpg" alt="User image">
+                    </div>
+                    <strong>PHP Srbija</strong> Organizer, Event Host
+                </li>
+                <li>
+                    <div class="user-img">
+                        <img src="/images/event/instructor.jpg" alt="User image">
+                    </div>
+                    <strong>PHP Srbija</strong> Organizer, Event Host
+                </li>
+            </ul>
+            <a href="#" class="load-more-link">Ucitaj jos</a>
+
+        </div>
     </div>
 </div>
-<div class="blog-pagination">
-    <div class="blog-prev">
-        <small>Prethodni članak</small>
-        <div class="title">True North PHP 2016 ReviewŁ</div>
+
+<!--
+<div class="half-pagination">
+    <div class="paginate-prev">
+        <a href="#">
+            <small>Prethodni članak</small>
+            <div class="title">True North PHP 2016 ReviewŁ</div>
+        </a>
     </div>
-    <div class="blog-next">
-        <small>Sledeći članak</small>
-        <div class="title">Drugo okupljanje PHP programera u Nišu</div>
+    <div class="paginate-next">
+        <a href="#">
+            <small>Sledeći članak</small>
+            <div class="title">Drugo okupljanje PHP programera u Nišu</div>
+        </a>
     </div>
 </div>
+-->

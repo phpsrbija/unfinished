@@ -1,5 +1,4 @@
 <?php $event = $futureEvents->count() ? $futureEvents->current() : $pastEvents->current(); ?>
-
 <div class="event-page">
     <div class="headline">
         <div class="headline-container">
@@ -10,7 +9,7 @@
             </div>
             <div class="instructor-name"><?= $event->place_name ?></div>
             <div class="event-title"><?= $event->sub_title ?></div>
-            <a href="http://meetup.com" class="btn btn-blue">Dolaziš?</a>
+            <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="btn btn-blue">Dolaziš?</a>
         </div>
     </div>
     <ul class="event-tags-wrapper">
@@ -26,9 +25,9 @@
 
         <div class="event-mid-wrapper">
             <?php foreach($futureEvents as $event): ?>
-                <a href="event-single.html" class="event">
+                <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="event">
                     <div class="image-wrapper-none">
-                        <img src="/images/news/1/thumbnail.jpg">
+                        <img src="<?= $event->main_img ?>">
 
                         <div class="date-outer-wrapper">
                             <div class="headline">Datum</div>
@@ -51,7 +50,6 @@
                     </div>
                 </a>
             <?php endforeach; ?>
-
             <div class="event-be-instructor">
                 <img src="/images/event/be-instructor.jpg" alt="Prijavi se kao predavac">
             </div>
@@ -63,7 +61,7 @@
                 <?php foreach($pastEvents as $event): ?>
                     <a href="event-single.html" class="event">
                         <div class="image-wrapper-none">
-                            <img src="/images/news/1/thumbnail.jpg">
+                            <img src="<?= $event->main_img ?>"/>
 
                             <div class="date-outer-wrapper">
                                 <div class="headline">Datum</div>
