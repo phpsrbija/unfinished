@@ -59,7 +59,7 @@
             <div class="event-status-title">Prethodna dešavanja</div>
             <div class="event-mid-wrapper">
                 <?php foreach($pastEvents as $event): ?>
-                    <a href="event-single.html" class="event">
+                    <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="event">
                         <div class="image-wrapper-none">
                             <img src="<?= $event->main_img ?>"/>
 

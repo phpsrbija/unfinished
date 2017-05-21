@@ -72,7 +72,8 @@
                     <div class="blog-box-sidebar-content">
                         <a href="<?= $this->url('category', ['category' => $post->category_slug]) ?>"
                            class="category"><?= $post->category_name ?></a>
-                        <a href="#" class="title"><span><?= $post->title ?></span></a>
+                        <a href="<?= $this->url('post', ['segment_1' => $post->category_slug, 'segment_2' => $post->slug]) ?>"
+                           class="title"><span><?= $post->title ?></span></a>
                     </div>
                 </article>
             <?php endforeach; ?>
