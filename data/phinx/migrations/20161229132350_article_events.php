@@ -22,6 +22,7 @@ class ArticleEvents extends AbstractMigration
             ->addColumn('main_img', 'text', ['null' => true])
             ->addColumn('start_at', 'datetime')
             ->addColumn('end_at', 'datetime')
+            ->addColumn('event_url', 'text', ['null' => true])
             ->addForeignKey('article_uuid', 'articles', 'article_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->create();
 

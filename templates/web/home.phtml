@@ -14,12 +14,14 @@
 <!-- Latest 4 Events -->
 <div class="news-wrapper">
     <?php foreach($this->event()->getLatest() as $count => $event): ?>
-        <a href="#" class="link news <?= $count == 0 ? 'selected' : '' ?>"
+        <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>"
+           class="link news <?= $count == 0 ? 'selected' : '' ?>"
            data-mobile-src="<?= $event->featured_img ?>"
            data-tablet-src="<?= $event->featured_img ?>"
            data-desktop-src="<?= $event->featured_img ?>">
             <div class="image-wrapper">
                 <img src="<?= $event->main_img ?>">
+
                 <div class="date-outer-wrapper">
                     <div class="headline">MEETUP</div>
                     <div class="date-inner-wrapper">
@@ -61,13 +63,16 @@
                 <div class="forum-box" data-active-tag="<?= strtolower($category['name']) ?>">
                     <a href="#" class="image-wrapper">
                         <img src="<?= $post['face_img'] ?>">
+
                         <div class="name"><?= $post['first_name'] . ' ' . $post['last_name'] ?></div>
                     </a>
+
                     <div class="question-wrapper">
                         <a href="<?= $this->url('post', ['segment_1' => $category['slug'], 'segment_2' => $post['slug']]) ?>"
                            class="question">
                             <?= $post['title'] ?>
                         </a>
+
                         <div class="tag">
                             <?= $category['name'] ?>
                             <span class="circle">●</span>
@@ -109,7 +114,8 @@
                         <div class="video-content-wrapper">
                             <div class="title"><?= $video->title ?></div>
                             <div class="description"><?= $video->lead ?></div>
-                            <button class="btn btn-play icon-play"></button>
+                            <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>"
+                               class="btn btn-play icon-play"></a>
                         </div>
                     </div>
                 </div>
@@ -146,6 +152,7 @@
         <article class="post-box <?= $count == 0 ? 'main' : '' ?>">
             <div class="image-wrapper" data-desktop-active-src="<?= $post->main_img ?>">
                 <img src="<?= $post->main_img ?>">
+
                 <div class="post-box-hover"></div>
             </div>
             <div class="post-box-content">
@@ -217,7 +224,7 @@
         <div class="social-slide">
             <div class="text-wrapper">
                 <p>Presenting our Gold sponsor - Quantox Technology <a
-                            href="#">http://www.conf2017.phpsrbija.rs/post/9</a> <a href="#">#phpsrb17</a></p>
+                        href="#">http://www.conf2017.phpsrbija.rs/post/9</a> <a href="#">#phpsrb17</a></p>
             </div>
         </div>
         <div class="social-slide">
@@ -228,7 +235,7 @@
         <div class="social-slide">
             <div class="text-wrapper">
                 <p>Presenting our Gold sponsor - Quantox Technology <a
-                            href="#">http://www.conf2017.phpsrbija.rs/post/9</a> <a href="#">#phpsrb17</a></p>
+                        href="#">http://www.conf2017.phpsrbija.rs/post/9</a> <a href="#">#phpsrb17</a></p>
             </div>
         </div>
         <div class="social-slide">
@@ -250,10 +257,12 @@
         <?php foreach($this->webAdmin()->getRandom() as $user): ?>
             <article>
                 <img src="<?= $user->profile_img ?>">
+
                 <div class="hover-box">
                     <div class="center-box">
                         <div class="inner-box y-centered">
                             <p class="name"><?= $user->first_name . ' ' . $user->last_name ?></p>
+
                             <p class="title"><?= $user->introduction ?></p>
                         </div>
                     </div>

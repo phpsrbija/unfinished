@@ -5,13 +5,11 @@
             <div class="time-place"><?= date('d M, H', strtotime($event->start_at)) ?>h</div>
             <div class="event-name"><?= $event->title ?></div>
             <div class="instructor-image">
-                <img src="<?= $event->main_img ?>" width="150" height="150" alt="Author">
+                <img src="<?= $event->main_img ?>" alt="Author">
             </div>
             <div class="instructor-name"><?= $event->place_name ?></div>
             <div class="event-title"><?= $event->sub_title ?></div>
-            <button class="btn btn-blue">
-                <a href="https://www.meetup.com/PHPSrbija/">Dolaziš?</a>
-            </button>
+            <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="btn btn-blue">Dolaziš?</a>
         </div>
     </div>
     <ul class="event-tags-wrapper">
@@ -21,14 +19,16 @@
         <li><a class="link tag" href="#">Meetup</a></li>
         -->
     </ul>
+
     <div class="event-wrapper">
-        <!-- Future Events -->
         <div class="event-status-title">Naredna dešavanja</div>
-        <div class="news-wrapper">
+
+        <div class="event-mid-wrapper">
             <?php foreach($futureEvents as $event): ?>
-                <a href="#" class="link news">
-                    <div class="image-wrapper">
+                <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="event">
+                    <div class="image-wrapper-none">
                         <img src="<?= $event->main_img ?>">
+
                         <div class="date-outer-wrapper">
                             <div class="headline">Datum</div>
                             <div class="date-inner-wrapper">
@@ -37,33 +37,34 @@
                             </div>
                         </div>
                         <button class="btn btn-share">PODELI</button>
-                        <div class="news-box-hover"></div>
+                        <div class="event-box-hover"></div>
                     </div>
-                    <div class="news-box-content">
+                    <div class="event-box-content">
                         <div class="time-place">
                             <span><?= date('H', strtotime($event->start_at)) ?>h</span>@
                             <span><?= $event->place_name ?></span>
                         </div>
                         <div class="title"><?= $event->sub_title ?></div>
                         <div class="details"></div>
-                        <div class="author">-</div>
+                        <div class="author">PHP Srbija</div>
                     </div>
                 </a>
             <?php endforeach; ?>
             <div class="event-be-instructor">
-                <img src="/images/event/be-instructor.jpg" alt="Prijavi se kao predavac">
+                <a href="#">
+                    <img src="/images/event/be-instructor.jpg" alt="Prijavi se kao predavac">
+                </a>
             </div>
         </div>
-        <!-- \Future Events -->
 
-        <!-- Past Events -->
         <div class="event-finished">
             <div class="event-status-title">Prethodna dešavanja</div>
-            <div class="news-wrapper">
+            <div class="event-mid-wrapper">
                 <?php foreach($pastEvents as $event): ?>
-                    <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="link news">
-                        <div class="image-wrapper">
-                            <img src="<?= $event->main_img ?>">
+                    <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="event">
+                        <div class="image-wrapper-none">
+                            <img src="<?= $event->main_img ?>"/>
+
                             <div class="date-outer-wrapper">
                                 <div class="headline">Datum</div>
                                 <div class="date-inner-wrapper">
@@ -72,24 +73,25 @@
                                 </div>
                             </div>
                             <button class="btn btn-share">PODELI</button>
-                            <div class="news-box-hover"></div>
+                            <div class="event-box-hover"></div>
                         </div>
-                        <div class="news-box-content">
+                        <div class="event-box-content">
                             <div class="time-place">
                                 <span><?= date('H', strtotime($event->start_at)) ?>h</span>@
                                 <span><?= $event->place_name ?></span>
                             </div>
-                            <div class="title"><?= $event->title ?></div>
+                            <div class="title"><?= $event->sub_title ?></div>
                             <div class="details"></div>
-                            <div class="author">-</div>
+                            <div class="author">PHP Srbija</div>
                         </div>
                     </a>
                 <?php endforeach; ?>
-                <div class="show-more">
-                    <?= $this->paginationControl($pastEvents, 'Sliding', 'article/pagination', ['route' => 'events']) ?>
-                </div>
             </div>
+            <br/>
         </div>
-        <!-- \Past Events -->
     </div>
+</div>
+
+<div class="half-pagination">
+    <?= $this->paginationControl($pastEvents, 'Sliding', 'article/pagination', ['route' => 'events']) ?>
 </div>

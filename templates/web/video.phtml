@@ -1,13 +1,67 @@
-<br/><br/><br/><br/>
-
-<div class="row">
-    <div class="col-md-5 col-md-offset-3">
-        <?= $video->video_url; ?><br/><br/>
-
-        <b><?= $video->title ?></b><br/><br/>
-
-        <?= $video->body ?>
+<div class="video-single">
+    <div class="headline-video">
+        <div class="video-container-wraper">
+            <iframe width="560" height="315" src="<?= $video->video_url ?>" frameborder="0" allowfullscreen></iframe>
+        </div>
     </div>
-</div>
+    <div class="video-single-text">
+        <div class="video-head-info">
+            <div class="category">Video</div>
+            <h1><?= $video->title ?></h1>
 
-<br/><br/><br/><br/>
+            <div class="author">Autor: <strong><?= $video->sub_title ?></strong></div>
+        </div>
+        <div class="video-single-wrapper">
+            <div class="social-share">
+                <div class="social-icons social-icon__vertical">
+                    <div class="social-icon-shared">
+                        <strong>142</strong>
+                        <span>Podeljeno</span>
+                    </div>
+                    <a href="#" target="_blank">
+                        <button class="btn btn-white social icon-facebook"></button>
+                    </a>
+                    <a href="#" target="_blank">
+                        <button class="btn btn-white social icon-twitter"></button>
+                    </a>
+                    <a href="#" target="_blank">
+                        <button class="btn btn-white social icon-linkedin"></button>
+                    </a>
+                </div>
+            </div>
+            <div class="video-text">
+
+                <?= $video->body ?>
+
+                <!--
+                <div class="show-more">
+                    <a class="btn btn-white btn-block" href="/comments/1">
+                        Prikaži 25 komentara
+                    </a>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+
+
+    <!--
+    <div class="video-slider">
+        <div class="heading">Pogledajte i</div>
+        <div class="slider video-slider">
+            <a href="/video-single.html" class="video-post">
+                <div class="image-wrapper-none">
+                    <img src="@@picture">
+
+                    <div class="video-box-hover"><img src="/images/videos/play.png" alt="Play"></div>
+                </div>
+                <div class="video-box-content">
+                    <div class="category">@@category</div>
+                    <div class="title">@@title</div>
+                    <div class="instructor">Predavač: @@instructor</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    -->
+</div>

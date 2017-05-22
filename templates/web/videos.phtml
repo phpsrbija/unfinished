@@ -1,43 +1,51 @@
-<?php $video = $videos->getItem(0); ?>
+<?php $video = $videos->getTotalItemCount() ? $videos->getItem(0) : null; ?>
+
 <div class="video-page">
     <div class="headline">
-        <div class="image" style="background-image: url('<?= $video->featured_img ?>')"></div>
+        <div class="image" style="background-image: url('<?= $video ? $video->featured_img : '' ?>')"></div>
+
         <div class="headline-text">
             <div class="category">Video</div>
-            <div class="title"><?= $video->title ?></div>
-            <div class="instructor">Predavač: <?= $video->sub_title ?></div>
-            <a href="#" class="play-btn"></a>
+            <div class="title">
+                <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>" class="title">
+                    <?= $video ? $video->title : '' ?>
+                </a>
+            </div>
+            <div class="instructor">Predavač: <?= $video ? $video->sub_title : '' ?></div>
         </div>
     </div>
     <ul class="video-tags-wrapper">
         <!--
-        <li><a class="link tag" href="#">Sve</a></li>
-        <li><a class="link tag" href="#">Konferencija</a></li>
-        <li><a class="link tag" href="#">Meetup</a></li>
-        <li><a class="link tag" href="#">Video vesti</a></li>
+       <li><a class="link tag" href="#">Sve</a></li>
+       <li><a class="link tag" href="#">Konferencija</a></li>
+       <li><a class="link tag" href="#">Meetup</a></li>
+       <li><a class="link tag" href="#">Video vesti</a></li>
         -->
     </ul>
+
     <div class="video-wrapper">
         <div class="video-posts">
             <div class="clearfix">
+
                 <?php foreach($videos as $video): ?>
-                    <article class="video-post">
-                        <div class="image-wrapper">
+                    <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>" class="video-post">
+                        <div class="image-wrapper-none">
                             <img src="<?= $video->main_img ?>">
-                            <div class="video-box-hover">icon</div>
+
+                            <div class="video-box-hover"><img src="/images/videos/play.png" alt="Play"></div>
                         </div>
                         <div class="video-box-content">
                             <div class="category">Video</div>
-                            <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>#"
-                               class="title"><span><?= $video->title ?></span></a>
+                            <div class="title"><?= $video->title ?></div>
                             <div class="instructor">Predavač: <?= $video->sub_title ?></div>
                         </div>
-                    </article>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>
-        <div class="show-more">
-            <?= $this->paginationControl($videos, 'Sliding', 'article/pagination', ['route' => 'videos']) ?>
-        </div>
     </div>
+</div>
+
+<div class="half-pagination">
+    <?= $this->paginationControl($videos, 'Sliding', 'article/pagination', ['route' => 'videos']) ?>
 </div>

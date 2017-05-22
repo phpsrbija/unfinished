@@ -38,6 +38,12 @@ class EventFilter implements InputFilterAwareInterface
             ]);
 
             $inputFilter->add([
+                'name'     => 'event_url',
+                'required' => false,
+                'filters'  => [['name' => 'StringTrim']]
+            ]);
+
+            $inputFilter->add([
                 'name'       => 'body',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],

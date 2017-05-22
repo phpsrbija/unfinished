@@ -99,6 +99,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Event URL</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="event_url" placeholder="Event URL"
+                                           value="<?= $event ? $event->event_url : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->event_url) ? implode('. ', (array)$errors->event_url) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Longitude</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="text" class="form-control" name="longitude" placeholder="longitude"

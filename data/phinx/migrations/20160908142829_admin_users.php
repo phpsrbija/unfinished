@@ -47,8 +47,11 @@ class AdminUsers extends AbstractMigration
         // Insert default user with password testtest
         $id        = $faker->uuid;
         $mysqluuid = (new Uuid($id))->toFormat(new Binary());
-        $this->execute(
-            "insert into admin_users (admin_user_uuid, admin_user_id, first_name,last_name,email,password, status) values " .
+
+        //// Insert default user with password testtest
+        //$id        = $faker->uuid;
+        //$mysqluuid = (new Uuid($id))->toFormat(new Binary());
+        $this->execute("insert into admin_users (admin_user_uuid, admin_user_id, first_name,last_name,email,password, status) values " .
             "('$mysqluuid', '$id', 'Unfinished',  'Admin', 'admin@unfinished.com', '$2y$10\$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK', 1)"
         );
     }
