@@ -13,6 +13,7 @@ class ConfigProvider
 
                     // Services
                     Service\AdminUserService::class => Factory\Service\AdminUserServiceFactory::class,
+                    Service\MeetupApiService::class => Factory\Service\MeetupApiServiceFactory::class,
 
                     // Mappers
                     Mapper\AdminUsersMapper::class  => Factory\MapperFactory::class,

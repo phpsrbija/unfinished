@@ -6,7 +6,7 @@ namespace Web\Action;
 
 use Article\Service\EventService;
 use Category\Service\CategoryService;
-use GuzzleHttp\Client;
+use Core\Service\MeetupApiService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
@@ -28,24 +28,26 @@ class EventAction
     /** @var CategoryService */
     private $categoryService;
 
+    private $meetupService;
+
     /**
      * EventAction constructor.
      *
      * @param Template $template
      * @param EventService $eventService
      * @param CategoryService $categoryService
-     * @param Client $httpClient
+     * @param MeetupApiService $meetupService
      */
     public function __construct(
         Template $template,
         EventService $eventService,
         CategoryService $categoryService,
-        Client $httpClient
+        MeetupApiService $meetupService
     ) {
         $this->template        = $template;
         $this->eventService    = $eventService;
         $this->categoryService = $categoryService;
-        $this->httpClient      = $httpClient;
+        $this->meetupService   = $meetupService;
     }
 
     /**
@@ -61,10 +63,13 @@ class EventAction
     {
         $eventSlug = $request->getAttribute('event_slug');
         $event     = $this->eventService->fetchEventBySlug($eventSlug);
+        $parts = explode('/', $event->event_url);
+        $attendees = $this->meetupService->getMeetupAttendees($parts[count($parts) - 2]);
 
         return new HtmlResponse($this->template->render('web::event', [
             'layout' => 'layout/web',
-            'event'  => $event
+            'event'  => $event,
+            'attendees' => $attendees
         ]));
     }
 
