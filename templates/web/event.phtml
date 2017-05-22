@@ -48,34 +48,24 @@
             <ul class="list-users">
                 <li>
                     <div class="user-img">
-                        <img src="/images/event/instructor.jpg" alt="User image">
+                        <img src="/images/logo.png" alt="User image">
                     </div>
                     <strong>PHP Srbija</strong> Organizer, Event Host
                 </li>
+                <?php foreach ($attendees as $attendee): //var_dump($attendee->member_photo); die(); ?>
+                    <?php if ($attendee->response === 'yes'): ?>
                 <li>
                     <div class="user-img">
-                        <img src="/images/event/instructor.jpg" alt="User image">
+                        <?php if (isset($attendee->member_photo)): ?>
+                            <img src="<?=$attendee->member_photo->thumb_link?>" alt="User image">
+                        <?php else: // @TODO hardcoded random user's default avatar, meetup.com api does not provide that image always, we need fallback ?>
+                            <img src="https://secure.meetupstatic.com/photos/member/e/4/7/a/thumb_256738490.jpeg" alt="User image">
+                        <?php endif; ?>
                     </div>
-                    <strong>Vladeta Radovanovic</strong> Organizer, Event Host
+                    <strong><?php echo $attendee->member->name?></strong>
                 </li>
-                <li>
-                    <div class="user-img">
-                        <img src="/images/event/instructor.jpg" alt="User image">
-                    </div>
-                    <strong>PHP Srbija</strong> Organizer, Event Host
-                </li>
-                <li>
-                    <div class="user-img">
-                        <img src="/images/event/instructor.jpg" alt="User image">
-                    </div>
-                    <strong>PHP Srbija</strong> Organizer, Event Host
-                </li>
-                <li>
-                    <div class="user-img">
-                        <img src="/images/event/instructor.jpg" alt="User image">
-                    </div>
-                    <strong>PHP Srbija</strong> Organizer, Event Host
-                </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </ul>
             <a href="#" class="load-more-link">Ucitaj jos</a>
 

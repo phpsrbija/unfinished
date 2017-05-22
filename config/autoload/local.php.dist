@@ -13,5 +13,8 @@ return [
     'upload' => [
         'public_path' => getcwd() . '/public/uploads/',
         'non_public_path' => getcwd() . '/data/uploads/',
+    ],
+    'meetupApi' => [
+        'key' => '1a16666057586205f62f806f234d57'
     ]
 ];
