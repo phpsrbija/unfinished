@@ -90,9 +90,8 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Video URL</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <div class="videoPreview"></div>
-                                    <textarea class="form-control" rows="3" name="video_url"
-                                              placeholder="Video URL..."><?= $video ? $video->video_url : '' ?></textarea>
+                                    <input type="text" class="form-control" name="video_url" placeholder="Video URL"
+                                           value="<?= $video ? $video->video_url : '' ?>">
                                     <ul class="parsley-errors-list">
                                         <li class="">
                                             <?= (isset($errors->video_url) ? implode('. ', (array)$errors->video_url) : ''); ?>
@@ -144,16 +143,22 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Categories</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <select class="select2_multiple form-control" multiple="multiple"
-                                            name="categories[]">
+                                    <select class="select2 form-control" name="category_id">
                                         <?php foreach($categories as $category): ?>
-                                            <option value="<?= $category->category_id ?>" <?= (isset($video->categories) && in_array($category->category_id, $video->categories)) ? 'selected' : '' ?>>
+                                            <option value="<?= $category->category_id ?>"
+                                                <?= (isset($video->category_id) && $category->category_id == $video->category_id) ? 'selected' : '' ?>>
                                                 <?= $category->name ?>
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
+
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->category_id) ? implode('. ', (array)$errors->category_id) : ''); ?>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                             <div class="form-group">

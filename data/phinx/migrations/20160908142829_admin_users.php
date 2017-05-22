@@ -24,8 +24,7 @@ class AdminUsers extends AbstractMigration
             ->addIndex(['email'], ['name' => 'email_INDEX'])
             ->create();
 
-
-        //$faker = Faker\Factory::create();
+        $faker = Faker\Factory::create();
         //$count = rand(100, 150);
         //for($i = 0; $i < $count; $i++) {
         //    $id        = $faker->uuid;
@@ -44,12 +43,15 @@ class AdminUsers extends AbstractMigration
         //
         //    $this->insert('admin_users', $data);
         //}
-        //
+
+        // Insert default user with password testtest
+        $id        = $faker->uuid;
+        $mysqluuid = (new Uuid($id))->toFormat(new Binary());
+
         //// Insert default user with password testtest
         //$id        = $faker->uuid;
         //$mysqluuid = (new Uuid($id))->toFormat(new Binary());
-        $this->execute(
-            "insert into admin_users (admin_user_uuid, admin_user_id, first_name,last_name,email,password, status) values " .
+        $this->execute("insert into admin_users (admin_user_uuid, admin_user_id, first_name,last_name,email,password, status) values " .
             "('$mysqluuid', '$id', 'Unfinished',  'Admin', 'admin@unfinished.com', '$2y$10\$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK', 1)"
         );
     }
