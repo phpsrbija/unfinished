@@ -50,7 +50,7 @@ class ConfigProvider
                 // Different article types
                 [
                     'name'       => 'videos',
-                    'path'       => '/php-videos/',
+                    'path'       => '/videos/',
                     'middleware' => Action\VideosAction::class
                 ],
                 [

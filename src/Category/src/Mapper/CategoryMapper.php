@@ -71,7 +71,7 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
     public function getWeb($limit = 7, $order = null)
     {
         $select = $this->getSql()->select();
-        $select->where->notEqualTo('slug', 'php-videos');
+        $select->where->notEqualTo('slug', 'videos');
         $select->where->notEqualTo('slug', 'events');
 
         if($limit) {
