@@ -70,13 +70,7 @@ class EventService extends ArticleService
 
     public function fetchSingleArticle($articleId)
     {
-        $event = $this->articleEventsMapper->get($articleId);
-
-        if($event) {
-            $event['categories'] = $this->getCategoryIds($articleId);
-        }
-
-        return $event;
+        return $this->articleEventsMapper->get($articleId);
     }
 
     public function fetchEventBySlug($slug)
