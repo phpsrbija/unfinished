@@ -6,7 +6,7 @@ use MysqlUuid\Uuid;
 use Core\Entity\ArticleType;
 use UploadHelper\Upload;
 
-class Videos extends AbstractMigration
+class ArticleVideos extends AbstractMigration
 {
     public function up()
     {

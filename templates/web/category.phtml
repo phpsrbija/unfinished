@@ -34,11 +34,6 @@
                     </a>
                 <?php endforeach; ?>
             </div>
-
-            <div class="show-more">
-                <?= $this->paginationControl($posts, 'Sliding', 'article/pagination',
-                    ['route' => 'category', 'data' => ['category' => $currentCategory->slug]]) ?>
-            </div>
         </div>
         <!-- \Left side - list of latest blog posts  -->
 
@@ -80,4 +75,9 @@
             <!-- \Latest blog posts -->
         </div>
     </div>
+</div>
+
+<div class="half-pagination">
+    <?= $this->paginationControl($posts, 'Sliding', 'article/pagination',
+        ['route' => 'category', 'data' => ['category' => $currentCategory->slug]]) ?>
 </div>

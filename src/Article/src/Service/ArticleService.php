@@ -41,7 +41,6 @@ abstract class ArticleService implements ArticleServiceInterface
 
     public function delete($articleId)
     {
-        $this->articleMapper->deleteCategories($articleId);
         $this->articleMapper->delete(['article_uuid' => $articleId]);
     }
 }

@@ -1,41 +1,29 @@
-<div class="row">
-    <div class="col-sm-offset-5 col-sm-7">
-        <?php if($this->pageCount > 1): ?>
-            <ul class="pagination pull-left" style="margin:0px;">
-
-                <!-- Previous page link -->
-                <?php if(isset($this->previous)): ?>
-                    <li>
-                        <a href="<?php echo $this->url($this->route, isset($this->data) ? $this->data : []); ?>?page=<?php echo $this->previous; ?>">
-                            <span class=""><</span>
-                        </a>
-                    </li>
-                <?php else: ?>
-                    <li class="disabled">
-                        <a href="#">
-                            <span class=""><</span>
-                        </a>
-                    </li>
-                <?php endif; ?>
-
-                <!-- Next page link -->
-                <?php if(isset($this->next)): ?>
-                    <li>
-                        <a href="<?php echo $this->url($this->route, isset($this->data) ? $this->data : []); ?>?page=<?php echo $this->next; ?>">
-                            <span class="">></span>
-                        </a>
-                    </li>
-                <?php else: ?>
-                    <li class="disabled">
-                        <a href="#">
-                            <span class="">></span>
-                        </a>
-                    </li>
-                <?php endif; ?>
-            </ul>
+<?php if($this->pageCount > 1): ?>
+    <div class="paginate-prev">
+        <?php if(isset($this->previous)): ?>
+            <a href="<?php echo $this->url($this->route, isset($this->data) ? $this->data : []); ?>?page=<?php echo $this->previous; ?>">
+                <small></small>
+                <div class="title">&#8637; Prethodna stranica</div>
+            </a>
+        <?php else: ?>
+            <a href="#">
+                <small></small>
+                <div class="title">Prva :)</div>
+            </a>
         <?php endif; ?>
     </div>
-</div>
-<br/>
-
+    <div class="paginate-next">
+        <?php if(isset($this->next)): ?>
+            <a href="<?php echo $this->url($this->route, isset($this->data) ? $this->data : []); ?>?page=<?php echo $this->next; ?>">
+                <small></small>
+                <div class="title">Sledeća stranica &#8640;</div>
+            </a>
+        <?php else: ?>
+            <a href="#">
+                <small></small>
+                <div class="title">Poslednja :D</div>
+            </a>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
 

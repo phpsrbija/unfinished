@@ -48,8 +48,7 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
     {
         $select = $this->getSql()->select()
             ->columns(['category_name' => 'name', 'category_slug' => 'slug'])
-            ->join('article_categories', 'article_categories.category_uuid = category.category_uuid', [])
-            ->join('articles', 'articles.article_uuid = article_categories.article_uuid', ['article_id', 'slug', 'admin_user_uuid', 'published_at'])
+            ->join('articles', 'articles.category_uuid = category.category_uuid', ['article_id', 'slug', 'admin_user_uuid', 'published_at'])
             ->join('article_posts', 'article_posts.article_uuid = articles.article_uuid', ['*'], 'right')
             ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['admin_user_id', 'first_name', 'last_name', 'face_img'])
             ->where(['articles.status' => 1])
@@ -72,7 +71,7 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
     public function getWeb($limit = 7, $order = null)
     {
         $select = $this->getSql()->select();
-        $select->where->notEqualTo('slug', 'php-videos');
+        $select->where->notEqualTo('slug', 'videos');
         $select->where->notEqualTo('slug', 'events');
 
         if($limit) {

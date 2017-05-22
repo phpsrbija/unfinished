@@ -103,13 +103,7 @@ class VideoService extends ArticleService
 
     public function fetchSingleArticle($articleId)
     {
-        $article = $this->articleVideosMapper->get($articleId);
-
-        if($article) {
-            $article['categories'] = $this->getCategoryIds($articleId);
-        }
-
-        return $article;
+        return $this->articleVideosMapper->get($articleId);
     }
 
     public function createArticle($user, $data)
@@ -121,15 +115,17 @@ class VideoService extends ArticleService
             throw new FilterException($articleFilter->getMessages() + $videosFilter->getMessages());
         }
 
-        $id   = Uuid::uuid1()->toString();
-        $uuId = (new MysqlUuid($id))->toFormat(new Binary);
-
+        $id      = Uuid::uuid1()->toString();
+        $uuId    = (new MysqlUuid($id))->toFormat(new Binary);
         $article = $articleFilter->getValues() + [
                 'admin_user_uuid' => $user->admin_user_uuid,
                 'type'            => ArticleType::POST,
                 'article_id'      => $id,
                 'article_uuid'    => $uuId
             ];
+
+        $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
+        unset($article['category_id']);
 
         $videos = $videosFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
@@ -139,11 +135,6 @@ class VideoService extends ArticleService
 
         $this->articleMapper->insert($article);
         $this->articleVideosMapper->insert($videos);
-
-        if(isset($data['categories']) && $data['categories']) {
-            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
-            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
-        }
     }
 
     public function updateArticle($data, $id)
@@ -156,8 +147,10 @@ class VideoService extends ArticleService
             throw new FilterException($articleFilter->getMessages() + $videosFilter->getMessages());
         }
 
-        $article = $articleFilter->getValues() + ['article_uuid' => $article->article_uuid];
-        $videos  = $videosFilter->getValues() + [
+        $article                  = $articleFilter->getValues() + ['article_uuid' => $article->article_uuid];
+        $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
+        unset($article['category_id']);
+        $videos = $videosFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
                 'main_img'     => $this->upload->uploadImage($data, 'main_img')
             ];
@@ -173,12 +166,6 @@ class VideoService extends ArticleService
 
         $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
         $this->articleVideosMapper->update($videos, ['article_uuid' => $article['article_uuid']]);
-        $this->articleMapper->deleteCategories($article['article_uuid']);
-
-        if(isset($data['categories']) && $data['categories']) {
-            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
-            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
-        }
     }
 
     public function deleteArticle($id)

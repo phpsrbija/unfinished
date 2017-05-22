@@ -37,7 +37,7 @@
                     <span><?= date("h", strtotime($event->start_at)); ?>h</span>@
                     <span><?= $event->place_name ?></span>
                 </div>
-                <div class="title"><?= $event->title ?></div>
+                <div class="title"><?= $event->sub_title ?></div>
                 <div class="details"></div>
                 <div class="author">PHP Srbija</div>
             </div>
@@ -62,17 +62,14 @@
             <?php foreach($category['posts'] as $post): ?>
                 <div class="forum-box" data-active-tag="<?= strtolower($category['name']) ?>">
                     <a href="#" class="image-wrapper">
-                        <img src="<?= $post['face_img'] ?>">
-
+                        <img src="<?= $post['face_img'] ?>"/>
                         <div class="name"><?= $post['first_name'] . ' ' . $post['last_name'] ?></div>
                     </a>
-
                     <div class="question-wrapper">
                         <a href="<?= $this->url('post', ['segment_1' => $category['slug'], 'segment_2' => $post['slug']]) ?>"
                            class="question">
                             <?= $post['title'] ?>
                         </a>
-
                         <div class="tag">
                             <?= $category['name'] ?>
                             <span class="circle">●</span>
@@ -107,28 +104,29 @@
             <?php foreach($this->video()->getLatest() as $video): ?>
                 <div class="video-slide">
                     <div class="video-wrapper">
-                        <video poster="<?= $video->main_img ?>">
-                            <source src="/videos/test.mp4" type="video/mp4">
+                        <video poster="<?= $video->featured_img ?>">
+                            <source src="#" type="video/mp4">
                         </video>
                         <div class="slider-video-hover-box"></div>
                         <div class="video-content-wrapper">
                             <div class="title"><?= $video->title ?></div>
                             <div class="description"><?= $video->lead ?></div>
                             <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>"
-                               class="btn btn-play icon-play"></a>
+                               class="btn btn-play icon-play">
+                            </a>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
-        <a class="link video" href="/php-videos/">Pogledaj sve video zapise</a>
+        <a class="link video" href="<?= $this->url('videos') ?>">Pogledaj sve video zapise</a>
     </div>
     <div class="slider slider-thumbnail">
         <?php foreach($this->video()->getLatest() as $video): ?>
             <div class="video-slide">
                 <div class="video-wrapper">
                     <video poster="<?= $video->main_img ?>">
-                        <source src="/videos/test.mp4" type="video/mp4">
+                        <source src="#" type="video/mp4">
                     </video>
                     <div class="slider-video-hover-box"></div>
                     <div class="video-content-wrapper">
@@ -143,16 +141,13 @@
 </div>
 <!-- \Video section -->
 
-
 <!-- Latest Blog Posts -->
 <div class="posts">
     <div class="headline">Ostali Članci & Aktuelnosti</div>
-
     <?php foreach($this->post()->forWeb() as $count => $post): ?>
         <article class="post-box <?= $count == 0 ? 'main' : '' ?>">
             <div class="image-wrapper" data-desktop-active-src="<?= $post->main_img ?>">
-                <img src="<?= $post->main_img ?>">
-
+                <img src="<?= $post->main_img ?>"/>
                 <div class="post-box-hover"></div>
             </div>
             <div class="post-box-content">
@@ -172,7 +167,6 @@
     <div class="headline">Pratite nas i koristite
         <a href="https://twitter.com/phpsrbija" target="_blank">#PHPSrbija</a>
     </div>
-
     <div class="social-icons">
         <a href="https://sr-rs.facebook.com/udruzenjeprogramera.rs" target="_blank">
             <button class="btn btn-white social icon-facebook"></button>
@@ -224,7 +218,7 @@
         <div class="social-slide">
             <div class="text-wrapper">
                 <p>Presenting our Gold sponsor - Quantox Technology <a
-                        href="#">http://www.conf2017.phpsrbija.rs/post/9</a> <a href="#">#phpsrb17</a></p>
+                            href="#">http://www.conf2017.phpsrbija.rs/post/9</a> <a href="#">#phpsrb17</a></p>
             </div>
         </div>
         <div class="social-slide">
@@ -235,7 +229,7 @@
         <div class="social-slide">
             <div class="text-wrapper">
                 <p>Presenting our Gold sponsor - Quantox Technology <a
-                        href="#">http://www.conf2017.phpsrbija.rs/post/9</a> <a href="#">#phpsrb17</a></p>
+                            href="#">http://www.conf2017.phpsrbija.rs/post/9</a> <a href="#">#phpsrb17</a></p>
             </div>
         </div>
         <div class="social-slide">
@@ -252,12 +246,10 @@
         <div class="meet">Upoznajte članove udruženja</div>
         <a class="link reload icon-reload" href="#"></a>
     </div>
-
     <div class="members">
         <?php foreach($this->webAdmin()->getRandom() as $user): ?>
             <article>
-                <img src="<?= $user->profile_img ?>">
-
+                <img src="<?= $user->profile_img ?>"/>
                 <div class="hover-box">
                     <div class="center-box">
                         <div class="inner-box y-centered">
@@ -270,10 +262,9 @@
                 </div>
             </article>
         <?php endforeach; ?>
-
         <article class="add">
-            <a class="link abs-wrapper" href="#">
-                <div class="center">
+            <a class="link abs-wrapper" href="<?= $this->url('fake-it') ?>">
+            <div class="center">
                     <div class="add-user"></div>
                     <div class="you">PRIKLJUČI SE I TI</div>
                 </div>

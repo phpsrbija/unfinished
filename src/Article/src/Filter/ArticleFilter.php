@@ -33,6 +33,11 @@ class ArticleFilter implements InputFilterAwareInterface
             ]);
 
             $inputFilter->add([
+                'name'     => 'category_id',
+                'required' => true
+            ]);
+
+            $inputFilter->add([
                 'name'     => 'status',
                 'required' => false,
                 'filters'  => [['name' => 'Boolean']],

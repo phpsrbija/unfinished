@@ -19,7 +19,7 @@ class AdminUserFilter implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if(!$this->inputFilter) {
+        if(!$this->inputFilter){
             $inputFilter = new InputFilter();
 
             $inputFilter->add([
@@ -56,6 +56,12 @@ class AdminUserFilter implements InputFilterAwareInterface
 
             $inputFilter->add([
                 'name'     => 'introduction',
+                'required' => false,
+                'filters'  => [['name' => 'StringTrim']]
+            ]);
+
+            $inputFilter->add([
+                'name'     => 'biography',
                 'required' => false,
                 'filters'  => [['name' => 'StringTrim']]
             ]);

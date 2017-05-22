@@ -42,13 +42,7 @@ class DiscussionService extends ArticleService
 
     public function fetchSingleArticle($articleId)
     {
-        $discussion = $this->articleDiscussionsMapper->get($articleId);
-
-        if($discussion) {
-            $discussion['categories'] = $this->getCategoryIds($articleId);
-        }
-
-        return $discussion;
+        return $this->articleDiscussionsMapper->get($articleId);
     }
 
     public function createArticle($user, $data)
@@ -70,15 +64,13 @@ class DiscussionService extends ArticleService
                 'article_uuid'    => $uuId
             ];
 
+        $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
+        unset($article['category_id']);
+
         $discussion = $discussionFilter->getValues() + ['article_uuid' => $uuId];
 
         $this->articleMapper->insert($article);
         $this->articleDiscussionsMapper->insert($discussion);
-
-        if(isset($data['categories']) && $data['categories']) {
-            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
-            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
-        }
     }
 
     public function updateArticle($data, $id)
@@ -94,14 +86,11 @@ class DiscussionService extends ArticleService
         $article    = $articleFilter->getValues() + ['article_uuid' => $article->article_uuid];
         $discussion = $discussionFilter->getValues();
 
+        $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
+        unset($article['category_id']);
+
         $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
         $this->articleDiscussionsMapper->update($discussion, ['article_uuid' => $article['article_uuid']]);
-        $this->articleMapper->deleteCategories($article['article_uuid']);
-
-        if(isset($data['categories']) && $data['categories']) {
-            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
-            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
-        }
     }
 
     public function deleteArticle($id)

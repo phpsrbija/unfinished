@@ -43,8 +43,9 @@
                 <?php endforeach; ?>
             </div>
         </div>
-        <div class="show-more">
-            <?= $this->paginationControl($videos, 'Sliding', 'article/pagination', ['route' => 'videos']) ?>
-        </div>
     </div>
+</div>
+
+<div class="half-pagination">
+    <?= $this->paginationControl($videos, 'Sliding', 'article/pagination', ['route' => 'videos']) ?>
 </div>

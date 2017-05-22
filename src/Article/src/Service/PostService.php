@@ -69,24 +69,12 @@ class PostService extends ArticleService
 
     public function fetchSingleArticleBySlug($slug)
     {
-        $article = $this->articlePostsMapper->getBySlug($slug);
-
-        if($article) {
-            $article['categories'] = $this->getCategoryIds($article->article_id);
-        }
-
-        return $article;
+        return $this->articlePostsMapper->getBySlug($slug);
     }
 
     public function fetchSingleArticle($articleId)
     {
-        $article = $this->articlePostsMapper->get($articleId);
-
-        if($article) {
-            $article['categories'] = $this->getCategoryIds($articleId);
-        }
-
-        return $article;
+        return $this->articlePostsMapper->get($articleId);
     }
 
     public function fetchNearestArticle($articlePublishedAt)
@@ -116,6 +104,9 @@ class PostService extends ArticleService
                 'article_uuid'    => $uuId
             ];
 
+        $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
+        unset($article['category_id']);
+
         $post = $postFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
                 'main_img'     => $this->upload->uploadImage($data, 'main_img'),
@@ -128,11 +119,6 @@ class PostService extends ArticleService
 
         $this->articleMapper->insert($article);
         $this->articlePostsMapper->insert($post);
-
-        if(isset($data['categories']) && $data['categories']) {
-            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
-            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
-        }
     }
 
     public function updateArticle($data, $id)
@@ -151,6 +137,9 @@ class PostService extends ArticleService
                 'main_img'     => $this->upload->uploadImage($data, 'main_img')
             ];
 
+        $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
+        unset($article['category_id']);
+
         // We dont want to force user to re-upload image on edit
         if(!$post['featured_img']) {
             unset($post['featured_img']);
@@ -166,12 +155,6 @@ class PostService extends ArticleService
 
         $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
         $this->articlePostsMapper->update($post, ['article_uuid' => $article['article_uuid']]);
-        $this->articleMapper->deleteCategories($article['article_uuid']);
-
-        if(isset($data['categories']) && $data['categories']) {
-            $categories = $this->categoryMapper->select(['category_id' => $data['categories']]);
-            $this->articleMapper->insertCategories($categories, $article['article_uuid']);
-        }
     }
 
     public function deleteArticle($id)
