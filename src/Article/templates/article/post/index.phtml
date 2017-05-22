@@ -33,6 +33,7 @@
                             <tr>
                                 <th>Status</th>
                                 <th>Title</th>
+                                <th>Kategorija</th>
                                 <th>URI</th>
                                 <th>Published</th>
                                 <th></th>
@@ -50,6 +51,7 @@
                                             <span class="label label-info pull-right">HOMEPAGE</span>
                                         <?php endif; ?>
                                     </td>
+                                    <td><?= $one->category_name ?></td>
                                     <td><?= $one->slug; ?></td>
                                     <td><?= date("d.m.Y H:i", strtotime($one->published_at)); ?></td>
                                     <td>

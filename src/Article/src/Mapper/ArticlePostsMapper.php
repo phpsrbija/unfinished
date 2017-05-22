@@ -36,6 +36,7 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
         return $this->getSql()->select()
             ->columns(['title', 'body', 'lead', 'featured_img', 'main_img', 'is_homepage'])
             ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
+            ->join('category', 'articles.category_uuid = category.category_uuid', ['category_name' => 'name'], 'left')
             ->where(['articles.type' => ArticleType::POST])
             ->order(['created_at' => 'desc']);
     }
