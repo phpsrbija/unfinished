@@ -14,6 +14,7 @@ class AdminUsers extends AbstractMigration
             ->addColumn('first_name', 'text')
             ->addColumn('last_name', 'text')
             ->addColumn('introduction', 'text', ['null' => true])
+            ->addColumn('biography', 'text', ['null' => true])
             ->addColumn('email', 'string', ['limit' => 128])
             ->addColumn('password', 'char', ['limit' => 60])
             ->addColumn('status', 'integer', ['default' => 0])// 0 => not active, 1 = active
