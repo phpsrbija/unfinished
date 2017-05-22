@@ -6,6 +6,7 @@ namespace Web\Action;
 
 use Article\Service\EventService;
 use Category\Service\CategoryService;
+use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
@@ -33,12 +34,18 @@ class EventAction
      * @param Template $template
      * @param EventService $eventService
      * @param CategoryService $categoryService
+     * @param Client $httpClient
      */
-    public function __construct(Template $template, EventService $eventService, CategoryService $categoryService)
-    {
+    public function __construct(
+        Template $template,
+        EventService $eventService,
+        CategoryService $categoryService,
+        Client $httpClient
+    ) {
         $this->template        = $template;
         $this->eventService    = $eventService;
         $this->categoryService = $categoryService;
+        $this->httpClient      = $httpClient;
     }
 
     /**

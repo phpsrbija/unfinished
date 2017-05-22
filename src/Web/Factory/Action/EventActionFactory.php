@@ -6,6 +6,7 @@ namespace Web\Factory\Action;
 
 use Article\Service\EventService;
 use Category\Service\CategoryService;
+use GuzzleHttp\ClientInterface;
 use Interop\Container\ContainerInterface;
 use Web\Action\EventAction;
 use Zend\Expressive\Template\TemplateRendererInterface;
@@ -26,7 +27,8 @@ class EventActionFactory
         return new EventAction(
             $container->get(TemplateRendererInterface::class),
             $container->get(EventService::class),
-            $container->get(CategoryService::class)
+            $container->get(CategoryService::class),
+            $container->get(ClientInterface::class)
         );
     }
 }
