@@ -86,12 +86,12 @@
                         </div>
                     </a>
                 <?php endforeach; ?>
-
-                <div class="show-more">
-                    <?= $this->paginationControl($pastEvents, 'Sliding', 'article/pagination', ['route' => 'events']) ?>
-                </div>
             </div>
             <br/>
         </div>
     </div>
+</div>
+
+<div class="half-pagination">
+    <?= $this->paginationControl($pastEvents, 'Sliding', 'article/pagination', ['route' => 'events']) ?>
 </div>
