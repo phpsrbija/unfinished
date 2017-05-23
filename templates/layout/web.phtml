@@ -49,12 +49,12 @@
     <footer>
         <div class="footer-wrapper">
             <div class="read">Čitaj naš newsletter i kodiraćeš bolje</div>
-            <form method="post" action="">
-                <div class="input-wrapper">
-                    <input type="email" name="email" id="email" placeholder="Tvoja email adresa">
-                    <button class="btn btn-submit" id="submit" title="Posalji"></button>
-                </div>
-            </form>
+                <form method="post" action="<?= $this->url('newsletter-post') ?>">
+                    <div class="input-wrapper">
+                        <input type="email" name="email" id="email" placeholder="Tvoja email adresa">
+                        <button class="btn btn-submit" id="submit" title="Posalji"></button>
+                    </div>
+                </form>
             <div class="footer-nav-social-wrapper">
                 <?= $this->partial('templates::partial/footer.phtml'); ?>
                 <div class="right">
