@@ -5,7 +5,10 @@
         <?php foreach($this->menu()->getHeaderMenu() as $item): ?>
             <li>
             <?php if(!$item['children']): ?>
-                <a href="<?= $this->menuUrl($item) ?>"><?= $item['title'] ?></a>
+                <?php $href = $this->menuUrl($item) ?>
+                <a href="<?= $href ?>" <?= (strpos($href, 'http') === 0) ? 'target="_blank"' : '' ?>>
+                    <?= $item['title'] ?>
+                </a>
             <?php else: ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -14,7 +17,12 @@
                     </a>
                     <ul class="dropdown-menu">
                         <?php foreach($item['children'] as $child): ?>
-                            <li><a href="<?= $this->menuUrl($child) ?>"><?= $child['title'] ?></a></li>
+                            <?php $href = $this->menuUrl($child) ?>
+                            <li>
+                                <a href="<?= $href ?>" <?= (strpos($href, 'http') === 0) ? 'target="_blank"' : '' ?>>
+                                    <?= $child['title'] ?>
+                                </a>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
                 </li>
@@ -24,10 +32,10 @@
 
         <!-- Custom links in the menu -->
         <li class="white">
-            <a href="<?= $this->url('fake-it') ?>" class="btn btn-white">PRIKLJUČI SE</a>
+            <a href="<?= $this->url('soon') ?>" class="btn btn-white">PRIKLJUČI SE</a>
         </li>
         <li class="blue">
-            <a href="<?= $this->url('fake-it') ?>" class="btn btn-blue">NAPIŠI VEST</a>
+            <a href="<?= $this->url('soon') ?>" class="btn btn-blue">NAPIŠI ČLANAK</a>
         </li>
     </ul>
 </nav>

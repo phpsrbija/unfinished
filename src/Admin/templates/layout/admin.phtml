@@ -41,11 +41,11 @@
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
-                        <img src="<?= $this->admin()->face_img ?>" alt="..." class="img-circle profile_img">
+                        <img src="<?= $this->admin()->current()->face_img ?>" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
-                        <h2><?= $this->admin()->first_name . ' ' . $this->admin()->last_name ?></h2>
+                        <h2><?= $this->admin()->current()->first_name . ' ' . $this->admin()->current()->last_name ?></h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -61,7 +61,8 @@
                                 <a href="<?= $this->url('admin.menu') ?>"><i class="fa fa-sitemap"></i>Menu</a>
                             </li>
                             <li>
-                                <a href="<?= $this->url('admin.posts') ?>"><i class="fa fa-archive"></i>Posts / Pages</a>
+                                <a href="<?= $this->url('admin.posts') ?>"><i class="fa fa-archive"></i>Posts /
+                                    Pages</a>
                             </li>
                             <li>
                                 <a href="<?= $this->url('admin.events') ?>"><i class="fa fa-beer"></i>Events</a>
@@ -86,7 +87,7 @@
                 <!-- menu footer buttons -->
                 <div class="sidebar-footer hidden-small">
                     <a data-toggle="tooltip" data-placement="top" title="Profile"
-                       href="<?= $this->url('admin.users.action', ['action' => 'edit', 'id' => $this->admin()->admin_user_id]) ?>">
+                       href="<?= $this->url('admin.users.action', ['action' => 'edit', 'id' => $this->admin()->current()->admin_user_id]) ?>">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </a>
                     <a data-toggle="tooltip" data-placement="top" title="FullScreen">
@@ -115,13 +116,13 @@
                         <li class="">
                             <a href="#" class="user-profile dropdown-toggle" data-toggle="dropdown"
                                aria-expanded="false">
-                                <img src="<?= $this->admin()->face_img ?>" alt="">
-                                <?= $this->admin()->first_name . ' ' . $this->admin()->last_name ?>
+                                <img src="<?= $this->admin()->current()->face_img ?>" alt="">
+                                <?= $this->admin()->current()->first_name . ' ' . $this->admin()->current()->last_name ?>
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">
                                 <li>
-                                    <a href="<?= $this->url('admin.users.action', ['action' => 'edit', 'id' => $this->admin()->admin_user_id]) ?>">
+                                    <a href="<?= $this->url('admin.users.action', ['action' => 'edit', 'id' => $this->admin()->current()->admin_user_id]) ?>">
                                         <i class="fa fa-user pull-right"></i> Profile
                                     </a>
                                 </li>
@@ -141,6 +142,11 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li>
+                            <a href="<?= $this->url('home') ?>" target="_blank">
+                                Go to WEB
+                            </a>
                         </li>
                     </ul>
                 </nav>

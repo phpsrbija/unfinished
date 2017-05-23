@@ -38,6 +38,11 @@ class ArticleFilter implements InputFilterAwareInterface
             ]);
 
             $inputFilter->add([
+                'name'     => 'admin_user_id',
+                'required' => true
+            ]);
+
+            $inputFilter->add([
                 'name'     => 'status',
                 'required' => false,
                 'filters'  => [['name' => 'Boolean']],

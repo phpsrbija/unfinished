@@ -213,6 +213,25 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Author</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select class="select2 form-control" name="admin_user_id">
+                                        <?php foreach($this->admin()->all() as $user): ?>
+                                            <option value="<?= $user->admin_user_id ?>"
+                                                <?= (isset($event->admin_user_id) && $user->admin_user_id == $event->admin_user_id) ||
+                                                (!isset($event->admin_user_id) && $user->admin_user_id == $this->admin()->current()->admin_user_id) ? 'selected' : '' ?>>
+                                                <?= $user->first_name ?> <?= $user->last_name ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->admin_user_id) ? implode('. ', (array)$errors->admin_user_id) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Published</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="checkbox" class="js-switch" value="1"

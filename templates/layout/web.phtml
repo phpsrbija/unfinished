@@ -10,6 +10,25 @@
     <link rel="stylesheet" href="/css/vendor.css">
     <link rel="stylesheet" href="/css/main.css">
     <script src="/vendor/modernizr.js"></script>
+
+    <!-- favicon for all devices... -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/favico/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/favico/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/favico/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/favico/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/favico/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/favico/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/favico/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favico/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favico/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/images/favico/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favico/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/favico/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favico/favicon-16x16.png">
+    <link rel="manifest" href="/images/favico/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
 </head>
 <body>
 <!--[if lt IE 9]>
@@ -19,9 +38,9 @@
 <div class="wrapper">
     <header class="clearfix">
         <button class="btn btn-header-mobile icon-menu"></button>
-        <button class="btn btn-header-mobile icon-search"></button>
+        <a href="<?= $this->url('soon') ?>" class="btn btn-header-mobile icon-search"></a>
         <a class="icon-logo" href="<?= $this->url('home') ?>"><img src="/images/logo.png"></a>
-        <a href="<?= $this->url('fake-it') ?>" class="btn btn-header-mobile icon-user"></a>
+        <a href="<?= $this->url('soon') ?>" class="btn btn-header-mobile icon-user"></a>
         <?= $this->partial('templates::partial/header.phtml'); ?>
     </header>
 
@@ -30,12 +49,12 @@
     <footer>
         <div class="footer-wrapper">
             <div class="read">Čitaj naš newsletter i kodiraćeš bolje</div>
-            <form method="post" action="">
-                <div class="input-wrapper">
-                    <input type="email" name="email" id="email" placeholder="Tvoja email adresa">
-                    <button class="btn btn-submit" id="submit" title="Posalji"></button>
-                </div>
-            </form>
+                <form method="post" action="<?= $this->url('newsletter-post') ?>">
+                    <div class="input-wrapper">
+                        <input type="email" name="email" id="email" placeholder="Tvoja email adresa">
+                        <button class="btn btn-submit" id="submit" title="Posalji"></button>
+                    </div>
+                </form>
             <div class="footer-nav-social-wrapper">
                 <?= $this->partial('templates::partial/footer.phtml'); ?>
                 <div class="right">
@@ -47,7 +66,7 @@
                         <a href="https://twitter.com/phpsrbija" target="_blank">
                             <button class="btn btn-white social icon-twitter"></button>
                         </a>
-                        <a href="#" target="_blank">
+                        <a href="https://www.instagram.com/phpsrbija/" target="_blank">
                             <button class="btn btn-white social instagram">
                                 <span class="icon-instagram">
                                     <span class="path1"></span>

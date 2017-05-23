@@ -37,15 +37,7 @@ class MenuUrlHelper extends AbstractHelper
             return strpos($menuItem['href'], 'http') === 0 ? $menuItem['href'] : '/' . $menuItem['href'];
         }
         elseif($menuItem['article_slug']) {
-            // @todo refactor - break categories into single category per article...
-            $category = $this->postService->getCategories($menuItem['article_id'])->current();
-
-            if($category){
-                $params = ['segment_1' => $category->slug, 'segment_2' => $menuItem['article_slug']];
-            }
-            else{
-                $params = ['segment_1' => $menuItem['article_slug']];
-            }
+            $params = ['segment_1' => $menuItem['category_slug'], 'segment_2' => $menuItem['article_slug']];
 
             return $this->url->__invoke('post', $params);
         }

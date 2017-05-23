@@ -3,7 +3,7 @@
     <div class="headline"><?= $currentCategory->name; ?></div>
     <ul class="blog-tags-wrapper">
         <li><a class="link tag <?= $currentCategory->slug == 'all' ? 'active' : '' ?>"
-               href="<?= $this->url('category', ['category' => 'all']) ?>">SveeEeEEeeEe</a></li>
+               href="<?= $this->url('category', ['category' => 'all']) ?>">Svi članci</a></li>
         <?php foreach($this->categories as $category): ?>
             <li><a class="link tag <?= $category->slug == $currentCategory->slug ? 'active' : '' ?>"
                    href="<?= $this->url('category', ['category' => $category->slug]) ?>">
