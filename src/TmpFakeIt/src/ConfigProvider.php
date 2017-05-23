@@ -15,8 +15,8 @@ class ConfigProvider
 
             'routes' => [
                 [
-                    'name'       => 'fake-it',
-                    'path'       => '/fake-it-til-you-make-it',
+                    'name'       => 'soon',
+                    'path'       => '/soon',
                     'middleware' => Action\TmpAction::class
                 ],
             ],
