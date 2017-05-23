@@ -25,7 +25,6 @@ function postToTwitter(title, link) {
 }
 
 function postToLinkedIn(title, link) {
-    // http://www.linkedin.com/shareArticle?mini=true&url=[URL]&title=[TITLE]&source=[SOURCE/DOMAIN]
     var url = 'http://www.linkedin.com/shareArticle?mini=true&title=' + encodeURIComponent(title) + '&url=' + link
         + '&source=PHP%20Srbija';
 
@@ -59,7 +58,7 @@ function setSocialEngagementCount(element) {
     var lnUrl = 'http://www.linkedin.com/countserv/count/share?url=' + element.prop('href') + '&format=json';
     var fbUrl = 'http://graph.facebook.com/v2.2/?id=' + element.prop('href') + '&fields=og_object{engagement}';
     count += getFacebookEngagementCount(fbUrl);
-    // count += getLinkedInEngagementCount(lnUrl);
+    // count += getLinkedInEngagementCount(lnUrl); cors.....
 
     $('.total-shares').html(count);
 }
@@ -83,5 +82,7 @@ $(document).ready(function() {
         postToLinkedIn(elem.data('title'), elem.prop('href'));
     });
 
-    setSocialEngagementCount($('.social-icons a'));
+    if ($('.social-icons a').length > 0) {
+        setSocialEngagementCount($('.social-icons a'));
+    }
 });
