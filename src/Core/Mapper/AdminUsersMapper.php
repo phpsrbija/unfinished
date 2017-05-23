@@ -76,4 +76,15 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
 
         return $this->selectWith($select);
     }
+
+    public function getUuid($adminUserId)
+    {
+        $user = $this->select(['admin_user_id' => $adminUserId])->current();
+
+        if(!$user) {
+            throw new \Exception('Admin user does not exist!', 400);
+        }
+
+        return $user->admin_user_uuid;
+    }
 }
