@@ -70,6 +70,12 @@ $(document).ready(function() {
         postToFbFeed(elem.data('title'), elem.prop('href'), elem.data('image'));
     });
 
+    $('.facebook-share-list').click(function(e) {
+        e.preventDefault();
+        var elem = $(this).parent().parent();
+        postToFbFeed(elem.data('title'), elem.prop('href'), elem.data('image'));
+    });
+
     $('.twitter-share').click(function(e) {
         e.preventDefault();
         var elem = $(this).parent();
