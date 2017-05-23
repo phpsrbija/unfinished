@@ -199,4 +199,9 @@ class AdminUserService
     {
         return $this->adminUsersMapper->getRandom($limit);
     }
+
+    public function getAll()
+    {
+        return $this->adminUsersMapper->select();
+    }
 }

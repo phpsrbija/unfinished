@@ -10,6 +10,7 @@ use Article\Entity\ArticleType;
 use Article\Filter\ArticleFilter;
 use Article\Filter\EventFilter;
 use Core\Exception\FilterException;
+use Core\Mapper\AdminUsersMapper;
 use Ramsey\Uuid\Uuid;
 use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
@@ -22,9 +23,11 @@ class EventService extends ArticleService
     private $eventFilter;
     private $categoryMapper;
     private $upload;
+    private $adminUsersMapper;
 
     public function __construct(ArticleMapper $articleMapper, ArticleEventsMapper $articleEventsMapper,
-                                ArticleFilter $articleFilter, EventFilter $eventFilter, CategoryMapper $categoryMapper, Upload $upload)
+                                ArticleFilter $articleFilter, EventFilter $eventFilter, CategoryMapper $categoryMapper,
+                                Upload $upload, AdminUsersMapper $adminUsersMapper)
     {
         parent::__construct($articleMapper, $articleFilter);
 
@@ -34,6 +37,7 @@ class EventService extends ArticleService
         $this->eventFilter         = $eventFilter;
         $this->categoryMapper      = $categoryMapper;
         $this->upload              = $upload;
+        $this->adminUsersMapper    = $adminUsersMapper;
     }
 
     public function fetchAllArticles($page, $limit)
@@ -90,12 +94,14 @@ class EventService extends ArticleService
         $id   = Uuid::uuid1()->toString();
         $uuId = (new MysqlUuid($id))->toFormat(new Binary);
 
-        $article = $articleFilter->getValues() + [
-                'admin_user_uuid' => $user->admin_user_uuid,
-                'type'            => ArticleType::EVENT,
-                'article_id'      => $id,
-                'article_uuid'    => $uuId
-            ];
+        $article = $articleFilter->getValues();
+        $article += [
+            'admin_user_uuid' => $this->adminUsersMapper->getUuid($article['admin_user_id']),
+            'type'            => ArticleType::EVENT,
+            'article_id'      => $id,
+            'article_uuid'    => $uuId
+        ];
+        unset($article['admin_user_id']);
 
         $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
         unset($article['category_id']);
@@ -126,8 +132,9 @@ class EventService extends ArticleService
                 'main_img'     => $this->upload->uploadImage($data, 'main_img')
             ];
 
-        $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
-        unset($article['category_id']);
+        $article['admin_user_uuid'] = $this->adminUsersMapper->getUuid($article['admin_user_id']);
+        $article['category_uuid']   = $this->categoryMapper->get($article['category_id'])->category_uuid;
+        unset($article['category_id'], $article['admin_user_id']);
 
         // We dont want to force user to re-upload image on edit
         if(!$event['featured_img']) {

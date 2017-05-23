@@ -4,11 +4,12 @@ declare(strict_types=1);
 namespace Article\Factory\Service;
 
 use Article\Mapper\ArticleMapper;
-use Category\Mapper\CategoryMapper;
 use Article\Mapper\ArticlePostsMapper;
 use Article\Service\PostService;
 use Article\Filter\ArticleFilter;
 use Article\Filter\PostFilter;
+use Category\Mapper\CategoryMapper;
+use Core\Mapper\AdminUsersMapper;
 use Interop\Container\ContainerInterface;
 use UploadHelper\Upload;
 
@@ -29,7 +30,8 @@ class PostServiceFactory
             $container->get(ArticleFilter::class),
             $container->get(PostFilter::class),
             $container->get(CategoryMapper::class),
-            $upload
+            $upload,
+            $container->get(AdminUsersMapper::class)
         );
     }
 }

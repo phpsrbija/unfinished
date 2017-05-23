@@ -10,6 +10,7 @@ use Article\Filter\ArticleFilter;
 use Article\Filter\EventFilter;
 use Interop\Container\ContainerInterface;
 use Category\Mapper\CategoryMapper;
+use Core\Mapper\AdminUsersMapper;
 
 class EventServiceFactory
 {
@@ -28,7 +29,8 @@ class EventServiceFactory
             $container->get(ArticleFilter::class),
             $container->get(EventFilter::class),
             $container->get(CategoryMapper::class),
-            $upload
+            $upload,
+            $container->get(AdminUsersMapper::class)
         );
     }
 }
