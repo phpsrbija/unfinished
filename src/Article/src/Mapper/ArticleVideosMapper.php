@@ -36,7 +36,7 @@ class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareIn
         $select = $this->getSql()->select()
             ->join('articles', 'article_videos.article_uuid = articles.article_uuid', ['slug', 'published_at', 'status', 'article_id'])
             ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['admin_user_id', 'first_name', 'last_name'])
-            ->where(['articles.type' => ArticleType::POST])
+            ->where(['articles.type' => ArticleType::VIDEO])
             ->order(['articles.created_at' => 'desc']);
 
         if($isActive !== null) {

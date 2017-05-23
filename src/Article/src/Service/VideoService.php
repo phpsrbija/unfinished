@@ -116,7 +116,7 @@ class VideoService extends ArticleService
         $article = $articleFilter->getValues();
         $article += [
             'admin_user_uuid' => $this->adminUsersMapper->getUuid($article['admin_user_id']),
-            'type'            => ArticleType::POST,
+            'type'            => ArticleType::VIDEO,
             'article_id'      => $id,
             'article_uuid'    => $uuId
         ];
