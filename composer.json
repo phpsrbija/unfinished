@@ -46,7 +46,6 @@
             "Menu\\": "src/Menu/src/",
             "Category\\": "src/Category/src/",
             "Article\\": "src/Article/src/",
-            "TmpFakeIt\\": "src/TmpFakeIt/src/",
             "Newsletter\\": "src/Newsletter/src/"
         }
     },
