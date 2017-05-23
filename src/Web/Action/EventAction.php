@@ -68,7 +68,7 @@ class EventAction
         // Fetch going ppl
         if(strpos($event->event_url, 'meetup.com') !== false) {
             $parts     = explode('/', $event->event_url);
-            $attendees = $this->meetupService->getMeetupAttendees($parts[count($parts) - 2]);
+            $attendees = shuffle($this->meetupService->getMeetupAttendees($parts[count($parts) - 2]));
         }
 
         return new HtmlResponse($this->template->render('web::event', [
