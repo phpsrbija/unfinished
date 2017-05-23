@@ -28,7 +28,7 @@
                             <div class="title"><?= $post->title ?></div>
                             <time class="datetime">
                                 <?= date('M d, Y', strtotime($post['published_at'])) ?> /
-                                <?= $post->first_name . ' ' . $post->last_name[0] ?>.
+                                <?= $post->first_name . ' ' . mb_substr($post->last_name, 0, 1); ?>.
                             </time>
                         </div>
                     </a>
