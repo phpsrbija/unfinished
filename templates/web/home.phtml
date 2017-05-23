@@ -18,7 +18,9 @@
            class="link news <?= $count == 0 ? 'selected' : '' ?>"
            data-mobile-src="<?= $event->featured_img ?>"
            data-tablet-src="<?= $event->featured_img ?>"
-           data-desktop-src="<?= $event->featured_img ?>">
+           data-desktop-src="<?= $event->featured_img ?>"
+           data-title="<?=$event->title?>"
+           data-image="<?= 'http://' . $_SERVER['HTTP_HOST'] . $event->main_img?>">
             <div class="image-wrapper">
                 <img src="<?= $event->main_img ?>">
 
@@ -29,7 +31,7 @@
                         <div class="month"><?= date("F", strtotime($event->start_at)); ?></div>
                     </div>
                 </div>
-                <button class="btn btn-share">PODELI</button>
+                <button class="btn btn-share facebook-share-list">PODELI</button>
                 <div class="news-box-hover"></div>
             </div>
             <div class="news-box-content">
