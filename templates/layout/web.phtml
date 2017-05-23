@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/main.css">
     <script src="/vendor/modernizr.js"></script>
 
+
     <!-- favicon for all devices... -->
     <link rel="apple-touch-icon" sizes="57x57" href="/images/favico/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/favico/apple-icon-60x60.png">
@@ -29,6 +30,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+
 </head>
 <body>
 <!--[if lt IE 9]>
@@ -39,7 +41,7 @@
     <header class="clearfix">
         <button class="btn btn-header-mobile icon-menu"></button>
         <a href="/vesti/uskoro" class="btn btn-header-mobile icon-search"></a>
-        <a class="icon-logo" href="<?= $this->url('home') ?>"><img src="/images/logo.png"></a>
+        <a title="PHP Srbija" class="icon-logo" href="<?= $this->url('home') ?>"><img alt="PHP Srbija" src="/images/logo.png"></a>
         <a href="/vesti/uskoro" class="btn btn-header-mobile icon-user"></a>
         <?= $this->partial('templates::partial/header.phtml'); ?>
     </header>
@@ -89,16 +91,17 @@
     </footer>
 
     <script src="/vendor/vendor.js"></script>
-    <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
+    <!-- Google Analytics: phpsrbija.rs id added.
         <script>
           (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
           function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
           e=o.createElement(i);r=o.getElementsByTagName(i)[0];
           e.src='//www.google-analytics.com/analytics.js';
           r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-          ga('create','UA-XXXXX-X');ga('send','pageview');
+          ga('create','UA-37654719-2');ga('send','pageview');
         </script>
         Load it from config file -->
     <script src="/vendor/dependencies.js"></script>
     <script src="/js/main.js"></script>
+    <script src="/js/share.js"></script>
 </div>

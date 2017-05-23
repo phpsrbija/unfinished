@@ -13,23 +13,8 @@
     </div>
 
     <div class="event-single-wrapper">
-        <div class="social-share">
-            <div class="social-icons social-icon__vertical">
-                <div class="social-icon-shared">
-                    <strong>142</strong>
-                    <span>Podeljeno</span>
-                </div>
-                <a href="#" target="_blank">
-                    <button class="btn btn-white social icon-facebook"></button>
-                </a>
-                <a href="#" target="_blank">
-                    <button class="btn btn-white social icon-twitter"></button>
-                </a>
-                <a href="#" target="_blank">
-                    <button class="btn btn-white social icon-linkedin"></button>
-                </a>
-            </div>
-        </div>
+        <?= $this->partial('templates::partial/socialShares.phtml', ['item' => $event]); ?>
+
         <div class="event-text">
             <?= $event->body ?>
 
