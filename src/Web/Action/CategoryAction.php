@@ -58,7 +58,7 @@ class CategoryAction
 
         if(!$category) {
             $category = (object)[
-                'name' => 'SveeEeEEeeEe',
+                'name' => 'Svi članci',
                 'slug' => 'all'
             ];
         }
