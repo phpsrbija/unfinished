@@ -1,17 +1,29 @@
+<?php
+//var_dump($item->type);
+//die();
+if ($item->type == 1) {
+    $url = 'http://phpsrbija.rs' . $this->url('post', ['segment_1' => $item->category_slug, 'segment_2' => $item->slug]);
+} else if ($item->type == 2) {
+    $url = 'http://phpsrbija.rs' . $this->url('video', ['video_slug' => $item->slug]);
+} else if ($item->type == 3) {
+    $url = 'http://phpsrbija.rs' . $this->url('event', ['event_slug' => $item->slug]);
+}
+?>
 <div class="social-share">
     <div class="social-icons social-icon__vertical">
         <div class="social-icon-shared">
             <strong class="total-shares">0</strong>
             <span>Podeljeno</span>
         </div>
-        <a href="<?=$this->url('event', ['event_slug' => $item->slug])?>" target="_blank" data-title="<?=$item->title?>"
-           data-image="http://www.phpsrbija.rs<?=$item->main_img?>">
+
+        <a href="<?=$url?>" target="_blank" data-title="<?=$item->title?>"
+           data-image="<?= 'http://' . $_SERVER['HTTP_HOST'] . $item->main_img?>">
             <button class="btn btn-white social facebook-share icon-facebook"></button>
         </a>
-        <a href="<?=$this->url('event', ['event_slug' => $item->slug])?>" target="_blank" data-title="<?=$item->title?>" data-image="<?=$item->main_img?>">
+        <a href="<?=$url?>" target="_blank" data-title="<?=$item->title?>" data-image="<?=$item->main_img?>">
             <button class="btn btn-white social twitter-share icon-twitter"></button>
         </a>
-        <a href="<?=$this->url('event', ['event_slug' => $item->slug])?>" target="_blank" data-title="<?=$item->title?>" data-image="<?=$item->main_img?>">
+        <a href="<?=$url?>" target="_blank" data-title="<?=$item->title?>" data-image="<?=$item->main_img?>">
             <button class="btn btn-white social linkedin-share icon-linkedin"></button>
         </a>
     </div>
