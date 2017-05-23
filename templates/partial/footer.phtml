@@ -3,10 +3,20 @@
     <?php foreach($this->menu()->getFooterMenu() as $item): ?>
         <?php if($item['children']): ?>
             <?php foreach($item['children'] as $child): ?>
-                <li><a href="<?= $this->menuUrl($child) ?>"><?= $child['title'] ?></a></li>
+                <?php $href = $this->menuUrl($child) ?>
+                <li>
+                    <a href="<?= $href ?>" <?= (strpos($href, 'http') === 0) ? 'target="_blank"' : '' ?>>
+                        <?= $child['title'] ?>
+                    </a>
+                </li>
             <?php endforeach; ?>
         <?php else: ?>
-            <li><a href="<?= $this->menuUrl($item) ?>"><?= $item['title'] ?></a></li>
+            <?php $href = $this->menuUrl($item) ?>
+            <li>
+                <a href="<?= $href ?>" <?= (strpos($href, 'http') === 0) ? 'target="_blank"' : '' ?>>
+                    <?= $item['title'] ?>
+                </a>
+            </li>
         <?php endif; ?>
     <?php endforeach; ?>
 </ul>

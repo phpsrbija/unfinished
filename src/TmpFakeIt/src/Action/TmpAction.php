@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace TmpFakeIt\Action;
 
@@ -40,12 +40,6 @@ class TmpAction
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
-        $counter = 33;
-
-        return new HtmlResponse($this->template->render('web::tmp', [
-            'layout'  => 'layout/web',
-            'counter' => $counter
-        ]));
+        return new HtmlResponse($this->template->render('web::tmp', ['layout' => 'layout/web']));
     }
-
 }

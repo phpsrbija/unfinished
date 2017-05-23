@@ -38,9 +38,9 @@
 <div class="wrapper">
     <header class="clearfix">
         <button class="btn btn-header-mobile icon-menu"></button>
-        <button class="btn btn-header-mobile icon-search"></button>
-        <a class="icon-logo" href="<?= $this->url('home') ?>" title="PHP Srbija"><img alt="PHP Srbija" src="/images/logo.png"></a>
-        <a href="<?= $this->url('fake-it') ?>" class="btn btn-header-mobile icon-user"></a>
+        <a href="<?= $this->url('soon') ?>" class="btn btn-header-mobile icon-search"></a>
+        <a title="PHP Srbija" class="icon-logo" href="<?= $this->url('home') ?>"><img alt="PHP Srbija" src="/images/logo.png"></a>
+        <a href="<?= $this->url('soon') ?>" class="btn btn-header-mobile icon-user"></a>
         <?= $this->partial('templates::partial/header.phtml'); ?>
     </header>
 
@@ -49,12 +49,12 @@
     <footer>
         <div class="footer-wrapper">
             <div class="read">Čitaj naš newsletter i kodiraćeš bolje</div>
-            <form method="post" action="">
-                <div class="input-wrapper">
-                    <input type="email" name="email" id="email" placeholder="Tvoja email adresa">
-                    <button class="btn btn-submit" id="submit" title="Posalji"></button>
-                </div>
-            </form>
+                <form method="post" action="<?= $this->url('newsletter-post') ?>">
+                    <div class="input-wrapper">
+                        <input type="email" name="email" id="email" placeholder="Tvoja email adresa">
+                        <button class="btn btn-submit" id="submit" title="Posalji"></button>
+                    </div>
+                </form>
             <div class="footer-nav-social-wrapper">
                 <?= $this->partial('templates::partial/footer.phtml'); ?>
                 <div class="right">
@@ -66,7 +66,7 @@
                         <a href="https://twitter.com/phpsrbija" target="_blank">
                             <button class="btn btn-white social icon-twitter"></button>
                         </a>
-                        <a href="#" target="_blank">
+                        <a href="https://www.instagram.com/phpsrbija/" target="_blank">
                             <button class="btn btn-white social instagram">
                                 <span class="icon-instagram">
                                     <span class="path1"></span>
