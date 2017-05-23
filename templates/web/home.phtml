@@ -49,7 +49,7 @@
 <!-- Latest Blog Posts in Categories -->
 <div class="forum">
     <!-- Categories -->
-    <div class="headline">Poslednje sa foruma</div>
+    <div class="headline">Poslednji članci</div>
     <ul class="tags-wrapper">
         <?php foreach($this->category()->forWeb() as $category): ?>
             <li><a class="link tag" href="#"><?= strtolower($category['name']) ?></a></li>
@@ -244,7 +244,7 @@
 <div class="society">
     <div class="intro">
         <div class="meet">Upoznajte članove udruženja</div>
-        <a class="link reload icon-reload" href="#"></a>
+        <!-- <a class="link reload icon-reload" href="#"></a> -->
     </div>
     <div class="members">
         <?php foreach($this->webAdmin()->getRandom() as $user): ?>
