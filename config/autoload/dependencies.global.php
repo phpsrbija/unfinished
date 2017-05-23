@@ -5,6 +5,7 @@ return [
         'invokables' => [
             Zend\Expressive\Helper\ServerUrlHelper::class => Zend\Expressive\Helper\ServerUrlHelper::class,
             Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\ZendRouter::class,
+            Blast\BaseUrl\BasePathHelper::class           => Blast\BaseUrl\BasePathHelper::class
         ],
         'factories'  => [
             Zend\Db\Adapter\Adapter::class                            => Zend\Db\Adapter\AdapterServiceFactory::class,

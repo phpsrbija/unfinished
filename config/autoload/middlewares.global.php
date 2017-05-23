@@ -5,8 +5,9 @@ use Zend\Expressive\Helper;
 return [
     'dependencies'        => [
         'factories' => [
-            Helper\ServerUrlMiddleware::class => Helper\ServerUrlMiddlewareFactory::class,
-            Helper\UrlHelperMiddleware::class => Helper\UrlHelperMiddlewareFactory::class
+            Helper\ServerUrlMiddleware::class      => Helper\ServerUrlMiddlewareFactory::class,
+            Helper\UrlHelperMiddleware::class      => Helper\UrlHelperMiddlewareFactory::class,
+            Blast\BaseUrl\BaseUrlMiddleware::class => Blast\BaseUrl\BaseUrlMiddlewareFactory::class
         ],
     ],
     // This can be used to seed pre- and/or post-routing middleware
@@ -16,15 +17,16 @@ return [
                 // Execute on every request: bootstrapping, pre-conditions, modifications to outgoing responses etc.
                 \Zend\Stratigility\Middleware\OriginalMessages::class,
                 \Zend\Stratigility\Middleware\ErrorHandler::class,
-                \Zend\Expressive\Helper\ServerUrlMiddleware::class
+                \Zend\Expressive\Helper\ServerUrlMiddleware::class,
+                \Blast\BaseUrl\BaseUrlMiddleware::class
             ],
             'priority'   => 10000,
         ],
 
         'routing' => [
+
             'middleware' => [
                 Zend\Expressive\Container\ApplicationFactory::ROUTING_MIDDLEWARE,
-
                 \Zend\Expressive\Middleware\ImplicitHeadMiddleware::class,
                 \Zend\Expressive\Middleware\ImplicitOptionsMiddleware::class,
                 \Zend\Expressive\Helper\UrlHelperMiddleware::class,

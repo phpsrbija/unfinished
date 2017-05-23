@@ -13,4 +13,20 @@ return [
             'error'  => ['templates/error'],
         ],
     ],
+
+    //'view_helpers' => [
+    //    'factories' => [
+    //        'basePath' => Blast\BaseUrl\BasePathViewHelperFactory::class,
+    //    ],
+    //],
+
+    'view_helpers' => [
+        'aliases'   => [
+            'basePath' => Blast\BaseUrl\BasePathHelper::class,
+        ],
+        'factories' => [
+            Blast\BaseUrl\BasePathHelper::class => Blast\BaseUrl\BasePathViewHelperFactory::class,
+        ],
+    ],
+
 ];
