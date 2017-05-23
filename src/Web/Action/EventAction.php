@@ -63,12 +63,17 @@ class EventAction
     {
         $eventSlug = $request->getAttribute('event_slug');
         $event     = $this->eventService->fetchEventBySlug($eventSlug);
-        $parts = explode('/', $event->event_url);
-        $attendees = $this->meetupService->getMeetupAttendees($parts[count($parts) - 2]);
+        $attendees = [];
+
+        // Fetch going ppl
+        if(strpos($event->event_url, 'meetup.com') !== false) {
+            $parts     = explode('/', $event->event_url);
+            $attendees = $this->meetupService->getMeetupAttendees($parts[count($parts) - 2]);
+        }
 
         return new HtmlResponse($this->template->render('web::event', [
-            'layout' => 'layout/web',
-            'event'  => $event,
+            'layout'    => 'layout/web',
+            'event'     => $event,
             'attendees' => $attendees
         ]));
     }
