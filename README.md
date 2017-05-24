@@ -32,16 +32,21 @@ Such a way will lead us to easier:
 
 ### Reafctoring 
 
-- Introduce a new package "Page" for a single pages like "about us"
-- Add type to the category (post, video, event, discussion...)
-- Pull apart Article package into separated packages per Article type. Packages: PostArticle, VideoArticle, EventArticle, DiscussionArticle
-- Get rid of the Core package as completely unnecessary package
-- Refactor Admin package to hold only layout.phtm with admin style (css/html)
-- Create AdminUser package
-- Create AdminAcl package
+- [ ] Introduce a new package "Page" for a single pages like "about us"
+- [ ] Add type to the category (post, video, event, discussion...)
+- [ ] Pull apart current **Article** package into separated packages per article type, allowing easy to add new type or remove. New packages would be: 
+     - [ ] PostArticle, 
+     - [ ] VideoArticle, 
+     - [ ] EventArticle, 
+     - [ ] DiscussionArticle
+     
+- [ ] Get rid of the Core package as completely unnecessary package
+- [ ] Refactor Admin package to hold only layout.phtm with admin style (css/html)
+- [ ] Create AdminUser package
+- [ ] Create AdminAcl package
 
 
 ### New packages
-- Contact Us
-- News Letter
+- [ ] Contact Us
+- [x] News Letter
 
