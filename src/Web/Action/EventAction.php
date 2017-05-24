@@ -65,6 +65,7 @@ class EventAction
         $event     = $this->eventService->fetchEventBySlug($eventSlug);
         $attendees = [];
 
+        var_dump($event);
         // Fetch going ppl
         if(strpos($event->event_url, 'meetup.com') !== false) {
             $parts     = explode('/', $event->event_url);
