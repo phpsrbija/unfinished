@@ -21,13 +21,15 @@
     </ul>
 
     <div class="event-wrapper">
-        <div class="event-status-title">Naredna dešavanja</div>
+        <?php if($futureEvents->count() > 1): ?>
+            <div class="event-status-title">Naredna dešavanja</div>
+        <?php endif; ?>
 
         <div class="event-mid-wrapper">
             <?php foreach($futureEvents as $event): ?>
                 <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="event"
-                   data-title="<?=$event->title?>"
-                   data-image="<?= 'http://' . $_SERVER['HTTP_HOST'] . $event->main_img?>">
+                   data-title="<?= $event->title ?>"
+                   data-image="<?= 'http://' . $_SERVER['HTTP_HOST'] . $event->main_img ?>">
                     <div class="image-wrapper-none">
                         <img src="<?= $event->main_img ?>">
 
@@ -58,14 +60,13 @@
                 </a>
             </div>
         </div>
-
         <div class="event-finished">
             <div class="event-status-title">Prethodna dešavanja</div>
             <div class="event-mid-wrapper">
                 <?php foreach($pastEvents as $event): ?>
                     <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="event"
-                       data-title="<?=$event->title?>"
-                       data-image="<?= 'http://' . $_SERVER['HTTP_HOST'] . $event->main_img?>">
+                       data-title="<?= $event->title ?>"
+                       data-image="<?= 'http://' . $_SERVER['HTTP_HOST'] . $event->main_img ?>">
                         <div class="image-wrapper-none">
                             <img src="<?= $event->main_img ?>"/>
 
@@ -95,7 +96,6 @@
         </div>
     </div>
 </div>
-
 <div class="half-pagination">
     <?= $this->paginationControl($pastEvents, 'Sliding', 'article/pagination', ['route' => 'events']) ?>
 </div>
