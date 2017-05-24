@@ -14,17 +14,32 @@ vagrant up
 
 Open in your browser unfinished.dev and voila!
 
+## Our main philosophy of software architecture
 
-Road Map
+Packages, packages and packages... 
 
-## Standard packages
+
+Main goal is to break all code to fully separated packages with no dependencies. 
+If some package have dependence with other that should relay in composer.json
+For eg. article can have dependence from category package.
+
+Such a way will lead us to easier: 
+- Adding new features as separated package (scale by team)
+- Replace or refactor some functionality or whole package - not whole app 
+- Software versioning - Versioning of functionality through package versioning
+
+## Road Map
 
 ### Reafctoring 
 
-- Break article_categories into single category
-- Introduce a new package "Page"
+- Introduce a new package "Page" for a single pages like "about us"
 - Add type to the category (post, video, event, discussion...)
-- Pull apart Article package into separated packages per Article Type
+- Pull apart Article package into separated packages per Article type. Packages: PostArticle, VideoArticle, EventArticle, DiscussionArticle
+- Get rid of the Core package as completely unnecessary package
+- Refactor Admin package to hold only layout.phtm with admin style (css/html)
+- Create AdminUser package
+- Create AdminAcl package
+
 
 ### New packages
 - Contact Us
