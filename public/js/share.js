@@ -1,5 +1,5 @@
 //can come from config and be a 'global' var
-var facebookAppId = 221979587895376;
+var facebookAppId = 714501398737847;
 
 window.fbAsyncInit = function(){
     FB.init({appId: facebookAppId, status: true, cookie: true, xfbml: true });
