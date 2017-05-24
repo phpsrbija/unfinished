@@ -18,18 +18,12 @@
         <div class="event-text">
             <?= $event->body ?>
 
-            <!--
-            <div class="show-more">
-                <a class="btn btn-white btn-block" href="#">Ostavite komentar</a>
-            </div>
-            -->
+            <?= $this->partial('templates::partial/disqus.phtml'); ?>
         </div>
 
         <div class="event-description">
             <iframe frameborder="0" style="border:0" allowfullscreen
                     src="https://maps.google.com/maps?q=<?= $event->latitude ?>,<?= $event->longitude ?>&hl=es;z=14&amp;output=embed"></iframe>
-
-
             <ul class="list-users">
                 <li>
                     <div class="user-img">
@@ -44,8 +38,9 @@
                                 <?php if(isset($attendee->member_photo)): ?>
                                     <img src="<?= $attendee->member_photo->thumb_link ?>" alt="User image">
                                 <?php else: // @TODO hardcoded random user's default avatar, meetup.com api does not provide that image always, we need fallback ?>
-                                    <img src="https://secure.meetupstatic.com/photos/member/e/4/7/a/thumb_256738490.jpeg"
-                                         alt="User image">
+                                    <img
+                                        src="https://secure.meetupstatic.com/photos/member/e/4/7/a/thumb_256738490.jpeg"
+                                        alt="User image">
                                 <?php endif; ?>
                             </div>
                             <strong><?php echo $attendee->member->name ?></strong>
@@ -59,8 +54,6 @@
         </div>
     </div>
 </div>
-
-<?= $this->partial('templates::partial/disqus.phtml'); ?>
 
 
 <!--

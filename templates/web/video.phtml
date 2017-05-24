@@ -13,18 +13,10 @@
         </div>
         <div class="video-single-wrapper">
             <?= $this->partial('templates::partial/socialShares.phtml', ['item' => $video]); ?>
-
             <div class="video-text">
-
                 <?= $video->body ?>
 
-                <!--
-                <div class="show-more">
-                    <a class="btn btn-white btn-block" href="/comments/1">
-                        Prikaži 25 komentara
-                    </a>
-                </div>
-                -->
+                <?= $this->partial('templates::partial/disqus.phtml'); ?>
             </div>
         </div>
     </div>
@@ -49,5 +41,3 @@
     </div>
     -->
 </div>
-
-<?= $this->partial('templates::partial/disqus.phtml'); ?>
