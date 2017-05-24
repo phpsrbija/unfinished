@@ -44,6 +44,8 @@ Such a way will lead us to easier:
 - [ ] Refactor Admin package to hold only layout.phtm with admin style (css/html)
 - [ ] Create AdminUser package
 - [ ] Create AdminAcl package
+- [ ] Better naming of variables/functions & write the documentation
+- [ ] Devops things as well as rise up code coverage with Unit testing
 
 
 ### New packages
