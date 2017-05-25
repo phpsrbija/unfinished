@@ -14,7 +14,7 @@ window.fbAsyncInit = function(){
 }(document, /*debug*/ false));
 
 function postToFbFeed(title, url, image){
-    var obj = {method: 'feed', link: url, picture: image, name: title}; //, description: desc
+    var obj = {method: 'feed', link: url, picture: image, name: title, app_id: facebookAppId}; //, description: desc
     function callback(response){}
     FB.ui(obj, callback);
 }
