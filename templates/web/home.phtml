@@ -162,7 +162,7 @@ $this->headMeta('PHP Srbija udruženje programera', 'og:description');
     <?php foreach($this->post()->forWeb() as $count => $post): ?>
         <article class="post-box <?= $count == 0 ? 'main' : '' ?>">
             <a href="<?= $this->url('post', ['segment_1' => $post['category_slug'], 'segment_2' => $post['slug']]) ?>">
-                <div class="image-wrapper" data-desktop-active-src="<?= $post->main_img ?>">
+                <div class="image-wrapper-blank" data-desktop-active-src="<?= $post->main_img ?>">
                     <img src="<?= $post->main_img ?>"/>
 
                     <div class="post-box-hover"></div>
