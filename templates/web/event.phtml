@@ -19,7 +19,6 @@ $this->headMeta($escaper->escapeHtml($event->sub_title), 'description');
     </div>
 
     <div class="event-single-wrapper">
-        <?php var_dump($event); ?>
         <?= $this->partial('templates::partial/socialShares.phtml', ['item' => $event]); ?>
 
         <div class="event-text">
@@ -38,7 +37,7 @@ $this->headMeta($escaper->escapeHtml($event->sub_title), 'description');
                     </div>
                     <strong>PHP Srbija</strong> Organizer, Event Host
                 </li>
-                <?php foreach($attendees as $ctn => $attendee): if($ctn > 10) break; //var_dump($attendee->member_photo); die(); ?>
+                <?php foreach($attendees as $ctn => $attendee): if($ctn > 10) break; ?>
                     <?php if($attendee->response === 'yes'): ?>
                         <li>
                             <div class="user-img">
