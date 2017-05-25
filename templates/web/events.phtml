@@ -36,7 +36,7 @@ $this->headMeta($escaper->escapeHtml($event->sub_title), 'description');
                 <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="event"
                    data-title="<?= $event->title ?>"
                    data-image="<?= 'http://' . $_SERVER['HTTP_HOST'] . $event->main_img ?>">
-                    <div class="image-wrapper-none">
+                    <div class="image-wrapper-none image-transition">
                         <img src="<?= $event->main_img ?>">
 
                         <div class="date-outer-wrapper">
@@ -73,7 +73,7 @@ $this->headMeta($escaper->escapeHtml($event->sub_title), 'description');
                     <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="event"
                        data-title="<?= $event->title ?>"
                        data-image="<?= 'http://' . $_SERVER['HTTP_HOST'] . $event->main_img ?>">
-                        <div class="image-wrapper-none">
+                        <div class="image-wrapper-none image-transition">
                             <img src="<?= $event->main_img ?>"/>
 
                             <div class="date-outer-wrapper">

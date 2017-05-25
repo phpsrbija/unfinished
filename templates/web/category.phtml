@@ -24,7 +24,7 @@ $this->headMeta($escaper->escapeHtml($currentCategory->name), 'description');
                 <?php foreach($posts as $post): ?>
                     <a href="<?= $this->url('post', ['segment_1' => $post->category_slug, 'segment_2' => $post->slug]) ?>"
                        class="link blog">
-                        <div class="image-wrapper-none">
+                        <div class="image-wrapper-none image-transition">
                             <img src="<?= $post->main_img ?>">
 
                             <div class="blog-box-hover"></div>
