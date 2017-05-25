@@ -1,3 +1,9 @@
+<?php
+$escaper = (new \Zend\Escaper\Escaper);
+$this->headTitle($escaper->escapeHtml($post->title));
+$this->headMeta($escaper->escapeHtml($post->lead), 'description');
+?>
+
 <div class="blog-page-single">
     <div class="headline">
         <div class="image" style="background-image: url('<?= $post->featured_img ?>')"></div>

@@ -1,3 +1,7 @@
+<?php
+$escaper = (new \Zend\Escaper\Escaper);
+$this->headMeta($escaper->escapeHtml('Početna strana PHPSrbija web sajta.'), 'description');
+?>
 <!-- First Event -->
 <a href="#" class="link active-news">
     <div class="active-news-box" data-mobile-active-src="" data-tablet-active-src="" data-desktop-active-src="">

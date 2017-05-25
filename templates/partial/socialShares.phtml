@@ -1,14 +1,28 @@
 <?php
-//var_dump($item->type);
-//die();
-if ($item->type == 1) {
-    $url = 'http://phpsrbija.rs' . $this->url('post', ['segment_1' => $item->category_slug, 'segment_2' => $item->slug]);
-} else if ($item->type == 2) {
-    $url = 'http://phpsrbija.rs' . $this->url('video', ['video_slug' => $item->slug]);
-} else if ($item->type == 3) {
-    $url = 'http://phpsrbija.rs' . $this->url('event', ['event_slug' => $item->slug]);
+
+$escaper = new \Zend\Escaper\Escaper;
+$domain  = "http://$_SERVER[HTTP_HOST]";
+
+if($item->type == 1) {
+    $url         = $domain . $this->url('post', ['segment_1' => $item->category_slug, 'segment_2' => $item->slug]);
+    $description = $item->lead;
+} else if($item->type == 2) {
+    $url         = $domain . $this->url('video', ['video_slug' => $item->slug]);
+    $description = $item->lead;
+} else if($item->type == 3) {
+    $url         = $domain . $this->url('event', ['event_slug' => $item->slug]);
+    $description = $item->sub_title;
 }
+
 ?>
+
+<!-- for Facebook -->
+<?php $this->headMeta($escaper->escapeHtml($item->title), 'og:title'); ?>
+<?php $this->headMeta($escaper->escapeHtml('article'), 'og:type'); ?>
+<?php $this->headMeta($url . $item->main_img, 'og:image'); ?>
+<?php $this->headMeta($escaper->escapeHtml($url), 'og:url'); ?>
+<?php $this->headMeta($escaper->escapeHtml($description), 'og:description'); ?>
+
 <div class="social-share">
     <div class="social-icons social-icon__vertical">
         <div class="social-icon-shared">
@@ -16,14 +30,14 @@ if ($item->type == 1) {
             <span>Podeljeno</span>
         </div>
 
-        <a href="<?=$url?>" target="_blank" data-title="<?=$item->title?>"
-           data-image="<?= 'http://' . $_SERVER['HTTP_HOST'] . $item->main_img?>">
+        <a href="<?= $url ?>" target="_blank" data-title="<?= $item->title ?>"
+           data-image="<?= 'http://' . $_SERVER['HTTP_HOST'] . $item->main_img ?>">
             <button class="btn btn-white social facebook-share icon-facebook"></button>
         </a>
-        <a href="<?=$url?>" target="_blank" data-title="<?=$item->title?>" data-image="<?=$item->main_img?>">
+        <a href="<?= $url ?>" target="_blank" data-title="<?= $item->title ?>" data-image="<?= $item->main_img ?>">
             <button class="btn btn-white social twitter-share icon-twitter"></button>
         </a>
-        <a href="<?=$url?>" target="_blank" data-title="<?=$item->title?>" data-image="<?=$item->main_img?>">
+        <a href="<?= $url ?>" target="_blank" data-title="<?= $item->title ?>" data-image="<?= $item->main_img ?>">
             <button class="btn btn-white social linkedin-share icon-linkedin"></button>
         </a>
     </div>

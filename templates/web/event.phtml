@@ -1,3 +1,9 @@
+<?php
+$escaper = (new \Zend\Escaper\Escaper);
+$this->headTitle($escaper->escapeHtml($event->title));
+$this->headMeta($escaper->escapeHtml($event->sub_title), 'description');
+?>
+
 <div class="event-page">
     <div class="headline">
         <div class="headline-container">
@@ -39,8 +45,8 @@
                                     <img src="<?= $attendee->member_photo->thumb_link ?>" alt="User image">
                                 <?php else: // @TODO hardcoded random user's default avatar, meetup.com api does not provide that image always, we need fallback ?>
                                     <img
-                                        src="https://secure.meetupstatic.com/photos/member/e/4/7/a/thumb_256738490.jpeg"
-                                        alt="User image">
+                                            src="https://secure.meetupstatic.com/photos/member/e/4/7/a/thumb_256738490.jpeg"
+                                            alt="User image">
                                 <?php endif; ?>
                             </div>
                             <strong><?php echo $attendee->member->name ?></strong>

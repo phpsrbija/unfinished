@@ -1,4 +1,10 @@
-<?php $event = $futureEvents->count() ? $futureEvents->current() : $pastEvents->getItem(0); ?>
+<?php
+$event   = $futureEvents->count() ? $futureEvents->current() : $pastEvents->getItem(0);
+$escaper = (new \Zend\Escaper\Escaper);
+$this->headTitle($escaper->escapeHtml($event->title));
+$this->headMeta($escaper->escapeHtml($event->sub_title), 'description');
+?>
+
 <div class="event-page">
     <div class="headline">
         <div class="headline-container">

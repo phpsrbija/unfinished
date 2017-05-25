@@ -1,3 +1,8 @@
+<?php
+$escaper = (new \Zend\Escaper\Escaper);
+$this->headTitle($escaper->escapeHtml($currentCategory->name));
+$this->headMeta($escaper->escapeHtml($currentCategory->name), 'description');
+?>
 <div class="blog-page">
     <!-- Categories -->
     <div class="headline"><?= $currentCategory->name; ?></div>
