@@ -152,7 +152,7 @@ $this->headMeta($escaper->escapeHtml('Početna strana PHPSrbija web sajta.'), 'd
     <div class="headline">Ostali Članci & Aktuelnosti</div>
     <?php foreach($this->post()->forWeb() as $count => $post): ?>
         <article class="post-box <?= $count == 0 ? 'main' : '' ?>">
-            <div class="image-wrapper image-transition" data-desktop-active-src="<?= $post->main_img ?>">
+            <div class="image-wrapper" data-desktop-active-src="<?= $post->main_img ?>">
                 <img src="<?= $post->main_img ?>"/>
                 <div class="post-box-hover"></div>
             </div>
