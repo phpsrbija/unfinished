@@ -67,7 +67,7 @@ $this->headMeta($escaper->escapeHtml('Početna strana PHPSrbija web sajta.'), 'd
         <?php foreach($this->category()->forWeb() as $category): ?>
             <?php foreach($category['posts'] as $post): ?>
                 <div class="forum-box" data-active-tag="<?= strtolower($category['name']) ?>">
-                    <a href="#" class="image-wrapper image-transition">
+                    <a href="#" class="image-wrapper">
                         <img src="<?= $post['face_img'] ?>"/>
                         <div class="name"><?= $post['first_name'] . ' ' . $post['last_name'] ?></div>
                     </a>
