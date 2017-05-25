@@ -1,3 +1,9 @@
+<?php
+$escaper = (new \Zend\Escaper\Escaper);
+$this->headTitle($escaper->escapeHtml($video->title));
+$this->headMeta($escaper->escapeHtml($video->lead), 'description');
+?>
+
 <div class="video-single">
     <div class="headline-video">
         <div class="video-container-wraper">

@@ -1,4 +1,10 @@
-<?php $event = $futureEvents->count() ? $futureEvents->current() : $pastEvents->getItem(0); ?>
+<?php
+$event   = $futureEvents->count() ? $futureEvents->current() : $pastEvents->getItem(0);
+$escaper = (new \Zend\Escaper\Escaper);
+$this->headTitle($escaper->escapeHtml($event->title));
+$this->headMeta($escaper->escapeHtml($event->sub_title), 'description');
+?>
+
 <div class="event-page">
     <div class="headline">
         <div class="headline-container">
@@ -30,7 +36,7 @@
                 <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="event"
                    data-title="<?= $event->title ?>"
                    data-image="<?= 'http://' . $_SERVER['HTTP_HOST'] . $event->main_img ?>">
-                    <div class="image-wrapper-none">
+                    <div class="image-wrapper-none image-transition">
                         <img src="<?= $event->main_img ?>">
 
                         <div class="date-outer-wrapper">
@@ -67,7 +73,7 @@
                     <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="event"
                        data-title="<?= $event->title ?>"
                        data-image="<?= 'http://' . $_SERVER['HTTP_HOST'] . $event->main_img ?>">
-                        <div class="image-wrapper-none">
+                        <div class="image-wrapper-none image-transition">
                             <img src="<?= $event->main_img ?>"/>
 
                             <div class="date-outer-wrapper">
