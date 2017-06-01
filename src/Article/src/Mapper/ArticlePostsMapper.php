@@ -59,6 +59,7 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
         $select = $this->getSql()->select()
             ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
             ->join('category', 'category.category_uuid = articles.category_uuid', ['category_slug' => 'slug'])
+            ->where(['articles.status' => 1])
             ->limit(1);
 
         if($direction > 0) {
