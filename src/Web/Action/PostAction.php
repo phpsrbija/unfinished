@@ -57,6 +57,7 @@ class PostAction
             $postSlug     = $urlSlug1;
         }
 
+
         $post = $this->postService->fetchSingleArticleBySlug($postSlug);
 
         list($previousPost, $nextPost) = $this->postService->fetchNearestArticle($post->published_at);
