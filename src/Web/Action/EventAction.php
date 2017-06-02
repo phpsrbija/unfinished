@@ -43,7 +43,8 @@ class EventAction
         EventService $eventService,
         CategoryService $categoryService,
         MeetupApiService $meetupService
-    ) {
+    )
+    {
         $this->template        = $template;
         $this->eventService    = $eventService;
         $this->categoryService = $categoryService;
@@ -66,10 +67,14 @@ class EventAction
         $attendees = [];
 
         // Fetch going ppl
-        if(strpos($event->event_url, 'meetup.com') !== false) {
-            $parts     = explode('/', $event->event_url);
-            $attendees = $this->meetupService->getMeetupAttendees($parts[count($parts) - 2]);
-            shuffle($attendees);
+        try {
+            if(strpos($event->event_url, 'meetup.com') !== false) {
+                $parts     = explode('/', $event->event_url);
+                $attendees = $this->meetupService->getMeetupAttendees($parts[count($parts) - 2]);
+                shuffle($attendees);
+            }
+        }
+        catch(\Exception $e) {
         }
 
         return new HtmlResponse($this->template->render('web::event', [
