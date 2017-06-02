@@ -51,14 +51,16 @@ class PostAction
         if($urlSlug2) {
             $categorySlug = $urlSlug1;
             $postSlug     = $urlSlug2;
-        }
-        else {
+        } else {
             $categorySlug = null;
             $postSlug     = $urlSlug1;
         }
 
-
         $post = $this->postService->fetchSingleArticleBySlug($postSlug);
+
+        if(!$post) {
+            return $next($request, $response);
+        }
 
         list($previousPost, $nextPost) = $this->postService->fetchNearestArticle($post->published_at);
 
