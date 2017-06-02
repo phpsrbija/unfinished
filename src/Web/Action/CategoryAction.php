@@ -57,12 +57,15 @@ class CategoryAction
         $category   = $this->categoryService->getCategoryBySlug($urlSlug);
 
         if(!$category) {
+            if($urlSlug !== 'all') {
+                return $next($request, $response);
+            }
+
             $category = (object)[
                 'name' => 'Svi članci',
                 'slug' => 'all'
             ];
         }
-
         $posts = $this->categoryService->getCategoryPostsPagination($category, $page);
 
         return new HtmlResponse($this->template->render('web::category', [

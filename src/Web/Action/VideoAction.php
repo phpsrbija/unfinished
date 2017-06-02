@@ -55,6 +55,10 @@ class VideoAction
         $videoSlug = $request->getAttribute('video_slug');
         $video     = $this->videoService->fetchVideoBySlug($videoSlug);
 
+        if(!$video) {
+            return $next($request, $response);
+        }
+
         return new HtmlResponse($this->template->render('web::video', [
             'layout' => 'layout/web',
             'video'  => $video

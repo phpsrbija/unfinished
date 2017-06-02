@@ -66,6 +66,10 @@ class EventAction
         $event     = $this->eventService->fetchEventBySlug($eventSlug);
         $attendees = [];
 
+        if(!$event) {
+            return $next($request, $response);
+        }
+
         // Fetch going ppl
         try {
             if(strpos($event->event_url, 'meetup.com') !== false) {
