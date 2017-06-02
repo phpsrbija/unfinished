@@ -25,5 +25,26 @@ class ACategory extends AbstractSeed
 
             $category->insert($data)->save();
         }
+
+        // Insert special category - videos
+        $id        = $faker->uuid;
+        $mysqlUuid = (new MysqlUuid\Uuid($id))->toFormat(new MysqlUuid\Formats\Binary());
+        $category->insert([
+            'category_uuid' => $mysqlUuid,
+            'category_id'   => $id,
+            'name'          => 'Videos',
+            'slug'          => 'videos'
+        ])->save();
+
+        // Insert special category - events
+        $id        = $faker->uuid;
+        $mysqlUuid = (new MysqlUuid\Uuid($id))->toFormat(new MysqlUuid\Formats\Binary());
+        $category->insert([
+            'category_uuid' => $mysqlUuid,
+            'category_id'   => $id,
+            'name'          => 'Events',
+            'slug'          => 'events'
+        ])->save();
+
     }
 }
