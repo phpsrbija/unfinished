@@ -51,12 +51,6 @@ class PostFilter implements InputFilterAwareInterface
                 'filters'  => [['name' => 'Boolean']],
             ]);
 
-            $inputFilter->add([
-                'name'     => 'is_homepage',
-                'required' => false,
-                'filters'  => [['name' => 'Boolean']],
-            ]);
-
             $this->inputFilter = $inputFilter;
         }
 

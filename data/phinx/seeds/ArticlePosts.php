@@ -49,7 +49,6 @@ class ArticlePosts extends AbstractSeed
                 'featured_img' => $featuredImages[rand(0, (count($featuredImages) - 1))],
                 'main_img'     => $mainImages[rand(0, (count($mainImages) - 1))],
                 'has_layout'   => true,
-                'is_homepage'  => false,
             ];
 
             $articlePosts->insert($data)->save();

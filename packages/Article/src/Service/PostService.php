@@ -119,10 +119,6 @@ class PostService extends ArticleService
                 'article_uuid' => $article['article_uuid']
             ];
 
-        if($post['is_homepage']) {
-            $this->articlePostsMapper->update(['is_homepage' => false]);
-        }
-
         $this->articleMapper->insert($article);
         $this->articlePostsMapper->insert($post);
     }
@@ -156,10 +152,6 @@ class PostService extends ArticleService
             unset($post['main_img']);
         }
 
-        if($post['is_homepage']) {
-            $this->articlePostsMapper->update(['is_homepage' => false]);
-        }
-
         $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
         $this->articlePostsMapper->update($post, ['article_uuid' => $article['article_uuid']]);
     }
@@ -179,13 +171,6 @@ class PostService extends ArticleService
     public function getForSelect()
     {
         return $this->articlePostsMapper->getAll();
-    }
-
-    public function getHomepage()
-    {
-        $article = $this->articlePostsMapper->getHomepage();
-
-        return $article;
     }
 
     public function getCategories($articleId)
