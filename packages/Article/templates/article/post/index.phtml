@@ -45,12 +45,7 @@
                                     <th>
                                         <span class="label label-<?= $one->status ? 'success' : 'danger' ?>"><?= $one->status ? 'PUBLISHED' : 'OFF' ?></span>
                                     </th>
-                                    <td>
-                                        <?= $one->title ?>
-                                        <?php if($one->is_homepage): ?>
-                                            <span class="label label-info pull-right">HOMEPAGE</span>
-                                        <?php endif; ?>
-                                    </td>
+                                    <td><?= $one->title ?></td>
                                     <td><?= $one->category_name ?></td>
                                     <td><?= $one->slug; ?></td>
                                     <td><?= date("d.m.Y H:i", strtotime($one->published_at)); ?></td>

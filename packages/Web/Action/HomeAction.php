@@ -45,19 +45,15 @@ class HomeAction
      */
     public function __invoke(Request $request, Response $response, callable $next = null): HtmlResponse
     {
-        // Set custom html from view file
-        return new HtmlResponse($this->template->render('web::home', ['layout' => 'layout/web']));
-
+        // @todo we need to get homepage from Pages package at least for SEO tags
         //$article = $this->postService->getHomepage();
         //
         //if(!$article) {
         //    throw new \Exception('You need to set homepage!', 404);
         //}
-        //
-        //return new HtmlResponse($this->template->render('web::home', [
-        //    'article' => $article,
-        //    'layout'  => $article->has_layout ? 'layout/web' : false
-        //]));
+
+        // Set custom html from view file
+        return new HtmlResponse($this->template->render('web::home', ['layout' => 'layout/web']));
     }
 
 }
