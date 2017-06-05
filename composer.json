@@ -41,14 +41,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Web\\": "src/Web/",
-            "Core\\": "src/Core/",
-            "Admin\\": "src/Admin/src/",
-            "Menu\\": "src/Menu/src/",
-            "Category\\": "src/Category/src/",
-            "Article\\": "src/Article/src/",
-            "Newsletter\\": "src/Newsletter/src/",
-            "Page\\": "src/Page/src/"
+            "Web\\": "packages/Web/",
+            "Core\\": "packages/Core/",
+            "Admin\\": "packages/Admin/src/",
+            "Menu\\": "packages/Menu/src/",
+            "Category\\": "packages/Category/src/",
+            "Article\\": "packages/Article/src/",
+            "Newsletter\\": "packages/Newsletter/src/",
+            "Page\\": "packages/Page/src/"
         }
     },
     "scripts": {
