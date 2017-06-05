@@ -9,8 +9,6 @@ use MysqlUuid\Formats\Binary;
 use Core\Mapper\AdminUsersMapper;
 use Core\Filter\AdminUserFilter;
 use Core\Exception\FilterException;
-use Zend\Db\TableGateway\TableGateway;
-use Zend\Db\Sql\Predicate\Expression;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 use Zend\Crypt\Password\Bcrypt;

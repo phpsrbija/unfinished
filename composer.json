@@ -47,7 +47,8 @@
             "Menu\\": "src/Menu/src/",
             "Category\\": "src/Category/src/",
             "Article\\": "src/Article/src/",
-            "Newsletter\\": "src/Newsletter/src/"
+            "Newsletter\\": "src/Newsletter/src/",
+            "Page\\": "src/Page/src/"
         }
     },
     "scripts": {
