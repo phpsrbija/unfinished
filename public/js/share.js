@@ -35,8 +35,9 @@ function postToLinkedIn(title, link) {
 function getFacebookEngagementCount(url) {
     var count = 0;
     $.get(url, function(json) {
-        if (typeof json.og_object != "undefined") {
-            count = JSON.stringify(json.og_object.engagement.count);
+        if (typeof json.share != "undefined") {
+            count = JSON.stringify(json.share.share_count);
+            count += JSON.stringify(json.share.comment_count);
         }
     }, 'JSON');
 
