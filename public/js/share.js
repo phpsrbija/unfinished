@@ -32,37 +32,37 @@ function postToLinkedIn(title, link) {
     window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=400,width=400')
 }
 
-function getFacebookEngagementCount(url) {
+function setFacebookEngagementCount(url) {
     var count = 0;
     $.get(url, function(json) {
         if (typeof json.share != "undefined") {
-            count = JSON.stringify(json.share.share_count);
-            count += JSON.stringify(json.share.comment_count);
+            count = parseInt($('.total-shares').html());
+            count += parseInt(json.share.share_count);
+            count += parseInt(json.share.comment_count);
+
+            $('.total-shares').html(count);
         }
     }, 'JSON');
-
-    return count;
 }
 
-function getLinkedInEngagementCount(url) {
+function setLinkedInEngagementCount(url) {
     var count = 0;
     $.get(url, function(json) {
         if (typeof json.count != "undefined") {
-            count = json.count;
+            count = parseInt($('.total-shares').html());
+            count += parseInt(json.count);
+
+            $('.total-shares').html(count);
         }
     }, 'JSON');
-
-    return count;
 }
 
 function setSocialEngagementCount(element) {
     var count = 0;
     var lnUrl = 'http://www.linkedin.com/countserv/count/share?url=' + element.prop('href') + '&format=json';
-    var fbUrl = 'http://graph.facebook.com/v2.2/?id=' + element.prop('href') + '&fields=og_object{engagement}';
-    count += getFacebookEngagementCount(fbUrl);
-    // count += getLinkedInEngagementCount(lnUrl); cors.....
-
-    $('.total-shares').html(count);
+    var fbUrl = 'http://graph.facebook.com/v2.2/?id=' + element.prop('href');
+    setFacebookEngagementCount(fbUrl);
+    //setLinkedInEngagementCount(lnUrl); cors.....
 }
 
 $(document).ready(function() {
