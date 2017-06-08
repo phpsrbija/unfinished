@@ -1,0 +1,207 @@
+<?php /** @var \Page\Entity\Page $page */ ?>
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    <?php if($page && $page->getPageId()): ?>
+                        <h2>Page: "<?= $page->getTitle() ?>"</h2>
+                    <?php else: ?>
+                        <h2>Create new Page</h2>
+                    <?php endif; ?>
+                </h2>
+                <a href="<?= $this->url('admin.pages') ?>" class="btn btn-default pull-right">
+                    <i class="fa fa-reply"></i> Back
+                </a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content"><br/>
+                <form class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data"
+                      action="<?= $this->url('admin.pages.action', ['action' => 'save', 'id' => $page && $page->getPageId() ? $page->getPageId() : 0]) ?>">
+                    <div class="row">
+                        <div class="col-md-8 col-xs-12">
+                            <!-- Content part -->
+                            <div class="form-group">
+                                <label class="control-label col-md-offset-9 col-md-2 col-xs-12">WYSIWYG</label>
+                                <div class="control-label col-md-1 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1" id="is_wysiwyg_editor"
+                                           name="is_wysiwyg_editor" <?= ($page && $page->getIsWysiwygEditor()) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->is_wysiwyg_editor) ? implode('. ', (array)$errors->is_wysiwyg_editor) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <textarea class="form-control" id="body" name="body" placeholder="Write content..."
+                                              rows="30"><?= $page ? $page->getBody() : '' ?></textarea>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->body) ? implode('. ', (array)$errors->body) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- \Content part -->
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                            <!-- Rest configuration for Page -->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Title</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="title" placeholder="Title"
+                                           value="<?= $page ? $page->getTitle() : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->title) ? implode('. ', (array)$errors->title) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <textarea class="form-control" rows="3" name="description"
+                                              placeholder="Description..."><?= $page ? $page->getDescription() : '' ?></textarea>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->description) ? implode('. ', (array)$errors->description) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">URL Slug</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="slug" placeholder="URL Slug"
+                                           value="<?= $page ? $page->getSlug() : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->slug) ? implode('. ', (array)$errors->slug) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Main image</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="file" class="form-control" name="main_img" placeholder="Main image"
+                                           value="<?= $page ? $page->getMainImg() : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->main_img) ? implode('. ', (array)$errors->main_img) : ''); ?>
+                                        </li>
+                                    </ul>
+                                    <?php if($page && $page->getMainImg()): ?>
+                                        <img src="<?= $page->getMainImg() ?>" style="max-height: 100px;"/>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Published</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1" name="is_active"
+                                        <?= $page && $page->getIsActive() ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->is_active) ? implode('. ', (array)$errors->is_active) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Has Layout</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="has_layout" <?= ($page && $page->getHasLayout()) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->has_layout) ? implode('. ', (array)$errors->has_layout) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Homepage</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="is_homepage" <?= ($page && $page->getIsHomepage()) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->is_homepage) ? implode('. ', (array)$errors->is_homepage) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-sm-offset-3 col-md-9 col-sm-9 col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-success">Save</button>
+                                    <br/>
+                                    <a type="button" class="btn btn-default btn-block"
+                                       href="<?= $this->url('admin.pages') ?>">
+                                        Cancel
+                                    </a>
+                                    <?php if($page && $page->getPageId()): ?>
+                                        <br/>
+                                        <a href="<?= $this->url('admin.pages.action', ['action' => 'delete', 'id' => $page->getPageId()]) ?>"
+                                           onclick="if(!confirm('Are you sure?')){return false;}"
+                                           class="btn btn-danger btn-block"> Delete
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <!-- \Rest configuration for Page -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php if($page && $page->getIsWysiwygEditor()): ?>
+    <?php
+    $this->inlineScript()->appendScript("
+    $(document).ready(function() {
+        initMce('#body', '100%', 500, true);
+        $('.articleForm').on('submit', function(e) {
+            tinyMCE.triggerSave();
+        });
+    });
+    ");
+    ?>
+<?php endif; ?>
+
+<?php
+$this->inlineScript()->appendScript("
+    $(document).ready(function() {
+        //$('#published_at_calendar').daterangepicker({
+         //   timePicker24Hour: true,
+         //   timePicker: true,
+         //   locale: {
+         //       format: 'YYYY-MM-DD HH:mm:ss'
+         //   },
+         //   singleDatePicker: true
+		//}, function(start, end, label) {
+	     //   // console.log(start.toISOString(), end.toISOString(), label);
+		//});
+		
+		var changeCheckbox = document.querySelector('#is_wysiwyg_editor');
+		changeCheckbox.onchange = function() {
+		    if(changeCheckbox.checked){
+		        initMce('#body', '100%', 500, true);
+                $('.articleForm').on('submit', function(e) {
+                    tinyMCE.triggerSave();
+                });
+		    }
+		    else{
+		        tinyMCE.remove();
+		    }  
+        };
+    });
+");
+?>
+

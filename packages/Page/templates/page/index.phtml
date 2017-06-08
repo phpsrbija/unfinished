@@ -1,0 +1,88 @@
+<?php /** @var \Page\Entity\Page $page */ ?>
+<?php /** @var \Zend\Paginator\Paginator $pagination */ ?>
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Pages
+                <small> / List of pages on a web.</small>
+            </h3>
+        </div>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <a href="<?= $this->url('admin.pages.action', ['action' => 'edit', 'id' => 0]) ?>"
+                       class="btn btn-default pull-right btn-success"> Create new Page
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <?php if($pagination->getTotalItemCount() > 0): ?>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Published</th>
+                                <th>Has layout</th>
+                                <th>Title</th>
+                                <th>URL Slug</th>
+                                <th>Created</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach($pagination as $page): ?>
+                                <tr>
+                                    <th>
+                                        <span class="label label-<?= $page->getIsActive() ? 'success' : 'danger' ?>">
+                                            <?= $page->getIsActive() ? 'Yes' : 'No' ?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label label-<?= $page->getHasLayout() ? 'success' : 'danger' ?>">
+                                            <?= $page->getHasLayout() ? 'Yes' : 'No' ?>
+                                        </span>
+                                    </th>
+                                    <td>
+                                        <?= $page->getTitle() ?>
+                                        <?php if($page->getIsHomepage()): ?>
+                                            <span class="label label-info pull-right">HOMEPAGE</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?= $page->getSlug(); ?></td>
+                                    <td><?= $page->getCreatedAt('H:i d.m.Y') ?></td>
+                                    <td>
+                                        <span class="pull-right">
+                                            <a href="<?= $this->url('admin.pages.action', ['action' => 'edit', 'id' => $page->getPageId()]) ?>">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </a> &nbsp;
+                                        </span>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <?= $this->paginationControl($pagination, 'Sliding', 'page/pagination', ['route' => 'admin.pages']) ?>
+                    <?php else: ?>
+                        <div class="col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="jumbotron text-center">
+                                <h3>There are added Pages - Create one!</h3>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

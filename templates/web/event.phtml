@@ -1,3 +1,9 @@
+<?php
+$escaper = (new \Zend\Escaper\Escaper);
+$this->headTitle($escaper->escapeHtml($event->title));
+$this->headMeta($escaper->escapeHtml($event->sub_title), 'description');
+?>
+
 <div class="event-page">
     <div class="headline">
         <div class="headline-container">
@@ -8,7 +14,7 @@
             </div>
             <div class="instructor-name"><?= $event->place_name ?></div>
             <div class="event-title"><?= $event->sub_title ?></div>
-            <a href="<?= $event->event_url ?>" target="_blank" class="btn btn-blue">Prijavi se?</a>
+            <a href="<?= $event->event_url ?>" target="_blank" class="btn btn-blue">Prijavi se</a>
         </div>
     </div>
 
@@ -31,7 +37,7 @@
                     </div>
                     <strong>PHP Srbija</strong> Organizer, Event Host
                 </li>
-                <?php foreach($attendees as $ctn => $attendee): if($ctn > 10) break; //var_dump($attendee->member_photo); die(); ?>
+                <?php foreach($attendees as $ctn => $attendee): if($ctn > 10) break; ?>
                     <?php if($attendee->response === 'yes'): ?>
                         <li>
                             <div class="user-img">
@@ -39,8 +45,8 @@
                                     <img src="<?= $attendee->member_photo->thumb_link ?>" alt="User image">
                                 <?php else: // @TODO hardcoded random user's default avatar, meetup.com api does not provide that image always, we need fallback ?>
                                     <img
-                                        src="https://secure.meetupstatic.com/photos/member/e/4/7/a/thumb_256738490.jpeg"
-                                        alt="User image">
+                                            src="https://secure.meetupstatic.com/photos/member/e/4/7/a/thumb_256738490.jpeg"
+                                            alt="User image">
                                 <?php endif; ?>
                             </div>
                             <strong><?php echo $attendee->member->name ?></strong>

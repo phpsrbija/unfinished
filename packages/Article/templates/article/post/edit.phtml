@@ -1,0 +1,266 @@
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    <?php if(isset($post->article_id) && $post->article_id): ?>
+                        <h2>Post: "<?= $post->title ?>"</h2>
+                    <?php else: ?>
+                        <h2>Write new Post</h2>
+                    <?php endif; ?>
+                </h2>
+                <a href="<?= $this->url('admin.posts') ?>" class="btn btn-default pull-right">
+                    <i class="fa fa-reply"></i> Back
+                </a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content"><br/>
+                <form class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data"
+                      action="<?= $this->url('admin.posts.action', ['action' => 'save', 'id' => $post ? $post->article_id : 0]) ?>">
+                    <div class="row">
+                        <div class="col-md-8 col-xs-12">
+                            <!-- Content part -->
+                            <div class="form-group">
+
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <textarea class="form-control" id="body" name="body"
+                                              placeholder="Write content..."
+                                              rows="30"><?= $post ? $post->body : '' ?></textarea>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->body) ? implode('. ', (array)$errors->body) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- \Content part -->
+                        </div>
+                        <div class="col-md-4 col-xs-12">
+                            <!-- Rest configuration for Post -->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Title</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="title" placeholder="Title"
+                                           value="<?= $post ? $post->title : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->title) ? implode('. ', (array)$errors->title) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Published Date</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12  has-feedback">
+                                    <input type="text" class="form-control has-feedback-left" id="published_at_calendar"
+                                           name="published_at" value="<?= $post ? $post->published_at : '' ?>"
+                                           placeholder="Published Date" aria-describedby="inputSuccess2Status2">
+                                    <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->published_at) ? implode('. ', (array)$errors->published_at) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Intro</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <textarea class="form-control" rows="3" name="lead"
+                                              placeholder="Intro..."><?= $post ? $post->lead : '' ?></textarea>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->lead) ? implode('. ', (array)$errors->lead) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">URL Slug</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="text" class="form-control" name="slug" placeholder="URL Slug"
+                                           value="<?= $post ? $post->slug : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->slug) ? implode('. ', (array)$errors->slug) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Featured image</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="file" class="form-control" name="featured_img"
+                                           placeholder="Featured image"
+                                           value="<?= isset($post->featured_img) ? $post->featured_img : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->featured_img) ? implode('. ', (array)$errors->featured_img) : ''); ?>
+                                        </li>
+                                    </ul>
+                                    <?php if(isset($post->featured_img) && $post->featured_img): ?>
+                                        <img src="<?= $post->featured_img ?>" style="max-height: 100px;"/>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Main image</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="file" class="form-control" name="main_img" placeholder="Main image"
+                                           value="<?= isset($post->main_img) ? $post->main_img : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->main_img) ? implode('. ', (array)$errors->main_img) : ''); ?>
+                                        </li>
+                                    </ul>
+                                    <?php if(isset($post->main_img) && $post->main_img): ?>
+                                        <img src="<?= $post->main_img ?>" style="max-height: 100px;"/>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select class="select2 form-control" name="category_id">
+                                        <?php foreach($categories as $category): ?>
+                                            <option value="<?= $category->category_id ?>"
+                                                <?= (isset($post->category_id) && $category->category_id == $post->category_id) ? 'selected' : '' ?>>
+                                                <?= $category->name ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->category_id) ? implode('. ', (array)$errors->category_id) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Author</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <select class="select2 form-control" name="admin_user_id">
+                                        <?php foreach($this->admin()->all() as $user): ?>
+                                            <option value="<?= $user->admin_user_id ?>"
+                                                <?= (isset($post->admin_user_id) && $user->admin_user_id == $post->admin_user_id) ||
+                                                (!isset($post->admin_user_id) && $user->admin_user_id == $this->admin()->current()->admin_user_id) ? 'selected' : '' ?>>
+                                                <?= $user->first_name ?> <?= $user->last_name ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->admin_user_id) ? implode('. ', (array)$errors->admin_user_id) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Published</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="status" <?= (isset($post->status) && $post->status == 0) ? '' : 'checked'; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->status) ? implode('. ', (array)$errors->status) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Has Layout</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="has_layout" <?= (isset($post->has_layout) && $post->has_layout == 0) ? '' : 'checked'; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->has_layout) ? implode('. ', (array)$errors->has_layout) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">WYSIWYG</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1" id="is_wysiwyg_editor"
+                                           name="is_wysiwyg_editor" <?= (isset($post->is_wysiwyg_editor) && $post->is_wysiwyg_editor == 1) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->is_wysiwyg_editor) ? implode('. ', (array)$errors->is_wysiwyg_editor) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-sm-offset-3 col-md-9 col-sm-9 col-xs-12">
+                                    <button type="submit" class="btn btn-block btn-success">Save</button>
+                                    <br/>
+                                    <a type="button" class="btn btn-default btn-block"
+                                       href="<?= $this->url('admin.posts') ?>">
+                                        Cancel
+                                    </a>
+                                    <?php if(isset($post->article_id) && $post->article_id): ?>
+                                        <br/>
+                                        <a href="<?= $this->url('admin.posts.action', ['action' => 'delete', 'id' => $post->article_id]) ?>"
+                                           onclick="if(!confirm('Are you sure?')){return false;}"
+                                           class="btn btn-danger btn-block"> Delete
+                                        </a>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <!-- \Rest configuration for Post -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php if(isset($post->is_wysiwyg_editor) && $post->is_wysiwyg_editor): ?>
+    <?php
+    $this->inlineScript()->appendScript("
+    $(document).ready(function() {
+        initMce('#body', '100%', 500, true);
+        $('.articleForm').on('submit', function(e) {
+            tinyMCE.triggerSave();
+        });
+    });
+    ");
+    ?>
+<?php endif; ?>
+
+
+<?php
+$this->inlineScript()->appendScript("
+    $(document).ready(function() {
+        $('#published_at_calendar').daterangepicker({
+            timePicker24Hour: true,
+            timePicker: true,
+            locale: {
+                format: 'YYYY-MM-DD HH:mm:ss'
+            },
+            singleDatePicker: true
+		}, function(start, end, label) {
+	        // console.log(start.toISOString(), end.toISOString(), label);
+		});
+		
+		var changeCheckbox = document.querySelector('#is_wysiwyg_editor');
+		changeCheckbox.onchange = function() {
+		    if(changeCheckbox.checked){
+		        initMce('#body', '100%', 500, true);
+                $('.articleForm').on('submit', function(e) {
+                    tinyMCE.triggerSave();
+                });
+		    }
+		    else{
+		        tinyMCE.remove();
+		    }  
+        };
+    });
+");
+?>
+
+
+

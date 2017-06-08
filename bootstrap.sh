@@ -39,7 +39,7 @@ sudo apt-get install -y php-xdebug  >> /dev/null 2>&1
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
-   Create apropriate app config: /config/autoload/local.php - change it for local needs
+   Create appropriate app config: /config/autoload/local.php - change it for local needs
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
 if [ ! -f /var/www/unfinished/data/phinx/phinx.php ]; then
     cp /var/www/unfinished/data/phinx/phinx.php.dist /var/www/unfinished/data/phinx/phinx.php
@@ -72,10 +72,11 @@ fi
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
-   Create DB tables and populate it with data
+   Create DB tables and populate it with fake data
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
-cd /var/www/unfinished/data/phinx && /var/www/unfinished/vendor/bin/phinx migrate   >> /dev/null 2>&1
-
+cd /var/www/unfinished/
+vendor/bin/phinx migrate -c data/phinx/phinx.php
+vendor/bin/phinx seed:run  -c data/phinx/phinx.php
 
 # During development log every query in /tmp/mysql.log .. thanks me later
 echo "
@@ -83,13 +84,13 @@ general_log = on
 general_log_file=/tmp/mysql.log
 " >> /etc/mysql/my.cnf
 
-# mysql doesnt need to use that much ram for dev environment
+# mysql does not need to use that much ram for dev environment
 sudo sed -i '/\[mysqld\]/a table_definition_cache=200' /etc/mysql/my.cnf    >> /dev/null 2>&1
 sudo service mysql restart                                                  >> /dev/null 2>&1
 
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
-   Setup nginx Vhost and change config
+   Setup Nginx vhost and change config
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
 sudo php -r '$f = file_get_contents("/etc/nginx/nginx.conf"); $new_f = str_replace("sendfile on;", "sendfile off; client_max_body_size 12M;", $f);  file_put_contents("/etc/nginx/nginx.conf", $new_f);'
 sudo touch /etc/nginx/sites-available/unfinished.dev

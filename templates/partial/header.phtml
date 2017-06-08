@@ -1,6 +1,12 @@
 <!-- this theme support two level navigation -->
 <nav>
     <ul class="clearfix">
+        <li>
+            <a href="<?= $this->url('home')?>">
+                Početna
+            </a>
+        </li>
+
         <!-- dynamic two level menu -->
         <?php foreach($this->menu()->getHeaderMenu() as $item): ?>
             <li>

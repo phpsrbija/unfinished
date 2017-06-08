@@ -1,5 +1,9 @@
-<?php $video = $videos->getTotalItemCount() ? $videos->getItem(0) : null; ?>
-
+<?php
+$video   = $videos->getTotalItemCount() ? $videos->getItem(0) : null;
+$escaper = (new \Zend\Escaper\Escaper);
+$this->headTitle($escaper->escapeHtml($video->title));
+$this->headMeta($escaper->escapeHtml($video->lead), 'description');
+?>
 <div class="video-page">
     <div class="headline">
         <div class="image" style="background-image: url('<?= $video ? $video->featured_img : '' ?>')"></div>
