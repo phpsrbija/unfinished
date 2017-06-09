@@ -42,6 +42,11 @@ class PageService
         return $this->pageMapper->select(['page_id' => $pageId])->current();
     }
 
+    public function getHomepage()
+    {
+        return $this->pageMapper->select(['is_homepage' => true])->current();
+    }
+
     public function createPage($data)
     {
         $filter = $this->pageFilter->getInputFilter()->setData($data);

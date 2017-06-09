@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Web\Factory\Action;
 
-use Article\Service\PostService;
+use Page\Service\PageService;
 use Web\Action\HomeAction;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
@@ -24,7 +24,7 @@ class HomeActionFactory
     {
         return new HomeAction(
             $container->get(TemplateRendererInterface::class),
-            $container->get(PostService::class)
+            $container->get(PageService::class)
         );
     }
 }
