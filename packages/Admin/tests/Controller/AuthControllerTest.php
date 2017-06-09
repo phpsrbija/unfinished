@@ -144,15 +144,12 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->setMethods(['loginUser'])
             ->getMockForAbstractClass();
-        $adminUserService->expects(static::once())
-            ->method('loginUser')
-            ->will(static::throwException(new \Exception()));
         $template = $this->getMockBuilder('Zend\Expressive\Template\TemplateRendererInterface')
             ->getMockForAbstractClass();
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withParsedBody([
-            'email' => 'admin@example.org',
-            'password' => 'secret',
+            'email' => 'admin@test',
+            'password' => 'secretpass',
         ]);
         $request = $request->withAttribute('action', 'loginHandle');
         $response = new \Zend\Diactoros\Response\EmptyResponse();
@@ -165,6 +162,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
         $sessionStorage = new \Zend\Session\Storage\ArrayStorage();
         $sessionManager = new \Zend\Session\SessionManager();
         $sessionManager->setStorage($sessionStorage);
+        $sessionManager->getStorage()->user = null;
         $auth = new \Admin\Controller\AuthController($router, $template, $sessionManager, $adminUserService);
         /** @var \Zend\Diactoros\Response\HtmlResponse $response */
         $response = $auth($request, $response);
@@ -199,5 +197,44 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
         $response = $auth($request, $response);
         static::assertSame(302, $response->getStatusCode());
         static::assertSame(['http://unfinished.dev/admin'], $response->getHeader('Location'));
+    }
+
+    public function testUserLoginHandleShouldThrowExceptionAndDisplayMessage()
+    {
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+            ->disableOriginalConstructor()
+            ->setMethods(['loginUser'])
+            ->getMockForAbstractClass();
+        $adminUserService->expects(static::once())
+            ->method('loginUser')
+            ->willThrowException(new \Exception('test error'));
+        $template = $this->getMockBuilder('Zend\Expressive\Template\TemplateRendererInterface')
+            ->getMockForAbstractClass();
+        $template->expects(static::once())
+            ->method('render')
+            ->will(static::returnCallback(
+                function($tpl, $error) {
+                    return $error['error'];
+                }
+            ));
+        $request = new \Zend\Diactoros\ServerRequest();
+        $request = $request->withParsedBody([
+            'email' => 'admin@test',
+            'password' => 'secretpass',
+        ]);
+        $request = $request->withAttribute('action', 'loginHandle');
+        $response = new \Zend\Diactoros\Response\EmptyResponse();
+        $router = $this->getMockBuilder('Zend\Expressive\Router\RouterInterface')
+            ->getMockForAbstractClass();
+        $sessionStorage = new \Zend\Session\Storage\ArrayStorage();
+        $sessionManager = new \Zend\Session\SessionManager();
+        $sessionManager->setStorage($sessionStorage);
+        $sessionManager->getStorage()->user = null;
+        $auth = new \Admin\Controller\AuthController($router, $template, $sessionManager, $adminUserService);
+        /** @var \Zend\Diactoros\Response\HtmlResponse $response */
+        $response = $auth($request, $response);
+        static::assertNull($sessionManager->getStorage()->user);
+        static::assertSame(200, $response->getStatusCode());
+        static::assertSame('test error', $response->getBody()->getContents());
     }
 }
