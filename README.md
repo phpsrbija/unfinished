@@ -1,4 +1,4 @@
-# unfinished
+Page# unfinished
 
 [![Build Status](https://travis-ci.org/phpsrbija/unfinished.svg?branch=master)](https://travis-ci.org/phpsrbija/unfinished)
 [![Coverage Status](https://coveralls.io/repos/github/phpsrbija/unfinished/badge.svg?branch=master)](https://coveralls.io/github/phpsrbija/unfinished?branch=master)
@@ -35,7 +35,7 @@ Such a way will lead us to easier:
 
 ### Reafctoring 
 
-- [ ] Introduce a new package "Page" for a single pages like "about us"
+- [x] Introduce a new package "Page" for a single pages like "about us"
 - [ ] Add type to the category (post, video, event, discussion...)
 - [ ] Pull apart current **Article** package into separated packages per article type, allowing easy to add new type or remove. New packages would be: 
      - [ ] PostArticle, 
