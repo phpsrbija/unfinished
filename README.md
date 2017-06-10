@@ -10,6 +10,9 @@
 git clone https://github.com/phpsrbija/unfinished.git
 cd unfinished
 vagrant up
+
+open file /etc/hosts and at the end add one line: 
+192.168.33.3 unfinished.dev
 ```
 
 Open in your browser unfinished.dev and voila!
