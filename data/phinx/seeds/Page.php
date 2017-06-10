@@ -21,7 +21,6 @@ class Page extends AbstractSeed
             'body'              => $faker->paragraph(30),
             'slug'              => trim(preg_replace('/[^a-z0-9]/i', '-', strtolower($title)), '-'),
             'description'       => $faker->paragraph(5),
-            'featured_img'      => '',
             'main_img'          => '',
             'has_layout'        => true,
             'is_homepage'       => false,
