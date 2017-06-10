@@ -18,6 +18,9 @@ class ArticleDiscussionsMapper extends AbstractTableGateway implements AdapterAw
         $this->adapter = $adapter;
     }
 
+    /**
+     * @return \Zend\Db\Sql\Select
+     */
     public function getPaginationSelect()
     {
         return $this->getSql()->select()

@@ -45,16 +45,16 @@ class VideoController extends AbstractController
      * VideoController constructor.
      *
      * @param Template $template
+     * @param Router $router
      * @param VideoService $videoService
      * @param SessionManager $session
-     * @param Router $router
      * @param CategoryService $categoryService
      */
     public function __construct(
         Template $template,
+        Router $router,
         VideoService $videoService,
         SessionManager $session,
-        Router $router,
         CategoryService $categoryService
     )
     {
