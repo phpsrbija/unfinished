@@ -1,4 +1,3 @@
-KDM Exclusive1 year ago
 # unfinished
 
 [![Build Status](https://travis-ci.org/phpsrbija/unfinished.svg?branch=master)](https://travis-ci.org/phpsrbija/unfinished)
