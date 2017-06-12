@@ -27,6 +27,7 @@ class ConfigProvider
                     Action\VideoAction::class    => Factory\Action\VideoActionFactory::class,
                     Action\EventsAction::class   => Factory\Action\EventsActionFactory::class,
                     Action\EventAction::class    => Factory\Action\EventActionFactory::class,
+                    Action\PageAction::class     => Factory\Action\PageActionFactory::class,
                 ],
             ],
 
@@ -36,6 +37,8 @@ class ConfigProvider
                     'path'       => '/',
                     'middleware' => Action\HomeAction::class
                 ],
+
+
                 [
                     'name'       => 'category',
                     'path'       => '/:category/',
@@ -45,6 +48,12 @@ class ConfigProvider
                     'name'       => 'post',
                     'path'       => '/:segment_1[/:segment_2]',
                     'middleware' => Action\PostAction::class
+                ],
+
+                [
+                    'name'       => 'page',
+                    'path'       => '/:url_slug',
+                    'middleware' => Action\PageAction::class
                 ],
 
                 // Different article types

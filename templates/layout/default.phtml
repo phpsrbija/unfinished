@@ -5,7 +5,6 @@ $this->headLink()
     ->prependStylesheet('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
 
 $this->inlineScript()
-    ->prependFile('/js/app.js')
     ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
     ->prependFile('https://code.jquery.com/jquery-2.2.4.min.js');
 ?>
@@ -19,7 +18,8 @@ $this->inlineScript()
     <meta name="author" content="">
     <link rel="icon" href="/favicon.ico">
 
-    <?= $this->headTitle('Unfinished')->setSeparator('::')->setAutoEscape(false) ?>
+    <?= $this->headTitle('Unfinished')->setSeparator('::')
+        ->setAutoEscape(false) ?>
     <?= $this->headMeta(); ?>
     <?= $this->headLink(); ?>
 </head>
@@ -32,7 +32,8 @@ $this->inlineScript()
         </div>
 
         <footer class="footer">
-            <p>&copy; PHP Serbia 2012 - <?= date('Y') ?> Made with ♥ in Serbia</p>
+            <p>&copy; PHP Serbia 2012 - <?= date('Y') ?> Made with ♥ in
+                Serbia</p>
         </footer>
     </center>
 </div>
