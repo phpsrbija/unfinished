@@ -15,7 +15,11 @@ open file /etc/hosts and at the end add one line:
 192.168.33.3 unfinished.dev
 ```
 
-Open in your browser unfinished.dev and voila!
+Open in your browser http://unfinished.dev and voila!
+
+Admin is at http://unfinished.dev/admin  
+user: admin@unfinished.com    
+pass: testtest
 
 ## Our main philosophy of software architecture
 
