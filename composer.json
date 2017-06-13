@@ -53,10 +53,10 @@
     },
     "scripts": {
         "upload-coverage": "coveralls -v",
-        "cs-check": "vendor/bin/phpcs --standard=PSR2 ./src/*",
+        "cs-check": "vendor/bin/phpcs --standard=PSR2 ./packages/*",
         "cs-fix": "phpcbf",
         "server": "php -S 0.0.0.0:8080 -t public/ public/index.php",
-        "test": "vendor/bin/phpunit --colors=always --configuration=\"./tests/phpunit.xml\" --bootstrap=\"./tests/bootstrap.php\"",
+        "test": "./unit-tests.sh",
         "test-coverage": "vendor/bin/phpunit --colors=always --configuration=\"./tests/phpunit.xml\" --bootstrap=\"./tests/bootstrap.php\" --coverage-clover clover.xml"
     }
 }
