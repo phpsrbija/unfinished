@@ -56,7 +56,7 @@
         "cs-check": "vendor/bin/phpcs --standard=PSR2 ./packages/*",
         "cs-fix": "phpcbf",
         "server": "php -S 0.0.0.0:8080 -t public/ public/index.php",
-        "test": "./unit-tests.sh",
+        "test": "bash unit-tests.sh",
         "test-coverage": "vendor/bin/phpunit --colors=always --configuration=\"./tests/phpunit.xml\" --bootstrap=\"./tests/bootstrap.php\" --coverage-clover clover.xml"
     }
 }
