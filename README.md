@@ -1,4 +1,4 @@
-# unfinished
+# Unfinished PHP CMS
 
 [![Build Status](https://travis-ci.org/phpsrbija/unfinished.svg?branch=master)](https://travis-ci.org/phpsrbija/unfinished)
 [![Coverage Status](https://coveralls.io/repos/github/phpsrbija/unfinished/badge.svg?branch=master)](https://coveralls.io/github/phpsrbija/unfinished?branch=master)
@@ -10,9 +10,16 @@
 git clone https://github.com/phpsrbija/unfinished.git
 cd unfinished
 vagrant up
+
+open file /etc/hosts and at the end add one line: 
+192.168.33.3 unfinished.dev
 ```
 
-Open in your browser unfinished.dev and voila!
+Open in your browser http://unfinished.dev and voila!
+
+Admin is at http://unfinished.dev/admin  
+user: admin@unfinished.com    
+pass: testtest
 
 ## Our main philosophy of software architecture
 
@@ -32,8 +39,8 @@ Such a way will lead us to easier:
 
 ### Reafctoring 
 
-- [ ] Introduce a new package "Page" for a single pages like "about us"
-- [ ] Add type to the category (post, video, event, discussion...)
+- [x] Introduce a new package "Page" for a single pages like "about us"
+- [ ] Add type to the category (post, video, event, discussion...) also add "is_visible" and SEO tags
 - [ ] Pull apart current **Article** package into separated packages per article type, allowing easy to add new type or remove. New packages would be: 
      - [ ] PostArticle, 
      - [ ] VideoArticle, 
