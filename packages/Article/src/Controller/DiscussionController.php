@@ -49,6 +49,11 @@ class DiscussionController extends AbstractController
         $this->categoryService   = $categoryService;
     }
 
+    /**
+     * Displays a list of discussions.
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function index(): \Psr\Http\Message\ResponseInterface
     {
         $params = $this->request->getQueryParams();
@@ -60,6 +65,13 @@ class DiscussionController extends AbstractController
         return new HtmlResponse($this->template->render('article::discussion/index', ['list' => $discussions, 'layout' => 'layout/admin']));
     }
 
+    /**
+     * Displays a discussion edit form, with data from request, if any.
+     *
+     * @param array $errors errors for displaying to user
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
         $id         = $this->request->getAttribute('id');

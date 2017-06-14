@@ -45,16 +45,16 @@ class PostController extends AbstractController
      * PostController constructor.
      *
      * @param Template $template
+     * @param Router $router
      * @param PostService $postService
      * @param SessionManager $session
-     * @param Router $router
      * @param CategoryService $categoryService
      */
     public function __construct(
         Template $template,
+        Router $router,
         PostService $postService,
         SessionManager $session,
-        Router $router,
         CategoryService $categoryService
     )
     {
