@@ -65,14 +65,34 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
         return $select;
     }
 
+
     /**
      * @todo Refactor and add TYPE into the category table. Than fetch only for blog_post type..
+     * @param int  $limit
+     * @param null $order
+     * @param null $inHomepage
+     * @param null $inCategoryList
+     *
+     * @return null|\Zend\Db\ResultSet\ResultSetInterface
      */
-    public function getWeb($limit = 7, $order = null)
+    public function getWeb(
+        $limit = 7,
+        $order = null,
+        $inHomepage = null,
+        $inCategoryList = null
+    )
     {
         $select = $this->getSql()->select();
         $select->where->notEqualTo('slug', 'videos');
         $select->where->notEqualTo('slug', 'events');
+
+        if($inHomepage !== null){
+            $select->where(['is_in_homepage' => $inHomepage]);
+        }
+
+        if($inCategoryList !== null){
+            $select->where(['is_in_category_list' => $inCategoryList]);
+        }
 
         if($limit) {
             $select->limit($limit);

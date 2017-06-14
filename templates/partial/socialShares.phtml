@@ -16,13 +16,6 @@ else if($item->type == 3){
 
 ?>
 
-<!-- for Facebook -->
-<?php $this->headMeta($escaper->escapeHtml($item->title), 'og:title'); ?>
-<?php $this->headMeta($escaper->escapeHtml('article'), 'og:type'); ?>
-<?php $this->headMeta($this->serverUrl($item->main_img), 'og:image'); ?>
-<?php $this->headMeta($escaper->escapeHtml($this->serverUrl($url)), 'og:url'); ?>
-<?php $this->headMeta($escaper->escapeHtml($description), 'og:description'); ?>
-
 <div class="social-share">
     <div class="social-icons social-icon__vertical">
         <div class="social-icon-shared">

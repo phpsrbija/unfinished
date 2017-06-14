@@ -1,7 +1,11 @@
 <?php
 $escaper = (new \Zend\Escaper\Escaper);
-$this->headTitle($escaper->escapeHtml($currentCategory->name));
-$this->headMeta($escaper->escapeHtml($currentCategory->name), 'description');
+$this->headTitle($escaper->escapeHtml($currentCategory->title));
+$this->headMeta($escaper->escapeHtml($currentCategory->description), 'description');
+$this->headMeta('post', 'og:type');
+$this->headMeta($currentCategory->main_img ? $this->serverUrl($currentCategory->main_img) : '', 'og:image');
+$this->headMeta($this->serverUrl(), 'og:url');
+$this->headMeta($currentCategory->description, 'og:description');
 ?>
 <div class="blog-page">
     <!-- Categories -->

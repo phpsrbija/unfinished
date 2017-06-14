@@ -64,14 +64,14 @@ $this->headMeta($page ? $page->getDescription() : '', 'og:description');
     <!-- Categories -->
     <div class="headline">Poslednji članci</div>
     <ul class="tags-wrapper">
-        <?php foreach($this->category()->forWeb() as $category): ?>
+        <?php foreach($this->category()->forHomepage() as $category): ?>
             <li><a class="link tag" href="#"><?= strtolower($category['name']) ?></a></li>
         <?php endforeach; ?>
     </ul>
 
     <!-- Posts -->
     <div class="forum-box-wrapper">
-        <?php foreach($this->category()->forWeb() as $category): ?>
+        <?php foreach($this->category()->forHomepage() as $category): ?>
             <?php foreach($category['posts'] as $post): ?>
                 <div class="forum-box" data-active-tag="<?= strtolower($category['name']) ?>">
                     <a href="<?= $this->url('post', ['segment_1' => $category['slug'], 'segment_2' => $post['slug']]) ?>"

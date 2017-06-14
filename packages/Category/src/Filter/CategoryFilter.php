@@ -21,7 +21,7 @@ class CategoryFilter implements InputFilterAwareInterface
                 'filters'    => [['name' => 'StringTrim']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
+                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 500]],
                 ],
             ]);
 
@@ -33,6 +33,38 @@ class CategoryFilter implements InputFilterAwareInterface
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
                 ],
+            ]);
+
+            $inputFilter->add([
+                'name'       => 'title',
+                'required'   => false,
+                'filters'    => [['name' => 'StringTrim']],
+                'validators' => [
+                    ['name' => 'NotEmpty'],
+                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
+                ],
+            ]);
+
+            $inputFilter->add([
+                'name'       => 'description',
+                'required'   => false,
+                'filters'    => [['name' => 'StringTrim']],
+                'validators' => [
+                    ['name' => 'NotEmpty'],
+                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 1000]],
+                ],
+            ]);
+
+            $inputFilter->add([
+                'name'     => 'is_in_homepage',
+                'required' => false,
+                'filters'  => [['name' => 'Boolean']],
+            ]);
+
+            $inputFilter->add([
+                'name'     => 'is_in_category_list',
+                'required' => false,
+                'filters'  => [['name' => 'Boolean']],
             ]);
 
             $this->inputFilter = $inputFilter;

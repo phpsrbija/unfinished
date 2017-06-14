@@ -2,6 +2,10 @@
 $escaper = (new \Zend\Escaper\Escaper);
 $this->headTitle($escaper->escapeHtml($event->title));
 $this->headMeta($escaper->escapeHtml($event->sub_title), 'description');
+$this->headMeta('event', 'og:type');
+$this->headMeta($event->main_img ? $this->serverUrl($event->main_img) : '', 'og:image');
+$this->headMeta($this->serverUrl(), 'og:url');
+$this->headMeta($escaper->escapeHtml($event->title . ' | ' .$event->sub_title), 'og:description');
 ?>
 
 <div class="event-page">

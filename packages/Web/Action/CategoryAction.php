@@ -53,7 +53,7 @@ class CategoryAction
         $params     = $request->getQueryParams();
         $page       = isset($params['page']) ? $params['page'] : 1;
         $urlSlug    = $request->getAttribute('category');
-        $categories = $this->categoryService->allWeb();
+        $categories = $this->categoryService->getCategories(true);
         $category   = $this->categoryService->getCategoryBySlug($urlSlug);
 
         if(!$category) {
@@ -62,8 +62,11 @@ class CategoryAction
             }
 
             $category = (object)[
-                'name' => 'Svi članci',
-                'slug' => 'all'
+                'name'        => 'Svi članci',
+                'slug'        => 'all',
+                'title'       => 'Svi članci',
+                'description' => 'Svi članci PHP i ostalih tehnologija.',
+                'main_img'    => null
             ];
         }
         $posts = $this->categoryService->getCategoryPostsPagination($category, $page);
