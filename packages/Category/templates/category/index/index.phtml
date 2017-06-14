@@ -31,6 +31,8 @@
                         <table class="table">
                             <thead>
                             <tr>
+                                <th>On homepage</th>
+                                <th>In category list</th>
                                 <th>Name</th>
                                 <th>URI</th>
                                 <th></th>
@@ -39,6 +41,17 @@
                             <tbody>
                             <?php foreach($list as $one): ?>
                                 <tr>
+                                    <th>
+                                        <span class="label label-<?= $one->is_in_homepage ? 'success' : 'danger' ?>">
+                                            <?= $one->is_in_homepage ? 'Yes' : 'No' ?>
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span class="label label-<?= $one->is_in_category_list ? 'success' : 'danger' ?>">
+                                            <?= $one->is_in_category_list ? 'Yes' : 'No' ?>
+                                        </span>
+                                    </th>
+
                                     <td><?= $one->name ?></td>
                                     <td><?= $one->slug ?></td>
                                     <td>

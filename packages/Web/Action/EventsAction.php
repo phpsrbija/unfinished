@@ -56,11 +56,13 @@ class EventsAction
         $page         = isset($params['page']) ? $params['page'] : 1;
         $futureEvents = $this->eventService->fetchFutureEvents();
         $pastEvents   = $this->eventService->fetchPastEventsPagination($page, 10);
+        $category     = $this->categoryService->getCategoryBySlug('events');
 
         return new HtmlResponse($this->template->render('web::events', [
             'layout'       => 'layout/web',
             'futureEvents' => $futureEvents,
-            'pastEvents'   => $pastEvents
+            'pastEvents'   => $pastEvents,
+            'category'     => $category,
         ]));
     }
 }

@@ -2,6 +2,10 @@
 $escaper = (new \Zend\Escaper\Escaper);
 $this->headTitle($escaper->escapeHtml($post->title));
 $this->headMeta($escaper->escapeHtml($post->lead), 'description');
+$this->headMeta('post', 'og:type');
+$this->headMeta($post->main_img ? $this->serverUrl($post->main_img) : '', 'og:image');
+$this->headMeta($this->serverUrl(), 'og:url');
+$this->headMeta($escaper->escapeHtml($post->lead), 'og:description');
 ?>
 
 <div class="blog-page-single">

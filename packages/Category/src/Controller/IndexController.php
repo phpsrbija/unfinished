@@ -10,6 +10,7 @@ use Core\Controller\AbstractController;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Http\PhpEnvironment\Request;
 
 /**
  * Class IndexController.
@@ -82,6 +83,7 @@ class IndexController extends AbstractController
         try{
             $id   = $this->request->getAttribute('id');
             $data = $this->request->getParsedBody();
+            $data += (new Request())->getFiles()->toArray();
 
             if($id){
                 $this->categoryService->updateCategory($data, $id);
