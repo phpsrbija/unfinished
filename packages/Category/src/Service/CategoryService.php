@@ -111,7 +111,7 @@ class CategoryService
      */
     public function updateCategory($data, $categoryId)
     {
-        if(!$this->getCategory($categoryId)) {
+        if (!($oldCategory = $this->getCategory($categoryId))) {
             throw new \Exception('CategoryId dos not exist.');
         }
 
@@ -129,18 +129,25 @@ class CategoryService
         if(!$values['main_img']) {
             unset($values['main_img']);
         }
+        else{
+            $this->upload->deleteFile($oldCategory->main_img);
+        }
 
         $this->categoryMapper->update($values, ['category_id' => $categoryId]);
     }
 
     /**
      * Delete category by given UUID
-     * @todo Delete image too
+     *
      * @param  string $categoryId UUID from DB
      * @return bool
      */
     public function delete($categoryId)
     {
+        $category = $this->getCategory($categoryId);
+
+        $this->upload->deleteFile($category->main_img);
+
         return (bool)$this->categoryMapper->delete(['category_id' => $categoryId]);
     }
 

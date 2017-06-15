@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Core\Service;
@@ -21,27 +22,32 @@ use UploadHelper\Upload;
  */
 class AdminUserService
 {
-    /**
-     * @var Bcrypt
-     */
+    /** @var Bcrypt $crypt */
     private $crypt;
 
-    /**
-     * @var AdminUsersMapper
-     */
+    /** @var AdminUsersMapper $adminUsersMapper */
     private $adminUsersMapper;
 
+    /** @var AdminUserFilter $adminUserFilter */
     private $adminUserFilter;
 
+    /** @var Upload $upload */
     private $upload;
 
     /**
      * AdminUserService constructor.
      *
-     * @param Bcrypt $crypt                      bcrypt password encryption method
+     * @param Bcrypt           $crypt            bcrypt password encryption method
      * @param AdminUsersMapper $adminUsersMapper mapper for admin us
+     * @param AdminUserFilter  $adminUserFilter
+     * @param Upload           $upload
      */
-    public function __construct(Bcrypt $crypt, AdminUsersMapper $adminUsersMapper, AdminUserFilter $adminUserFilter, Upload $upload)
+    public function __construct(
+        Bcrypt $crypt,
+        AdminUsersMapper $adminUsersMapper,
+        AdminUserFilter $adminUserFilter,
+        Upload $upload
+    )
     {
         $this->crypt            = $crypt;
         $this->adminUsersMapper = $adminUsersMapper;
@@ -88,14 +94,14 @@ class AdminUserService
      */
     public function getPagination($page, $limit, $userId)
     {
-        $select           = $this->adminUsersMapper->getPaginationSelect($userId);
-        $paginatorAdapter = new DbSelect($select, $this->adminUsersMapper->getAdapter());
-        $paginator        = new Paginator($paginatorAdapter);
+        $select            = $this->adminUsersMapper->getPaginationSelect($userId);
+        $paginationAdapter = new DbSelect($select, $this->adminUsersMapper->getAdapter());
+        $pagination        = new Paginator($paginationAdapter);
 
-        $paginator->setCurrentPageNumber($page);
-        $paginator->setItemCountPerPage($limit);
+        $pagination->setCurrentPageNumber($page);
+        $pagination->setItemCountPerPage($limit);
 
-        return $paginator;
+        return $pagination;
     }
 
     /**
@@ -106,9 +112,7 @@ class AdminUserService
      */
     public function getUser($userId)
     {
-        $user = $this->adminUsersMapper->get($userId);
-
-        return $user;
+        return $this->adminUsersMapper->get($userId);
     }
 
     public function registerNewUser($data)
@@ -160,13 +164,19 @@ class AdminUserService
                 'profile_img' => $this->upload->uploadImage($data, 'profile_img')
             ];
 
-        // We dont want to force user to re-upload image on edit
+        // We don't want to force user to re-upload image on edit
         if(!$data['face_img']) {
             unset($data['face_img']);
+        }
+        else{
+            $this->upload->deleteFile($user->face_img);
         }
 
         if(!$data['profile_img']) {
             unset($data['profile_img']);
+        }
+        else{
+            $this->upload->deleteFile($user->profile_img);
         }
 
         if(isset($data['password'])) {
@@ -180,11 +190,19 @@ class AdminUserService
     /**
      * Delete user by given UUID
      *
-     * @param  string $userId UUID from DB
+     * @param $userId
      * @return bool
+     * @throws \Exception
      */
     public function delete($userId)
     {
+        if(!($adminUser = $this->getUser($userId))){
+            throw new \Exception('Admin user not found.');
+        }
+
+        $this->upload->deleteFile($adminUser->face_img);
+        $this->upload->deleteFile($adminUser->profile_img);
+
         return (bool)$this->adminUsersMapper->delete(['admin_user_id' => $userId]);
     }
 
@@ -192,12 +210,18 @@ class AdminUserService
      * Fetch random X users to show on homepage
      *
      * @param int $limit
+     * @return null|\Zend\Db\ResultSet\ResultSetInterface
      */
     public function getForWeb($limit = 10)
     {
         return $this->adminUsersMapper->getRandom($limit);
     }
 
+    /**
+     * Return all Admin User for select box
+     *
+     * @return \Zend\Db\ResultSet\ResultSet
+     */
     public function getAll()
     {
         return $this->adminUsersMapper->select();

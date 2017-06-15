@@ -42,6 +42,11 @@ class PageService
         return $pagination;
     }
 
+    /**
+     * @param $pageId
+     *
+     * @return \Page\Entity\Page|null
+     */
     public function getPage($pageId)
     {
         return $this->pageMapper->select(['page_id' => $pageId])->current();
@@ -105,11 +110,14 @@ class PageService
         }
 
         $data = $filter->getValues()
-            + ['main_img' => $this->upload->uploadImage($data, 'main_img'),];
+            + ['main_img' => $this->upload->uploadImage($data, 'main_img')];
 
         // We don't want to force user to re-upload image on edit
         if (!$data['main_img']) {
             unset($data['main_img']);
+        }
+        else {
+            $this->upload->deleteFile($page->getMainImg());
         }
 
         if ($data['is_homepage']) {
@@ -121,6 +129,12 @@ class PageService
 
     public function delete($pageId)
     {
+        if (!($page = $this->getPage($pageId))) {
+            throw new \Exception('Page not found');
+        }
+
+        $this->upload->deleteFile($page->getMainImg());
+
         return (bool)$this->pageMapper->delete(['page_id' => $pageId]);
     }
 }

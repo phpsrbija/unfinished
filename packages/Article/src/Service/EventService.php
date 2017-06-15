@@ -118,7 +118,7 @@ class EventService extends ArticleService
 
     public function updateArticle($data, $id)
     {
-        $article       = $this->articleEventsMapper->get($id);
+        $oldArticle    = $this->articleEventsMapper->get($id);
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
         $eventFilter   = $this->eventFilter->getInputFilter()->setData($data);
 
@@ -126,7 +126,7 @@ class EventService extends ArticleService
             throw new FilterException($articleFilter->getMessages() + $eventFilter->getMessages());
         }
 
-        $article = $articleFilter->getValues() + ['article_uuid' => $article->article_uuid];
+        $article = $articleFilter->getValues() + ['article_uuid' => $oldArticle->article_uuid];
         $event   = $eventFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
                 'main_img'     => $this->upload->uploadImage($data, 'main_img')
@@ -136,13 +136,19 @@ class EventService extends ArticleService
         $article['category_uuid']   = $this->categoryMapper->get($article['category_id'])->category_uuid;
         unset($article['category_id'], $article['admin_user_id']);
 
-        // We dont want to force user to re-upload image on edit
-        if(!$event['featured_img']) {
+        // We don't want to force user to re-upload image on edit
+        if (!$event['featured_img']) {
             unset($event['featured_img']);
         }
+        else {
+            $this->upload->deleteFile($oldArticle->featured_img);
+        }
 
-        if(!$event['main_img']) {
+        if (!$event['main_img']) {
             unset($event['main_img']);
+        }
+        else {
+            $this->upload->deleteFile($oldArticle->main_img);
         }
 
         $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
@@ -157,6 +163,8 @@ class EventService extends ArticleService
             throw new \Exception('Article not found!');
         }
 
+        $this->upload->deleteFile($event->main_img);
+        $this->upload->deleteFile($event->featured_img);
         $this->articleEventsMapper->delete(['article_uuid' => $event->article_uuid]);
         $this->delete($event->article_uuid);
     }

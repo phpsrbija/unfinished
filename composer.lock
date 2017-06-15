@@ -548,16 +548,16 @@
         },
         {
             "name": "tasmaniski/upload-helper",
-            "version": "v1.1.1",
+            "version": "v1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tasmaniski/upload-helper.git",
-                "reference": "27561c83bad362f8ca9fc8aa48169a0ba317dfa1"
+                "reference": "72bedf2c320dc09ce4fda1881b849def576afbca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tasmaniski/upload-helper/zipball/27561c83bad362f8ca9fc8aa48169a0ba317dfa1",
-                "reference": "27561c83bad362f8ca9fc8aa48169a0ba317dfa1",
+                "url": "https://api.github.com/repos/tasmaniski/upload-helper/zipball/72bedf2c320dc09ce4fda1881b849def576afbca",
+                "reference": "72bedf2c320dc09ce4fda1881b849def576afbca",
                 "shasum": ""
             },
             "require": {
@@ -584,7 +584,7 @@
             "keywords": [
                 "upload helper"
             ],
-            "time": "2017-01-16T15:23:50+00:00"
+            "time": "2017-06-15T13:14:44+00:00"
         },
         {
             "name": "vend/mysql-uuid",
@@ -3424,7 +3424,7 @@
                 "github",
                 "test"
             ],
-            "time": "2017-03-31T10:12:47+00:00"
+            "time": "2017-03-31 10:12:47"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
