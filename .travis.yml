@@ -6,8 +6,6 @@ matrix:
 install: composer install --no-interaction
 script:
   - composer test
-#  - composer test-coverage
-#  - php vendor/bin/coverage-checker.php clover.xml 100
   - composer cs-check
 after_script:
   - composer upload-coverage
