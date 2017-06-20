@@ -24,8 +24,9 @@ class DiscussionService extends ArticleService
     private $adminUsersMapper;
 
     public function __construct(ArticleMapper $articleMapper, ArticleDiscussionsMapper $articleDiscussionsMapper, ArticleFilter $articleFilter,
-                                DiscussionFilter $discussionFilter, CategoryMapper $categoryMapper, AdminUsersMapper $adminUsersMapper)
-    {
+        DiscussionFilter $discussionFilter, CategoryMapper $categoryMapper, AdminUsersMapper $adminUsersMapper
+    ) {
+    
         parent::__construct($articleMapper, $articleFilter);
 
         $this->articleMapper            = $articleMapper;

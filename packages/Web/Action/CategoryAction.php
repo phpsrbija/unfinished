@@ -18,13 +18,25 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class CategoryAction
 {
-    /** @var Template */
+    /**
+* 
+     *
+ * @var Template 
+*/
     private $template;
 
-    /** @var PostService */
+    /**
+* 
+     *
+ * @var PostService 
+*/
     private $postService;
 
-    /** @var CategoryService */
+    /**
+* 
+     *
+ * @var CategoryService 
+*/
     private $categoryService;
 
     /**
@@ -42,9 +54,9 @@ class CategoryAction
     /**
      * Executed when action is invoked
      *
-     * @param Request $request
-     * @param Response $response
-     * @param callable|null $next
+     * @param  Request       $request
+     * @param  Response      $response
+     * @param  callable|null $next
      * @return HtmlResponse
      * @throws \Exception
      */
@@ -71,12 +83,16 @@ class CategoryAction
         }
         $posts = $this->categoryService->getCategoryPostsPagination($category, $page);
 
-        return new HtmlResponse($this->template->render('web::category', [
-            'layout'          => 'layout/web',
-            'categories'      => $categories,
-            'currentCategory' => $category,
-            'posts'           => $posts
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'web::category', [
+                'layout'          => 'layout/web',
+                'categories'      => $categories,
+                'currentCategory' => $category,
+                'posts'           => $posts
+                ]
+            )
+        );
     }
 
 }

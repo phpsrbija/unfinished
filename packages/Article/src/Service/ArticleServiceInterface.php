@@ -12,7 +12,7 @@ interface ArticleServiceInterface
     /**
      * Fetches a list of ArticleEntity models.
      *
-     * @param array $params
+     * @param  array $params
      * @return ArrayObject
      */
     public function fetchAllArticles($page, $limit);
@@ -20,7 +20,7 @@ interface ArticleServiceInterface
     /**
      * Fetches a single ArticleEntity model.
      *
-     * @param string $articleId
+     * @param  string $articleId
      * @return ArticleEntity
      */
     public function fetchSingleArticle($articleId);
@@ -28,8 +28,8 @@ interface ArticleServiceInterface
     /**
      * When you want to add new article.
      *
-     * @param $user User array from the session. We will use user_id to know who create the article.
-     * @param $data
+     * @param  $user User array from the session. We will use user_id to know who create the article.
+     * @param  $data
      * @return mixed
      */
     public function createArticle($user, $data);
@@ -37,8 +37,8 @@ interface ArticleServiceInterface
     /**
      * Update one article.
      *
-     * @param $data
-     * @param $id
+     * @param  $data
+     * @param  $id
      * @return mixed
      */
     public function updateArticle($data, $id);
@@ -46,7 +46,7 @@ interface ArticleServiceInterface
     /**
      * Deletes a single article entity.
      *
-     * @param string $id
+     * @param  string $id
      * @return bool
      */
     public function deleteArticle($id);

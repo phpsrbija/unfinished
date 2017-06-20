@@ -16,9 +16,11 @@ class AdminUserHelperTest extends \PHPUnit_Framework_TestCase
 
     public function testCurrentShouldReturnUserFromSession()
     {
-        $sessionStorage = new \Zend\Session\Storage\ArrayStorage([
+        $sessionStorage = new \Zend\Session\Storage\ArrayStorage(
+            [
             'user' => true,
-        ]);
+            ]
+        );
         $session = new \Zend\Session\SessionManager();
         $session->setStorage($sessionStorage);
         $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')

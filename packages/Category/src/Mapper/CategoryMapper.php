@@ -80,17 +80,17 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
         $order = null,
         $inHomepage = null,
         $inCategoryList = null
-    )
-    {
+    ) {
+    
         $select = $this->getSql()->select();
         $select->where->notEqualTo('slug', 'videos');
         $select->where->notEqualTo('slug', 'events');
 
-        if($inHomepage !== null){
+        if($inHomepage !== null) {
             $select->where(['is_in_homepage' => $inHomepage]);
         }
 
-        if($inCategoryList !== null){
+        if($inCategoryList !== null) {
             $select->where(['is_in_category_list' => $inCategoryList]);
         }
 

@@ -22,7 +22,7 @@ class MenuService
      * We store menu items in DB as flat structure,
      * but we need nested(tree) structure to show in the menu.
      *
-     * @param array $flatArray Array from DB
+     * @param  array $flatArray Array from DB
      * @return array            Return same array with tree structure
      */
     private function unflattenArray(array $flatArray)

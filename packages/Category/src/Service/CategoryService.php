@@ -71,7 +71,7 @@ class CategoryService
     /**
      * Return one category for given URL Slug
      *
-     * @param String $urlSlug
+     * @param  String $urlSlug
      * @return array|\ArrayObject|null
      */
     public function getCategoryBySlug($urlSlug)
@@ -82,7 +82,7 @@ class CategoryService
     /**
      * Create new category.
      *
-     * @param $data
+     * @param  $data
      * @throws FilterException
      */
     public function createCategory($data)
@@ -104,8 +104,8 @@ class CategoryService
     /**
      * Update existing category.
      *
-     * @param $data
-     * @param $categoryId
+     * @param  $data
+     * @param  $categoryId
      * @throws FilterException
      * @throws \Exception
      */
@@ -164,8 +164,8 @@ class CategoryService
     /**
      * Return categories with posts/articles
      *
-     * @param null $inHomepage
-     * @param null $inCategoryList
+     * @param  null $inHomepage
+     * @param  null $inCategoryList
      * @return mixed
      */
     public function getCategoriesWithPosts($inHomepage = null, $inCategoryList = null)
@@ -184,7 +184,7 @@ class CategoryService
     /**
      * Return categories posts/articles
      *
-     * @param null $inCategoryList
+     * @param  null $inCategoryList
      * @return null|\Zend\Db\ResultSet\ResultSetInterface
      */
     public function getCategories($inCategoryList = null)
@@ -195,8 +195,8 @@ class CategoryService
     /**
      * Get posts - articles with type == Posts
      *
-     * @param $category
-     * @param int $page
+     * @param  $category
+     * @param  int      $page
      * @return Paginator
      */
     public function getCategoryPostsPagination($category, $page = 1): Paginator

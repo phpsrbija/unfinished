@@ -15,7 +15,8 @@ class EventFilter implements InputFilterAwareInterface
         if(!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'title',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
@@ -23,27 +24,35 @@ class EventFilter implements InputFilterAwareInterface
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
                 ],
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'     => 'sub_title',
                 'required' => false,
                 'filters'  => [['name' => 'StringTrim']]
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'     => 'place_name',
                 'required' => true,
                 'filters'  => [['name' => 'StringTrim']]
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'     => 'event_url',
                 'required' => false,
                 'filters'  => [['name' => 'StringTrim']]
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'body',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
@@ -51,35 +60,44 @@ class EventFilter implements InputFilterAwareInterface
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2]],
                 ],
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'start_at',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
                 'validators' => [['name' => 'NotEmpty'], ['name' => 'Date', 'options' => ['format' => 'Y-m-d H:i:s']]]
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'end_at',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
                 'validators' => [['name' => 'NotEmpty'], ['name' => 'Date', 'options' => ['format' => 'Y-m-d H:i:s']]]
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'longitude',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
                 'validators' => [['name' => 'NotEmpty']],
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'latitude',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
                 'validators' => [['name' => 'NotEmpty']],
-            ]);
+                ]
+            );
 
             $this->inputFilter = $inputFilter;
         }

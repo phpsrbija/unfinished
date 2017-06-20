@@ -13,13 +13,25 @@ use Zend\Diactoros\Response\HtmlResponse;
 
 class IndexController extends AbstractController
 {
-    /** @var Template */
+    /**
+* 
+     *
+ * @var Template 
+*/
     private $template;
 
-    /** @var Router */
+    /**
+* 
+     *
+ * @var Router 
+*/
     private $router;
 
-    /** @var MenuService */
+    /**
+* 
+     *
+ * @var MenuService 
+*/
     private $menuService;
 
     public function __construct(Template $template, Router $router, MenuService $menuService)
@@ -31,10 +43,14 @@ class IndexController extends AbstractController
 
     public function index()
     {
-        return new HtmlResponse($this->template->render('menu::index/index', [
-            'menuNestedItems' => $this->menuService->getNestedAll(),
-            'layout'          => 'layout/admin'
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'menu::index/index', [
+                'menuNestedItems' => $this->menuService->getNestedAll(),
+                'layout'          => 'layout/admin'
+                ]
+            )
+        );
     }
 
     public function edit($errors = [])
@@ -42,18 +58,22 @@ class IndexController extends AbstractController
         $id   = $this->request->getAttribute('id');
         $item = $this->menuService->get($id);
 
-        if($this->request->getParsedBody()){
+        if($this->request->getParsedBody()) {
             $item          = (object)($this->request->getParsedBody() + (array)$item);
             $item->menu_id = $id;
         }
 
-        return new HtmlResponse($this->template->render('menu::index/edit', [
-            'id'        => $id,
-            'item'      => $item,
-            'menuItems' => $this->menuService->getForSelect(),
-            'errors'    => $errors,
-            'layout'    => 'layout/admin'
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'menu::index/edit', [
+                'id'        => $id,
+                'item'      => $item,
+                'menuItems' => $this->menuService->getForSelect(),
+                'errors'    => $errors,
+                'layout'    => 'layout/admin'
+                ]
+            )
+        );
     }
 
     public function save()
@@ -62,7 +82,7 @@ class IndexController extends AbstractController
             $id   = $this->request->getAttribute('id');
             $data = $this->request->getParsedBody();
 
-            if($id){
+            if($id) {
                 $this->menuService->updateMenuItem($data, $id);
             }
             else{

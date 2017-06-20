@@ -46,8 +46,10 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
         $select = $this->getSql()->select()
             ->columns(['title', 'body', 'lead', 'featured_img', 'main_img', 'has_layout'])
             ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
-            ->join('category', 'category.category_uuid = articles.category_uuid',
-                ['category_slug' => 'slug', 'category_name' => 'name', 'category_id'], 'left')
+            ->join(
+                'category', 'category.category_uuid = articles.category_uuid',
+                ['category_slug' => 'slug', 'category_name' => 'name', 'category_id'], 'left'
+            )
             ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['admin_user_id'], 'left')
             ->where(['articles.article_id' => $id]);
 
@@ -98,8 +100,10 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
         $select = $this->getSql()->select()
             ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
             ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['first_name', 'last_name'])
-            ->join('category', 'category.category_uuid = articles.category_uuid',
-                ['category_name' => 'name', 'category_id', 'category_slug' => 'slug'])
+            ->join(
+                'category', 'category.category_uuid = articles.category_uuid',
+                ['category_name' => 'name', 'category_id', 'category_slug' => 'slug']
+            )
             ->where(['articles.status' => 1])
             ->order(['articles.published_at' => 'desc'])
             ->limit($limit);
