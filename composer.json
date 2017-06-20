@@ -53,7 +53,7 @@
     },
     "scripts": {
         "test": "bash unit-tests-ci.sh",
-        "upload-coverage": "coveralls -v",
+        "upload-coverage": "vendor/bin/coveralls -v",
         "cs-check": "vendor/bin/phpcs --standard=PSR2 ./packages/*",
         "cs-fix": "phpcbf",
         "server": "php -S 0.0.0.0:8080 -t public/ public/index.php"
