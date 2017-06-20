@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="true">
-    <testsuite name="Unfinished Article Package Test Suite">
+    <testsuite name="Unfinished Core Package Test Suite">
         <directory>./</directory>
     </testsuite>
     <filter>

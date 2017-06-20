@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1497923229">
+  <project timestamp="1497923229">
+    <package name="Admin\Action">
+      <file name="/var/www/unfinished/packages/Admin/src/Action/IndexAction.php">
+        <class name="IndexAction" namespace="Admin\Action" fullPackage="Admin" package="Admin">
+          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+        </class>
+        <line num="26" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="28" type="stmt" count="2"/>
+        <line num="29" type="stmt" count="2"/>
+        <line num="40" type="method" name="__invoke" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="42" type="stmt" count="1"/>
+        <metrics loc="44" ncloc="22" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </file>
+    </package>
+    <package name="Admin">
+      <file name="/var/www/unfinished/packages/Admin/src/ConfigProvider.php">
+        <class name="ConfigProvider" namespace="Admin">
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+        </class>
+        <line num="7" type="method" name="__invoke" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="10" type="stmt" count="1"/>
+        <metrics loc="64" ncloc="64" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
+      </file>
+    </package>
+    <package name="Admin\Controller">
+      <file name="/var/www/unfinished/packages/Admin/src/Controller/AuthController.php">
+        <class name="AuthController" namespace="Admin\Controller" fullPackage="Admin" package="Admin">
+          <metrics complexity="9" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="19" elements="23" coveredelements="23"/>
+        </class>
+        <line num="49" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="8"/>
+        <line num="51" type="stmt" count="8"/>
+        <line num="52" type="stmt" count="8"/>
+        <line num="53" type="stmt" count="8"/>
+        <line num="54" type="stmt" count="8"/>
+        <line num="55" type="stmt" count="8"/>
+        <line num="62" type="method" name="login" visibility="public" complexity="2" crap="2" count="3"/>
+        <line num="64" type="stmt" count="3"/>
+        <line num="65" type="stmt" count="1"/>
+        <line num="68" type="stmt" count="2"/>
+        <line num="76" type="method" name="loginHandle" visibility="public" complexity="5" crap="5" count="4"/>
+        <line num="78" type="stmt" count="4"/>
+        <line num="79" type="stmt" count="1"/>
+        <line num="82" type="stmt" count="3"/>
+        <line num="83" type="stmt" count="3"/>
+        <line num="84" type="stmt" count="3"/>
+        <line num="87" type="stmt" count="3"/>
+        <line num="89" type="stmt" count="2"/>
+        <line num="91" type="stmt" count="1"/>
+        <line num="92" type="stmt" count="1"/>
+        <line num="104" type="method" name="logout" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="106" type="stmt" count="1"/>
+        <line num="108" type="stmt" count="1"/>
+        <metrics loc="110" ncloc="65" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="19" coveredstatements="19" elements="23" coveredelements="23"/>
+      </file>
+      <file name="/var/www/unfinished/packages/Admin/src/Controller/UserController.php">
+        <class name="UserController" namespace="Admin\Controller" fullPackage="Admin" package="Admin">
+          <metrics complexity="12" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="36" coveredstatements="36" elements="41" coveredelements="41"/>
+        </class>
+        <line num="50" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="10"/>
+        <line num="52" type="stmt" count="10"/>
+        <line num="53" type="stmt" count="10"/>
+        <line num="54" type="stmt" count="10"/>
+        <line num="55" type="stmt" count="10"/>
+        <line num="56" type="stmt" count="10"/>
+        <line num="63" type="method" name="index" visibility="public" complexity="3" crap="3" count="1"/>
+        <line num="65" type="stmt" count="1"/>
+        <line num="66" type="stmt" count="1"/>
+        <line num="67" type="stmt" count="1"/>
+        <line num="68" type="stmt" count="1"/>
+        <line num="70" type="stmt" count="1"/>
+        <line num="72" type="stmt" count="1"/>
+        <line num="80" type="method" name="edit" visibility="public" complexity="2" crap="2" count="3"/>
+        <line num="82" type="stmt" count="3"/>
+        <line num="83" type="stmt" count="3"/>
+        <line num="85" type="stmt" count="3"/>
+        <line num="86" type="stmt" count="2"/>
+        <line num="87" type="stmt" count="2"/>
+        <line num="90" type="stmt" count="3"/>
+        <line num="91" type="stmt" count="3"/>
+        <line num="92" type="stmt" count="3"/>
+        <line num="93" type="stmt" count="3"/>
+        <line num="97" type="method" name="save" visibility="public" complexity="4" crap="4" count="4"/>
+        <line num="100" type="stmt" count="4"/>
+        <line num="101" type="stmt" count="4"/>
+        <line num="102" type="stmt" count="4"/>
+        <line num="104" type="stmt" count="4"/>
+        <line num="105" type="stmt" count="2"/>
+        <line num="108" type="stmt" count="2"/>
+        <line num="111" type="stmt" count="4"/>
+        <line num="113" type="stmt" count="2"/>
+        <line num="114" type="stmt" count="1"/>
+        <line num="116" type="stmt" count="1"/>
+        <line num="117" type="stmt" count="1"/>
+        <line num="121" type="method" name="delete" visibility="public" complexity="2" crap="2" count="2"/>
+        <line num="124" type="stmt" count="2"/>
+        <line num="125" type="stmt" count="2"/>
+        <line num="127" type="stmt" count="1"/>
+        <line num="129" type="stmt" count="1"/>
+        <line num="130" type="stmt" count="1"/>
+        <metrics loc="133" ncloc="99" classes="1" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="36" coveredstatements="36" elements="41" coveredelements="41"/>
+      </file>
+    </package>
+    <package name="Admin\Factory\Action">
+      <file name="/var/www/unfinished/packages/Admin/src/Factory/Action/IndexFactory.php">
+        <class name="IndexFactory" namespace="Admin\Factory\Action" fullPackage="Admin" package="Admin">
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+        </class>
+        <line num="23" type="method" name="__invoke" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="25" type="stmt" count="1"/>
+        <line num="26" type="stmt" count="1"/>
+        <metrics loc="29" ncloc="17" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+      </file>
+    </package>
+    <package name="Admin\Factory\Controller">
+      <file name="/var/www/unfinished/packages/Admin/src/Factory/Controller/AuthFactory.php">
+        <class name="AuthFactory" namespace="Admin\Factory\Controller" fullPackage="Admin" package="Admin">
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="6" coveredelements="6"/>
+        </class>
+        <line num="25" type="method" name="__invoke" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="27" type="stmt" count="1"/>
+        <line num="28" type="stmt" count="1"/>
+        <line num="29" type="stmt" count="1"/>
+        <line num="30" type="stmt" count="1"/>
+        <line num="31" type="stmt" count="1"/>
+        <metrics loc="34" ncloc="22" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="6" coveredelements="6"/>
+      </file>
+      <file name="/var/www/unfinished/packages/Admin/src/Factory/Controller/UserFactory.php">
+        <class name="UserFactory" namespace="Admin\Factory\Controller" fullPackage="Admin" package="Admin">
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="6" coveredelements="6"/>
+        </class>
+        <line num="26" type="method" name="__invoke" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="28" type="stmt" count="1"/>
+        <line num="29" type="stmt" count="1"/>
+        <line num="30" type="stmt" count="1"/>
+        <line num="31" type="stmt" count="1"/>
+        <line num="32" type="stmt" count="1"/>
+        <metrics loc="35" ncloc="24" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="6" coveredelements="6"/>
+      </file>
+    </package>
+    <package name="Admin\Factory\View\Helper">
+      <file name="/var/www/unfinished/packages/Admin/src/Factory/View/Helper/AdminUserHelperFactory.php">
+        <class name="AdminUserHelperFactory" namespace="Admin\Factory\View\Helper">
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+        </class>
+        <line num="11" type="method" name="__invoke" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="13" type="stmt" count="1"/>
+        <line num="14" type="stmt" count="1"/>
+        <line num="15" type="stmt" count="1"/>
+        <metrics loc="18" ncloc="18" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="4" coveredelements="4"/>
+      </file>
+      <file name="/var/www/unfinished/packages/Admin/src/Factory/View/Helper/WebAdminUserHelperFactory.php">
+        <class name="WebAdminUserHelperFactory" namespace="Admin\Factory\View\Helper">
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+        </class>
+        <line num="11" type="method" name="__invoke" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="13" type="stmt" count="1"/>
+        <line num="14" type="stmt" count="1"/>
+        <metrics loc="17" ncloc="17" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
+      </file>
+    </package>
+    <package name="Admin\View\Helper">
+      <file name="/var/www/unfinished/packages/Admin/src/View/Helper/AdminUserHelper.php">
+        <class name="AdminUserHelper" namespace="Admin\View\Helper">
+          <metrics complexity="4" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="10" coveredelements="10"/>
+        </class>
+        <line num="14" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="4"/>
+        <line num="16" type="stmt" count="4"/>
+        <line num="17" type="stmt" count="4"/>
+        <line num="18" type="stmt" count="4"/>
+        <line num="20" type="method" name="__invoke" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="22" type="stmt" count="1"/>
+        <line num="25" type="method" name="current" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="27" type="stmt" count="1"/>
+        <line num="30" type="method" name="all" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="32" type="stmt" count="1"/>
+        <metrics loc="34" ncloc="34" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="6" elements="10" coveredelements="10"/>
+      </file>
+      <file name="/var/www/unfinished/packages/Admin/src/View/Helper/WebAdminUserHelper.php">
+        <class name="WebAdminUserHelper" namespace="Admin\View\Helper">
+          <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="7" coveredelements="7"/>
+        </class>
+        <line num="12" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="3"/>
+        <line num="14" type="stmt" count="3"/>
+        <line num="15" type="stmt" count="3"/>
+        <line num="17" type="method" name="__invoke" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="19" type="stmt" count="1"/>
+        <line num="22" type="method" name="getRandom" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="24" type="stmt" count="1"/>
+        <metrics loc="26" ncloc="26" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="7" coveredelements="7"/>
+      </file>
+    </package>
+    <metrics files="11" loc="544" ncloc="408" classes="11" methods="24" coveredmethods="24" conditionals="0" coveredconditionals="0" statements="86" coveredstatements="86" elements="110" coveredelements="110"/>
+  </project>
+</coverage>
