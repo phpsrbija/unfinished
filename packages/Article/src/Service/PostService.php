@@ -20,40 +20,69 @@ use Zend\Paginator\Paginator;
 
 class PostService extends ArticleService
 {
-    /** @var ArticleMapper */
+    /**
+* 
+     *
+ * @var ArticleMapper 
+*/
     private $articleMapper;
 
-    /** @var ArticlePostsMapper */
+    /**
+* 
+     *
+ * @var ArticlePostsMapper 
+*/
     private $articlePostsMapper;
 
-    /** @var ArticleFilter */
+    /**
+* 
+     *
+ * @var ArticleFilter 
+*/
     private $articleFilter;
 
-    /** @var PostFilter */
+    /**
+* 
+     *
+ * @var PostFilter 
+*/
     private $postFilter;
 
-    /** @var CategoryMapper */
+    /**
+* 
+     *
+ * @var CategoryMapper 
+*/
     private $categoryMapper;
 
-    /** @var Upload */
+    /**
+* 
+     *
+ * @var Upload 
+*/
     private $upload;
 
-    /** @var  AdminUsersMapper */
+    /**
+* 
+     *
+ * @var AdminUsersMapper 
+*/
     private $adminUsersMapper;
 
     /**
      * PostService constructor.
      *
-     * @param ArticleMapper $articleMapper
+     * @param ArticleMapper      $articleMapper
      * @param ArticlePostsMapper $articlePostsMapper
-     * @param ArticleFilter $articleFilter
-     * @param PostFilter $postFilter
-     * @param CategoryMapper $categoryMapper
-     * @param Upload $upload
+     * @param ArticleFilter      $articleFilter
+     * @param PostFilter         $postFilter
+     * @param CategoryMapper     $categoryMapper
+     * @param Upload             $upload
      */
     public function __construct(ArticleMapper $articleMapper, ArticlePostsMapper $articlePostsMapper, ArticleFilter $articleFilter,
-                                PostFilter $postFilter, CategoryMapper $categoryMapper, Upload $upload, AdminUsersMapper $adminUsersMapper)
-    {
+        PostFilter $postFilter, CategoryMapper $categoryMapper, Upload $upload, AdminUsersMapper $adminUsersMapper
+    ) {
+    
         parent::__construct($articleMapper, $articleFilter);
 
         $this->articleMapper      = $articleMapper;

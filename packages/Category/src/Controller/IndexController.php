@@ -19,13 +19,25 @@ use Zend\Http\PhpEnvironment\Request;
  */
 class IndexController extends AbstractController
 {
-    /** @var Template */
+    /**
+* 
+     *
+ * @var Template 
+*/
     private $template;
 
-    /** @var Router */
+    /**
+* 
+     *
+ * @var Router 
+*/
     private $router;
 
-    /** @var CategoryService */
+    /**
+* 
+     *
+ * @var CategoryService 
+*/
     private $categoryService;
 
     /**
@@ -66,16 +78,20 @@ class IndexController extends AbstractController
         $id       = $this->request->getAttribute('id');
         $category = $this->categoryService->getCategory($id);
 
-        if($this->request->getParsedBody()){
+        if($this->request->getParsedBody()) {
             $category              = (object)($this->request->getParsedBody() + (array)$category);
             $category->category_id = $id;
         }
 
-        return new HtmlResponse($this->template->render('category::index/edit', [
-            'category' => $category,
-            'errors'   => $errors,
-            'layout'   => 'layout/admin'
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'category::index/edit', [
+                'category' => $category,
+                'errors'   => $errors,
+                'layout'   => 'layout/admin'
+                ]
+            )
+        );
     }
 
     public function save()
@@ -85,7 +101,7 @@ class IndexController extends AbstractController
             $data = $this->request->getParsedBody();
             $data += (new Request())->getFiles()->toArray();
 
-            if($id){
+            if($id) {
                 $this->categoryService->updateCategory($data, $id);
             }
             else{

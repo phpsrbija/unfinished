@@ -41,9 +41,9 @@ final class AuthController extends AbstractController
     /**
      * AuthController constructor.
      *
-     * @param Router $router                     router
-     * @param Template $template                 template engine
-     * @param SessionManager $session            session manager
+     * @param Router           $router           router
+     * @param Template         $template         template engine
+     * @param SessionManager   $session          session manager
      * @param AdminUserService $adminUserService admin user service
      */
     public function __construct(Router $router, Template $template, SessionManager $session, AdminUserService $adminUserService)

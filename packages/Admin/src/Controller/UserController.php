@@ -43,9 +43,9 @@ class UserController extends AbstractController
     /**
      * UserController constructor.
      *
-     * @param Template $template
+     * @param Template         $template
      * @param AdminUserService $adminUserService
-     * @param SessionManager $session
+     * @param SessionManager   $session
      */
     public function __construct(Template $template, Router $router, AdminUserService $adminUserService, SessionManager $session)
     {
@@ -87,11 +87,15 @@ class UserController extends AbstractController
             $user->admin_user_id = $id;
         }
 
-        return new HtmlResponse($this->template->render('admin::user/edit', [
-            'user'   => $user,
-            'errors' => $errors,
-            'layout' => 'layout/admin'
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'admin::user/edit', [
+                'user'   => $user,
+                'errors' => $errors,
+                'layout' => 'layout/admin'
+                ]
+            )
+        );
     }
 
     public function save()

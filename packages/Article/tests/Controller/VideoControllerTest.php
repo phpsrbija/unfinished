@@ -115,9 +115,11 @@ class VideoControllerTest extends \PHPUnit_Framework_TestCase
     {
         $user = new \stdClass();
         $user->admin_user_id = 1;
-        $sessionStorage = new \Zend\Session\Storage\ArrayStorage([
+        $sessionStorage = new \Zend\Session\Storage\ArrayStorage(
+            [
             'user' => true,
-        ]);
+            ]
+        );
         $sessionManager = new \Zend\Session\SessionManager();
         $sessionManager->setStorage($sessionStorage);
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
@@ -144,7 +146,11 @@ class VideoControllerTest extends \PHPUnit_Framework_TestCase
             $sessionManager,
             $categoryService
         );
-        /** @var \Zend\Diactoros\Response $returnedResponse */
+        /**
+* 
+         *
+ * @var \Zend\Diactoros\Response $returnedResponse 
+*/
         $returnedResponse = $videoController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }
@@ -153,9 +159,11 @@ class VideoControllerTest extends \PHPUnit_Framework_TestCase
     {
         $user = new \stdClass();
         $user->admin_user_id = 1;
-        $sessionStorage = new \Zend\Session\Storage\ArrayStorage([
+        $sessionStorage = new \Zend\Session\Storage\ArrayStorage(
+            [
             'user' => true,
-        ]);
+            ]
+        );
         $sessionManager = new \Zend\Session\SessionManager();
         $sessionManager->setStorage($sessionStorage);
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
@@ -183,7 +191,11 @@ class VideoControllerTest extends \PHPUnit_Framework_TestCase
             $sessionManager,
             $categoryService
         );
-        /** @var \Zend\Diactoros\Response $returnedResponse */
+        /**
+* 
+         *
+ * @var \Zend\Diactoros\Response $returnedResponse 
+*/
         $returnedResponse = $videoController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }
@@ -192,9 +204,11 @@ class VideoControllerTest extends \PHPUnit_Framework_TestCase
     {
         $user = new \stdClass();
         $user->admin_user_id = 1;
-        $sessionStorage = new \Zend\Session\Storage\ArrayStorage([
+        $sessionStorage = new \Zend\Session\Storage\ArrayStorage(
+            [
             'user' => true,
-        ]);
+            ]
+        );
         $sessionManager = new \Zend\Session\SessionManager();
         $sessionManager->setStorage($sessionStorage);
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
@@ -225,7 +239,11 @@ class VideoControllerTest extends \PHPUnit_Framework_TestCase
             $sessionManager,
             $categoryService
         );
-        /** @var \Zend\Diactoros\Response $returnedResponse */
+        /**
+* 
+         *
+ * @var \Zend\Diactoros\Response $returnedResponse 
+*/
         $returnedResponse = $videoController($request, $response);
         static::assertSame(200, $returnedResponse->getStatusCode());
         static::assertInstanceOf(\Zend\Diactoros\Response\HtmlResponse::class, $returnedResponse);
@@ -239,9 +257,11 @@ class VideoControllerTest extends \PHPUnit_Framework_TestCase
     {
         $user = new \stdClass();
         $user->admin_user_id = 1;
-        $sessionStorage = new \Zend\Session\Storage\ArrayStorage([
+        $sessionStorage = new \Zend\Session\Storage\ArrayStorage(
+            [
             'user' => true,
-        ]);
+            ]
+        );
         $sessionManager = new \Zend\Session\SessionManager();
         $sessionManager->setStorage($sessionStorage);
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
@@ -276,9 +296,11 @@ class VideoControllerTest extends \PHPUnit_Framework_TestCase
     {
         $user = new \stdClass();
         $user->admin_user_id = 1;
-        $sessionStorage = new \Zend\Session\Storage\ArrayStorage([
+        $sessionStorage = new \Zend\Session\Storage\ArrayStorage(
+            [
             'user' => true,
-        ]);
+            ]
+        );
         $sessionManager = new \Zend\Session\SessionManager();
         $sessionManager->setStorage($sessionStorage);
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
@@ -305,7 +327,11 @@ class VideoControllerTest extends \PHPUnit_Framework_TestCase
             $sessionManager,
             $categoryService
         );
-        /** @var \Zend\Diactoros\Response $returnedResponse */
+        /**
+* 
+         *
+ * @var \Zend\Diactoros\Response $returnedResponse 
+*/
         $returnedResponse = $videoController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }
@@ -318,9 +344,11 @@ class VideoControllerTest extends \PHPUnit_Framework_TestCase
     {
         $user = new \stdClass();
         $user->admin_user_id = 1;
-        $sessionStorage = new \Zend\Session\Storage\ArrayStorage([
+        $sessionStorage = new \Zend\Session\Storage\ArrayStorage(
+            [
             'user' => true,
-        ]);
+            ]
+        );
         $sessionManager = new \Zend\Session\SessionManager();
         $sessionManager->setStorage($sessionStorage);
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)

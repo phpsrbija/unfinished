@@ -144,7 +144,11 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             $adminUserService,
             $sessionManager
         );
-        /** @var \Zend\Diactoros\Response $returnedResponse */
+        /**
+* 
+         *
+ * @var \Zend\Diactoros\Response $returnedResponse 
+*/
         $returnedResponse = $userController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }
@@ -179,7 +183,11 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             $adminUserService,
             $sessionManager
         );
-        /** @var \Zend\Diactoros\Response $returnedResponse */
+        /**
+* 
+         *
+ * @var \Zend\Diactoros\Response $returnedResponse 
+*/
         $returnedResponse = $userController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }
@@ -217,7 +225,11 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             $adminUserService,
             $sessionManager
         );
-        /** @var \Zend\Diactoros\Response $returnedResponse */
+        /**
+* 
+         *
+ * @var \Zend\Diactoros\Response $returnedResponse 
+*/
         $returnedResponse = $userController($request, $response);
         static::assertSame(200, $returnedResponse->getStatusCode());
         static::assertInstanceOf(\Zend\Diactoros\Response\HtmlResponse::class, $returnedResponse);
@@ -288,7 +300,11 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             $adminUserService,
             $sessionManager
         );
-        /** @var \Zend\Diactoros\Response $returnedResponse */
+        /**
+* 
+         *
+ * @var \Zend\Diactoros\Response $returnedResponse 
+*/
         $returnedResponse = $userController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }
@@ -326,7 +342,11 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             $adminUserService,
             $sessionManager
         );
-        /** @var \Zend\Diactoros\Response $returnedResponse */
+        /**
+* 
+         *
+ * @var \Zend\Diactoros\Response $returnedResponse 
+*/
         $returnedResponse = $userController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }

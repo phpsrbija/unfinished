@@ -12,20 +12,32 @@ use Zend\Http\PhpEnvironment\Request;
 
 class PageController extends AbstractController
 {
-    /** @var Template */
+    /**
+* 
+     *
+ * @var Template 
+*/
     private $template;
 
-    /** @var Router */
+    /**
+* 
+     *
+ * @var Router 
+*/
     private $router;
 
-    /** @var PageService */
+    /**
+* 
+     *
+ * @var PageService 
+*/
     private $pageService;
 
     /**
      * PageController constructor.
      *
-     * @param Template $template
-     * @param Router $router
+     * @param Template    $template
+     * @param Router      $router
      * @param PageService $pageService
      */
     public function __construct(Template $template, Router $router, PageService $pageService)
@@ -35,7 +47,11 @@ class PageController extends AbstractController
         $this->pageService = $pageService;
     }
 
-    /** @return HtmlResponse */
+    /**
+* 
+     *
+ * @return HtmlResponse 
+*/
     public function index(): HtmlResponse
     {
         $params     = $this->request->getQueryParams();
@@ -43,10 +59,14 @@ class PageController extends AbstractController
         $limit      = isset($params['limit']) ? $params['limit'] : 15;
         $pagination = $this->pageService->getPagination($page, $limit);
 
-        return new HtmlResponse($this->template->render('page::index', [
-            'pagination' => $pagination,
-            'layout'     => 'layout/admin'
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'page::index', [
+                'pagination' => $pagination,
+                'layout'     => 'layout/admin'
+                ]
+            )
+        );
     }
 
     public function edit($errors = []): HtmlResponse
@@ -59,11 +79,15 @@ class PageController extends AbstractController
             $page->exchangeArray($this->request->getParsedBody() + (array)$page);
         }
 
-        return new HtmlResponse($this->template->render('page::edit', [
-            'page'   => $page,
-            'errors' => $errors,
-            'layout' => 'layout/admin'
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'page::edit', [
+                'page'   => $page,
+                'errors' => $errors,
+                'layout' => 'layout/admin'
+                ]
+            )
+        );
     }
 
     public function save(): \Psr\Http\Message\ResponseInterface

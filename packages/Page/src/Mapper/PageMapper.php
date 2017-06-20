@@ -25,10 +25,12 @@ class PageMapper extends AbstractTableGateway implements AdapterAwareInterface
 
     public function getPaginationSelect()
     {
-        return $this->getSql()->select()->order([
+        return $this->getSql()->select()->order(
+            [
             'is_homepage' => 'desc',
             'created_at'  => 'desc'
-        ]);
+            ]
+        );
     }
 
     public function getActivePage($urlSlug)

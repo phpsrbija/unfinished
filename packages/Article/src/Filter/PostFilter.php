@@ -15,7 +15,8 @@ class PostFilter implements InputFilterAwareInterface
         if(!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'title',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
@@ -23,9 +24,11 @@ class PostFilter implements InputFilterAwareInterface
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
                 ],
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'body',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
@@ -33,9 +36,11 @@ class PostFilter implements InputFilterAwareInterface
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100000]],
                 ],
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'lead',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
@@ -43,13 +48,16 @@ class PostFilter implements InputFilterAwareInterface
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 50000]],
                 ],
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'     => 'has_layout',
                 'required' => false,
                 'filters'  => [['name' => 'Boolean']],
-            ]);
+                ]
+            );
 
             $this->inputFilter = $inputFilter;
         }

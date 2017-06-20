@@ -26,9 +26,10 @@ class EventService extends ArticleService
     private $adminUsersMapper;
 
     public function __construct(ArticleMapper $articleMapper, ArticleEventsMapper $articleEventsMapper,
-                                ArticleFilter $articleFilter, EventFilter $eventFilter, CategoryMapper $categoryMapper,
-                                Upload $upload, AdminUsersMapper $adminUsersMapper)
-    {
+        ArticleFilter $articleFilter, EventFilter $eventFilter, CategoryMapper $categoryMapper,
+        Upload $upload, AdminUsersMapper $adminUsersMapper
+    ) {
+    
         parent::__construct($articleMapper, $articleFilter);
 
         $this->articleMapper       = $articleMapper;

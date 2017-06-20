@@ -12,10 +12,11 @@ class DiscussionFilter implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if(!$this->inputFilter){
+        if(!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'title',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
@@ -23,9 +24,11 @@ class DiscussionFilter implements InputFilterAwareInterface
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
                 ],
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'body',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
@@ -33,7 +36,8 @@ class DiscussionFilter implements InputFilterAwareInterface
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 1500]],
                 ],
-            ]);
+                ]
+            );
 
             $this->inputFilter = $inputFilter;
         }

@@ -8,10 +8,18 @@ use Article\Service\PostService;
 
 class MenuUrlHelper extends AbstractHelper
 {
-    /** @var UrlHelper */
+    /**
+* 
+     *
+ * @var UrlHelper 
+*/
     private $url;
 
-    /** @var PostService */
+    /**
+* 
+     *
+ * @var PostService 
+*/
     private $postService;
 
     /**
@@ -28,7 +36,7 @@ class MenuUrlHelper extends AbstractHelper
     /**
      * Depend on given MenuItem create URL
      *
-     * @param $menuItem
+     * @param  $menuItem
      * @return String
      */
     public function __invoke($menuItem)

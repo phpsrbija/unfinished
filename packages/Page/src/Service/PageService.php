@@ -31,9 +31,11 @@ class PageService
     public function getPagination($page = 1, $limit = 10)
     {
         $select            = $this->pageMapper->getPaginationSelect();
-        $paginationAdapter = new DbSelect($select,
+        $paginationAdapter = new DbSelect(
+            $select,
             $this->pageMapper->getAdapter(),
-            $this->pageMapper->getResultSetPrototype());
+            $this->pageMapper->getResultSetPrototype()
+        );
         $pagination        = new Paginator($paginationAdapter);
 
         $pagination->setCurrentPageNumber($page);

@@ -17,10 +17,18 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class PostAction
 {
-    /** @var Template */
+    /**
+* 
+     *
+ * @var Template 
+*/
     private $template;
 
-    /** @var PostService */
+    /**
+* 
+     *
+ * @var PostService 
+*/
     private $postService;
 
     /**
@@ -37,9 +45,9 @@ class PostAction
     /**
      * Executed when action is invoked
      *
-     * @param Request $request
-     * @param Response $response
-     * @param callable|null $next
+     * @param  Request       $request
+     * @param  Response      $response
+     * @param  callable|null $next
      * @return HtmlResponse
      * @throws \Exception
      */
@@ -70,12 +78,16 @@ class PostAction
             return $next($request, $response, new \Exception("Post by URL does not exist!", 404));
         }
 
-        return new HtmlResponse($this->template->render('web::post', [
-            'layout'   => 'layout/web',
-            'post'     => $post,
-            'previous' => $previousPost,
-            'next'     => $nextPost
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'web::post', [
+                'layout'   => 'layout/web',
+                'post'     => $post,
+                'previous' => $previousPost,
+                'next'     => $nextPost
+                ]
+            )
+        );
     }
 
 }
