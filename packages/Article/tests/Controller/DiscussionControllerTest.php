@@ -147,10 +147,8 @@ class DiscussionControllerTest extends \PHPUnit_Framework_TestCase
             $categoryService
         );
         /**
-* 
-         *
- * @var \Zend\Diactoros\Response $returnedResponse 
-*/
+         * @var \Zend\Diactoros\Response $returnedResponse
+         */
         $returnedResponse = $discussionController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }
@@ -191,11 +189,6 @@ class DiscussionControllerTest extends \PHPUnit_Framework_TestCase
             $sessionManager,
             $categoryService
         );
-        /**
-* 
-         *
- * @var \Zend\Diactoros\Response $returnedResponse 
-*/
         $returnedResponse = $discussionController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }
@@ -239,11 +232,7 @@ class DiscussionControllerTest extends \PHPUnit_Framework_TestCase
             $sessionManager,
             $categoryService
         );
-        /**
-* 
-         *
- * @var \Zend\Diactoros\Response $returnedResponse 
-*/
+
         $returnedResponse = $discussionController($request, $response);
         static::assertSame(200, $returnedResponse->getStatusCode());
         static::assertInstanceOf(\Zend\Diactoros\Response\HtmlResponse::class, $returnedResponse);
@@ -327,11 +316,6 @@ class DiscussionControllerTest extends \PHPUnit_Framework_TestCase
             $sessionManager,
             $categoryService
         );
-        /**
-* 
-         *
- * @var \Zend\Diactoros\Response $returnedResponse 
-*/
         $returnedResponse = $discussionController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }
