@@ -14,7 +14,8 @@ class PageFilter implements InputFilterAwareInterface
     {
         $inputFilter = new InputFilter();
 
-        $inputFilter->add([
+        $inputFilter->add(
+            [
             'name'       => 'title',
             'required'   => true,
             'filters'    => [['name' => 'StringTrim']],
@@ -22,9 +23,11 @@ class PageFilter implements InputFilterAwareInterface
                 ['name' => 'NotEmpty'],
                 ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
             ],
-        ]);
+            ]
+        );
 
-        $inputFilter->add([
+        $inputFilter->add(
+            [
             'name'       => 'slug',
             'required'   => true,
             'filters'    => [['name' => 'StringTrim']],
@@ -32,9 +35,11 @@ class PageFilter implements InputFilterAwareInterface
                 ['name' => 'NotEmpty'],
                 ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
             ],
-        ]);
+            ]
+        );
 
-        $inputFilter->add([
+        $inputFilter->add(
+            [
             'name'       => 'body',
             'required'   => true,
             'filters'    => [['name' => 'StringTrim']],
@@ -42,9 +47,11 @@ class PageFilter implements InputFilterAwareInterface
                 ['name' => 'NotEmpty'],
                 ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100000]],
             ],
-        ]);
+            ]
+        );
 
-        $inputFilter->add([
+        $inputFilter->add(
+            [
             'name'       => 'description',
             'required'   => true,
             'filters'    => [['name' => 'StringTrim']],
@@ -52,31 +59,40 @@ class PageFilter implements InputFilterAwareInterface
                 ['name' => 'NotEmpty'],
                 ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 50000]],
             ],
-        ]);
+            ]
+        );
 
-        $inputFilter->add([
+        $inputFilter->add(
+            [
             'name'     => 'has_layout',
             'required' => false,
             'filters'  => [['name' => 'Boolean']],
-        ]);
+            ]
+        );
 
-        $inputFilter->add([
+        $inputFilter->add(
+            [
             'name'     => 'is_homepage',
             'required' => false,
             'filters'  => [['name' => 'Boolean']],
-        ]);
+            ]
+        );
 
-        $inputFilter->add([
+        $inputFilter->add(
+            [
             'name'     => 'is_active',
             'required' => false,
             'filters'  => [['name' => 'Boolean']],
-        ]);
+            ]
+        );
 
-        $inputFilter->add([
+        $inputFilter->add(
+            [
             'name'     => 'is_wysiwyg_editor',
             'required' => false,
             'filters'  => [['name' => 'Boolean']],
-        ]);
+            ]
+        );
 
         return $inputFilter;
     }

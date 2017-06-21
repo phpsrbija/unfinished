@@ -15,33 +15,54 @@ use Zend\Session\SessionManager;
 
 class DiscussionController extends AbstractController
 {
-    /** @var Template */
+    /**
+* 
+     *
+ * @var Template 
+*/
     private $template;
 
-    /** @var Router */
+    /**
+* 
+     *
+ * @var Router 
+*/
     private $router;
 
-    /** @var DiscussionService */
+    /**
+* 
+     *
+ * @var DiscussionService 
+*/
     private $discussionService;
 
-    /** @var SessionManager */
+    /**
+* 
+     *
+ * @var SessionManager 
+*/
     private $session;
 
-    /** @var CategoryService */
+    /**
+* 
+     *
+ * @var CategoryService 
+*/
     private $categoryService;
     
     /**
      * DiscussionController constructor.
      *
-     * @param Template $template
-     * @param Router $router
+     * @param Template          $template
+     * @param Router            $router
      * @param DiscussionService $discussionService
-     * @param SessionManager $session
-     * @param CategoryService $categoryService
+     * @param SessionManager    $session
+     * @param CategoryService   $categoryService
      */
     public function __construct(Template $template, Router $router, DiscussionService $discussionService,
-                                SessionManager $session, CategoryService $categoryService)
-    {
+        SessionManager $session, CategoryService $categoryService
+    ) {
+    
         $this->template          = $template;
         $this->router            = $router;
         $this->discussionService = $discussionService;
@@ -49,6 +70,11 @@ class DiscussionController extends AbstractController
         $this->categoryService   = $categoryService;
     }
 
+    /**
+     * Displays a list of discussions.
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function index(): \Psr\Http\Message\ResponseInterface
     {
         $params = $this->request->getQueryParams();
@@ -60,6 +86,13 @@ class DiscussionController extends AbstractController
         return new HtmlResponse($this->template->render('article::discussion/index', ['list' => $discussions, 'layout' => 'layout/admin']));
     }
 
+    /**
+     * Displays a discussion edit form, with data from request, if any.
+     *
+     * @param array $errors errors for displaying to user
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
     public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
         $id         = $this->request->getAttribute('id');
@@ -71,12 +104,16 @@ class DiscussionController extends AbstractController
             $discussion->article_id = $id;
         }
 
-        return new HtmlResponse($this->template->render('article::discussion/edit', [
-            'discussion' => $discussion,
-            'categories' => $categories,
-            'errors'     => $errors,
-            'layout'     => 'layout/admin'
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'article::discussion/edit', [
+                'discussion' => $discussion,
+                'categories' => $categories,
+                'errors'     => $errors,
+                'layout'     => 'layout/admin'
+                ]
+            )
+        );
     }
 
     public function save()

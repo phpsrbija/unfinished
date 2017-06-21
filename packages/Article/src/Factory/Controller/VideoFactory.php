@@ -17,9 +17,9 @@ class VideoFactory
     {
         return new VideoController(
             $container->get(TemplateRendererInterface::class),
+            $container->get(RouterInterface::class),
             $container->get(VideoService::class),
             $container->get('session'),
-            $container->get(RouterInterface::class),
             $container->get(CategoryService::class)
         );
     }

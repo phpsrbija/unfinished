@@ -3,7 +3,7 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2>
-                    <?php if(isset($category->category_id)): ?>
+                    <?php if (isset($category->category_id) && $category->category_id): ?>
                         <h2>Category: "<?= $category->category_id ?>"</h2>
                     <?php else: ?>
                         <h2>Create new category</h2>
@@ -11,50 +11,116 @@
                 </h2>
                 <a href="<?= $this->url('admin.categories') ?>" class="btn btn-default pull-right">
                     <i class="fa fa-reply"></i> Back</a>
-
                 <div class="clearfix"></div>
             </div>
             <div class="x_content"><br/>
+                <form class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data"
+                      action="<?= $this->url('admin.categories.action', ['action' => 'save', 'id'     => $category ? $category->category_id : 0]) ?>">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Category Name</label>
 
-                <form class="form-horizontal form-label-left" method="POST"
-                      action="<?= $this->url('admin.categories.action', ['action' => 'save', 'id' => $category ? $category->category_id : 0]) ?>">
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Category Name</label>
+                                <div class="col-md-9 col-sm-6 col-xs-12">
+                                    <input type="text" class="form-control" name="name" placeholder="Name" value="<?= $category ? $category->name : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->name) ? implode('. ', (array)$errors->name) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">URL Slug</label>
 
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" name="name" placeholder="Name"
-                                   value="<?= $category ? $category->name : '' ?>">
-                            <ul class="parsley-errors-list">
-                                <li class="">
-                                    <?= (isset($errors->name) ? implode('. ', (array)$errors->name) : ''); ?>
-                                </li>
-                            </ul>
+                                <div class="col-md-9 col-sm-6 col-xs-12">
+                                    <input type="text" class="form-control" name="slug" placeholder="URL Slug" value="<?= $category ? $category->slug : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->slug) ? implode('. ', (array)$errors->slug) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Show on homepage</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="is_in_homepage" <?= (isset($category->is_in_homepage) && $category->is_in_homepage) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->is_in_homepage) ? implode('. ', (array)$errors->is_in_homepage) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Show in category list</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="checkbox" class="js-switch" value="1"
+                                           name="is_in_category_list" <?= (isset($category->is_in_category_list) && $category->is_in_category_list) ? 'checked' : ''; ?> />
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->is_in_category_list) ? implode('. ', (array)$errors->is_in_category_list) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">URL Slug</label>
+                        <div class="col-md-6 col-xs-12">
+                            <!-- Rest configuration for Category -->
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">SEO title</label>
 
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="text" class="form-control" name="slug" placeholder="URL Slug"
-                                   value="<?= $category ? $category->slug : '' ?>">
-                            <ul class="parsley-errors-list">
-                                <li class="">
-                                    <?= (isset($errors->slug) ? implode('. ', (array)$errors->slug) : ''); ?>
-                                </li>
-                            </ul>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" class="form-control" name="title" placeholder="SEO title" value="<?= $category ? $category->title : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->title) ? implode('. ', (array)$errors->title) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">SEO Description</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea class="form-control" rows="3" name="description"
+                                              placeholder="Description..."><?= $category ? $category->description : '' ?></textarea>
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->description) ? implode('. ', (array)$errors->description) : ''); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Main image</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="file" class="form-control" name="main_img" placeholder="Main image"
+                                           value="<?= isset($category->main_img) ? $category->main_img : '' ?>">
+                                    <ul class="parsley-errors-list">
+                                        <li class="">
+                                            <?= (isset($errors->main_img) ? implode('. ', (array)$errors->main_img) : ''); ?>
+                                        </li>
+                                    </ul>
+                                    <?php if(isset($category->main_img) && $category->main_img): ?>
+                                        <img src="<?= $category->main_img ?>" style="max-height: 100px;"/>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="ln_solid"></div>
                     <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                        <div class="col-md-6 col-md-offset-3">
                             <button type="submit" class="btn btn-success">Save</button>
-                            <a type="button" class="btn btn-default" href="<?= $this->url('admin.categories') ?>">
-                                Cancel
-                            </a>
-                            <?php if(isset($category->category_id) && $category->category_id): ?>
-                                <a href="<?= $this->url('admin.categories.action', ['action' => 'delete', 'id' => $category->category_id]) ?>"
+                            <a type="button" class="btn btn-default" href="<?= $this->url('admin.categories') ?>">Cancel</a>
+
+                            <?php if (isset($category->category_id) && $category->category_id): ?>
+                                <a href="<?= $this->url('admin.categories.action', ['action' => 'delete', 'id'     => $category->category_id]) ?>"
                                    onclick="if(!confirm('Are you sure?')){return false;}"
-                                   class="btn btn-danger pull-right"> Delete
+                                   class="btn btn-danger">
+                                    Delete
                                 </a>
                             <?php endif; ?>
                         </div>

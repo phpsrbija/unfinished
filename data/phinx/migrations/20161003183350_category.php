@@ -14,6 +14,11 @@ class Category extends AbstractMigration
             ->addColumn('category_id', 'text')
             ->addColumn('name', 'text')
             ->addColumn('slug', 'text')
+            ->addColumn('title', 'text', ['null' => true])
+            ->addColumn('description', 'text', ['null' => true])
+            ->addColumn('main_img', 'text', ['null' => true])
+            ->addColumn('is_in_homepage', 'boolean', ['default' => false])
+            ->addColumn('is_in_category_list', 'boolean', ['default' => true])
             ->create();
     }
 

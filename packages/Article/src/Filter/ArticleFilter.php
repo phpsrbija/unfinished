@@ -15,7 +15,8 @@ class ArticleFilter implements InputFilterAwareInterface
         if(!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'slug',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim', 'options' => ['charlist' => '/']]],
@@ -23,36 +24,47 @@ class ArticleFilter implements InputFilterAwareInterface
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
                 ],
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'       => 'published_at',
                 'required'   => true,
                 'filters'    => [['name' => 'StringTrim']],
                 'validators' => [['name' => 'NotEmpty'], ['name' => 'Date', 'options' => ['format' => 'Y-m-d H:i:s']]]
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'     => 'category_id',
                 'required' => true
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'     => 'admin_user_id',
                 'required' => true
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'     => 'status',
                 'required' => false,
                 'filters'  => [['name' => 'Boolean']],
-            ]);
+                ]
+            );
 
-            $inputFilter->add([
+            $inputFilter->add(
+                [
                 'name'     => 'is_wysiwyg_editor',
                 'required' => false,
                 'filters'  => [['name' => 'Boolean']],
-            ]);
+                ]
+            );
 
             $this->inputFilter = $inputFilter;
         }

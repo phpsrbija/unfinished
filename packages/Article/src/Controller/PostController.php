@@ -44,20 +44,20 @@ class PostController extends AbstractController
     /**
      * PostController constructor.
      *
-     * @param Template $template
-     * @param PostService $postService
-     * @param SessionManager $session
-     * @param Router $router
+     * @param Template        $template
+     * @param Router          $router
+     * @param PostService     $postService
+     * @param SessionManager  $session
      * @param CategoryService $categoryService
      */
     public function __construct(
         Template $template,
+        Router $router,
         PostService $postService,
         SessionManager $session,
-        Router $router,
         CategoryService $categoryService
-    )
-    {
+    ) {
+    
         $this->template        = $template;
         $this->postService     = $postService;
         $this->session         = $session;
@@ -86,17 +86,21 @@ class PostController extends AbstractController
         $post       = $this->postService->fetchSingleArticle($id);
         $categories = $this->categoryService->getAll();
 
-        if($this->request->getParsedBody()){
+        if($this->request->getParsedBody()) {
             $post             = (object)($this->request->getParsedBody() + (array)$post);
             $post->article_id = $id;
         }
 
-        return new HtmlResponse($this->template->render('article::post/edit', [
-            'post'       => $post,
-            'categories' => $categories,
-            'errors'     => $errors,
-            'layout'     => 'layout/admin'
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'article::post/edit', [
+                'post'       => $post,
+                'categories' => $categories,
+                'errors'     => $errors,
+                'layout'     => 'layout/admin'
+                ]
+            )
+        );
     }
 
     /**
@@ -114,7 +118,7 @@ class PostController extends AbstractController
             $data = $this->request->getParsedBody();
             $data += (new Request())->getFiles()->toArray();
 
-            if($id){
+            if($id) {
                 $this->postService->updateArticle($data, $id);
             }
             else{

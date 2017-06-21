@@ -1,8 +1,12 @@
 <?php
 $video   = $videos->getTotalItemCount() ? $videos->getItem(0) : null;
 $escaper = (new \Zend\Escaper\Escaper);
-$this->headTitle($escaper->escapeHtml($video->title));
-$this->headMeta($escaper->escapeHtml($video->lead), 'description');
+$this->headTitle($escaper->escapeHtml($category->title));
+$this->headMeta($escaper->escapeHtml($category->description), 'description');
+$this->headMeta('videos', 'og:type');
+$this->headMeta($category->main_img ? $this->serverUrl($category->main_img) : '', 'og:image');
+$this->headMeta($this->serverUrl(), 'og:url');
+$this->headMeta($escaper->escapeHtml($category->description), 'og:description');
 ?>
 <div class="video-page">
     <div class="headline">

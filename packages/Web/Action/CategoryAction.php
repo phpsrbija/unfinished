@@ -18,13 +18,25 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class CategoryAction
 {
-    /** @var Template */
+    /**
+* 
+     *
+ * @var Template 
+*/
     private $template;
 
-    /** @var PostService */
+    /**
+* 
+     *
+ * @var PostService 
+*/
     private $postService;
 
-    /** @var CategoryService */
+    /**
+* 
+     *
+ * @var CategoryService 
+*/
     private $categoryService;
 
     /**
@@ -42,9 +54,9 @@ class CategoryAction
     /**
      * Executed when action is invoked
      *
-     * @param Request $request
-     * @param Response $response
-     * @param callable|null $next
+     * @param  Request       $request
+     * @param  Response      $response
+     * @param  callable|null $next
      * @return HtmlResponse
      * @throws \Exception
      */
@@ -53,7 +65,7 @@ class CategoryAction
         $params     = $request->getQueryParams();
         $page       = isset($params['page']) ? $params['page'] : 1;
         $urlSlug    = $request->getAttribute('category');
-        $categories = $this->categoryService->allWeb();
+        $categories = $this->categoryService->getCategories(true);
         $category   = $this->categoryService->getCategoryBySlug($urlSlug);
 
         if(!$category) {
@@ -62,18 +74,25 @@ class CategoryAction
             }
 
             $category = (object)[
-                'name' => 'Svi članci',
-                'slug' => 'all'
+                'name'        => 'Svi članci',
+                'slug'        => 'all',
+                'title'       => 'Svi članci',
+                'description' => 'Svi članci PHP i ostalih tehnologija.',
+                'main_img'    => null
             ];
         }
         $posts = $this->categoryService->getCategoryPostsPagination($category, $page);
 
-        return new HtmlResponse($this->template->render('web::category', [
-            'layout'          => 'layout/web',
-            'categories'      => $categories,
-            'currentCategory' => $category,
-            'posts'           => $posts
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'web::category', [
+                'layout'          => 'layout/web',
+                'categories'      => $categories,
+                'currentCategory' => $category,
+                'posts'           => $posts
+                ]
+            )
+        );
     }
 
 }

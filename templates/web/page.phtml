@@ -1,0 +1,13 @@
+<?php
+/** @var \Page\Entity\Page $page */
+
+$escaper = (new \Zend\Escaper\Escaper);
+$this->headMeta(($page ? $page->getDescription() : ''), 'description');
+$this->headMeta(($page ? $page->getTitle() : ''), 'og:title');
+$this->headMeta('page', 'og:type');
+$this->headMeta($this->serverUrl($page ? $page->getMainImg() : ''), 'og:image');
+$this->headMeta($this->serverUrl(), 'og:url');
+$this->headMeta($page ? $page->getDescription() : '', 'og:description');
+?>
+
+<?= $page->getBody() ?>

@@ -19,37 +19,65 @@ use UploadHelper\Upload;
 
 class VideoService extends ArticleService
 {
-    /** @var ArticleMapper */
+    /**
+* 
+     *
+ * @var ArticleMapper 
+*/
     private $articleMapper;
 
-    /** @var ArticleVideosMapper */
+    /**
+* 
+     *
+ * @var ArticleVideosMapper 
+*/
     private $articleVideosMapper;
 
-    /** @var ArticleFilter */
+    /**
+* 
+     *
+ * @var ArticleFilter 
+*/
     private $articleFilter;
 
-    /** @var VideoFilter */
+    /**
+* 
+     *
+ * @var VideoFilter 
+*/
     private $videosFilter;
 
-    /** @var CategoryMapper */
+    /**
+* 
+     *
+ * @var CategoryMapper 
+*/
     private $categoryMapper;
 
-    /** @var Upload */
+    /**
+* 
+     *
+ * @var Upload 
+*/
     private $upload;
 
-    /** @var AdminUsersMapper */
+    /**
+* 
+     *
+ * @var AdminUsersMapper 
+*/
     private $adminUsersMapper;
 
     /**
      * VideosService constructor.
      *
-     * @param ArticleMapper $articleMapper
+     * @param ArticleMapper       $articleMapper
      * @param ArticleVideosMapper $articleVideosMapper
-     * @param ArticleFilter $articleFilter
-     * @param VideoFilter $videosFilter
-     * @param CategoryMapper $categoryMapper
-     * @param Upload $upload
-     * @param AdminUsersMapper $adminUsersMapper
+     * @param ArticleFilter       $articleFilter
+     * @param VideoFilter         $videosFilter
+     * @param CategoryMapper      $categoryMapper
+     * @param Upload              $upload
+     * @param AdminUsersMapper    $adminUsersMapper
      */
     public function __construct(
         ArticleMapper $articleMapper,
@@ -59,8 +87,8 @@ class VideoService extends ArticleService
         CategoryMapper $categoryMapper,
         Upload $upload,
         AdminUsersMapper $adminUsersMapper
-    )
-    {
+    ) {
+    
         parent::__construct($articleMapper, $articleFilter);
 
         $this->articleMapper       = $articleMapper;
@@ -136,7 +164,7 @@ class VideoService extends ArticleService
 
     public function updateArticle($data, $id)
     {
-        $article       = $this->articleVideosMapper->get($id);
+        $oldArticle    = $this->articleVideosMapper->get($id);
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
         $videosFilter  = $this->videosFilter->getInputFilter()->setData($data);
 
@@ -144,7 +172,7 @@ class VideoService extends ArticleService
             throw new FilterException($articleFilter->getMessages() + $videosFilter->getMessages());
         }
 
-        $article                    = $articleFilter->getValues() + ['article_uuid' => $article->article_uuid];
+        $article                    = $articleFilter->getValues() + ['article_uuid' => $oldArticle->article_uuid];
         $article['category_uuid']   = $this->categoryMapper->get($article['category_id'])->category_uuid;
         $article['admin_user_uuid'] = $this->adminUsersMapper->getUuid($article['admin_user_id']);
         unset($article['category_id']);
@@ -155,13 +183,19 @@ class VideoService extends ArticleService
                 'main_img'     => $this->upload->uploadImage($data, 'main_img')
             ];
 
-        // We dont want to force user to re-upload image on edit
+        // We don't want to force user to re-upload image on edit
         if(!$videos['featured_img']) {
             unset($videos['featured_img']);
+        }
+        else {
+            $this->upload->deleteFile($oldArticle->featured_img);
         }
 
         if(!$videos['main_img']) {
             unset($videos['main_img']);
+        }
+        else {
+            $this->upload->deleteFile($oldArticle->main_img);
         }
 
         $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
@@ -176,6 +210,8 @@ class VideoService extends ArticleService
             throw new \Exception('Article not found!');
         }
 
+        $this->upload->deleteFile($video->main_img);
+        $this->upload->deleteFile($video->featured_img);
         $this->articleVideosMapper->delete(['article_uuid' => $video->article_uuid]);
         $this->delete($video->article_uuid);
     }

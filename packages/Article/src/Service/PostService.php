@@ -20,40 +20,69 @@ use Zend\Paginator\Paginator;
 
 class PostService extends ArticleService
 {
-    /** @var ArticleMapper */
+    /**
+* 
+     *
+ * @var ArticleMapper 
+*/
     private $articleMapper;
 
-    /** @var ArticlePostsMapper */
+    /**
+* 
+     *
+ * @var ArticlePostsMapper 
+*/
     private $articlePostsMapper;
 
-    /** @var ArticleFilter */
+    /**
+* 
+     *
+ * @var ArticleFilter 
+*/
     private $articleFilter;
 
-    /** @var PostFilter */
+    /**
+* 
+     *
+ * @var PostFilter 
+*/
     private $postFilter;
 
-    /** @var CategoryMapper */
+    /**
+* 
+     *
+ * @var CategoryMapper 
+*/
     private $categoryMapper;
 
-    /** @var Upload */
+    /**
+* 
+     *
+ * @var Upload 
+*/
     private $upload;
 
-    /** @var  AdminUsersMapper */
+    /**
+* 
+     *
+ * @var AdminUsersMapper 
+*/
     private $adminUsersMapper;
 
     /**
      * PostService constructor.
      *
-     * @param ArticleMapper $articleMapper
+     * @param ArticleMapper      $articleMapper
      * @param ArticlePostsMapper $articlePostsMapper
-     * @param ArticleFilter $articleFilter
-     * @param PostFilter $postFilter
-     * @param CategoryMapper $categoryMapper
-     * @param Upload $upload
+     * @param ArticleFilter      $articleFilter
+     * @param PostFilter         $postFilter
+     * @param CategoryMapper     $categoryMapper
+     * @param Upload             $upload
      */
     public function __construct(ArticleMapper $articleMapper, ArticlePostsMapper $articlePostsMapper, ArticleFilter $articleFilter,
-                                PostFilter $postFilter, CategoryMapper $categoryMapper, Upload $upload, AdminUsersMapper $adminUsersMapper)
-    {
+        PostFilter $postFilter, CategoryMapper $categoryMapper, Upload $upload, AdminUsersMapper $adminUsersMapper
+    ) {
+    
         parent::__construct($articleMapper, $articleFilter);
 
         $this->articleMapper      = $articleMapper;
@@ -125,7 +154,7 @@ class PostService extends ArticleService
 
     public function updateArticle($data, $id)
     {
-        $article       = $this->articlePostsMapper->get($id);
+        $oldArticle    = $this->articlePostsMapper->get($id);
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
         $postFilter    = $this->postFilter->getInputFilter()->setData($data);
 
@@ -133,7 +162,7 @@ class PostService extends ArticleService
             throw new FilterException($articleFilter->getMessages() + $postFilter->getMessages());
         }
 
-        $article = $articleFilter->getValues() + ['article_uuid' => $article->article_uuid];
+        $article = $articleFilter->getValues() + ['article_uuid' => $oldArticle->article_uuid];
         $post    = $postFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
                 'main_img'     => $this->upload->uploadImage($data, 'main_img')
@@ -143,13 +172,19 @@ class PostService extends ArticleService
         $article['category_uuid']   = $this->categoryMapper->get($article['category_id'])->category_uuid;
         unset($article['category_id'], $article['admin_user_id']);
 
-        // We dont want to force user to re-upload image on edit
-        if(!$post['featured_img']) {
+        // We don't want to force user to re-upload image on edit
+        if (!$post['featured_img']) {
             unset($post['featured_img']);
         }
+        else {
+            $this->upload->deleteFile($oldArticle->featured_img);
+        }
 
-        if(!$post['main_img']) {
+        if (!$post['main_img']) {
             unset($post['main_img']);
+        }
+        else {
+            $this->upload->deleteFile($oldArticle->main_img);
         }
 
         $this->articleMapper->update($article, ['article_uuid' => $article['article_uuid']]);
@@ -160,10 +195,12 @@ class PostService extends ArticleService
     {
         $post = $this->articlePostsMapper->get($id);
 
-        if(!$post) {
+        if (!$post) {
             throw new \Exception('Article not found!');
         }
 
+        $this->upload->deleteFile($post->main_img);
+        $this->upload->deleteFile($post->featured_img);
         $this->articlePostsMapper->delete(['article_uuid' => $post->article_uuid]);
         $this->delete($post->article_uuid);
     }

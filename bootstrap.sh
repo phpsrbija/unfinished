@@ -65,9 +65,9 @@ sudo mv composer.phar /usr/local/bin/composer
 cd /var/www/unfinished/
 
 if [ -d "vendor" ]; then
- composer update --no-dev       >> /dev/null 2>&1
+ composer update      >> /dev/null 2>&1
 else
- composer install --no-dev      >> /dev/null 2>&1
+ composer install     >> /dev/null 2>&1
 fi
 
 echo "

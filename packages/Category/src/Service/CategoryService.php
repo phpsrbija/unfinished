@@ -11,6 +11,7 @@ use Category\Filter\CategoryFilter;
 use Core\Exception\FilterException;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DbSelect;
+use UploadHelper\Upload;
 
 /**
  * Class CategoryService.
@@ -21,14 +22,20 @@ class CategoryService
 {
     private $categoryMapper;
     private $categoryFilter;
+    private $upload;
 
     /**
      * CategoryService constructor.
+     *
+     * @param CategoryMapper $categoryMapper
+     * @param CategoryFilter $categoryFilter
+     * @param Upload         $upload
      */
-    public function __construct(CategoryMapper $categoryMapper, CategoryFilter $categoryFilter)
+    public function __construct(CategoryMapper $categoryMapper, CategoryFilter $categoryFilter, Upload $upload)
     {
         $this->categoryMapper = $categoryMapper;
         $this->categoryFilter = $categoryFilter;
+        $this->upload         = $upload;
     }
 
     /**
@@ -64,7 +71,7 @@ class CategoryService
     /**
      * Return one category for given URL Slug
      *
-     * @param String $urlSlug
+     * @param  String $urlSlug
      * @return array|\ArrayObject|null
      */
     public function getCategoryBySlug($urlSlug)
@@ -75,7 +82,7 @@ class CategoryService
     /**
      * Create new category.
      *
-     * @param $data
+     * @param  $data
      * @throws FilterException
      */
     public function createCategory($data)
@@ -86,24 +93,25 @@ class CategoryService
             throw new FilterException($filter->getMessages());
         }
 
-        $data                  = $filter->getValues();
-        $data['category_id']   = Uuid::uuid1()->toString();
-        $data['category_uuid'] = (new MysqlUuid($data['category_id']))->toFormat(new Binary);
+        $values                   = $filter->getValues();
+        $values['category_id']    = Uuid::uuid1()->toString();
+        $values['category_uuid']  = (new MysqlUuid($values['category_id']))->toFormat(new Binary);
+        $values['main_img']       = $this->upload->uploadImage($data, 'main_img');
 
-        $this->categoryMapper->insert($data);
+        $this->categoryMapper->insert($values);
     }
 
     /**
      * Update existing category.
      *
-     * @param $data
-     * @param $categoryId
+     * @param  $data
+     * @param  $categoryId
      * @throws FilterException
      * @throws \Exception
      */
     public function updateCategory($data, $categoryId)
     {
-        if(!$this->getCategory($categoryId)) {
+        if (!($oldCategory = $this->getCategory($categoryId))) {
             throw new \Exception('CategoryId dos not exist.');
         }
 
@@ -113,8 +121,19 @@ class CategoryService
             throw new FilterException($filter->getMessages());
         }
 
-        $data = $filter->getValues();
-        $this->categoryMapper->update($data, ['category_id' => $categoryId]);
+        $values = $filter->getValues() + [
+                'main_img' => $this->upload->uploadImage($data, 'main_img')
+            ];
+
+        // We don't want to force user to re-upload image on edit
+        if(!$values['main_img']) {
+            unset($values['main_img']);
+        }
+        else{
+            $this->upload->deleteFile($oldCategory->main_img);
+        }
+
+        $this->categoryMapper->update($values, ['category_id' => $categoryId]);
     }
 
     /**
@@ -125,6 +144,10 @@ class CategoryService
      */
     public function delete($categoryId)
     {
+        $category = $this->getCategory($categoryId);
+
+        $this->upload->deleteFile($category->main_img);
+
         return (bool)$this->categoryMapper->delete(['category_id' => $categoryId]);
     }
 
@@ -140,10 +163,14 @@ class CategoryService
 
     /**
      * Return categories with posts/articles
+     *
+     * @param  null $inHomepage
+     * @param  null $inCategoryList
+     * @return mixed
      */
-    public function getWebCategories()
+    public function getCategoriesWithPosts($inHomepage = null, $inCategoryList = null)
     {
-        $categories = $this->categoryMapper->getWeb()->toArray();
+        $categories = $this->categoryMapper->getWeb(7, null, $inHomepage, $inCategoryList)->toArray();
 
         foreach($categories as $ctn => $category) {
             $select                    = $this->categoryMapper->getCategoryPostsSelect($category['category_id'], 4);
@@ -156,17 +183,20 @@ class CategoryService
 
     /**
      * Return categories posts/articles
+     *
+     * @param  null $inCategoryList
+     * @return null|\Zend\Db\ResultSet\ResultSetInterface
      */
-    public function allWeb()
+    public function getCategories($inCategoryList = null)
     {
-        return $this->categoryMapper->getWeb(null, ['name' => 'asc']);
+        return $this->categoryMapper->getWeb(null, ['name' => 'asc'], null, $inCategoryList);
     }
 
     /**
      * Get posts - articles with type == Posts
      *
-     * @param $category
-     * @param int $page
+     * @param  $category
+     * @param  int      $page
      * @return Paginator
      */
     public function getCategoryPostsPagination($category, $page = 1): Paginator

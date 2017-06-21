@@ -18,20 +18,32 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class EventsAction
 {
-    /** @var Template */
+    /**
+* 
+     *
+ * @var Template 
+*/
     private $template;
 
-    /** @var EventService */
+    /**
+* 
+     *
+ * @var EventService 
+*/
     private $eventService;
 
-    /** @var CategoryService */
+    /**
+* 
+     *
+ * @var CategoryService 
+*/
     private $categoryService;
 
     /**
      * EventsAction constructor.
      *
-     * @param Template $template
-     * @param EventService $eventService
+     * @param Template        $template
+     * @param EventService    $eventService
      * @param CategoryService $categoryService
      */
     public function __construct(Template $template, EventService $eventService, CategoryService $categoryService)
@@ -44,9 +56,9 @@ class EventsAction
     /**
      * Executed when action is invoked
      *
-     * @param Request $request
-     * @param Response $response
-     * @param callable|null $next
+     * @param  Request       $request
+     * @param  Response      $response
+     * @param  callable|null $next
      * @return HtmlResponse
      * @throws \Exception
      */
@@ -56,11 +68,17 @@ class EventsAction
         $page         = isset($params['page']) ? $params['page'] : 1;
         $futureEvents = $this->eventService->fetchFutureEvents();
         $pastEvents   = $this->eventService->fetchPastEventsPagination($page, 10);
+        $category     = $this->categoryService->getCategoryBySlug('events');
 
-        return new HtmlResponse($this->template->render('web::events', [
-            'layout'       => 'layout/web',
-            'futureEvents' => $futureEvents,
-            'pastEvents'   => $pastEvents
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'web::events', [
+                'layout'       => 'layout/web',
+                'futureEvents' => $futureEvents,
+                'pastEvents'   => $pastEvents,
+                'category'     => $category,
+                ]
+            )
+        );
     }
 }

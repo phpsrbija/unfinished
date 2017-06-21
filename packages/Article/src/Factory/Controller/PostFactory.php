@@ -17,9 +17,9 @@ class PostFactory
     {
         return new PostController(
             $container->get(TemplateRendererInterface::class),
+            $container->get(RouterInterface::class),
             $container->get(PostService::class),
             $container->get('session'),
-            $container->get(RouterInterface::class),
             $container->get(CategoryService::class)
         );
     }

@@ -1,8 +1,12 @@
 <?php
 $event   = $futureEvents->count() ? $futureEvents->current() : $pastEvents->getItem(0);
 $escaper = (new \Zend\Escaper\Escaper);
-$this->headTitle($escaper->escapeHtml($event->title));
-$this->headMeta($escaper->escapeHtml($event->sub_title), 'description');
+$this->headTitle($escaper->escapeHtml($category->title));
+$this->headMeta($escaper->escapeHtml($category->description), 'description');
+$this->headMeta('events', 'og:type');
+$this->headMeta($category->main_img ? $this->serverUrl($category->main_img) : '', 'og:image');
+$this->headMeta($this->serverUrl(), 'og:url');
+$this->headMeta($escaper->escapeHtml($category->description), 'og:description');
 ?>
 
 <div class="event-page">

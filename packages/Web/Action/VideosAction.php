@@ -18,13 +18,25 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class VideosAction
 {
-    /** @var Template */
+    /**
+* 
+     *
+ * @var Template 
+*/
     private $template;
 
-    /** @var VideoService */
+    /**
+* 
+     *
+ * @var VideoService 
+*/
     private $videoService;
 
-    /** @var CategoryService */
+    /**
+* 
+     *
+ * @var CategoryService 
+*/
     private $categoryService;
 
     /**
@@ -42,22 +54,28 @@ class VideosAction
     /**
      * Executed when action is invoked
      *
-     * @param Request $request
-     * @param Response $response
-     * @param callable|null $next
+     * @param  Request       $request
+     * @param  Response      $response
+     * @param  callable|null $next
      * @return HtmlResponse
      * @throws \Exception
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
-        $params = $request->getQueryParams();
-        $page   = isset($params['page']) ? $params['page'] : 1;
-        $videos = $this->videoService->fetchWebArticles($page, 5);
+        $params   = $request->getQueryParams();
+        $page     = isset($params['page']) ? $params['page'] : 1;
+        $videos   = $this->videoService->fetchWebArticles($page, 5);
+        $category = $this->categoryService->getCategoryBySlug('videos');
 
-        return new HtmlResponse($this->template->render('web::videos', [
-            'layout' => 'layout/web',
-            'videos' => $videos
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'web::videos', [
+                'layout'   => 'layout/web',
+                'videos'   => $videos,
+                'category' => $category,
+                ]
+            )
+        );
     }
 
 }

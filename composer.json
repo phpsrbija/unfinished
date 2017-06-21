@@ -24,8 +24,6 @@
         "zendframework/zend-crypt": "^3.1",
         "zendframework/zend-paginator": "^2.7.0",
         "zendframework/zend-i18n": "2.7.3",
-        "robmorgan/phinx": "^0.6.4",
-        "fzaninotto/faker": "1.6.*",
         "ramsey/uuid": "^3.5",
         "vend/mysql-uuid": "1.0",
         "tasmaniski/upload-helper":"^1.0",
@@ -33,6 +31,8 @@
         "zendframework/zend-escaper": "^2.5"
     },
     "require-dev": {
+        "robmorgan/phinx": "^0.6.4",
+        "fzaninotto/faker": "1.6.*",
         "phpunit/phpunit": "5.6.1",
         "squizlabs/php_codesniffer": "3.0.0a1",
         "roave/security-advisories": "dev-master",
@@ -52,11 +52,10 @@
         }
     },
     "scripts": {
-        "upload-coverage": "coveralls -v",
-        "cs-check": "vendor/bin/phpcs --standard=PSR2 ./src/*",
+        "test": "bash unit-tests-ci.sh",
+        "upload-coverage": "vendor/bin/coveralls -v",
+        "cs-check": "vendor/bin/phpcs --standard=PSR2 ./packages/*",
         "cs-fix": "phpcbf",
-        "server": "php -S 0.0.0.0:8080 -t public/ public/index.php",
-        "test": "vendor/bin/phpunit --colors=always --configuration=\"./tests/phpunit.xml\" --bootstrap=\"./tests/bootstrap.php\"",
-        "test-coverage": "vendor/bin/phpunit --colors=always --configuration=\"./tests/phpunit.xml\" --bootstrap=\"./tests/bootstrap.php\" --coverage-clover clover.xml"
+        "server": "php -S 0.0.0.0:8080 -t public/ public/index.php"
     }
 }

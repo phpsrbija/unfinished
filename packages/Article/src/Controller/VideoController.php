@@ -44,20 +44,20 @@ class VideoController extends AbstractController
     /**
      * VideoController constructor.
      *
-     * @param Template $template
-     * @param VideoService $videoService
-     * @param SessionManager $session
-     * @param Router $router
+     * @param Template        $template
+     * @param Router          $router
+     * @param VideoService    $videoService
+     * @param SessionManager  $session
      * @param CategoryService $categoryService
      */
     public function __construct(
         Template $template,
+        Router $router,
         VideoService $videoService,
         SessionManager $session,
-        Router $router,
         CategoryService $categoryService
-    )
-    {
+    ) {
+    
         $this->template        = $template;
         $this->videoService    = $videoService;
         $this->session         = $session;
@@ -91,12 +91,16 @@ class VideoController extends AbstractController
             $video->article_id = $id;
         }
 
-        return new HtmlResponse($this->template->render('article::video/edit', [
-            'video'      => $video,
-            'categories' => $categories,
-            'errors'     => $errors,
-            'layout'     => 'layout/admin'
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'article::video/edit', [
+                'video'      => $video,
+                'categories' => $categories,
+                'errors'     => $errors,
+                'layout'     => 'layout/admin'
+                ]
+            )
+        );
     }
 
     /**
