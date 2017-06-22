@@ -1,7 +1,11 @@
 <?php
-
+declare(strict_types = 1);
 namespace Page\Entity;
 
+/**
+ * Class Page.
+ * @package Page\Entity
+ */
 class Page
 {
     private $page_uuid;
@@ -34,124 +38,103 @@ class Page
     }
 
     /**
-* 
-     *
- * @return mixed 
-*/
+     * @return mixed
+     */
     public function getSlug()
     {
         return $this->slug;
     }
 
     /**
-* 
-     *
- * @param mixed $slug 
-*/
+     * @param $slug
+     */
     public function setSlug($slug)
     {
         $this->slug = $slug;
     }
 
+    /**
+     * Page constructor.
+     */
     public function __construct() 
     { 
     }
 
     /**
-* 
-     *
- * @return mixed 
-*/
+     * @return mixed
+     */
     public function getIsActive()
     {
         return $this->is_active;
     }
 
     /**
-* 
-     *
- * @param mixed $is_active 
-*/
+     * @param $is_active
+     */
     public function setIsActive($is_active)
     {
         $this->is_active = $is_active;
     }
 
     /**
-* 
-     *
- * @return binary 
-*/
+     * @return mixed
+     */
     public function getPageUuid()
     {
         return $this->page_uuid;
     }
 
     /**
-* 
-     *
- * @param binary $page_uuid 
-*/
+     * @param $page_uuid
+     */
     public function setPageUuid($page_uuid) 
     {
         $this->page_uuid = $page_uuid; 
     }
 
     /**
-* 
-     *
- * @return mixed 
-*/
+     * @return mixed
+     */
     public function getPageId()
     {
         return $this->page_id;
     }
 
     /**
-* 
-     *
- * @param mixed $page_id 
-*/
+     * @param $page_id
+     */
     public function setPageId($page_id)
     {
         $this->page_id = $page_id;
     }
 
     /**
-* 
-     *
- * @return mixed 
-*/
+     * @return mixed
+     */
     public function getTitle()
     {
         return $this->title;
     }
 
     /**
-* 
-     *
- * @param mixed $title 
-*/
+     * @param $title
+     */
     public function setTitle($title)
     {
         $this->title = $title;
     }
 
     /**
-* 
-     *
- * @return mixed 
-*/
+     * @return mixed
+     */
     public function getBody()
     {
         return $this->body;
     }
 
     /**
-* 
-     *
- * @param mixed $body 
-*/
+     * @param $body
+     */
     public function setBody($body)
     {
         $this->body = $body;
@@ -171,40 +154,32 @@ class Page
     }
 
     /**
-* 
-     *
- * @param mixed $description 
-*/
+     * @param $description
+     */
     public function setDescription($description)
     {
         $this->description = $description;
     }
 
     /**
-* 
-     *
- * @return mixed 
-*/
+     * @return mixed
+     */
     public function getMainImg()
     {
         return $this->main_img;
     }
 
     /**
-* 
-     *
- * @param mixed $main_img 
-*/
+     * @param $main_img
+     */
     public function setMainImg($main_img)
     {
         $this->main_img = $main_img;
     }
 
     /**
-* 
-     *
- * @return mixed 
-*/
+     * @return mixed
+     */
     public function getHasLayout()
     {
         return $this->has_layout;
@@ -217,20 +192,16 @@ class Page
     }
 
     /**
-* 
-     *
- * @return mixed 
-*/
+     * @return mixed
+     */
     public function getIsHomepage()
     {
         return $this->is_homepage;
     }
 
     /**
-* 
-     *
- * @param mixed $is_homepage 
-*/
+     * @param $is_homepage
+     */
     public function setIsHomepage($is_homepage)
     {
         $this->is_homepage = $is_homepage;
@@ -250,10 +221,8 @@ class Page
     }
 
     /**
-* 
-     *
- * @param string $created_at 
-*/
+     * @param string $created_at
+     */
     public function setCreatedAt(string $created_at)
     {
         $this->created_at = $created_at;
@@ -272,10 +241,8 @@ class Page
     }
 
     /**
-* 
-     *
- * @return Array 
-*/
+     * @return array
+     */
     public function getArrayCopy()
     {
         return [
@@ -293,5 +260,4 @@ class Page
             'slug'              => (string)$this->slug
         ];
     }
-
 }

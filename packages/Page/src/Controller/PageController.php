@@ -86,22 +86,19 @@ class PageController extends AbstractController
     {
         try {
             $pageId = $this->request->getAttribute('id');
-            $data   = $this->request->getParsedBody();
-            $data   += (new Request())->getFiles()->toArray();
+            $data = $this->request->getParsedBody();
+            $data += (new Request())->getFiles()->toArray();
 
-            if($pageId) {
+            if ($pageId) {
                 $this->pageService->updatePage($data, $pageId);
-            }
-            else {
+            } else {
                 $this->pageService->createPage($data);
             }
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.pages'));
-        }
-        catch(FilterException $fe) {
+        } catch (FilterException $fe) {
             return $this->edit($fe->getArrayMessages());
-        }
-        catch(\Exception $e) {
+        } catch(\Exception $e) {
             throw $e;
         }
     }
@@ -113,8 +110,7 @@ class PageController extends AbstractController
             $this->pageService->delete($pageId);
 
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.pages'));
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.pages'));
         }
     }
