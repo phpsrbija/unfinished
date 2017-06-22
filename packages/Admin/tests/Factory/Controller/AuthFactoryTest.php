@@ -6,15 +6,15 @@ class AuthFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testAuthControllerFactoryShouldCreateExpectedControllerInstance()
     {
-        $router = $this->getMockBuilder('Zend\Expressive\Router\RouterInterface')
+        $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
             ->getMockForAbstractClass();
-        $template = $this->getMockBuilder('Zend\Expressive\Template\TemplateRendererInterface')
+        $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
         $session = new \Zend\Session\SessionManager();
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
+        $adminUserService = $this->getMockBuilder(\Admin\Service\AdminUserService::class)
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
-        $container = $this->getMockBuilder('Interop\Container\ContainerInterface')
+        $container = $this->getMockBuilder(\Interop\Container\ContainerInterface::class)
             ->setMethods(['get'])
             ->getMockForAbstractClass();
         $container->expects(static::at(0))

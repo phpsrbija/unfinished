@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Category\Test\Controller;
+namespace Menu\Test\Controller;
 
 class IndexControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
         $template->expects(static::once())
             ->method('render')
             ->will(static::returnValue('test'));
-        $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
+        $menuService = $this->getMockBuilder(\Menu\Service\MenuService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
@@ -20,10 +20,10 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'index');
         $response = new \Zend\Diactoros\Response();
-        $indexController = new \Category\Controller\IndexController(
+        $indexController = new \Menu\Controller\IndexController(
             $template,
             $router,
-            $categoryService
+            $menuService
         );
         static::assertInstanceOf(\Zend\Diactoros\Response\HtmlResponse::class, $indexController($request, $response));
     }
@@ -36,7 +36,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
         $template->expects(static::once())
             ->method('render')
             ->will(static::returnValue('test'));
-        $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
+        $menuService = $this->getMockBuilder(\Menu\Service\MenuService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
@@ -44,12 +44,12 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'edit');
         $request = $request->withAttribute('id', 1);
-        $request = $request->withParsedBody(['category' => 'test']);
+        $request = $request->withParsedBody(['menu' => 'test']);
         $response = new \Zend\Diactoros\Response();
-        $indexController = new \Category\Controller\IndexController(
+        $indexController = new \Menu\Controller\IndexController(
             $template,
             $router,
-            $categoryService
+            $menuService
         );
         static::assertInstanceOf(\Zend\Diactoros\Response\HtmlResponse::class, $indexController($request, $response));
     }
@@ -58,7 +58,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
     {
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
+        $menuService = $this->getMockBuilder(\Menu\Service\MenuService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
@@ -68,12 +68,12 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
             ->will(static::returnValue('http://unfinished.dev/admin'));
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'save');
-        $request = $request->withParsedBody(['category' => 'test']);
+        $request = $request->withParsedBody(['menu' => 'test']);
         $response = new \Zend\Diactoros\Response();
-        $indexController = new \Category\Controller\IndexController(
+        $indexController = new \Menu\Controller\IndexController(
             $template,
             $router,
-            $categoryService
+            $menuService
         );
         $returnedResponse = $indexController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
@@ -83,7 +83,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
     {
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
+        $menuService = $this->getMockBuilder(\Menu\Service\MenuService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
@@ -94,12 +94,12 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'save');
         $request = $request->withAttribute('id', 1);
-        $request = $request->withParsedBody(['category' => 'test']);
+        $request = $request->withParsedBody(['menu' => 'test']);
         $response = new \Zend\Diactoros\Response();
-        $indexController = new \Category\Controller\IndexController(
+        $indexController = new \Menu\Controller\IndexController(
             $template,
             $router,
-            $categoryService
+            $menuService
         );
         $returnedResponse = $indexController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
@@ -112,23 +112,23 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
         $template->expects(static::once())
             ->method('render')
             ->will(static::returnValue('test'));
-        $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
+        $menuService = $this->getMockBuilder(\Menu\Service\MenuService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $categoryService->expects(static::once())
-            ->method('updateCategory')
+        $menuService->expects(static::once())
+            ->method('updateMenuItem')
             ->willThrowException(new \Std\FilterException(['test error']));
         $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
             ->getMockForAbstractClass();
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'save');
         $request = $request->withAttribute('id', 2);
-        $request = $request->withParsedBody(['category' => 'test']);
+        $request = $request->withParsedBody(['menu' => 'test']);
         $response = new \Zend\Diactoros\Response();
-        $indexController = new \Category\Controller\IndexController(
+        $indexController = new \Menu\Controller\IndexController(
             $template,
             $router,
-            $categoryService
+            $menuService
         );
 
         $returnedResponse = $indexController($request, $response);
@@ -144,23 +144,23 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
     {
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
+        $menuService = $this->getMockBuilder(\Menu\Service\MenuService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $categoryService->expects(static::once())
-            ->method('updateCategory')
+        $menuService->expects(static::once())
+            ->method('updateMenuItem')
             ->willThrowException(new \Exception('test error'));
         $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
             ->getMockForAbstractClass();
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'save');
         $request = $request->withAttribute('id', 2);
-        $request = $request->withParsedBody(['user' => 'test']);
+        $request = $request->withParsedBody(['menu' => 'test']);
         $response = new \Zend\Diactoros\Response();
-        $indexController = new \Category\Controller\IndexController(
+        $indexController = new \Menu\Controller\IndexController(
             $template,
             $router,
-            $categoryService
+            $menuService
         );
         $indexController($request, $response);
     }
@@ -169,7 +169,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
     {
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
+        $menuService = $this->getMockBuilder(\Menu\Service\MenuService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
@@ -181,40 +181,66 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
         $request = $request->withAttribute('action', 'delete');
         $request = $request->withAttribute('id', 2);
         $response = new \Zend\Diactoros\Response();
-        $indexController = new \Category\Controller\IndexController(
+        $indexController = new \Menu\Controller\IndexController(
             $template,
             $router,
-            $categoryService
+            $menuService
         );
         $returnedResponse = $indexController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }
 
-    public function testDeleteMethodShouldFailCatchExceptionAndRedirect()
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage test error
+     */
+    public function testDeleteMethodShouldFailThrowException()
     {
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
+        $menuService = $this->getMockBuilder(\Menu\Service\MenuService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $categoryService->expects(static::once())
+        $menuService->expects(static::once())
             ->method('delete')
             ->willThrowException(new \Exception('test error'));
         $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
             ->getMockForAbstractClass();
-        $router->expects(static::at(0))
-            ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin'));
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'delete');
         $request = $request->withAttribute('id', 2);
         $response = new \Zend\Diactoros\Response();
-        $indexController = new \Category\Controller\IndexController(
+        $indexController = new \Menu\Controller\IndexController(
             $template,
             $router,
-            $categoryService
+            $menuService
         );
         $returnedResponse = $indexController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
+    }
+
+    public function testUpdateOrderMethodShouldReturnJsonResponse()
+    {
+        $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
+            ->getMockForAbstractClass();
+        $menuService = $this->getMockBuilder(\Menu\Service\MenuService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $menuService->expects(static::once())
+            ->method('updateMenuOrder')
+            ->willReturn('test');
+        $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
+            ->getMockForAbstractClass();
+        $request = new \Zend\Diactoros\ServerRequest();
+        $request = $request->withAttribute('action', 'updateOrder');
+        $request = $request->withAttribute('id', 2);
+        $request = $request->withParsedBody(['menu' => 'test']);
+        $response = new \Zend\Diactoros\Response();
+        $indexController = new \Menu\Controller\IndexController(
+            $template,
+            $router,
+            $menuService
+        );
+        static::assertInstanceOf(\Zend\Diactoros\Response\JsonResponse::class, $indexController($request, $response));
     }
 }
