@@ -215,7 +215,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->willThrowException(new \Core\Exception\FilterException(['test error']));
+            ->willThrowException(new \Std\FilterException(['test error']));
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'save');
         $request = $request->withAttribute('id', 2);

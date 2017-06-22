@@ -117,7 +117,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         $menuService->expects(static::once())
             ->method('updateMenuItem')
-            ->willThrowException(new \Core\Exception\FilterException(['test error']));
+            ->willThrowException(new \Std\FilterException(['test error']));
         $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
             ->getMockForAbstractClass();
         $request = new \Zend\Diactoros\ServerRequest();

@@ -6,11 +6,11 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testUserFactoryShouldCreateExpectedUserControllerInstance()
     {
-        $router = $this->getMockBuilder('Zend\Expressive\Router\RouterInterface')
+        $router = $this->getMockBuilder(\Zend\Expressive\Router\RouterInterface::class)
             ->getMockForAbstractClass();
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
+        $adminUserService = $this->getMockBuilder(\Admin\Service\AdminUserService::class)
             ->disableOriginalConstructor()
             ->setMethods(['loginUser'])
             ->getMockForAbstractClass();

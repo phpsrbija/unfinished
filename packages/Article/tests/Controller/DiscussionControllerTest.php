@@ -214,7 +214,7 @@ class DiscussionControllerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         $discussionService->expects(static::once())
             ->method('updateArticle')
-            ->willThrowException(new \Core\Exception\FilterException(['test error']));
+            ->willThrowException(new \Std\FilterException(['test error']));
         $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
             ->disableOriginalConstructor()
             ->getMock();

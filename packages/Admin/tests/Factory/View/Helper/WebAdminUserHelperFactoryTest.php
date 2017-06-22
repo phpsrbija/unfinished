@@ -6,10 +6,10 @@ class WebAdminUserHelperFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testInvokingWebUserHelperShouldReturnWebAdminUserHelper()
     {
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
+        $adminUserService = $this->getMockBuilder(\Admin\Service\AdminUserService::class)
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
-        $container = $this->getMockBuilder('Interop\Container\ContainerInterface')
+        $container = $this->getMockBuilder(\Interop\Container\ContainerInterface::class)
             ->setMethods(['get'])
             ->getMockForAbstractClass();
         $container->expects(static::at(0))
