@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Core\Service;
+namespace Meetup;
 
 use Interop\Container\ContainerInterface;
 
