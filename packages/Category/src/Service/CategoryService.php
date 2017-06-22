@@ -8,7 +8,7 @@ use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
 use Category\Mapper\CategoryMapper;
 use Category\Filter\CategoryFilter;
-use Core\Exception\FilterException;
+use Std\FilterException;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\DbSelect;
 use UploadHelper\Upload;

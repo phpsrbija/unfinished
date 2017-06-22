@@ -42,7 +42,7 @@
     "autoload": {
         "psr-4": {
             "Web\\": "packages/Web/",
-            "Core\\": "packages/Core/",
+            "Std\\": "packages/Std/src/",
             "Admin\\": "packages/Admin/src/",
             "Menu\\": "packages/Menu/src/",
             "Category\\": "packages/Category/src/",

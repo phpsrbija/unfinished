@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Admin\Controller;
 
-use Core\Controller\AbstractController;
+use Std\AbstractController;
 use Admin\Service\AdminUserService;
-use Core\Exception\FilterException;
+use Std\FilterException;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;

@@ -11,7 +11,7 @@ use Zend\Db\Sql\Expression;
 /**
  * Class AdminUsersMapper.
  *
- * @package Core\Mapper
+ * @package Admin\Mapper
  */
 class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInterface
 {

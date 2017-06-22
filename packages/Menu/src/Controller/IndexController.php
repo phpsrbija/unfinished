@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types = 1);
 
 namespace Menu\Controller;
 
 use Menu\Service\MenuService;
-use Core\Exception\FilterException;
-use Core\Controller\AbstractController;
+use Std\FilterException;
+use Std\AbstractController;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
@@ -14,24 +15,18 @@ use Zend\Diactoros\Response\HtmlResponse;
 class IndexController extends AbstractController
 {
     /**
-* 
-     *
- * @var Template 
-*/
+     * @var Template
+     */
     private $template;
 
     /**
-* 
-     *
- * @var Router 
-*/
+     * @var Router
+     */
     private $router;
 
     /**
-* 
-     *
- * @var MenuService 
-*/
+     * @var MenuService
+     */
     private $menuService;
 
     public function __construct(Template $template, Router $router, MenuService $menuService)

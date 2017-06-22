@@ -7,7 +7,7 @@ use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
 use Menu\Mapper\MenuMapper;
 use Menu\Filter\MenuFilter;
-use Core\Exception\FilterException;
+use Std\FilterException;
 use Category\Service\CategoryService;
 use Article\Service\PostService;
 

@@ -4,14 +4,14 @@ declare(strict_types = 1);
 
 namespace Article\Controller;
 
-use Core\Controller\AbstractController;
+use Std\AbstractController;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
 use Article\Service\PostService;
 use Category\Service\CategoryService;
 use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;
-use Core\Exception\FilterException;
+use Std\FilterException;
 use Zend\Http\PhpEnvironment\Request;
 
 class PostController extends AbstractController
@@ -22,7 +22,7 @@ class PostController extends AbstractController
     private $template;
 
     /**
-     * @var \Core\Service\PostService
+     * @var PostService
      */
     private $postService;
 

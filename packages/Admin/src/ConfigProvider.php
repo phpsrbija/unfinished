@@ -26,7 +26,7 @@ class ConfigProvider
 
                     // Admin part
                     Service\AdminUserService::class => Factory\Service\AdminUserServiceFactory::class,
-                    Mapper\AdminUsersMapper::class  => \Core\Factory\MapperFactory::class,
+                    Mapper\AdminUsersMapper::class  => \Std\MapperFactory::class,
                     Filter\AdminUserFilter::class   => Factory\FilterFactory::class,
                     Middleware\AdminAuth::class     => Factory\Middleware\AdminAuthFactory::class,
                 ],

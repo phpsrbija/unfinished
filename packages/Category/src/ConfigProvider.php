@@ -17,7 +17,7 @@ class ConfigProvider
                 'factories' => [
                     // Service
                     Service\CategoryService::class    => Factory\Service\CategoryServiceFactory::class,
-                    Mapper\CategoryMapper::class      => \Core\Factory\MapperFactory::class,
+                    Mapper\CategoryMapper::class      => \Std\MapperFactory::class,
                     Filter\CategoryFilter::class      => \Zend\ServiceManager\Factory\InvokableFactory::class,
 
                     // Controller

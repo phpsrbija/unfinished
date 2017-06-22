@@ -12,7 +12,7 @@ use Zend\Db\Sql\Expression;
 /**
  * Class CategoryMapper.
  *
- * @package Core\Mapper
+ * @package Category\Mapper
  */
 class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterface
 {

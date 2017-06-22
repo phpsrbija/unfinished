@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Exception;
+namespace Std;
 
 class FilterException extends \Exception
 {

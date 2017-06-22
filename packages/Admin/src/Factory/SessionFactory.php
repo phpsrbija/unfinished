@@ -11,7 +11,7 @@ use Zend\Session\SessionManager;
 /**
  * Class SessionFactory.
  *
- * @package Core\Factory
+ * @package Admin\Factory
  */
 class SessionFactory
 {
