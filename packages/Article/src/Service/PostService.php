@@ -10,7 +10,7 @@ use Category\Mapper\CategoryMapper;
 use Article\Entity\ArticleType;
 use Article\Filter\ArticleFilter;
 use Core\Exception\FilterException;
-use Core\Mapper\AdminUsersMapper;
+use Admin\Mapper\AdminUsersMapper;
 use Article\Filter\PostFilter;
 use Ramsey\Uuid\Uuid;
 use MysqlUuid\Uuid as MysqlUuid;

@@ -26,7 +26,8 @@ class HomeAction
     /**
      * HomeAction constructor.
      *
-     * @param Template $template
+     * @param Template    $template
+     * @param PageService $pageService
      */
     public function __construct(Template $template, PageService $pageService)
     {
@@ -46,8 +47,9 @@ class HomeAction
      */
     public function __invoke(Request $request, Response $response, callable $next = null): HtmlResponse
     {
+
         $page = $this->pageService->getHomepage();
-        
+
         return new HtmlResponse($this->template->render('web::home', ['page' => $page, 'layout' => 'layout/web']));
     }
 

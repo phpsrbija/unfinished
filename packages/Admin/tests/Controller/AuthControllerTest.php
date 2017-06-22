@@ -6,7 +6,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
 {
     public function testIfUserAlreadyLoggedInRedirectShouldBePerformed()
     {
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $template = $this->getMockBuilder('Zend\Expressive\Template\TemplateRendererInterface')
@@ -39,7 +39,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testIfUserNotLoggedInLoginActionShouldTakeHimToLoginHtmlPage()
     {
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $template = $this->getMockBuilder('Zend\Expressive\Template\TemplateRendererInterface')
@@ -72,7 +72,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testUserLogoutShouldClearSessionStorage()
     {
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $template = $this->getMockBuilder('Zend\Expressive\Template\TemplateRendererInterface')
@@ -101,7 +101,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testUserLoginHandleWithCorrectCredentialsShouldSetUserInSessionStorage()
     {
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->disableOriginalConstructor()
             ->setMethods(['loginUser'])
             ->getMockForAbstractClass();
@@ -140,7 +140,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testUserLoginHandleWithWrongCredentialsShouldNotSetUserInSessionStorage()
     {
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->disableOriginalConstructor()
             ->setMethods(['loginUser'])
             ->getMockForAbstractClass();
@@ -173,7 +173,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testUserLoginHandleWitAlreadyLoggedInUserShouldRedirectToAdminPage()
     {
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $template = $this->getMockBuilder('Zend\Expressive\Template\TemplateRendererInterface')
@@ -201,7 +201,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
 
     public function testUserLoginHandleShouldThrowExceptionAndDisplayMessage()
     {
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->disableOriginalConstructor()
             ->setMethods(['loginUser'])
             ->getMockForAbstractClass();

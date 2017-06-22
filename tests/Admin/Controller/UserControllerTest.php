@@ -16,7 +16,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $template->expects(static::once())
             ->method('render')
             ->will(static::returnValue('test'));
-        $adminUserService = $this->getMockBuilder(\Core\Service\AdminUserService::class)
+        $adminUserService = $this->getMockBuilder(\Core\Service\old::class)
             ->disableOriginalConstructor()
             ->getMock();
         $sessionManager = $this->getMockBuilder(\Zend\Session\SessionManager::class)

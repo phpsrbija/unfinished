@@ -3,7 +3,7 @@
 namespace Admin\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
-use Core\Service\AdminUserService;
+use Admin\Service\AdminUserService;
 
 class WebAdminUserHelper extends AbstractHelper
 {

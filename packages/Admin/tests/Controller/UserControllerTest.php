@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types = 1);
+
 namespace Test\Admin\Controller;
 
 class UserControllerTest extends \PHPUnit_Framework_TestCase
@@ -16,7 +18,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $template->expects(static::once())
             ->method('render')
             ->will(static::returnValue('test'));
-        $adminUserService = $this->getMockBuilder(\Core\Service\AdminUserService::class)
+        $adminUserService = $this->getMockBuilder(\Admin\Service\AdminUserService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $sessionManager = $this->getMockBuilder(\Zend\Session\SessionManager::class)
@@ -52,7 +54,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $template->expects(static::once())
             ->method('render')
             ->will(static::returnValue('test'));
-        $adminUserService = $this->getMockBuilder(\Core\Service\AdminUserService::class)
+        $adminUserService = $this->getMockBuilder(\Admin\Service\AdminUserService::class)
             ->disableOriginalConstructor()
             ->setMethods(['getUser'])
             ->getMock();
@@ -89,7 +91,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $template->expects(static::once())
             ->method('render')
             ->will(static::returnValue('test'));
-        $adminUserService = $this->getMockBuilder(\Core\Service\AdminUserService::class)
+        $adminUserService = $this->getMockBuilder(\Admin\Service\AdminUserService::class)
             ->disableOriginalConstructor()
             ->setMethods(['getUser'])
             ->getMock();
@@ -123,7 +125,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $sessionStorage->user = $user;
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $adminUserService = $this->getMockBuilder(\Core\Service\AdminUserService::class)
+        $adminUserService = $this->getMockBuilder(\Admin\Service\AdminUserService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $sessionManager = $this->getMockBuilder(\Zend\Session\SessionManager::class)
@@ -157,7 +159,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $sessionStorage->user = $user;
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $adminUserService = $this->getMockBuilder(\Core\Service\AdminUserService::class)
+        $adminUserService = $this->getMockBuilder(\Admin\Service\AdminUserService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $sessionManager = $this->getMockBuilder(\Zend\Session\SessionManager::class)
@@ -195,7 +197,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $template->expects(static::once())
             ->method('render')
             ->will(static::returnValue('test'));
-        $adminUserService = $this->getMockBuilder(\Core\Service\AdminUserService::class)
+        $adminUserService = $this->getMockBuilder(\Admin\Service\AdminUserService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $sessionManager = $this->getMockBuilder(\Zend\Session\SessionManager::class)
@@ -235,7 +237,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $sessionStorage->user = $user;
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $adminUserService = $this->getMockBuilder(\Core\Service\AdminUserService::class)
+        $adminUserService = $this->getMockBuilder(\Admin\Service\AdminUserService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $sessionManager = $this->getMockBuilder(\Zend\Session\SessionManager::class)
@@ -267,7 +269,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $sessionStorage->user = $user;
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $adminUserService = $this->getMockBuilder(\Core\Service\AdminUserService::class)
+        $adminUserService = $this->getMockBuilder(\Admin\Service\AdminUserService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $sessionManager = $this->getMockBuilder(\Zend\Session\SessionManager::class)
@@ -301,7 +303,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
         $sessionStorage->user = $user;
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $adminUserService = $this->getMockBuilder(\Core\Service\AdminUserService::class)
+        $adminUserService = $this->getMockBuilder(\Admin\Service\AdminUserService::class)
             ->setMethods(['delete'])
             ->disableOriginalConstructor()
             ->getMock();

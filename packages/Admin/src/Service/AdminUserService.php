@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Core\Service;
+namespace Admin\Service;
 
 use Ramsey\Uuid\Uuid;
 use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
-use Core\Mapper\AdminUsersMapper;
-use Core\Filter\AdminUserFilter;
+use Admin\Mapper\AdminUsersMapper;
+use Admin\Filter\AdminUserFilter;
 use Core\Exception\FilterException;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;

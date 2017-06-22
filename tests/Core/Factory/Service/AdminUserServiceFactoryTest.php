@@ -13,6 +13,6 @@ class TestAdminUserServiceFactory extends \PHPUnit_Framework_TestCase
         $container->expects(static::once())
             ->method('get')
             ->will(static::returnValue(new \Core\Mapper\AdminUsersMapper()));
-        static::assertInstanceOf('Core\Service\AdminUserService', $adminUserServiceFactory($container));
+        static::assertInstanceOf('Core\Service\AdminUserService.old', $adminUserServiceFactory($container));
     }
 }

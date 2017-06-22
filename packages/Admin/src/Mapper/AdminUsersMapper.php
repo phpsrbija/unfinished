@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Core\Mapper;
+namespace Admin\Mapper;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;

@@ -16,7 +16,7 @@ class EventServiceFactoryTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $categoryMapper = $this->getMockBuilder(\Category\Mapper\CategoryMapper::class)
             ->getMockForAbstractClass();
-        $adminUsersMapper = $this->getMockBuilder(\Core\Mapper\AdminUsersMapper::class)
+        $adminUsersMapper = $this->getMockBuilder(\Admin\Mapper\AdminUsersMapper::class)
             ->getMockForAbstractClass();
 
         $container = $this->getMockBuilder(\Interop\Container\ContainerInterface::class)

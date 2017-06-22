@@ -1,10 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Core\Factory\Service;
+namespace Core\Service;
 
 use Interop\Container\ContainerInterface;
-use \Core\Service\MeetupApiService;
 
 class MeetupApiServiceFactory
 {

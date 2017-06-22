@@ -3,7 +3,7 @@
 namespace Admin\Factory\View\Helper;
 
 use Admin\View\Helper\AdminUserHelper;
-use Core\Service\AdminUserService;
+use Admin\Service\AdminUserService;
 use Interop\Container\ContainerInterface;
 
 class AdminUserHelperFactory

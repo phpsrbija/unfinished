@@ -6,7 +6,7 @@ namespace Web\Factory\Action;
 
 use Article\Service\EventService;
 use Category\Service\CategoryService;
-use \Core\Service\MeetupApiService;
+use Core\Service\MeetupApiService;
 use Interop\Container\ContainerInterface;
 use Web\Action\EventAction;
 use Zend\Expressive\Template\TemplateRendererInterface;
