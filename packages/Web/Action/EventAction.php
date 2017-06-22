@@ -76,26 +76,16 @@ class EventAction
     {
         $eventSlug = $request->getAttribute('event_slug');
         $event     = $this->eventService->fetchEventBySlug($eventSlug);
-        $attendees = [];
 
         if(!$event) {
             return $next($request, $response);
         }
 
         // Fetch going ppl
-        try {
-            if(strpos($event->event_url, 'meetup.com') !== false) {
-                $parts     = explode('/', $event->event_url);
-                $attendees = $this->meetupService->getMeetupAttendees($parts[count($parts) - 2]);
-                shuffle($attendees);
-            }
-        }
-        catch(\Exception $e) {
-        }
+        $attendees = $this->meetupService->getMeetupAttendees($event->event_url);
 
         return new HtmlResponse(
-            $this->template->render(
-                'web::event', [
+            $this->template->render('web::event', [
                 'layout'    => 'layout/web',
                 'event'     => $event,
                 'attendees' => $attendees

@@ -3,26 +3,53 @@
 namespace Core\Service;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 
 class MeetupApiService
 {
     private $httpClient;
-
     private $key;
 
+    const API_URL = 'https://api.meetup.com/2/rsvps?event_id=%s&key=%s';
+
+    /**
+     * MeetupApiService constructor.
+     *
+     * @param $key
+     */
     public function __construct($key)
     {
         $this->httpClient = new Client();
-        $this->key = $key;
+        $this->key        = $key;
     }
 
-    public function getMeetupAttendees($meetupId)
+    /**
+     * If something goes wrong on the meetup.com API
+     * we want to continue and render our page anyway
+     *
+     * @param $eventUrl     URL from meetup.com web site
+     * @return array
+     */
+    public function getMeetupAttendees($eventUrl)
     {
-        $uri = sprintf('https://api.meetup.com/2/rsvps?event_id=%s&key=%s', $meetupId, $this->key);
-        $request = new \GuzzleHttp\Psr7\Request('GET', $uri);
-        $response = $this->httpClient->send($request);
-        $data = \GuzzleHttp\json_decode($response->getBody()->getContents());
+        if (strpos($eventUrl, 'meetup.com') === false) {
+            return [];
+        }
 
-        return $data->results;
+        try {
+            $parts     = explode('/', $eventUrl);
+            $meetupId  = $parts[count($parts) - 2];
+            $uri       = sprintf(self::API_URL, $meetupId, $this->key);
+            $request   = new Request('GET', $uri);
+            $response  = $this->httpClient->send($request);
+            $data      = json_decode($response->getBody()->getContents());
+            $attendees = $data->results;
+            shuffle($attendees);
+
+            return $attendees;
+        }
+        catch (\Exception $e) {
+            return [];
+        }
     }
 }
