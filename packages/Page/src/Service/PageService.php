@@ -2,7 +2,7 @@
 
 namespace Page\Service;
 
-use Core\Exception\FilterException;
+use Std\FilterException;
 use Page\Mapper\PageMapper;
 use Page\Filter\PageFilter;
 use UploadHelper\Upload;

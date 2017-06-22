@@ -10,7 +10,7 @@ use Zend\Db\Adapter\Adapter;
 /**
  * Class FilterFactory
  *
- * @package Core\Factory
+ * @package Admin\Factory
  */
 class FilterFactory
 {

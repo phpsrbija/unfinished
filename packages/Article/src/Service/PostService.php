@@ -9,7 +9,7 @@ use Article\Mapper\ArticlePostsMapper;
 use Category\Mapper\CategoryMapper;
 use Article\Entity\ArticleType;
 use Article\Filter\ArticleFilter;
-use Core\Exception\FilterException;
+use Std\FilterException;
 use Admin\Mapper\AdminUsersMapper;
 use Article\Filter\PostFilter;
 use Ramsey\Uuid\Uuid;

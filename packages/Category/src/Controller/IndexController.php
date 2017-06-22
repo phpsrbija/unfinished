@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace Category\Controller;
 
 use Category\Service\CategoryService;
-use Core\Exception\FilterException;
-use Core\Controller\AbstractController;
+use Std\FilterException;
+use Std\AbstractController;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -20,24 +20,18 @@ use Zend\Http\PhpEnvironment\Request;
 class IndexController extends AbstractController
 {
     /**
-* 
-     *
- * @var Template 
-*/
+     * @var Template
+     */
     private $template;
 
     /**
-* 
-     *
- * @var Router 
-*/
+     * @var Router
+     */
     private $router;
 
     /**
-* 
-     *
- * @var CategoryService 
-*/
+     * @var CategoryService
+     */
     private $categoryService;
 
     /**

@@ -13,7 +13,7 @@ use Zend\Db\Sql\Expression;
 /**
  * Class ArticleEventsMapper.
  *
- * @package Core\Mapper
+ * @package Article\Mapper
  */
 class ArticleEventsMapper extends AbstractTableGateway implements AdapterAwareInterface
 {

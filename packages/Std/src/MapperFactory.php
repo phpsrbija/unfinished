@@ -1,6 +1,8 @@
 <?php
+
 declare(strict_types = 1);
-namespace Core\Factory;
+
+namespace Std;
 
 use Interop\Container\ContainerInterface;
 use Zend\Db\Adapter\Adapter;
@@ -8,7 +10,7 @@ use Zend\Db\Adapter\Adapter;
 /**
  * Class MapperFactory.
  *
- * @package Core\Factory
+ * @package Std\Factory
  */
 class MapperFactory
 {

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Article\Controller;
 
-use Core\Controller\AbstractController;
+use Std\AbstractController;
 use Article\Service\DiscussionService;
 use Category\Service\CategoryService;
-use Core\Exception\FilterException;
+use Std\FilterException;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -16,38 +16,28 @@ use Zend\Session\SessionManager;
 class DiscussionController extends AbstractController
 {
     /**
-* 
-     *
- * @var Template 
-*/
+     * @var Template
+     */
     private $template;
 
     /**
-* 
-     *
- * @var Router 
-*/
+     * @var Router
+     */
     private $router;
 
     /**
-* 
-     *
- * @var DiscussionService 
-*/
+     * @var DiscussionService
+     */
     private $discussionService;
 
     /**
-* 
-     *
- * @var SessionManager 
-*/
+     * @var SessionManager
+     */
     private $session;
 
     /**
-* 
-     *
- * @var CategoryService 
-*/
+     * @var CategoryService
+     */
     private $categoryService;
     
     /**

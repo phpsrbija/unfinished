@@ -12,7 +12,7 @@ use Zend\Session\SessionManager;
 /**
  * Class AdminAuth.
  *
- * @package Core\Middleware
+ * @package Admin\Middleware
  */
 final class AdminAuth
 {

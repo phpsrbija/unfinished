@@ -11,7 +11,7 @@ use Article\Entity\ArticleType;
 /**
  * Class ArticleVideosMapper.
  *
- * @package Core\Mapper
+ * @package Article\Mapper
  */
 class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareInterface
 {

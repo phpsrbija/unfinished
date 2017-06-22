@@ -9,7 +9,7 @@ use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
 use Admin\Mapper\AdminUsersMapper;
 use Admin\Filter\AdminUserFilter;
-use Core\Exception\FilterException;
+use Std\FilterException;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 use Zend\Crypt\Password\Bcrypt;
@@ -18,36 +18,28 @@ use UploadHelper\Upload;
 /**
  * Class AdminUserService.
  *
- * @package Core\Service
+ * @package Admin\Service
  */
 class AdminUserService
 {
     /**
-* 
-     *
- * @var Bcrypt $crypt 
-*/
+     * @var Bcrypt $crypt
+     */
     private $crypt;
 
     /**
-* 
-     *
- * @var AdminUsersMapper $adminUsersMapper 
-*/
+     * @var AdminUsersMapper $adminUsersMapper
+     */
     private $adminUsersMapper;
 
     /**
-* 
-     *
- * @var AdminUserFilter $adminUserFilter 
-*/
+     * @var AdminUserFilter $adminUserFilter
+     */
     private $adminUserFilter;
 
     /**
-* 
-     *
- * @var Upload $upload 
-*/
+     * @var Upload $upload
+     */
     private $upload;
 
     /**

@@ -11,7 +11,7 @@ use Article\Entity\ArticleType;
 /**
  * Class ArticlePostsMapper.
  *
- * @package Core\Mapper
+ * @package Article\Mapper
  */
 class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInterface
 {

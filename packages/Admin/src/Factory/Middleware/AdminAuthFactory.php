@@ -9,7 +9,7 @@ use Zend\Expressive\Router\RouterInterface;
 /**
  * Class AdminAuthFactory.
  *
- * @package Core\Factory\Middleware
+ * @package Admin\Factory\Middleware
  */
 class AdminAuthFactory
 {

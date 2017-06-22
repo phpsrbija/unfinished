@@ -9,7 +9,7 @@ use Category\Mapper\CategoryMapper;
 use Article\Entity\ArticleType;
 use Article\Filter\ArticleFilter;
 use Article\Filter\EventFilter;
-use Core\Exception\FilterException;
+use Std\FilterException;
 use Admin\Mapper\AdminUsersMapper;
 use Ramsey\Uuid\Uuid;
 use MysqlUuid\Uuid as MysqlUuid;
