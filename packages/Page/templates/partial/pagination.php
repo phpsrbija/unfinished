@@ -7,11 +7,11 @@
         </div>
     </div>
     <div class="col-sm-7">
-        <?php if($this->pageCount > 1): ?>
+        <?php if($this->pageCount > 1) : ?>
             <div class="pull-right">
                 <ul class="pagination" style="margin:0px;">
                     <!-- Previous page link -->
-                    <?php if(isset($this->previous)): ?>
+                    <?php if(isset($this->previous)) : ?>
                         <li>
                             <a href="<?php echo $this->url($this->route, isset($this->data) ? $this->data : []); ?>?page=<?php echo $this->previous; ?>">
                                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -27,7 +27,7 @@
 
                     <!-- Numbered page links -->
                     <?php foreach($this->pagesInRange as $page): ?>
-                        <?php if($page != $this->current): ?>
+                        <?php if($page != $this->current) : ?>
                             <li>
                                 <a href="<?php echo $this->url($this->route, isset($this->data) ? $this->data : []); ?>?page=<?php echo $page; ?>">
                                     <?php echo $page; ?>
@@ -41,7 +41,7 @@
                     <?php endforeach; ?>
 
                     <!-- Next page link -->
-                    <?php if(isset($this->next)): ?>
+                    <?php if(isset($this->next)) : ?>
                         <li>
                             <a href="<?php echo $this->url($this->route, isset($this->data) ? $this->data : []); ?>?page=<?php echo $this->next; ?>">
                                 <span class="glyphicon glyphicon-chevron-right"></span>

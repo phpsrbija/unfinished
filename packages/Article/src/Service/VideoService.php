@@ -19,37 +19,65 @@ use UploadHelper\Upload;
 
 class VideoService extends ArticleService
 {
-    /** @var ArticleMapper */
+    /**
+* 
+     *
+ * @var ArticleMapper 
+*/
     private $articleMapper;
 
-    /** @var ArticleVideosMapper */
+    /**
+* 
+     *
+ * @var ArticleVideosMapper 
+*/
     private $articleVideosMapper;
 
-    /** @var ArticleFilter */
+    /**
+* 
+     *
+ * @var ArticleFilter 
+*/
     private $articleFilter;
 
-    /** @var VideoFilter */
+    /**
+* 
+     *
+ * @var VideoFilter 
+*/
     private $videosFilter;
 
-    /** @var CategoryMapper */
+    /**
+* 
+     *
+ * @var CategoryMapper 
+*/
     private $categoryMapper;
 
-    /** @var Upload */
+    /**
+* 
+     *
+ * @var Upload 
+*/
     private $upload;
 
-    /** @var AdminUsersMapper */
+    /**
+* 
+     *
+ * @var AdminUsersMapper 
+*/
     private $adminUsersMapper;
 
     /**
      * VideosService constructor.
      *
-     * @param ArticleMapper $articleMapper
+     * @param ArticleMapper       $articleMapper
      * @param ArticleVideosMapper $articleVideosMapper
-     * @param ArticleFilter $articleFilter
-     * @param VideoFilter $videosFilter
-     * @param CategoryMapper $categoryMapper
-     * @param Upload $upload
-     * @param AdminUsersMapper $adminUsersMapper
+     * @param ArticleFilter       $articleFilter
+     * @param VideoFilter         $videosFilter
+     * @param CategoryMapper      $categoryMapper
+     * @param Upload              $upload
+     * @param AdminUsersMapper    $adminUsersMapper
      */
     public function __construct(
         ArticleMapper $articleMapper,
@@ -59,8 +87,8 @@ class VideoService extends ArticleService
         CategoryMapper $categoryMapper,
         Upload $upload,
         AdminUsersMapper $adminUsersMapper
-    )
-    {
+    ) {
+    
         parent::__construct($articleMapper, $articleFilter);
 
         $this->articleMapper       = $articleMapper;

@@ -9,7 +9,6 @@ class ConfigProvider
         return [
             'dependencies' => [
                 'factories' => [
-                    'session'                       => Factory\SessionFactory::class,
                     Service\MeetupApiService::class => Service\MeetupApiServiceFactory::class,
                 ],
             ],

@@ -19,9 +19,11 @@ abstract class AbstractFilter implements InputFilterAwareInterface
     public function getMessages(array $msgs)
     {
         $allMsgs = '';
-        array_walk_recursive($msgs, function ($value) use (&$allMsgs){
-            $allMsgs .= "- " . $value . "<br/>";
-        });
+        array_walk_recursive(
+            $msgs, function ($value) use (&$allMsgs) {
+                $allMsgs .= "- " . $value . "<br/>";
+            }
+        );
 
         return $allMsgs;
     }

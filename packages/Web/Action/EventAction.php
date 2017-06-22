@@ -19,13 +19,25 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class EventAction
 {
-    /** @var Template */
+    /**
+* 
+     *
+ * @var Template 
+*/
     private $template;
 
-    /** @var EventService */
+    /**
+* 
+     *
+ * @var EventService 
+*/
     private $eventService;
 
-    /** @var CategoryService */
+    /**
+* 
+     *
+ * @var CategoryService 
+*/
     private $categoryService;
 
     private $meetupService;
@@ -33,9 +45,9 @@ class EventAction
     /**
      * EventAction constructor.
      *
-     * @param Template $template
-     * @param EventService $eventService
-     * @param CategoryService $categoryService
+     * @param Template         $template
+     * @param EventService     $eventService
+     * @param CategoryService  $categoryService
      * @param MeetupApiService $meetupService
      */
     public function __construct(
@@ -43,8 +55,8 @@ class EventAction
         EventService $eventService,
         CategoryService $categoryService,
         MeetupApiService $meetupService
-    )
-    {
+    ) {
+    
         $this->template        = $template;
         $this->eventService    = $eventService;
         $this->categoryService = $categoryService;
@@ -54,9 +66,9 @@ class EventAction
     /**
      * Executed when action is invoked
      *
-     * @param Request $request
-     * @param Response $response
-     * @param callable|null $next
+     * @param  Request       $request
+     * @param  Response      $response
+     * @param  callable|null $next
      * @return HtmlResponse
      * @throws \Exception
      */
@@ -81,11 +93,15 @@ class EventAction
         catch(\Exception $e) {
         }
 
-        return new HtmlResponse($this->template->render('web::event', [
-            'layout'    => 'layout/web',
-            'event'     => $event,
-            'attendees' => $attendees
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'web::event', [
+                'layout'    => 'layout/web',
+                'event'     => $event,
+                'attendees' => $attendees
+                ]
+            )
+        );
     }
 
 }

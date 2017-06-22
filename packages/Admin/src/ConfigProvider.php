@@ -19,6 +19,7 @@ class ConfigProvider
 
             'dependencies' => [
                 'factories' => [
+                    'session'                        => Factory\SessionFactory::class,
                     Action\IndexAction::class        => Factory\Action\IndexFactory::class,
                     Controller\AuthController::class => Factory\Controller\AuthFactory::class,
                     Controller\UserController::class => Factory\Controller\UserFactory::class,

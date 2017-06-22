@@ -15,33 +15,54 @@ use Zend\Session\SessionManager;
 
 class DiscussionController extends AbstractController
 {
-    /** @var Template */
+    /**
+* 
+     *
+ * @var Template 
+*/
     private $template;
 
-    /** @var Router */
+    /**
+* 
+     *
+ * @var Router 
+*/
     private $router;
 
-    /** @var DiscussionService */
+    /**
+* 
+     *
+ * @var DiscussionService 
+*/
     private $discussionService;
 
-    /** @var SessionManager */
+    /**
+* 
+     *
+ * @var SessionManager 
+*/
     private $session;
 
-    /** @var CategoryService */
+    /**
+* 
+     *
+ * @var CategoryService 
+*/
     private $categoryService;
     
     /**
      * DiscussionController constructor.
      *
-     * @param Template $template
-     * @param Router $router
+     * @param Template          $template
+     * @param Router            $router
      * @param DiscussionService $discussionService
-     * @param SessionManager $session
-     * @param CategoryService $categoryService
+     * @param SessionManager    $session
+     * @param CategoryService   $categoryService
      */
     public function __construct(Template $template, Router $router, DiscussionService $discussionService,
-                                SessionManager $session, CategoryService $categoryService)
-    {
+        SessionManager $session, CategoryService $categoryService
+    ) {
+    
         $this->template          = $template;
         $this->router            = $router;
         $this->discussionService = $discussionService;
@@ -83,12 +104,16 @@ class DiscussionController extends AbstractController
             $discussion->article_id = $id;
         }
 
-        return new HtmlResponse($this->template->render('article::discussion/edit', [
-            'discussion' => $discussion,
-            'categories' => $categories,
-            'errors'     => $errors,
-            'layout'     => 'layout/admin'
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'article::discussion/edit', [
+                'discussion' => $discussion,
+                'categories' => $categories,
+                'errors'     => $errors,
+                'layout'     => 'layout/admin'
+                ]
+            )
+        );
     }
 
     public function save()

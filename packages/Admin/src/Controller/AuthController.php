@@ -41,10 +41,10 @@ final class AuthController extends AbstractController
     /**
      * AuthController constructor.
      *
-     * @param Router            $router           router
-     * @param Template          $template         template engine
-     * @param SessionManager    $session          session manager
-     * @param AdminUserService  $adminUserService admin user service
+     * @param Router           $router              router
+     * @param Template         $template            template engine
+     * @param SessionManager   $session             session manager
+     * @param AdminUserService $adminUserService    admin user service
      */
     public function __construct(Router $router, Template $template, SessionManager $session, AdminUserService $adminUserService)
     {
@@ -97,9 +97,7 @@ final class AuthController extends AbstractController
     }
 
     /**
-     * Clears user session.
-     *
-     * @return static
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function logout(): \Psr\Http\Message\ResponseInterface
     {

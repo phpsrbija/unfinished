@@ -52,12 +52,16 @@ class EventController extends AbstractController
             $event->article_id = $id;
         }
 
-        return new HtmlResponse($this->template->render('article::event/edit', [
-            'event'      => $event,
-            'categories' => $categories,
-            'errors'     => $errors,
-            'layout'     => 'layout/admin'
-        ]));
+        return new HtmlResponse(
+            $this->template->render(
+                'article::event/edit', [
+                'event'      => $event,
+                'categories' => $categories,
+                'errors'     => $errors,
+                'layout'     => 'layout/admin'
+                ]
+            )
+        );
     }
 
     public function save()

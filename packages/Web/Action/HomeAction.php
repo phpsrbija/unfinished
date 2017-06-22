@@ -17,10 +17,18 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class HomeAction
 {
-    /** @var Template */
+    /**
+* 
+     *
+ * @var Template 
+*/
     private $template;
 
-    /** @var PageService */
+    /**
+* 
+     *
+ * @var PageService 
+*/
     private $pageService;
 
     /**
@@ -39,9 +47,9 @@ class HomeAction
      * Get homepage to display body or
      * need to get homepage from Pages package at least for SEO tags
      *
-     * @param Request $request
-     * @param Response $response
-     * @param callable|null $next
+     * @param  Request       $request
+     * @param  Response      $response
+     * @param  callable|null $next
      * @return HtmlResponse
      * @throws \Exception
      */

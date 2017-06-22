@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Admin\Factory\Service;
@@ -15,8 +16,7 @@ class AdminUserServiceFactory
     /**
      * Executed when factory is invoked.
      *
-     * @param ContainerInterface $container container
-     *
+     * @param ContainerInterface $container
      * @return AdminUserService
      */
     public function __invoke(ContainerInterface $container): AdminUserService

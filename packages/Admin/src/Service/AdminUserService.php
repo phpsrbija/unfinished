@@ -22,16 +22,32 @@ use UploadHelper\Upload;
  */
 class AdminUserService
 {
-    /** @var Bcrypt $crypt */
+    /**
+* 
+     *
+ * @var Bcrypt $crypt 
+*/
     private $crypt;
 
-    /** @var AdminUsersMapper $adminUsersMapper */
+    /**
+* 
+     *
+ * @var AdminUsersMapper $adminUsersMapper 
+*/
     private $adminUsersMapper;
 
-    /** @var AdminUserFilter $adminUserFilter */
+    /**
+* 
+     *
+ * @var AdminUserFilter $adminUserFilter 
+*/
     private $adminUserFilter;
 
-    /** @var Upload $upload */
+    /**
+* 
+     *
+ * @var Upload $upload 
+*/
     private $upload;
 
     /**
@@ -47,8 +63,8 @@ class AdminUserService
         AdminUsersMapper $adminUsersMapper,
         AdminUserFilter $adminUserFilter,
         Upload $upload
-    )
-    {
+    ) {
+    
         $this->crypt            = $crypt;
         $this->adminUsersMapper = $adminUsersMapper;
         $this->adminUserFilter  = $adminUserFilter;
@@ -87,8 +103,8 @@ class AdminUserService
     /**
      * Return pagination object to paginate results on view
      *
-     * @param  int $page      Current page set to pagination to display
-     * @param  int $limit     Limit set to pagination
+     * @param  int    $page   Current page set to pagination to display
+     * @param  int    $limit  Limit set to pagination
      * @param  string $userId UUID from DB
      * @return Paginator
      */
@@ -190,13 +206,13 @@ class AdminUserService
     /**
      * Delete user by given UUID
      *
-     * @param $userId
+     * @param  $userId
      * @return bool
      * @throws \Exception
      */
     public function delete($userId)
     {
-        if(!($adminUser = $this->getUser($userId))){
+        if(!($adminUser = $this->getUser($userId))) {
             throw new \Exception('Admin user not found.');
         }
 
@@ -209,7 +225,7 @@ class AdminUserService
     /**
      * Fetch random X users to show on homepage
      *
-     * @param int $limit
+     * @param  int $limit
      * @return null|\Zend\Db\ResultSet\ResultSetInterface
      */
     public function getForWeb($limit = 10)
