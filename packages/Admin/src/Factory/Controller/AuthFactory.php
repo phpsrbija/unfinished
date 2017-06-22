@@ -3,7 +3,7 @@ declare(strict_types = 1);
 namespace Admin\Factory\Controller;
 
 use Admin\Controller\AuthController;
-use Core\Service\AdminUserService;
+use Admin\Service\AdminUserService;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Expressive\Router\RouterInterface;

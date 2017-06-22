@@ -10,7 +10,7 @@ use Article\Filter\ArticleFilter;
 use Article\Filter\EventFilter;
 use Interop\Container\ContainerInterface;
 use Category\Mapper\CategoryMapper;
-use Core\Mapper\AdminUsersMapper;
+use Admin\Mapper\AdminUsersMapper;
 
 class EventServiceFactory
 {

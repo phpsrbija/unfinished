@@ -10,7 +10,7 @@ class UserFactoryTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $template = $this->getMockBuilder(\Zend\Expressive\Template\TemplateRendererInterface::class)
             ->getMockForAbstractClass();
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->disableOriginalConstructor()
             ->setMethods(['loginUser'])
             ->getMockForAbstractClass();

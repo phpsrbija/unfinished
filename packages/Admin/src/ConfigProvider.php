@@ -19,9 +19,16 @@ class ConfigProvider
 
             'dependencies' => [
                 'factories' => [
+                    'session'                        => Factory\SessionFactory::class,
                     Action\IndexAction::class        => Factory\Action\IndexFactory::class,
                     Controller\AuthController::class => Factory\Controller\AuthFactory::class,
                     Controller\UserController::class => Factory\Controller\UserFactory::class,
+
+                    // Admin part
+                    Service\AdminUserService::class => Factory\Service\AdminUserServiceFactory::class,
+                    Mapper\AdminUsersMapper::class  => \Core\Factory\MapperFactory::class,
+                    Filter\AdminUserFilter::class   => \Core\Factory\FilterFactory::class,
+                    Middleware\AdminAuth::class     => Factory\Middleware\AdminAuthFactory::class,
                 ],
             ],
 
@@ -56,6 +63,15 @@ class ConfigProvider
                 'factories' => [
                     'admin'    => Factory\View\Helper\AdminUserHelperFactory::class,
                     'webAdmin' => Factory\View\Helper\WebAdminUserHelperFactory::class,
+                ],
+            ],
+
+            'middleware_pipeline' => [
+                // execute this middleware on every /admin[*] path
+                'permission' => [
+                    'middleware' => [Middleware\AdminAuth::class],
+                    'priority'   => 100,
+                    'path'       => '/admin'
                 ],
             ],
 

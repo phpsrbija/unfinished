@@ -26,7 +26,7 @@ class AdminUserServiceTest extends \PHPUnit_Framework_TestCase
         $adminUsersMapper->expects(static::once())
             ->method('getByEmail')
             ->will(static::returnValue($userData));
-        $adminUserService = new \Core\Service\AdminUserService($bcrypt, $adminUsersMapper);
+        $adminUserService = new \Core\Service\old($bcrypt, $adminUsersMapper);
         static::assertSame($userData, $adminUserService->loginUser('admin@example.org', 'secret'));
     }
 
@@ -53,7 +53,7 @@ class AdminUserServiceTest extends \PHPUnit_Framework_TestCase
         $adminUsersMapper->expects(static::once())
             ->method('getByEmail')
             ->will(static::returnValue($userData));
-        $adminUserService = new \Core\Service\AdminUserService($bcrypt, $adminUsersMapper);
+        $adminUserService = new \Core\Service\old($bcrypt, $adminUsersMapper);
         $adminUserService->loginUser('admin@example.org', 'secret');
     }
 
@@ -72,7 +72,7 @@ class AdminUserServiceTest extends \PHPUnit_Framework_TestCase
         $adminUsersMapper->expects(static::once())
             ->method('getByEmail')
             ->will(static::returnValue($userData));
-        $adminUserService = new \Core\Service\AdminUserService($bcrypt, $adminUsersMapper);
+        $adminUserService = new \Core\Service\old($bcrypt, $adminUsersMapper);
         $adminUserService->loginUser('admin@example.org', 'secret');
     }
 }
