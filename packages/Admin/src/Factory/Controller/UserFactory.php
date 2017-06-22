@@ -7,7 +7,7 @@ namespace Admin\Factory\Controller;
 use Admin\Controller\UserController;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Core\Service\AdminUserService;
+use Admin\Service\AdminUserService;
 use Zend\Expressive\Router\RouterInterface;
 
 /**

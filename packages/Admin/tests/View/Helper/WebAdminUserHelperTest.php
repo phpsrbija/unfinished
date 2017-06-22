@@ -6,7 +6,7 @@ class WebAdminUserHelperTest extends \PHPUnit_Framework_TestCase
 {
     public function testInvokingAdminUserHelperShouldReturnItSelf()
     {
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $adminUserHelper = new \Admin\View\Helper\WebAdminUserHelper($adminUserService);
@@ -15,7 +15,7 @@ class WebAdminUserHelperTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRandomShouldReturnArray()
     {
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->setMethods(['getForWeb'])
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();

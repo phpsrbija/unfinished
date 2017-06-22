@@ -2,7 +2,7 @@
 
 namespace Admin\View\Helper;
 
-use Core\Service\AdminUserService;
+use Admin\Service\AdminUserService;
 use Zend\View\Helper\AbstractHelper;
 use Zend\Session\SessionManager;
 

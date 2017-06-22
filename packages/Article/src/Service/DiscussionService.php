@@ -9,7 +9,7 @@ use Article\Entity\ArticleType;
 use Article\Filter\ArticleFilter;
 use Article\Filter\DiscussionFilter;
 use Core\Exception\FilterException;
-use Core\Mapper\AdminUsersMapper;
+use Admin\Mapper\AdminUsersMapper;
 use Ramsey\Uuid\Uuid;
 use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;

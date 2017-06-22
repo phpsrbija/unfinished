@@ -9,7 +9,7 @@ use Article\Service\PostService;
 use Article\Filter\ArticleFilter;
 use Article\Filter\PostFilter;
 use Category\Mapper\CategoryMapper;
-use Core\Mapper\AdminUsersMapper;
+use Admin\Mapper\AdminUsersMapper;
 use Interop\Container\ContainerInterface;
 use UploadHelper\Upload;
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Admin\Controller;
 
 use Core\Controller\AbstractController;
-use Core\Service\AdminUserService;
+use Admin\Service\AdminUserService;
 use Core\Exception\FilterException;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
@@ -44,6 +44,7 @@ class UserController extends AbstractController
      * UserController constructor.
      *
      * @param Template         $template
+     * @param Router           $router
      * @param AdminUserService $adminUserService
      * @param SessionManager   $session
      */

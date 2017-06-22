@@ -8,7 +8,7 @@ use Article\Mapper\ArticleDiscussionsMapper;
 use Article\Filter\ArticleFilter;
 use Article\Filter\DiscussionFilter;
 use Category\Mapper\CategoryMapper;
-use Core\Mapper\AdminUsersMapper;
+use Admin\Mapper\AdminUsersMapper;
 use Interop\Container\ContainerInterface;
 
 class DiscussionServiceFactory

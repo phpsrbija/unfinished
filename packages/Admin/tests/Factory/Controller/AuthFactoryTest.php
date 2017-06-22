@@ -11,7 +11,7 @@ class AuthFactoryTest extends \PHPUnit_Framework_TestCase
         $template = $this->getMockBuilder('Zend\Expressive\Template\TemplateRendererInterface')
             ->getMockForAbstractClass();
         $session = new \Zend\Session\SessionManager();
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $container = $this->getMockBuilder('Interop\Container\ContainerInterface')

@@ -21,7 +21,7 @@ return [
             'priority'   => 10000,
         ],
 
-        'routing' => [
+        'routing'  => [
             'middleware' => [
                 Zend\Expressive\Container\ApplicationFactory::ROUTING_MIDDLEWARE,
 
@@ -40,6 +40,12 @@ return [
         //    'middleware' => [\Core\Middleware\Error::class],
         //    'error'      => true,
         //    'priority'   => 1000000,
+        //],
+        //'error404' => [
+        //    'middleware' => [
+        //        \Zend\Expressive\Middleware\NotFoundHandler::class
+        //    ],
+        //    'priority'   => -10,
         //],
     ],
 ];

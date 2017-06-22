@@ -1,8 +1,8 @@
 <?php
 declare(strict_types = 1);
-namespace Core\Factory\Middleware;
+namespace Admin\Factory\Middleware;
 
-use Core\Middleware\AdminAuth;
+use Admin\Middleware\AdminAuth;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
 

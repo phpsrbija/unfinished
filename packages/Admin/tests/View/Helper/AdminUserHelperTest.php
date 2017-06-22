@@ -7,7 +7,7 @@ class AdminUserHelperTest extends \PHPUnit_Framework_TestCase
     public function testInvokingAdminUserHelperShouldReturnItSelf()
     {
         $session = new \Zend\Session\SessionManager();
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $adminUserHelper = new \Admin\View\Helper\AdminUserHelper($session, $adminUserService);
@@ -23,7 +23,7 @@ class AdminUserHelperTest extends \PHPUnit_Framework_TestCase
         );
         $session = new \Zend\Session\SessionManager();
         $session->setStorage($sessionStorage);
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $adminUserHelper = new \Admin\View\Helper\AdminUserHelper($session, $adminUserService);
@@ -33,7 +33,7 @@ class AdminUserHelperTest extends \PHPUnit_Framework_TestCase
     public function testAllShouldReturnArray()
     {
         $session = new \Zend\Session\SessionManager();
-        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService')
+        $adminUserService = $this->getMockBuilder('Core\Service\AdminUserService.old')
             ->setMethods(['getAll'])
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();

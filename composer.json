@@ -48,7 +48,8 @@
             "Category\\": "packages/Category/src/",
             "Article\\": "packages/Article/src/",
             "Newsletter\\": "packages/Newsletter/src/",
-            "Page\\": "packages/Page/src/"
+            "Page\\": "packages/Page/src/",
+            "Meetup\\": "packages/Meetup/src/"
         }
     },
     "scripts": {
