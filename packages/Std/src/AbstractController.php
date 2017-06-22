@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Controller;
+namespace Std;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  * Class AbstractController.
  * Intended to be extended by any newly created controller.
  *
- * @package Core\Controller
+ * @package Std\Controller
  */
 abstract class AbstractController
 {

@@ -30,11 +30,11 @@ class ConfigProvider
                     Service\VideoService::class            => Factory\Service\VideoServiceFactory::class,
 
                     // Mappers
-                    Mapper\ArticleMapper::class            => \Core\Factory\MapperFactory::class,
-                    Mapper\ArticlePostsMapper::class       => \Core\Factory\MapperFactory::class,
-                    Mapper\ArticleDiscussionsMapper::class => \Core\Factory\MapperFactory::class,
-                    Mapper\ArticleEventsMapper::class      => \Core\Factory\MapperFactory::class,
-                    Mapper\ArticleVideosMapper::class      => \Core\Factory\MapperFactory::class,
+                    Mapper\ArticleMapper::class            => \Std\MapperFactory::class,
+                    Mapper\ArticlePostsMapper::class       => \Std\MapperFactory::class,
+                    Mapper\ArticleDiscussionsMapper::class => \Std\MapperFactory::class,
+                    Mapper\ArticleEventsMapper::class      => \Std\MapperFactory::class,
+                    Mapper\ArticleVideosMapper::class      => \Std\MapperFactory::class,
 
                     // Filters
                     Filter\ArticleFilter::class            => InvokableFactory::class,

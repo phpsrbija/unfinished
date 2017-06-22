@@ -2,8 +2,8 @@
 
 namespace Page\Controller;
 
-use Core\Controller\AbstractController;
-use Core\Exception\FilterException;
+use Std\AbstractController;
+use Std\FilterException;
 use Page\Service\PageService;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
@@ -13,24 +13,18 @@ use Zend\Http\PhpEnvironment\Request;
 class PageController extends AbstractController
 {
     /**
-* 
-     *
- * @var Template 
-*/
+     * @var Template
+     */
     private $template;
 
     /**
-* 
-     *
- * @var Router 
-*/
+     * @var Router
+     */
     private $router;
 
     /**
-* 
-     *
- * @var PageService 
-*/
+     * @var PageService
+     */
     private $pageService;
 
     /**
@@ -48,10 +42,8 @@ class PageController extends AbstractController
     }
 
     /**
-* 
-     *
- * @return HtmlResponse 
-*/
+     * @return HtmlResponse
+     */
     public function index(): HtmlResponse
     {
         $params     = $this->request->getQueryParams();

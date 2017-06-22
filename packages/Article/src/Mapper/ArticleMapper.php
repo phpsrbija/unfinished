@@ -12,7 +12,7 @@ use Zend\Db\Sql\Insert;
 /**
  * Class ArticleMapper.
  *
- * @package Core\Mapper
+ * @package Article\Mapper
  */
 class ArticleMapper extends AbstractTableGateway implements AdapterAwareInterface
 {
