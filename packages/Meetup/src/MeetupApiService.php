@@ -1,9 +1,10 @@
 <?php
 
-namespace Core\Service;
+namespace Meetup;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\json_decode;
 
 class MeetupApiService
 {
@@ -42,7 +43,7 @@ class MeetupApiService
             $uri       = sprintf(self::API_URL, $meetupId, $this->key);
             $request   = new Request('GET', $uri);
             $response  = $this->httpClient->send($request);
-            $data      = json_decode($response->getBody()->getContents());
+            $data      = \GuzzleHttp\json_decode($response->getBody()->getContents());
             $attendees = $data->results;
             shuffle($attendees);
 
