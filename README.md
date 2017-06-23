@@ -48,7 +48,7 @@ Such a way will lead us to easier:
      - [ ] EventArticle, 
      - [ ] DiscussionArticle
      
-- [ ] Get rid of the Core package as completely unnecessary package
+- [x] Get rid of the Core package as completely unnecessary package
 - [ ] Refactor Admin package to hold only layout.phtm with admin style (css/html)
 - [ ] Create AdminUser package
 - [ ] Create AdminAcl package
