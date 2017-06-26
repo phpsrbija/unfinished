@@ -6,7 +6,7 @@ class Page extends AbstractMigration
 {
     public function change()
     {
-        $this->table('page', ['id' => false])
+        $this->table('page', ['id' => false, 'primary_key' => 'page_uuid'])
             ->addColumn('page_uuid', 'binary', ['limit' => 16])
             ->addColumn('page_id', 'text')
             ->addColumn('title', 'text')
