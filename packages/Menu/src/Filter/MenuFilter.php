@@ -45,11 +45,11 @@ class MenuFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                'name'       => 'article_id',
+                'name'       => 'page_id',
                 'required'   => false,
                 'filters'    => [['name' => 'Null']],
                 'validators' => [
-                    ['name' => RecordExists::class, 'options' => ['table' => 'articles', 'field' => 'article_id', 'adapter' => $this->db]]
+                    ['name' => RecordExists::class, 'options' => ['table' => 'page', 'field' => 'page_id', 'adapter' => $this->db]]
                 ]
                 ]
             );

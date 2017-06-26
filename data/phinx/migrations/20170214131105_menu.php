@@ -20,9 +20,9 @@ class Menu extends AbstractMigration
             ->addColumn('order_no', 'integer', ['default' => 0])
             ->addColumn('created_at', 'datetime', ['null' => true])
             //->addForeignKey('parent_id', 'menu', 'id', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION']) # we can not add constraints
-            ->addColumn('article_uuid', 'binary', ['limit' => 16, 'null' => true])
+            ->addColumn('page_uuid', 'binary', ['limit' => 16, 'null' => true])
             ->addColumn('category_uuid', 'binary', ['limit' => 16, 'null' => true])
-            ->addForeignKey('article_uuid', 'articles', 'article_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
+            ->addForeignKey('page_uuid', 'page', 'page_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->addForeignKey('category_uuid', 'category', 'category_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->create();
     }

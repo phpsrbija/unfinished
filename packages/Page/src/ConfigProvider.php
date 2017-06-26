@@ -41,6 +41,12 @@ class ConfigProvider
                     'allowed_methods' => ['GET', 'POST']
                 ]
             ],
+
+            'view_helpers' => [
+                'factories' => [
+                    'page'  => View\Helper\PageHelperFactory::class
+                ],
+            ],
         ];
     }
 }

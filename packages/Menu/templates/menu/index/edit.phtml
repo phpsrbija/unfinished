@@ -1,3 +1,5 @@
+<?php /** @var \Page\Entity\Page $page  */?>
+
 <div class="row">
     <div class="col-md-12 col-xs-12">
         <div class="x_panel">
@@ -52,18 +54,20 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Select page</label>
 
                                 <div class="col-md-9 col-sm-9 col-xs-12">
-                                    <select class="form-control" name="article_id">
+                                    <select class="form-control" name="page_id">
                                         <option value="">None</option>
-                                        <?php foreach($this->post()->forSelect() as $article): ?>
-                                            <option value="<?= $article->article_id ?>"
-                                                <?= $item && $article->article_id == $item->article_id ? 'selected' : '' ?>>
-                                                <?= $article->title ?> - (<?= $article->slug ?>)
+                                        <?php foreach($this->page()->forSelect() as $page): ?>
+                                            <option value="<?= $page->getPageId() ?>"
+                                                <?= $item && $page->getPageId() == $item->page_id ? 'selected' : '' ?>
+                                                <?= $page->getIsActive() ? '' : 'disabled'?>>
+
+                                                <?= $page->getTitle() ?> (<?= $page->getSlug() ?>)
                                             </option>
                                         <?php endforeach; ?>
                                     </select>
                                     <ul class="parsley-errors-list">
                                         <li class="">
-                                            <?= (isset($errors->article_id) ? implode('. ', (array)$errors->article_id) : ''); ?>
+                                            <?= (isset($errors->page_id) ? implode('. ', (array)$errors->page_id) : ''); ?>
                                         </li>
                                     </ul>
                                 </div>

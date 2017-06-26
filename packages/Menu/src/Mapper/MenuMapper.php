@@ -19,11 +19,11 @@ class MenuMapper extends AbstractTableGateway implements AdapterAwareInterface
     {
         $select = $this->getSql()->select()
             ->join('category', 'menu.category_uuid = category.category_uuid', ['category_name' => 'name', 'category_slug' => 'slug'], 'left')
-            ->join('articles', 'articles.article_uuid = menu.article_uuid', ['article_id', 'article_slug' => 'slug'], 'left')
+            ->join('page', 'page.page_uuid = menu.page_uuid', ['page_id', 'page_slug' => 'slug'], 'left')
             ->order(['order_no' => 'asc']);
 
         if($isActive !== null) {
-            $select->where(['is_active' => $isActive]);
+            $select->where(['menu.is_active' => $isActive]);
         }
 
         if($filter) {
@@ -56,7 +56,7 @@ class MenuMapper extends AbstractTableGateway implements AdapterAwareInterface
     public function get($id)
     {
         $select = $this->getSql()->select()
-            ->join('articles', 'articles.article_uuid = menu.article_uuid', ['article_id'], 'left')
+            ->join('page', 'page.page_uuid = menu.page_uuid', ['page_id'], 'left')
             ->join('category', 'category.category_uuid = menu.category_uuid', ['category_id'], 'left')
             ->where(['menu_id' => $id]);
 

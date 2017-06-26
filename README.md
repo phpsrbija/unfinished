@@ -1,4 +1,4 @@
-# Unfinished PHP CMS
+# Project Unfinished
 
 [![Build Status](https://travis-ci.org/phpsrbija/unfinished.svg?branch=master)](https://travis-ci.org/phpsrbija/unfinished)
 [![Coverage Status](https://coveralls.io/repos/github/phpsrbija/unfinished/badge.svg?branch=master)](https://coveralls.io/github/phpsrbija/unfinished?branch=master)
@@ -48,7 +48,7 @@ Such a way will lead us to easier:
      - [ ] EventArticle, 
      - [ ] DiscussionArticle
      
-- [ ] Get rid of the Core package as completely unnecessary package
+- [x] Get rid of the Core package as completely unnecessary package
 - [ ] Refactor Admin package to hold only layout.phtm with admin style (css/html)
 - [ ] Create AdminUser package
 - [ ] Create AdminAcl package

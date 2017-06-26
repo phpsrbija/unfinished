@@ -46,7 +46,7 @@ class ConfigProvider
                 ],
                 [
                     'name'       => 'post',
-                    'path'       => '/:segment_1[/:segment_2]',
+                    'path'       => '/:segment_1/:segment_2',
                     'middleware' => Action\PostAction::class
                 ],
 

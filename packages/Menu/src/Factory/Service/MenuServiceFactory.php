@@ -7,7 +7,7 @@ use Menu\Service\MenuService;
 use Menu\Mapper\MenuMapper;
 use Menu\Filter\MenuFilter;
 use Category\Service\CategoryService;
-use Article\Service\PostService;
+use Page\Service\PageService;
 
 class MenuServiceFactory
 {
@@ -17,7 +17,7 @@ class MenuServiceFactory
             $container->get(MenuMapper::class),
             $container->get(MenuFilter::class),
             $container->get(CategoryService::class),
-            $container->get(PostService::class)
+            $container->get(PageService::class)
         );
     }
 

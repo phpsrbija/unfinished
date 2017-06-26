@@ -126,4 +126,9 @@ class PageService
 
         return (bool)$this->pageMapper->delete(['page_id' => $pageId]);
     }
+
+    public function getForSelect()
+    {
+        return $this->pageMapper->select();
+    }
 }

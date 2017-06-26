@@ -19,24 +19,18 @@ use Zend\Diactoros\Response\HtmlResponse;
 class CategoryAction
 {
     /**
-* 
-     *
- * @var Template 
-*/
+     * @var Template
+     */
     private $template;
 
     /**
-* 
-     *
- * @var PostService 
-*/
+     * @var PostService
+     */
     private $postService;
 
     /**
-* 
-     *
- * @var CategoryService 
-*/
+     * @var CategoryService
+     */
     private $categoryService;
 
     /**

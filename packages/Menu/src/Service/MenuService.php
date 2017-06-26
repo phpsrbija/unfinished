@@ -9,14 +9,14 @@ use Menu\Mapper\MenuMapper;
 use Menu\Filter\MenuFilter;
 use Std\FilterException;
 use Category\Service\CategoryService;
-use Article\Service\PostService;
+use Page\Service\PageService;
 
 class MenuService
 {
     private $menuMapper;
     private $menuFilter;
     private $categoryService;
-    private $postService;
+    private $pageService;
 
     /**
      * We store menu items in DB as flat structure,
@@ -57,12 +57,12 @@ class MenuService
         return $result;
     }
 
-    public function __construct(MenuMapper $menuMapper, MenuFilter $menuFilter, CategoryService $categoryService, PostService $postService)
+    public function __construct(MenuMapper $menuMapper, MenuFilter $menuFilter, CategoryService $categoryService, PageService $pageService)
     {
         $this->menuMapper      = $menuMapper;
         $this->menuFilter      = $menuFilter;
         $this->categoryService = $categoryService;
-        $this->postService     = $postService;
+        $this->pageService     = $pageService;
     }
 
     public function getNestedAll($isActive = null, $filter = [])
@@ -151,26 +151,27 @@ class MenuService
             throw new FilterException($filter->getMessages());
         }
 
-        if(count(array_filter([$data['article_id'], $data['category_id'], $data['href']])) > 1) {
+        if(count(array_filter([$data['page_id'], $data['category_id'], $data['href']])) > 1) {
             throw new \Exception('You need to set only one link. Post, Category or Href.');
         }
 
         $data = $filter->getValues();
 
-        if($data['article_id']) {
-            $article               = $this->postService->fetchSingleArticle($data['article_id']);
-            $data['article_uuid']  = $article->article_uuid;
+        if ($data['page_id']) {
+            $page                  = $this->pageService->getPage($data['page_id']);
+            $data['page_uuid']     = $page->getPageUuid();
             $data['category_uuid'] = null;
-        } elseif($data['category_id']) {
-            $category              = $this->categoryService->getCategory($data['category_id']);
+        } elseif ($data['category_id']) {
+            $category
+                                   = $this->categoryService->getCategory($data['category_id']);
             $data['category_uuid'] = $category->category_uuid;
-            $data['article_uuid']  = null;
+            $data['page_uuid']     = null;
         } else {
-            $data['article_uuid']  = null;
+            $data['page_uuid']     = null;
             $data['category_uuid'] = null;
         }
 
-        unset($data['article_id'], $data['category_id']);
+        unset($data['page_id'], $data['category_id']);
 
         return $data;
     }

@@ -46,7 +46,7 @@ class Page
     }
 
     /**
-     * @param $slug
+     * @param mixed $slug
      */
     public function setSlug($slug)
     {
@@ -56,8 +56,8 @@ class Page
     /**
      * Page constructor.
      */
-    public function __construct() 
-    { 
+    public function __construct()
+    {
     }
 
     /**
@@ -69,7 +69,7 @@ class Page
     }
 
     /**
-     * @param $is_active
+     * @param mixed $is_active
      */
     public function setIsActive($is_active)
     {
@@ -77,7 +77,7 @@ class Page
     }
 
     /**
-     * @return mixed
+     * @return binary
      */
     public function getPageUuid()
     {
@@ -89,7 +89,7 @@ class Page
      */
     public function setPageUuid($page_uuid) 
     {
-        $this->page_uuid = $page_uuid; 
+        $this->page_uuid = $page_uuid;
     }
 
     /**
@@ -117,7 +117,7 @@ class Page
     }
 
     /**
-     * @param $title
+     * @param mixed $title
      */
     public function setTitle($title)
     {
@@ -133,7 +133,7 @@ class Page
     }
 
     /**
-     * @param $body
+     * @param mixed $body
      */
     public function setBody($body)
     {
@@ -142,11 +142,12 @@ class Page
 
     /**
      * @param null|int $limit break string to smaller one
+     *
      * @return string
      */
     public function getDescription($limit = null)
     {
-        if(!$limit) {
+        if (!$limit) {
             return $this->description;
         }
 
@@ -154,7 +155,7 @@ class Page
     }
 
     /**
-     * @param $description
+     * @param mixed $description
      */
     public function setDescription($description)
     {
@@ -170,7 +171,7 @@ class Page
     }
 
     /**
-     * @param $main_img
+     * @param mixed $main_img
      */
     public function setMainImg($main_img)
     {
@@ -200,7 +201,7 @@ class Page
     }
 
     /**
-     * @param $is_homepage
+     * @param mixed $is_homepage
      */
     public function setIsHomepage($is_homepage)
     {
@@ -209,11 +210,12 @@ class Page
 
     /**
      * @param null|string $format Format date eg. "H:i d.m.Y"
+     *
      * @return false|string
      */
     public function getCreatedAt($format = null)
     {
-        if(!$format) {
+        if (!$format) {
             return $this->created_at;
         }
 
@@ -235,8 +237,9 @@ class Page
      */
     public function exchangeArray($data = [])
     {
-        foreach(array_keys(get_object_vars($this)) as $property) {
-            $this->{$property} = isset($data[$property]) ? $data[$property] : null;
+        foreach (array_keys(get_object_vars($this)) as $property) {
+            $this->{$property} = isset($data[$property]) ? $data[$property]
+                : null;
         }
     }
 
