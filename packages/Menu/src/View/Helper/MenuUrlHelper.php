@@ -9,28 +9,18 @@ use Article\Service\PostService;
 class MenuUrlHelper extends AbstractHelper
 {
     /**
-* 
-     *
- * @var UrlHelper 
-*/
+     * @var UrlHelper
+     */
     private $url;
-
-    /**
-* 
-     *
- * @var PostService 
-*/
-    private $postService;
 
     /**
      * MenuUrlHelper constructor.
      *
      * @param UrlHelper $url
      */
-    public function __construct(UrlHelper $url, PostService $postService)
+    public function __construct(UrlHelper $url)
     {
-        $this->url         = $url;
-        $this->postService = $postService;
+        $this->url = $url;
     }
 
     /**
@@ -44,10 +34,8 @@ class MenuUrlHelper extends AbstractHelper
         if($menuItem['href']) {
             return strpos($menuItem['href'], 'http') === 0 ? $menuItem['href'] : '/' . $menuItem['href'];
         }
-        elseif($menuItem['article_slug']) {
-            $params = ['segment_1' => $menuItem['category_slug'], 'segment_2' => $menuItem['article_slug']];
-
-            return $this->url->__invoke('post', $params);
+        elseif($menuItem['page_slug']) {
+            return $this->url->__invoke('page', ['url_slug' => $menuItem['page_slug']]);
         }
         elseif($menuItem['category_slug']) {
             return $this->url->__invoke('category', ['category' => $menuItem['category_slug']]);

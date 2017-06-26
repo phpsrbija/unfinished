@@ -1,16 +1,16 @@
 <?php
 
-namespace Menu\View\Helper;
+namespace Page\View\Helper;
 
+use Page\Service\PageService;
 use Interop\Container\ContainerInterface;
-use Zend\Expressive\Helper\UrlHelper;
 
-class MenuUrlHelperFactory
+class PageHelperFactory
 {
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new MenuUrlHelper(
-            $container->get(UrlHelper::class)
+        return new PageHelper(
+            $container->get(PageService::class)
         );
     }
 
