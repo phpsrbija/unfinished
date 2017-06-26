@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Page\Mapper;
 
 use Zend\Db\Adapter\Adapter;
