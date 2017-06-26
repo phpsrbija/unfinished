@@ -1,12 +1,12 @@
 <?php
 declare(strict_types = 1);
-namespace Article\Test;
+namespace Newsletter\Test;
 
 class ConfigProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testInvokeShouldReturnAdminConfigProvider()
     {
-        $configProvider = new \Article\ConfigProvider();
+        $configProvider = new \Newsletter\ConfigProvider();
         static::assertInternalType('array', $configProvider());
     }
 }
