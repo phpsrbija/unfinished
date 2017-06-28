@@ -18,25 +18,13 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class EventsAction
 {
-    /**
-* 
-     *
- * @var Template 
-*/
+    /** @var Template */
     private $template;
 
-    /**
-* 
-     *
- * @var EventService 
-*/
+    /** @var EventService */
     private $eventService;
 
-    /**
-* 
-     *
- * @var CategoryService 
-*/
+    /** @var CategoryService */
     private $categoryService;
 
     /**
@@ -46,8 +34,11 @@ class EventsAction
      * @param EventService    $eventService
      * @param CategoryService $categoryService
      */
-    public function __construct(Template $template, EventService $eventService, CategoryService $categoryService)
-    {
+    public function __construct(
+        Template $template,
+        EventService $eventService,
+        CategoryService $categoryService
+    ) {
         $this->template        = $template;
         $this->eventService    = $eventService;
         $this->categoryService = $categoryService;
@@ -59,11 +50,15 @@ class EventsAction
      * @param  Request       $request
      * @param  Response      $response
      * @param  callable|null $next
+     *
      * @return HtmlResponse
      * @throws \Exception
      */
-    public function __invoke(Request $request, Response $response, callable $next = null)
-    {
+    public function __invoke(
+        Request $request,
+        Response $response,
+        callable $next = null
+    ) {
         $params       = $request->getQueryParams();
         $page         = isset($params['page']) ? $params['page'] : 1;
         $futureEvents = $this->eventService->fetchFutureEvents();
@@ -73,10 +68,10 @@ class EventsAction
         return new HtmlResponse(
             $this->template->render(
                 'web::events', [
-                'layout'       => 'layout/web',
-                'futureEvents' => $futureEvents,
-                'pastEvents'   => $pastEvents,
-                'category'     => $category,
+                    'layout'       => 'layout/web',
+                    'futureEvents' => $futureEvents,
+                    'pastEvents'   => $pastEvents,
+                    'category'     => $category,
                 ]
             )
         );

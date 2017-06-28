@@ -18,25 +18,13 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class VideoAction
 {
-    /**
-* 
-     *
- * @var Template 
-*/
+    /** @var Template */
     private $template;
 
-    /**
-* 
-     *
- * @var VideoService 
-*/
+    /** @var VideoService */
     private $videoService;
 
-    /**
-* 
-     *
- * @var CategoryService 
-*/
+    /** @var CategoryService */
     private $categoryService;
 
     /**
@@ -46,8 +34,11 @@ class VideoAction
      * @param VideoService    $videoService
      * @param CategoryService $categoryService
      */
-    public function __construct(Template $template, VideoService $videoService, CategoryService $categoryService)
-    {
+    public function __construct(
+        Template $template,
+        VideoService $videoService,
+        CategoryService $categoryService
+    ) {
         $this->template        = $template;
         $this->videoService    = $videoService;
         $this->categoryService = $categoryService;
@@ -59,23 +50,27 @@ class VideoAction
      * @param  Request       $request
      * @param  Response      $response
      * @param  callable|null $next
+     *
      * @return HtmlResponse
      * @throws \Exception
      */
-    public function __invoke(Request $request, Response $response, callable $next = null)
-    {
+    public function __invoke(
+        Request $request,
+        Response $response,
+        callable $next = null
+    ) {
         $videoSlug = $request->getAttribute('video_slug');
         $video     = $this->videoService->fetchVideoBySlug($videoSlug);
 
-        if(!$video) {
+        if (!$video) {
             return $next($request, $response);
         }
 
         return new HtmlResponse(
             $this->template->render(
                 'web::video', [
-                'layout' => 'layout/web',
-                'video'  => $video
+                    'layout' => 'layout/web',
+                    'video'  => $video
                 ]
             )
         );

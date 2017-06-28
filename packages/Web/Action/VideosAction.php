@@ -18,34 +18,27 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class VideosAction
 {
-    /**
-* 
-     *
- * @var Template 
-*/
+    /** @var Template */
     private $template;
 
-    /**
-* 
-     *
- * @var VideoService 
-*/
+    /** @var VideoService */
     private $videoService;
 
-    /**
-* 
-     *
- * @var CategoryService 
-*/
+    /** @var CategoryService */
     private $categoryService;
 
     /**
      * VideosAction constructor.
      *
-     * @param Template $template
+     * @param Template        $template
+     * @param VideoService    $videoService
+     * @param CategoryService $categoryService
      */
-    public function __construct(Template $template, VideoService $videoService, CategoryService $categoryService)
-    {
+    public function __construct(
+        Template $template,
+        VideoService $videoService,
+        CategoryService $categoryService
+    ) {
         $this->template        = $template;
         $this->videoService    = $videoService;
         $this->categoryService = $categoryService;
@@ -57,11 +50,15 @@ class VideosAction
      * @param  Request       $request
      * @param  Response      $response
      * @param  callable|null $next
+     *
      * @return HtmlResponse
      * @throws \Exception
      */
-    public function __invoke(Request $request, Response $response, callable $next = null)
-    {
+    public function __invoke(
+        Request $request,
+        Response $response,
+        callable $next = null
+    ) {
         $params   = $request->getQueryParams();
         $page     = isset($params['page']) ? $params['page'] : 1;
         $videos   = $this->videoService->fetchWebArticles($page, 5);
@@ -70,9 +67,9 @@ class VideosAction
         return new HtmlResponse(
             $this->template->render(
                 'web::videos', [
-                'layout'   => 'layout/web',
-                'videos'   => $videos,
-                'category' => $category,
+                    'layout'   => 'layout/web',
+                    'videos'   => $videos,
+                    'category' => $category,
                 ]
             )
         );

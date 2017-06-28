@@ -17,18 +17,10 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class PostAction
 {
-    /**
-* 
-     *
- * @var Template 
-*/
+    /** @var Template  */
     private $template;
 
-    /**
-* 
-     *
- * @var PostService 
-*/
+    /** @var PostService */
     private $postService;
 
     /**
@@ -48,15 +40,19 @@ class PostAction
      * @param  Request       $request
      * @param  Response      $response
      * @param  callable|null $next
+     *
      * @return HtmlResponse
      * @throws \Exception
      */
-    public function __invoke(Request $request, Response $response, callable $next = null)
-    {
+    public function __invoke(
+        Request $request,
+        Response $response,
+        callable $next = null
+    ) {
         $urlSlug1 = $request->getAttribute('segment_1');
         $urlSlug2 = $request->getAttribute('segment_2');
 
-        if($urlSlug2) {
+        if ($urlSlug2) {
             $categorySlug = $urlSlug1;
             $postSlug     = $urlSlug2;
         } else {
@@ -66,13 +62,13 @@ class PostAction
 
         $post = $this->postService->fetchSingleArticleBySlug($postSlug);
 
-        if(!$post) {
+        if (!$post) {
             return $next($request, $response);
         }
 
         list($previousPost, $nextPost) = $this->postService->fetchNearestArticle($post->published_at);
 
-        if(!$post) {
+        if (!$post) {
             $response = $response->withStatus(404);
 
             return $next($request, $response, new \Exception("Post by URL does not exist!", 404));
@@ -81,10 +77,10 @@ class PostAction
         return new HtmlResponse(
             $this->template->render(
                 'web::post', [
-                'layout'   => 'layout/web',
-                'post'     => $post,
-                'previous' => $previousPost,
-                'next'     => $nextPost
+                    'layout'   => 'layout/web',
+                    'post'     => $post,
+                    'previous' => $previousPost,
+                    'next'     => $nextPost
                 ]
             )
         );
