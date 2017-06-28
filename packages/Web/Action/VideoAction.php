@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types = 1);
 namespace Web\Action;
 
@@ -52,11 +51,15 @@ class VideoAction
      * @param  Request $request
      * @param  Response $response
      * @param  callable|null $next
+     *
      * @return HtmlResponse
      * @throws \Exception
      */
-    public function __invoke(Request $request, Response $response, callable $next = null)
-    {
+    public function __invoke(
+        Request $request,
+        Response $response,
+        callable $next = null
+    ) {
         $videoSlug = $request->getAttribute('video_slug');
         $video = $this->videoService->fetchVideoBySlug($videoSlug);
 

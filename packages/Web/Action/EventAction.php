@@ -81,7 +81,8 @@ class EventAction
         }
 
         // Fetch going ppl
-        $attendees = $this->meetupService->getMeetupAttendees($event->event_url);
+        $attendees
+            = $this->meetupService->getMeetupAttendees($event->event_url);
 
         return new HtmlResponse(
             $this->template->render(

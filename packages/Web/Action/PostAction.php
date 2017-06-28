@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types = 1);
 namespace Web\Action;
 
@@ -43,11 +42,15 @@ class PostAction
      * @param  Request $request
      * @param  Response $response
      * @param  callable|null $next
+     *
      * @return HtmlResponse
      * @throws \Exception
      */
-    public function __invoke(Request $request, Response $response, callable $next = null)
-    {
+    public function __invoke(
+        Request $request,
+        Response $response,
+        callable $next = null
+    ) {
         $urlSlug1 = $request->getAttribute('segment_1');
         $urlSlug2 = $request->getAttribute('segment_2');
 

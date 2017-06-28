@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types = 1);
 namespace Web\Action;
 
@@ -35,12 +34,17 @@ class VideosAction
     /**
      * VideosAction constructor.
      *
-     * @param Template $template
+     * @param Template        $template
+     * @param VideoService    $videoService
+     * @param CategoryService $categoryService
      */
-    public function __construct(Template $template, VideoService $videoService, CategoryService $categoryService)
-    {
-        $this->template = $template;
-        $this->videoService = $videoService;
+    public function __construct(
+        Template $template,
+        VideoService $videoService,
+        CategoryService $categoryService
+    ) {
+        $this->template        = $template;
+        $this->videoService    = $videoService;
         $this->categoryService = $categoryService;
     }
 
@@ -50,6 +54,7 @@ class VideosAction
      * @param  Request $request
      * @param  Response $response
      * @param  callable|null $next
+     *
      * @return HtmlResponse
      * @throws \Exception
      */

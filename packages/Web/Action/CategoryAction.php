@@ -17,28 +17,27 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class CategoryAction
 {
-    /**
-     * @var Template
-     */
+    /** @var Template */
     private $template;
 
-    /**
-     * @var PostService
-     */
+    /** @var PostService */
     private $postService;
 
-    /**
-     * @var CategoryService
-     */
+    /** @var CategoryService */
     private $categoryService;
 
     /**
      * CategoryAction constructor.
      *
-     * @param Template $template
+     * @param Template        $template
+     * @param PostService     $postService
+     * @param CategoryService $categoryService
      */
-    public function __construct(Template $template, PostService $postService, CategoryService $categoryService)
-    {
+    public function __construct(
+        Template $template,
+        PostService $postService,
+        CategoryService $categoryService
+    ) {
         $this->template        = $template;
         $this->postService     = $postService;
         $this->categoryService = $categoryService;
@@ -50,11 +49,15 @@ class CategoryAction
      * @param  Request       $request
      * @param  Response      $response
      * @param  callable|null $next
+     *
      * @return HtmlResponse
      * @throws \Exception
      */
-    public function __invoke(Request $request, Response $response, callable $next = null)
-    {
+    public function __invoke(
+        Request $request,
+        Response $response,
+        callable $next = null
+    ) {
         $params     = $request->getQueryParams();
         $page       = isset($params['page']) ? $params['page'] : 1;
         $urlSlug    = $request->getAttribute('category');
@@ -74,15 +77,16 @@ class CategoryAction
                 'main_img'    => null
             ];
         }
-        $posts = $this->categoryService->getCategoryPostsPagination($category, $page);
+        $posts = $this->categoryService->getCategoryPostsPagination($category,
+            $page);
 
         return new HtmlResponse(
             $this->template->render(
                 'web::category', [
-                'layout'          => 'layout/web',
-                'categories'      => $categories,
-                'currentCategory' => $category,
-                'posts'           => $posts
+                    'layout'          => 'layout/web',
+                    'categories'      => $categories,
+                    'currentCategory' => $category,
+                    'posts'           => $posts
                 ]
             )
         );
