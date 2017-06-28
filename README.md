@@ -39,20 +39,17 @@ Such a way will lead us to easier:
 
 ### Reafctoring 
 
-- [ ] Add type to the category (post, video, event, discussion...)
-- [ ] Pull apart current **Article** package into separated packages per article type, allowing easy to add new type or remove. New packages would be: 
+- [ ] Add type to the category (post, video, event and discussion)
+- [ ] Pull apart current **Article** package into separated packages per article type, allowing easy to add new type or remove one.
      - [ ] PostArticle, 
      - [ ] VideoArticle, 
      - [ ] EventArticle, 
      - [ ] DiscussionArticle
      
-- [ ] Refactor Admin package to hold only layout.phtm with navigation config
-     - [ ] Create AdminUser package
-     - [ ] Create AdminAcl package
-     
-- [ ] Better naming of variables/functions & write the documentation
-- [ ] Devops things as well as rise up code coverage with Unit testing
-- [ ] Better handling exceptions per package
+- [ ] Refactor and extend Admin packages. Wee need to have:
+     - [ ] Admin package (very tiny, hold only layout.phtm with navigation config)
+     - [ ] AdminUser package
+     - [ ] AdminPermissions package
 
 ### New packages
 - [x] News Letter
@@ -61,8 +58,11 @@ Such a way will lead us to easier:
 - [ ] User (for web users)
 
 ### Wish list
-- [ ] Change current Zend-Router router with FastRoute 
+- [ ] Switch current Zend-Router router with FastRoute 
 - [ ] Move all packages in separate repository (main repo need to have install process)
-- [ ] Add better hidration of Entity objects
-- [ ] Move to some template engine for views
-- [ ] Scale images during upload process, change upload lib.
+- [ ] Add better hydration of Entity objects
+- [ ] Scale images during upload process; change upload lib.
+- [ ] Better naming of variables/functions & write the documentation
+- [ ] Devops things as well as rise up code coverage with Unit testing
+- [ ] Better handling exceptions per package
+
