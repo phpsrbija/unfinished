@@ -39,8 +39,6 @@ Such a way will lead us to easier:
 
 ### Reafctoring 
 
-- [x] Introduce a new package "Page" for a single pages like "about us"
-- [x] Extend categories with data: "is_visible" and all meta/SEO tags
 - [ ] Add type to the category (post, video, event, discussion...)
 - [ ] Pull apart current **Article** package into separated packages per article type, allowing easy to add new type or remove. New packages would be: 
      - [ ] PostArticle, 
@@ -48,19 +46,18 @@ Such a way will lead us to easier:
      - [ ] EventArticle, 
      - [ ] DiscussionArticle
      
-- [x] Get rid of the Core package as completely unnecessary package
-- [ ] Refactor Admin package to hold only layout.phtm with admin style (css/html)
-- [ ] Create AdminUser package
-- [ ] Create AdminAcl package
+- [ ] Refactor Admin package to hold only layout.phtm with navigation config
+     - [ ] Create AdminUser package
+     - [ ] Create AdminAcl package
+     
 - [ ] Better naming of variables/functions & write the documentation
 - [ ] Devops things as well as rise up code coverage with Unit testing
-- [ ] Scale images during upload process
 - [ ] Better handling exceptions per package
 
 ### New packages
-- [ ] Contact Us
 - [x] News Letter
-- [ ] Media (for images)
+- [ ] Contact Us
+- [ ] Media (for images, admin)
 - [ ] User (for web users)
 
 ### Wish list
@@ -68,3 +65,4 @@ Such a way will lead us to easier:
 - [ ] Move all packages in separate repository (main repo need to have install process)
 - [ ] Add better hidration of Entity objects
 - [ ] Move to some template engine for views
+- [ ] Scale images during upload process, change upload lib.
