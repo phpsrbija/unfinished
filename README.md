@@ -51,6 +51,8 @@ Such a way will lead us to easier:
      - [ ] AdminUser package
      - [ ] AdminPermissions package
 
+- [ ] In all packages introduce Entities and Hydration (if needed)
+
 ### New packages
 - [x] News Letter
 - [ ] Contact Us
@@ -60,7 +62,6 @@ Such a way will lead us to easier:
 ### Wish list
 - [ ] Switch current Zend-Router router with FastRoute 
 - [ ] Move all packages in separate repository (main repo need to have install process)
-- [ ] Add better hydration of Entity objects
 - [ ] Scale images during upload process; change upload lib.
 - [ ] Better naming of variables/functions & write the documentation
 - [ ] Devops things as well as rise up code coverage with Unit testing
