@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Test\Core\Factory\Middleware;
+namespace Admin\Test\Factory\Middleware;
 
 class AdminAuthFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ class AdminAuthFactoryTest extends \PHPUnit_Framework_TestCase
         $container->expects(static::at(1))
             ->method('get')
             ->will(static::returnValue($session));
-        $adminAuthFactory = new \Core\Factory\Middleware\AdminAuthFactory();
-        static::assertInstanceOf('Core\Middleware\AdminAuth', $adminAuthFactory($container));
+        $adminAuthFactory = new \Admin\Factory\Middleware\AdminAuthFactory();
+        static::assertInstanceOf(\Admin\Middleware\AdminAuth::class, $adminAuthFactory($container));
     }
 }
