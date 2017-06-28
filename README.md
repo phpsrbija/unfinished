@@ -51,7 +51,7 @@ Such a way will lead us to easier:
      - [ ] AdminUser package
      - [ ] AdminPermissions package
 
-- [ ] In all packages introduce Entities and Hydration (if needed)
+- [ ] In all packages introduce Entities and Hydration
 
 ### New packages
 - [x] News Letter
