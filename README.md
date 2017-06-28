@@ -61,3 +61,9 @@ Such a way will lead us to easier:
 - [x] News Letter
 - [ ] Media (for images)
 - [ ] User (for web users)
+
+### Wish list
+- [ ] Change current Zend-Router router with FastRoute 
+- [ ] Move all packages in separate repository (main repo need to have install process)
+- [ ] Add better hidration of Entity objects
+- [ ] Move to some template engine for views
