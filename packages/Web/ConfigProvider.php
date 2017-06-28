@@ -37,8 +37,6 @@ class ConfigProvider
                     'path'       => '/',
                     'middleware' => Action\HomeAction::class
                 ],
-
-
                 [
                     'name'       => 'category',
                     'path'       => '/:category/',
@@ -49,7 +47,6 @@ class ConfigProvider
                     'path'       => '/:segment_1/:segment_2',
                     'middleware' => Action\PostAction::class
                 ],
-
                 [
                     'name'       => 'page',
                     'path'       => '/:url_slug',

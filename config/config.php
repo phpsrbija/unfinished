@@ -4,11 +4,8 @@ use Zend\ConfigAggregator\ConfigAggregator;
 use Zend\ConfigAggregator\PhpFileProvider;
 
 $configManager = new ConfigAggregator([
-    // FW modules
-    \Zend\Router\ConfigProvider::class,
-    \Zend\Validator\ConfigProvider::class,
 
-    // App modules
+    // App packages
     \Web\ConfigProvider::class,
     \Category\ConfigProvider::class,
     \Article\ConfigProvider::class,
@@ -22,4 +19,3 @@ $configManager = new ConfigAggregator([
 ]);
 
 return new ArrayObject($configManager->getMergedConfig());
-
