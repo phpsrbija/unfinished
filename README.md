@@ -55,6 +55,7 @@ Such a way will lead us to easier:
 - [ ] Better naming of variables/functions & write the documentation
 - [ ] Devops things as well as rise up code coverage with Unit testing
 - [ ] Scale images during upload process
+- [ ] Better handling exceptions per package
 
 ### New packages
 - [ ] Contact Us
