@@ -40,7 +40,7 @@ Such a way will lead us to easier:
 ### Reafctoring 
 
 - [ ] Add type to the category (post, video, event and discussion)
-- [ ] Pull apart current **Article** package into separated packages per article type, allowing easy to add new type or remove one.
+- [ ] Pull apart current **Article** package into separated packages per article type, allowing easy to add/remove type
      - [ ] PostArticle, 
      - [ ] VideoArticle, 
      - [ ] EventArticle, 
