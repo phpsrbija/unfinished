@@ -1,7 +1,5 @@
 <?php
-
-declare(strict_types=1);
-
+declare(strict_types = 1);
 namespace Admin\Service;
 
 use Ramsey\Uuid\Uuid;
@@ -45,10 +43,10 @@ class AdminUserService
     /**
      * AdminUserService constructor.
      *
-     * @param Bcrypt           $crypt            bcrypt password encryption method
+     * @param Bcrypt $crypt bcrypt password encryption method
      * @param AdminUsersMapper $adminUsersMapper mapper for admin us
-     * @param AdminUserFilter  $adminUserFilter
-     * @param Upload           $upload
+     * @param AdminUserFilter $adminUserFilter
+     * @param Upload $upload
      */
     public function __construct(
         Bcrypt $crypt,
@@ -56,34 +54,34 @@ class AdminUserService
         AdminUserFilter $adminUserFilter,
         Upload $upload
     ) {
-    
-        $this->crypt            = $crypt;
+
+        $this->crypt = $crypt;
         $this->adminUsersMapper = $adminUsersMapper;
-        $this->adminUserFilter  = $adminUserFilter;
-        $this->upload           = $upload;
+        $this->adminUserFilter = $adminUserFilter;
+        $this->upload = $upload;
     }
 
     /**
      * Performs user login or throws exception if credentials are not valid.
      *
-     * @param  string $email    user email
+     * @param  string $email user email
      * @param  string $password user password
      * @return array|\ArrayObject|null
      * @throws \Exception if user does not exist or password is not valid
      */
     public function loginUser($email, $password)
     {
-        if(!$email || !$password) {
+        if (!$email || !$password) {
             throw new \Exception('Both email and password are required.', 400);
         }
 
         $user = $this->adminUsersMapper->getByEmail($email);
 
-        if(!$user) {
+        if (!$user) {
             throw new \Exception('User does not exist.');
         }
 
-        if(!$this->crypt->verify($password, $user->password)) {
+        if (!$this->crypt->verify($password, $user->password)) {
             throw new \Exception('Password does not match.');
         }
 
@@ -95,16 +93,16 @@ class AdminUserService
     /**
      * Return pagination object to paginate results on view
      *
-     * @param  int    $page   Current page set to pagination to display
-     * @param  int    $limit  Limit set to pagination
+     * @param  int $page Current page set to pagination to display
+     * @param  int $limit Limit set to pagination
      * @param  string $userId UUID from DB
      * @return Paginator
      */
     public function getPagination($page, $limit, $userId)
     {
-        $select            = $this->adminUsersMapper->getPaginationSelect($userId);
+        $select = $this->adminUsersMapper->getPaginationSelect($userId);
         $paginationAdapter = new DbSelect($select, $this->adminUsersMapper->getAdapter());
-        $pagination        = new Paginator($paginationAdapter);
+        $pagination = new Paginator($paginationAdapter);
 
         $pagination->setCurrentPageNumber($page);
         $pagination->setItemCountPerPage($limit);
@@ -127,18 +125,18 @@ class AdminUserService
     {
         $filter = $this->adminUserFilter->getInputFilter()->setData($data);
 
-        if(!$filter->isValid()) {
+        if (!$filter->isValid()) {
             throw new FilterException($filter->getMessages());
         }
 
         $data = $filter->getValues() + [
-                'face_img'    => $this->upload->uploadImage($data, 'face_img'),
-                'profile_img' => $this->upload->uploadImage($data, 'profile_img')
-            ];
+            'face_img' => $this->upload->uploadImage($data, 'face_img'),
+            'profile_img' => $this->upload->uploadImage($data, 'profile_img')
+        ];
 
         unset($data['confirm_password']);
-        $data['password']        = $this->crypt->create($data['password']);
-        $data['admin_user_id']   = Uuid::uuid1()->toString();
+        $data['password'] = $this->crypt->create($data['password']);
+        $data['admin_user_id'] = Uuid::uuid1()->toString();
         $data['admin_user_uuid'] = (new MysqlUuid($data['admin_user_id']))->toFormat(new Binary);
 
         return $this->adminUsersMapper->insert($data);
@@ -149,45 +147,43 @@ class AdminUserService
      */
     public function updateUser($data, $userId)
     {
-        $user   = $this->getUser($userId);
+        $user = $this->getUser($userId);
         $filter = $this->adminUserFilter->getInputFilter()->setData($data);
 
         // we dont want to force user to enter the password again
-        if($data['password'] == '') {
+        if ($data['password'] == '') {
             $filter->remove('password');
             $filter->remove('confirm_password');
         }
 
         // if we want to keep same email
-        if($user->email == $data['email']) {
+        if ($user->email == $data['email']) {
             $filter->remove('email');
         }
 
-        if(!$filter->isValid()) {
+        if (!$filter->isValid()) {
             throw new FilterException($filter->getMessages());
         }
 
         $data = $filter->getValues() + [
-                'face_img'    => $this->upload->uploadImage($data, 'face_img'),
-                'profile_img' => $this->upload->uploadImage($data, 'profile_img')
-            ];
+            'face_img' => $this->upload->uploadImage($data, 'face_img'),
+            'profile_img' => $this->upload->uploadImage($data, 'profile_img')
+        ];
 
         // We don't want to force user to re-upload image on edit
-        if(!$data['face_img']) {
+        if (!$data['face_img']) {
             unset($data['face_img']);
-        }
-        else{
+        } else {
             $this->upload->deleteFile($user->face_img);
         }
 
-        if(!$data['profile_img']) {
+        if (!$data['profile_img']) {
             unset($data['profile_img']);
-        }
-        else{
+        } else {
             $this->upload->deleteFile($user->profile_img);
         }
 
-        if(isset($data['password'])) {
+        if (isset($data['password'])) {
             unset($data['confirm_password']);
             $data['password'] = $this->crypt->create($data['password']);
         }
@@ -204,7 +200,7 @@ class AdminUserService
      */
     public function delete($userId)
     {
-        if(!($adminUser = $this->getUser($userId))) {
+        if (!($adminUser = $this->getUser($userId))) {
             throw new \Exception('Admin user not found.');
         }
 

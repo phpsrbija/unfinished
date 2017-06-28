@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace Page\View\Helper;
 
 use Page\Service\PageService;
@@ -26,5 +26,4 @@ class PageHelper extends AbstractHelper
     {
         return $this->pageService->getForSelect();
     }
-
 }

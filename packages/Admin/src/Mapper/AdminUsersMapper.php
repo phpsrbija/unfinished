@@ -1,6 +1,5 @@
 <?php
-declare(strict_types=1);
-
+declare(strict_types = 1);
 namespace Admin\Mapper;
 
 use Zend\Db\Adapter\Adapter;
@@ -81,7 +80,7 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
     {
         $user = $this->select(['admin_user_id' => $adminUserId])->current();
 
-        if(!$user) {
+        if (!$user) {
             throw new \Exception('Admin user does not exist!', 400);
         }
 

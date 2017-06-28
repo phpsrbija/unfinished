@@ -19,6 +19,7 @@ class CategoryHelper extends AbstractHelper
 
     /**
      * CategoryHelper constructor.
+     *
      * @param CategoryService $categoryService
      */
     public function __construct(CategoryService $categoryService)
@@ -49,7 +50,7 @@ class CategoryHelper extends AbstractHelper
      */
     public function forHomepage()
     {
-        if(!$this->homepageCategories) {
+        if (!$this->homepageCategories) {
             $this->homepageCategories = $this->categoryService->getCategoriesWithPosts(true);
         }
 

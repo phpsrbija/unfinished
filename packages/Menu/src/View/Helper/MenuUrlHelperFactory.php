@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace Menu\View\Helper;
 
 use Interop\Container\ContainerInterface;
@@ -13,5 +13,4 @@ class MenuUrlHelperFactory
             $container->get(UrlHelper::class)
         );
     }
-
 }

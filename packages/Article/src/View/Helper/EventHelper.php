@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Article\View\Helper;
 
 use Article\Service\EventService;
@@ -23,5 +23,4 @@ class EventHelper extends AbstractHelper
     {
         return $this->eventService->fetchLatest($limit);
     }
-
 }

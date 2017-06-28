@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Article\Factory\View\Helper;
 
 use Article\View\Helper\EventHelper;
@@ -14,5 +14,4 @@ class EventHelperFactory
             $container->get(EventService::class)
         );
     }
-
 }

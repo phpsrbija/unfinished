@@ -1,6 +1,5 @@
 <?php
-declare(strict_types=1);
-
+declare(strict_types = 1);
 namespace Article\Mapper;
 
 use Zend\Db\Adapter\Adapter;
@@ -64,10 +63,10 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
             ->where(['articles.status' => 1])
             ->limit(1);
 
-        if($direction > 0) {
+        if ($direction > 0) {
             $select->where->greaterThan('published_at', $publishedAt);
             $select->order(['published_at' => 'asc']);
-        } elseif($direction < 0) {
+        } elseif ($direction < 0) {
             $select->where->lessThan('published_at', $publishedAt);
             $select->order(['published_at' => 'desc']);
         }
@@ -80,8 +79,14 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
         $select = $this->getSql()->select()
             ->columns(['title', 'body', 'lead', 'featured_img', 'main_img'])
             ->join('articles', 'article_posts.article_uuid = articles.article_uuid')
-            ->join('category', 'category.category_uuid = articles.category_uuid', ['category_name' => 'name', 'category_slug' => 'slug'])
-            ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['first_name', 'last_name'])
+            ->join(
+                'category',
+                'category.category_uuid = articles.category_uuid',
+                ['category_name' => 'name', 'category_slug' => 'slug']
+            )->join(
+                'admin_users',
+                'admin_users.admin_user_uuid = articles.admin_user_uuid',
+                ['first_name', 'last_name'])
             ->where(['articles.slug' => $slug, 'articles.status' => 1]);
 
         return $this->selectWith($select)->current();
@@ -110,5 +115,4 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
 
         return $this->selectWith($select);
     }
-
 }

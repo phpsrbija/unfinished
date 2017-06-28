@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Article\Service;
 
 /**
@@ -13,7 +13,7 @@ interface ArticleServiceInterface
      * Fetches a list of ArticleEntity models.
      *
      * @param  array $params
-     * @return ArrayObject
+     * @return \ArrayObject
      */
     public function fetchAllArticles($page, $limit);
 
@@ -21,10 +21,10 @@ interface ArticleServiceInterface
      * Fetches a single ArticleEntity model.
      *
      * @param  string $articleId
-     * @return ArticleEntity
+     * @return mixed
      */
     public function fetchSingleArticle($articleId);
-    
+
     /**
      * When you want to add new article.
      *

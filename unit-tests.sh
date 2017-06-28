@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-#packages=( )
-for package in Admin Article Category Menu Newsletter Page Web
+packages=(Admin Article Category Meetup Menu Newsletter Page Std Web)
+for package in "${packages[@]}"
     do vendor/bin/phpunit --configuration="packages/$package/tests/phpunit.xml" --bootstrap="packages/$package/tests/bootstrap.php" --coverage-clover="packages/$package/tests/clover.xml" || exit
     if [ -f packages/$package/tests/clover.xml ];
         then

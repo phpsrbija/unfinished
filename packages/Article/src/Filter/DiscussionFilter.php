@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Article\Filter;
 
 use Zend\InputFilter\InputFilter;
@@ -12,30 +12,30 @@ class DiscussionFilter implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if(!$this->inputFilter) {
+        if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
             $inputFilter->add(
                 [
-                'name'       => 'title',
-                'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
-                'validators' => [
-                    ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
-                ],
+                    'name' => 'title',
+                    'required' => true,
+                    'filters' => [['name' => 'StringTrim']],
+                    'validators' => [
+                        ['name' => 'NotEmpty'],
+                        ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
+                    ],
                 ]
             );
 
             $inputFilter->add(
                 [
-                'name'       => 'body',
-                'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
-                'validators' => [
-                    ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 1500]],
-                ],
+                    'name' => 'body',
+                    'required' => true,
+                    'filters' => [['name' => 'StringTrim']],
+                    'validators' => [
+                        ['name' => 'NotEmpty'],
+                        ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 1500]],
+                    ],
                 ]
             );
 

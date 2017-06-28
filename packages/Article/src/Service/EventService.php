@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Article\Service;
 
 use UploadHelper\Upload;
@@ -25,20 +25,24 @@ class EventService extends ArticleService
     private $upload;
     private $adminUsersMapper;
 
-    public function __construct(ArticleMapper $articleMapper, ArticleEventsMapper $articleEventsMapper,
-        ArticleFilter $articleFilter, EventFilter $eventFilter, CategoryMapper $categoryMapper,
-        Upload $upload, AdminUsersMapper $adminUsersMapper
+    public function __construct(
+        ArticleMapper $articleMapper,
+        ArticleEventsMapper $articleEventsMapper,
+        ArticleFilter $articleFilter,
+        EventFilter $eventFilter,
+        CategoryMapper $categoryMapper,
+        Upload $upload,
+        AdminUsersMapper $adminUsersMapper
     ) {
-    
-        parent::__construct($articleMapper, $articleFilter);
 
-        $this->articleMapper       = $articleMapper;
+        parent::__construct($articleMapper, $articleFilter);
+        $this->articleMapper = $articleMapper;
         $this->articleEventsMapper = $articleEventsMapper;
-        $this->articleFilter       = $articleFilter;
-        $this->eventFilter         = $eventFilter;
-        $this->categoryMapper      = $categoryMapper;
-        $this->upload              = $upload;
-        $this->adminUsersMapper    = $adminUsersMapper;
+        $this->articleFilter = $articleFilter;
+        $this->eventFilter = $eventFilter;
+        $this->categoryMapper = $categoryMapper;
+        $this->upload = $upload;
+        $this->adminUsersMapper = $adminUsersMapper;
     }
 
     public function fetchAllArticles($page, $limit)
@@ -86,21 +90,21 @@ class EventService extends ArticleService
     public function createArticle($user, $data)
     {
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
-        $eventFilter   = $this->eventFilter->getInputFilter()->setData($data);
+        $eventFilter = $this->eventFilter->getInputFilter()->setData($data);
 
-        if(!$articleFilter->isValid() || !$eventFilter->isValid()) {
+        if (!$articleFilter->isValid() || !$eventFilter->isValid()) {
             throw new FilterException($articleFilter->getMessages() + $eventFilter->getMessages());
         }
 
-        $id   = Uuid::uuid1()->toString();
+        $id = Uuid::uuid1()->toString();
         $uuId = (new MysqlUuid($id))->toFormat(new Binary);
 
         $article = $articleFilter->getValues();
         $article += [
             'admin_user_uuid' => $this->adminUsersMapper->getUuid($article['admin_user_id']),
-            'type'            => ArticleType::EVENT,
-            'article_id'      => $id,
-            'article_uuid'    => $uuId
+            'type' => ArticleType::EVENT,
+            'article_id' => $id,
+            'article_uuid' => $uuId
         ];
         unset($article['admin_user_id']);
 
@@ -109,7 +113,7 @@ class EventService extends ArticleService
 
         $event = $eventFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
-                'main_img'     => $this->upload->uploadImage($data, 'main_img'),
+                'main_img' => $this->upload->uploadImage($data, 'main_img'),
                 'article_uuid' => $uuId
             ];
 
@@ -119,36 +123,34 @@ class EventService extends ArticleService
 
     public function updateArticle($data, $id)
     {
-        $oldArticle    = $this->articleEventsMapper->get($id);
+        $oldArticle = $this->articleEventsMapper->get($id);
         $articleFilter = $this->articleFilter->getInputFilter()->setData($data);
-        $eventFilter   = $this->eventFilter->getInputFilter()->setData($data);
+        $eventFilter = $this->eventFilter->getInputFilter()->setData($data);
 
-        if(!$articleFilter->isValid() || !$eventFilter->isValid()) {
+        if (!$articleFilter->isValid() || !$eventFilter->isValid()) {
             throw new FilterException($articleFilter->getMessages() + $eventFilter->getMessages());
         }
 
         $article = $articleFilter->getValues() + ['article_uuid' => $oldArticle->article_uuid];
-        $event   = $eventFilter->getValues() + [
+        $event = $eventFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
-                'main_img'     => $this->upload->uploadImage($data, 'main_img')
+                'main_img' => $this->upload->uploadImage($data, 'main_img')
             ];
 
         $article['admin_user_uuid'] = $this->adminUsersMapper->getUuid($article['admin_user_id']);
-        $article['category_uuid']   = $this->categoryMapper->get($article['category_id'])->category_uuid;
+        $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
         unset($article['category_id'], $article['admin_user_id']);
 
         // We don't want to force user to re-upload image on edit
         if (!$event['featured_img']) {
             unset($event['featured_img']);
-        }
-        else {
+        } else {
             $this->upload->deleteFile($oldArticle->featured_img);
         }
 
         if (!$event['main_img']) {
             unset($event['main_img']);
-        }
-        else {
+        } else {
             $this->upload->deleteFile($oldArticle->main_img);
         }
 
@@ -160,7 +162,7 @@ class EventService extends ArticleService
     {
         $event = $this->articleEventsMapper->get($id);
 
-        if(!$event) {
+        if (!$event) {
             throw new \Exception('Article not found!');
         }
 
@@ -169,5 +171,4 @@ class EventService extends ArticleService
         $this->articleEventsMapper->delete(['article_uuid' => $event->article_uuid]);
         $this->delete($event->article_uuid);
     }
-
 }

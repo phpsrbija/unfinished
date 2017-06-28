@@ -1,7 +1,5 @@
 <?php
-
 declare(strict_types = 1);
-
 namespace Admin\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -25,6 +23,5 @@ class FilterFactory
         return new $requestedName(
             $container->get(Adapter::class)
         );
-
     }
 }

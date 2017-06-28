@@ -2,9 +2,10 @@ coverage_clover:
   - packages/Admin/tests/clover.xml
   - packages/Article/tests/clover.xml
   - packages/Category/tests/clover.xml
-  - packages/Core/tests/clover.xml
+  - packages/Meetup/tests/clover.xml
   - packages/Menu/tests/clover.xml
   - packages/Newsletter/tests/clover.xml
   - packages/Page/tests/clover.xml
+  - packages/Std/tests/clover.xml
   - packages/Web/tests/clover.xml
 json_path: coveralls-upload.json

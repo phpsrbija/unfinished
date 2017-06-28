@@ -7,6 +7,7 @@ use Category\Service\CategoryService;
 
 /**
  * Class CategoryHelperFactory
+ *
  * @package Category\View\Helper
  */
 class CategoryHelperFactory
@@ -14,7 +15,7 @@ class CategoryHelperFactory
     /**
      * @param ContainerInterface $container
      * @param $requestedName
-     * @param array|null $options
+     * @param array|null         $options
      * @return CategoryHelper
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)

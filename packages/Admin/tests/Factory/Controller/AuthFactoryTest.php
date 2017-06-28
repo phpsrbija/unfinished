@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Test\Admin\Factory\Controller;
+namespace Admin\Test\Factory\Controller;
 
 class AuthFactoryTest extends \PHPUnit_Framework_TestCase
 {

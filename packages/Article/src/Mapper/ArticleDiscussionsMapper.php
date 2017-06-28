@@ -1,7 +1,5 @@
 <?php
-
-declare(strict_types=1);
-
+declare(strict_types = 1);
 namespace Article\Mapper;
 
 use Article\Entity\ArticleType;
@@ -44,5 +42,4 @@ class ArticleDiscussionsMapper extends AbstractTableGateway implements AdapterAw
 
         return $this->selectWith($select)->current();
     }
-
 }

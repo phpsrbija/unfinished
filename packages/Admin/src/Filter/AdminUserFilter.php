@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Admin\Filter;
 
 use Zend\InputFilter\InputFilter;
@@ -19,90 +19,92 @@ class AdminUserFilter implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if(!$this->inputFilter) {
+        if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
             $inputFilter->add(
                 [
-                'name'       => 'first_name',
-                'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
-                'validators' => [
-                    ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 255]]
-                ],
+                    'name' => 'first_name',
+                    'required' => true,
+                    'filters' => [['name' => 'StringTrim']],
+                    'validators' => [
+                        ['name' => 'NotEmpty'],
+                        ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 255]]
+                    ],
                 ]
             );
 
             $inputFilter->add(
                 [
-                'name'       => 'last_name',
-                'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
-                'validators' => [
-                    ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 255]]
-                ],
+                    'name' => 'last_name',
+                    'required' => true,
+                    'filters' => [['name' => 'StringTrim']],
+                    'validators' => [
+                        ['name' => 'NotEmpty'],
+                        ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 255]]
+                    ],
                 ]
             );
 
             $inputFilter->add(
                 [
-                'name'       => 'email',
-                'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
-                'validators' => [
-                    ['name' => 'NotEmpty'],
-                    ['name' => 'EmailAddress'],
-                    ['name' => 'dbnorecordexists', 'options' => ['adapter' => $this->adapter, 'table' => 'admin_users', 'field' => 'email']],
-
-                ],
+                    'name' => 'email',
+                    'required' => true,
+                    'filters' => [['name' => 'StringTrim']],
+                    'validators' => [
+                        ['name' => 'NotEmpty'],
+                        ['name' => 'EmailAddress'],
+                        [
+                            'name' => 'dbnorecordexists',
+                            'options' => ['adapter' => $this->adapter, 'table' => 'admin_users', 'field' => 'email']
+                        ],
+                    ],
                 ]
             );
 
             $inputFilter->add(
                 [
-                'name'     => 'introduction',
-                'required' => false,
-                'filters'  => [['name' => 'StringTrim']]
+                    'name' => 'introduction',
+                    'required' => false,
+                    'filters' => [['name' => 'StringTrim']]
                 ]
             );
 
             $inputFilter->add(
                 [
-                'name'     => 'biography',
-                'required' => false,
-                'filters'  => [['name' => 'StringTrim']]
+                    'name' => 'biography',
+                    'required' => false,
+                    'filters' => [['name' => 'StringTrim']]
                 ]
             );
 
             $inputFilter->add(
                 [
-                'name'       => 'password',
-                'required'   => true,
-                'validators' => [
-                    ['name' => 'NotEmpty'],
-                    ['name' => 'StringLength', 'options' => ['min' => 7, 'max' => 255]]
-                ],
+                    'name' => 'password',
+                    'required' => true,
+                    'validators' => [
+                        ['name' => 'NotEmpty'],
+                        ['name' => 'StringLength', 'options' => ['min' => 7, 'max' => 255]]
+                    ],
                 ]
             );
 
             $inputFilter->add(
                 [
-                'name'       => 'confirm_password',
-                'required'   => true,
-                'validators' => [
-                    ['name' => 'NotEmpty'],
-                    ['name' => 'Identical', 'options' => ['token' => 'password']],
-                ],
+                    'name' => 'confirm_password',
+                    'required' => true,
+                    'validators' => [
+                        ['name' => 'NotEmpty'],
+                        ['name' => 'Identical', 'options' => ['token' => 'password']],
+                    ],
                 ]
             );
 
             $inputFilter->add(
                 [
-                'name'       => 'status',
-                'required'   => true,
-                'validators' => [['name' => 'NotEmpty'], ['name' => 'Digits']]
+                    'name' => 'status',
+                    'required' => true,
+                    'validators' => [['name' => 'NotEmpty'], ['name' => 'Digits']]
                 ]
             );
 
@@ -116,5 +118,4 @@ class AdminUserFilter implements InputFilterAwareInterface
     {
         throw new \Exception("Not used");
     }
-
 }

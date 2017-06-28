@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace Page\Controller;
 
 use Interop\Container\ContainerInterface;
@@ -17,5 +17,4 @@ class PageControllerFactory
             $container->get(PageService::class)
         );
     }
-
 }

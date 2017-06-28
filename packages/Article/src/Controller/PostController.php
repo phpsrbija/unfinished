@@ -1,7 +1,5 @@
 <?php
-
 declare(strict_types = 1);
-
 namespace Article\Controller;
 
 use Std\AbstractController;
@@ -44,10 +42,10 @@ class PostController extends AbstractController
     /**
      * PostController constructor.
      *
-     * @param Template        $template
-     * @param Router          $router
-     * @param PostService     $postService
-     * @param SessionManager  $session
+     * @param Template $template
+     * @param Router $router
+     * @param PostService $postService
+     * @param SessionManager $session
      * @param CategoryService $categoryService
      */
     public function __construct(
@@ -57,22 +55,25 @@ class PostController extends AbstractController
         SessionManager $session,
         CategoryService $categoryService
     ) {
-    
-        $this->template        = $template;
-        $this->postService     = $postService;
-        $this->session         = $session;
-        $this->router          = $router;
+
+        $this->template = $template;
+        $this->postService = $postService;
+        $this->session = $session;
+        $this->router = $router;
         $this->categoryService = $categoryService;
     }
 
-    public function index() : HtmlResponse
+    public function index(): HtmlResponse
     {
         $params = $this->request->getQueryParams();
-        $page   = isset($params['page']) ? $params['page'] : 1;
-        $limit  = isset($params['limit']) ? $params['limit'] : 15;
-        $posts  = $this->postService->fetchAllArticles($page, $limit);
+        $page = isset($params['page']) ? $params['page'] : 1;
+        $limit = isset($params['limit']) ? $params['limit'] : 15;
+        $posts = $this->postService->fetchAllArticles($page, $limit);
 
-        return new HtmlResponse($this->template->render('article::post/index', ['list' => $posts, 'layout' => 'layout/admin']));
+        return new HtmlResponse($this->template->render(
+            'article::post/index',
+            ['list' => $posts, 'layout' => 'layout/admin'])
+        );
     }
 
     /**
@@ -80,24 +81,24 @@ class PostController extends AbstractController
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function edit($errors = []) : \Psr\Http\Message\ResponseInterface
+    public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
-        $id         = $this->request->getAttribute('id');
-        $post       = $this->postService->fetchSingleArticle($id);
+        $id = $this->request->getAttribute('id');
+        $post = $this->postService->fetchSingleArticle($id);
         $categories = $this->categoryService->getAll();
 
-        if($this->request->getParsedBody()) {
-            $post             = (object)($this->request->getParsedBody() + (array)$post);
+        if ($this->request->getParsedBody()) {
+            $post = (object)($this->request->getParsedBody() + (array)$post);
             $post->article_id = $id;
         }
 
         return new HtmlResponse(
             $this->template->render(
                 'article::post/edit', [
-                'post'       => $post,
-                'categories' => $categories,
-                'errors'     => $errors,
-                'layout'     => 'layout/admin'
+                    'post' => $post,
+                    'categories' => $categories,
+                    'errors' => $errors,
+                    'layout' => 'layout/admin'
                 ]
             )
         );
@@ -110,25 +111,22 @@ class PostController extends AbstractController
      * @throws \Exception
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function save() : \Psr\Http\Message\ResponseInterface
+    public function save(): \Psr\Http\Message\ResponseInterface
     {
-        try{
-            $id   = $this->request->getAttribute('id');
+        try {
+            $id = $this->request->getAttribute('id');
             $user = $this->session->getStorage()->user;
             $data = $this->request->getParsedBody();
             $data += (new Request())->getFiles()->toArray();
 
-            if($id) {
+            if ($id) {
                 $this->postService->updateArticle($data, $id);
-            }
-            else{
+            } else {
                 $this->postService->createArticle($user, $data);
             }
-        }
-        catch(FilterException $fe){
+        } catch (FilterException $fe) {
             return $this->edit($fe->getArrayMessages());
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             throw $e;
         }
 
@@ -141,12 +139,11 @@ class PostController extends AbstractController
      * @return \Psr\Http\Message\ResponseInterface
      * @throws \Exception
      */
-    public function delete() : \Psr\Http\Message\ResponseInterface
+    public function delete(): \Psr\Http\Message\ResponseInterface
     {
-        try{
+        try {
             $this->postService->deleteArticle($this->request->getAttribute('id'));
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             throw $e;
         }
 

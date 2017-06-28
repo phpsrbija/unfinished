@@ -18,6 +18,6 @@ class NewsletterMapper extends AbstractTableGateway implements AdapterAwareInter
 
     public function setDbAdapter(Adapter $adapter)
     {
-        throw new \Exception('Set Adapter in constructor');
+        throw new \Exception('Set Adapter in constructor.');
     }
 }

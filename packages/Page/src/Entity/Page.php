@@ -1,7 +1,12 @@
 <?php
-
+declare(strict_types = 1);
 namespace Page\Entity;
 
+/**
+ * Class Page.
+ *
+ * @package Page\Entity
+ */
 class Page
 {
     private $page_uuid;
@@ -49,6 +54,9 @@ class Page
         $this->slug = $slug;
     }
 
+    /**
+     * Page constructor.
+     */
     public function __construct()
     {
     }
@@ -78,7 +86,7 @@ class Page
     }
 
     /**
-     * @param binary $page_uuid
+     * @param $page_uuid
      */
     public function setPageUuid($page_uuid)
     {
@@ -94,7 +102,7 @@ class Page
     }
 
     /**
-     * @param mixed $page_id
+     * @param $page_id
      */
     public function setPageId($page_id)
     {
@@ -237,7 +245,7 @@ class Page
     }
 
     /**
-     * @return Array
+     * @return array
      */
     public function getArrayCopy()
     {
@@ -256,5 +264,4 @@ class Page
             'slug'              => (string)$this->slug
         ];
     }
-
 }

@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Menu\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -15,5 +15,4 @@ class MapperFactory
 
         return $instance;
     }
-
 }

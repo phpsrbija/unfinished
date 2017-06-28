@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Article\Factory\View\Helper;
 
 use Article\View\Helper\PostHelper;
@@ -14,5 +14,4 @@ class PostHelperFactory
             $container->get(PostService::class)
         );
     }
-
 }

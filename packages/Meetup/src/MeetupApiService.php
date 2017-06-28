@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace Meetup;
 
 use GuzzleHttp\Client;
@@ -21,14 +21,14 @@ class MeetupApiService
     public function __construct($key)
     {
         $this->httpClient = new Client();
-        $this->key        = $key;
+        $this->key = $key;
     }
 
     /**
      * If something goes wrong on the meetup.com API
      * we want to continue and render our page anyway
      *
-     * @param $eventUrl     URL from meetup.com web site
+     * @param  $eventUrl     URL from meetup.com web site
      * @return array
      */
     public function getMeetupAttendees($eventUrl)
@@ -38,18 +38,17 @@ class MeetupApiService
         }
 
         try {
-            $parts     = explode('/', $eventUrl);
-            $meetupId  = $parts[count($parts) - 2];
-            $uri       = sprintf(self::API_URL, $meetupId, $this->key);
-            $request   = new Request('GET', $uri);
-            $response  = $this->httpClient->send($request);
-            $data      = \GuzzleHttp\json_decode($response->getBody()->getContents());
+            $parts = explode('/', $eventUrl);
+            $meetupId = $parts[count($parts) - 2];
+            $uri = sprintf(self::API_URL, $meetupId, $this->key);
+            $request = new Request('GET', $uri);
+            $response = $this->httpClient->send($request);
+            $data = \GuzzleHttp\json_decode($response->getBody()->getContents());
             $attendees = $data->results;
             shuffle($attendees);
 
             return $attendees;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return [];
         }
     }

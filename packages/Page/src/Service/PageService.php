@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Page\Service;
 
 use Std\FilterException;
@@ -23,7 +23,7 @@ class PageService
         $this->pageFilter = $pageFilter;
         $this->pageMapper = $pageMapper;
         $this->pagination = $pagination;
-        $this->upload     = $upload;
+        $this->upload = $upload;
     }
 
     public function getPagination($page = 1, $limit = 10)
@@ -69,17 +69,17 @@ class PageService
     {
         $filter = $this->pageFilter->getInputFilter()->setData($data);
 
-        if(!$filter->isValid()){
+        if (!$filter->isValid()) {
             throw new FilterException($filter->getMessages());
         }
 
-        $data            = $filter->getValues()
+        $data = $filter->getValues()
             + ['main_img' => $this->upload->uploadImage($data, 'main_img')];
         $data['page_id'] = Uuid::uuid1()->toString();
         $data['page_uuid']
-                         = (new MysqlUuid($data['page_id']))->toFormat(new Binary);
+            = (new MysqlUuid($data['page_id']))->toFormat(new Binary);
 
-        if($data['is_homepage']){
+        if ($data['is_homepage']) {
             $this->pageMapper->update(['is_homepage' => false]);
         }
 
@@ -88,13 +88,13 @@ class PageService
 
     public function updatePage($data, $pageId)
     {
-        if(!($page = $this->getPage($pageId))){
+        if (!($page = $this->getPage($pageId))) {
             throw new \Exception('Page object not found. Page ID:' . $pageId);
         }
 
         $filter = $this->pageFilter->getInputFilter()->setData($data);
 
-        if(!$filter->isValid()){
+        if (!$filter->isValid()) {
             throw new FilterException($filter->getMessages());
         }
 
@@ -102,14 +102,13 @@ class PageService
             + ['main_img' => $this->upload->uploadImage($data, 'main_img')];
 
         // We don't want to force user to re-upload image on edit
-        if(!$data['main_img']){
+        if (!$data['main_img']) {
             unset($data['main_img']);
-        }
-        else{
+        } else {
             $this->upload->deleteFile($page->getMainImg());
         }
 
-        if($data['is_homepage']){
+        if ($data['is_homepage']) {
             $this->pageMapper->update(['is_homepage' => false]);
         }
 
@@ -118,7 +117,7 @@ class PageService
 
     public function delete($pageId)
     {
-        if(!($page = $this->getPage($pageId))){
+        if (!($page = $this->getPage($pageId))) {
             throw new \Exception('Page not found');
         }
 
