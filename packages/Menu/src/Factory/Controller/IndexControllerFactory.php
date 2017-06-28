@@ -1,7 +1,5 @@
 <?php
-
-declare(strict_types = 1);
-
+declare(strict_types=1);
 namespace Menu\Factory\Controller;
 
 use Menu\Controller\IndexController;

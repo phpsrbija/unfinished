@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace Page\Mapper;
 
 use Page\Entity\Page;
@@ -17,5 +17,4 @@ class PageMapperFactory
 
         return new PageMapper($adapter, $resultSet);
     }
-
 }

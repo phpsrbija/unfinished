@@ -30,14 +30,14 @@ class PageController extends AbstractController
     /**
      * PageController constructor.
      *
-     * @param Template    $template
-     * @param Router      $router
+     * @param Template $template
+     * @param Router $router
      * @param PageService $pageService
      */
     public function __construct(Template $template, Router $router, PageService $pageService)
     {
-        $this->template    = $template;
-        $this->router      = $router;
+        $this->template = $template;
+        $this->router = $router;
         $this->pageService = $pageService;
     }
 
@@ -46,16 +46,16 @@ class PageController extends AbstractController
      */
     public function index(): HtmlResponse
     {
-        $params     = $this->request->getQueryParams();
-        $page       = isset($params['page']) ? $params['page'] : 1;
-        $limit      = isset($params['limit']) ? $params['limit'] : 15;
+        $params = $this->request->getQueryParams();
+        $page = isset($params['page']) ? $params['page'] : 1;
+        $limit = isset($params['limit']) ? $params['limit'] : 15;
         $pagination = $this->pageService->getPagination($page, $limit);
 
         return new HtmlResponse(
             $this->template->render(
                 'page::index', [
-                'pagination' => $pagination,
-                'layout'     => 'layout/admin'
+                    'pagination' => $pagination,
+                    'layout' => 'layout/admin'
                 ]
             )
         );
@@ -63,10 +63,10 @@ class PageController extends AbstractController
 
     public function edit($errors = []): HtmlResponse
     {
-        $id   = $this->request->getAttribute('id');
+        $id = $this->request->getAttribute('id');
         $page = $this->pageService->getPage($id);
 
-        if($this->request->getParsedBody()) {
+        if ($this->request->getParsedBody()) {
             $page = new \Page\Entity\Page();
             $page->exchangeArray($this->request->getParsedBody() + (array)$page);
         }
@@ -74,9 +74,9 @@ class PageController extends AbstractController
         return new HtmlResponse(
             $this->template->render(
                 'page::edit', [
-                'page'   => $page,
-                'errors' => $errors,
-                'layout' => 'layout/admin'
+                    'page' => $page,
+                    'errors' => $errors,
+                    'layout' => 'layout/admin'
                 ]
             )
         );
@@ -98,7 +98,7 @@ class PageController extends AbstractController
             return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.pages'));
         } catch (FilterException $fe) {
             return $this->edit($fe->getArrayMessages());
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
     }

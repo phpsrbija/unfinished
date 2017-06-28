@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace Std;
 
 use Psr\Http\Message\ResponseInterface as Response;

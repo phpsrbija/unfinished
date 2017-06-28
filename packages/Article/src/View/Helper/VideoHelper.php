@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Article\View\Helper;
 
 use Article\Service\VideoService;
@@ -23,5 +23,4 @@ class VideoHelper extends AbstractHelper
     {
         return $this->videoService->fetchLatest($limit);
     }
-
 }

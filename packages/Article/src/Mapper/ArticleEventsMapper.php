@@ -1,7 +1,5 @@
 <?php
-
-declare(strict_types=1);
-
+declare(strict_types = 1);
 namespace Article\Mapper;
 
 use Article\Entity\ArticleType;
@@ -38,11 +36,14 @@ class ArticleEventsMapper extends AbstractTableGateway implements AdapterAwareIn
         $select = $this->getSql()->select()
             ->columns(['title', 'body', 'longitude', 'latitude'])
             ->join('articles', 'article_events.article_uuid = articles.article_uuid')
-            ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['admin_user_id', 'first_name', 'last_name'])
-            ->where(['articles.type' => ArticleType::EVENT])
+            ->join(
+                'admin_users',
+                'admin_users.admin_user_uuid = articles.admin_user_uuid',
+                ['admin_user_id', 'first_name', 'last_name']
+            )->where(['articles.type' => ArticleType::EVENT])
             ->order(['created_at' => 'desc']);
 
-        if($status) {
+        if ($status) {
             $select->where(['articles.status' => (int)$status]);
         }
 
@@ -79,8 +80,11 @@ class ArticleEventsMapper extends AbstractTableGateway implements AdapterAwareIn
     public function getLatest($limit = 50)
     {
         $select = $this->getSql()->select()
-            ->join('articles', 'article_events.article_uuid = articles.article_uuid', ['article_id', 'slug', 'published_at'])
-            ->where(['articles.status' => 1])
+            ->join(
+                'articles',
+                'article_events.article_uuid = articles.article_uuid',
+                ['article_id', 'slug', 'published_at']
+            )->where(['articles.status' => 1])
             ->order(['published_at' => 'desc'])
             ->limit($limit);
 
@@ -91,8 +95,11 @@ class ArticleEventsMapper extends AbstractTableGateway implements AdapterAwareIn
     {
         $select = $this->getSql()->select()
             ->where(['articles.status' => 1])
-            ->join('articles', 'articles.article_uuid = article_events.article_uuid', ['article_id', 'slug', 'published_at'])
-            ->order(new Expression('rand()'));
+            ->join(
+                'articles',
+                'articles.article_uuid = article_events.article_uuid',
+                ['article_id', 'slug', 'published_at']
+            )->order(new Expression('rand()'));
 
         $select->where->greaterThanOrEqualTo('end_at', date('Y-m-d H:i:s'));
 
@@ -103,9 +110,11 @@ class ArticleEventsMapper extends AbstractTableGateway implements AdapterAwareIn
     {
         $select = $this->getSql()->select()
             ->where(['articles.status' => 1])
-            ->join('articles', 'articles.article_uuid = article_events.article_uuid', ['article_id', 'slug', 'published_at'])
-            ->order(['start_at' => 'desc']);
-
+            ->join(
+                'articles',
+                'articles.article_uuid = article_events.article_uuid',
+                ['article_id', 'slug', 'published_at']
+            )->order(['start_at' => 'desc']);
         $select->where->lessThan('end_at', date('Y-m-d H:i:s'));
 
         return $select;

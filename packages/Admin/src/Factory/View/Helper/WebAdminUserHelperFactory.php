@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Admin\Factory\View\Helper;
 
 use Admin\View\Helper\WebAdminUserHelper;
@@ -14,5 +14,4 @@ class WebAdminUserHelperFactory
             $container->get(AdminUserService::class)
         );
     }
-
 }

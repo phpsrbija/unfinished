@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 namespace Menu\Factory\Service;
 
 use Interop\Container\ContainerInterface;
@@ -20,5 +20,4 @@ class MenuServiceFactory
             $container->get(PageService::class)
         );
     }
-
 }

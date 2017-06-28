@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 namespace Web\Factory\Action;
 
 use Article\Service\PostService;

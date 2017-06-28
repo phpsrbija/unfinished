@@ -7,8 +7,11 @@ use Zend\Db\Adapter\Adapter;
 
 class FilterFactory
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : \Menu\Filter\MenuFilter
-    {
+    public function __invoke(
+        ContainerInterface $container,
+        $requestedName,
+        array $options = null
+    ) : \Menu\Filter\MenuFilter {
         return new $requestedName($container->get(Adapter::class));
     }
 }

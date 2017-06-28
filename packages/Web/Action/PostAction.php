@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare(strict_types = 1);
 namespace Web\Action;
 
 use Article\Service\PostService;
@@ -18,17 +17,13 @@ use Zend\Diactoros\Response\HtmlResponse;
 class PostAction
 {
     /**
-* 
-     *
- * @var Template 
-*/
+     * @var Template
+     */
     private $template;
 
     /**
-* 
-     *
- * @var PostService 
-*/
+     * @var PostService
+     */
     private $postService;
 
     /**
@@ -38,15 +33,15 @@ class PostAction
      */
     public function __construct(Template $template, PostService $postService)
     {
-        $this->template    = $template;
+        $this->template = $template;
         $this->postService = $postService;
     }
 
     /**
      * Executed when action is invoked
      *
-     * @param  Request       $request
-     * @param  Response      $response
+     * @param  Request $request
+     * @param  Response $response
      * @param  callable|null $next
      * @return HtmlResponse
      * @throws \Exception
@@ -56,23 +51,23 @@ class PostAction
         $urlSlug1 = $request->getAttribute('segment_1');
         $urlSlug2 = $request->getAttribute('segment_2');
 
-        if($urlSlug2) {
+        if ($urlSlug2) {
             $categorySlug = $urlSlug1;
-            $postSlug     = $urlSlug2;
+            $postSlug = $urlSlug2;
         } else {
             $categorySlug = null;
-            $postSlug     = $urlSlug1;
+            $postSlug = $urlSlug1;
         }
 
         $post = $this->postService->fetchSingleArticleBySlug($postSlug);
 
-        if(!$post) {
+        if (!$post) {
             return $next($request, $response);
         }
 
         list($previousPost, $nextPost) = $this->postService->fetchNearestArticle($post->published_at);
 
-        if(!$post) {
+        if (!$post) {
             $response = $response->withStatus(404);
 
             return $next($request, $response, new \Exception("Post by URL does not exist!", 404));
@@ -81,13 +76,12 @@ class PostAction
         return new HtmlResponse(
             $this->template->render(
                 'web::post', [
-                'layout'   => 'layout/web',
-                'post'     => $post,
-                'previous' => $previousPost,
-                'next'     => $nextPost
+                    'layout' => 'layout/web',
+                    'post' => $post,
+                    'previous' => $previousPost,
+                    'next' => $nextPost
                 ]
             )
         );
     }
-
 }

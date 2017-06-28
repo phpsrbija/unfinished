@@ -38,7 +38,8 @@ class PageTest extends \PHPUnit_Framework_TestCase
         static::assertSame('test', $page->getPageUuid());
         static::assertSame('test', $page->getSlug());
         static::assertSame('test', $page->getTitle());
-        static::assertSame([
+        static::assertSame(
+            [
             'page_uuid' => 'test',
             'page_id' => '1',
             'title' => 'test',
@@ -51,6 +52,7 @@ class PageTest extends \PHPUnit_Framework_TestCase
             'is_wysiwyg_editor' => true,
             'created_at' => $date,
             'slug' => 'test',
-        ], $page->getArrayCopy());
+            ], $page->getArrayCopy()
+        );
     }
 }

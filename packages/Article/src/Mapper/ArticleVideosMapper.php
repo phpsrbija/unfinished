@@ -1,6 +1,5 @@
 <?php
-declare(strict_types=1);
-
+declare(strict_types = 1);
 namespace Article\Mapper;
 
 use Zend\Db\Adapter\Adapter;
@@ -34,12 +33,18 @@ class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareIn
     public function getPaginationSelect($isActive = null)
     {
         $select = $this->getSql()->select()
-            ->join('articles', 'article_videos.article_uuid = articles.article_uuid', ['slug', 'published_at', 'status', 'article_id'])
-            ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid', ['admin_user_id', 'first_name', 'last_name'])
-            ->where(['articles.type' => ArticleType::VIDEO])
+            ->join(
+                'articles',
+                'article_videos.article_uuid = articles.article_uuid',
+                ['slug', 'published_at', 'status', 'article_id']
+            )->join(
+                'admin_users',
+                'admin_users.admin_user_uuid = articles.admin_user_uuid',
+                ['admin_user_id', 'first_name', 'last_name']
+            )->where(['articles.type' => ArticleType::VIDEO])
             ->order(['articles.created_at' => 'desc']);
 
-        if($isActive !== null) {
+        if ($isActive !== null) {
             $select->where(['articles.status' => (int)$isActive]);
         }
 
@@ -64,8 +69,10 @@ class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareIn
     public function getLatest($limit = 50)
     {
         $select = $this->getSql()->select()
-            ->join('articles', 'article_videos.article_uuid = articles.article_uuid', ['article_id', 'slug', 'published_at'])
-            ->where(['articles.status' => 1])
+            ->join(
+                'articles',
+                'article_videos.article_uuid = articles.article_uuid', ['article_id', 'slug', 'published_at']
+            )->where(['articles.status' => 1])
             ->order(['published_at' => 'desc'])
             ->limit($limit);
 
@@ -80,5 +87,4 @@ class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareIn
 
         return $this->selectWith($select)->current();
     }
-
 }

@@ -1,7 +1,5 @@
 <?php
-
-declare(strict_types=1);
-
+declare(strict_types = 1);
 namespace Article\Controller;
 
 use Std\AbstractController;
@@ -39,25 +37,28 @@ class DiscussionController extends AbstractController
      * @var CategoryService
      */
     private $categoryService;
-    
+
     /**
      * DiscussionController constructor.
      *
-     * @param Template          $template
-     * @param Router            $router
+     * @param Template $template
+     * @param Router $router
      * @param DiscussionService $discussionService
-     * @param SessionManager    $session
-     * @param CategoryService   $categoryService
+     * @param SessionManager $session
+     * @param CategoryService $categoryService
      */
-    public function __construct(Template $template, Router $router, DiscussionService $discussionService,
-        SessionManager $session, CategoryService $categoryService
+    public function __construct(
+        Template $template,
+        Router $router,
+        DiscussionService $discussionService,
+        SessionManager $session,
+        CategoryService $categoryService
     ) {
-    
-        $this->template          = $template;
-        $this->router            = $router;
+        $this->template = $template;
+        $this->router = $router;
         $this->discussionService = $discussionService;
-        $this->session           = $session;
-        $this->categoryService   = $categoryService;
+        $this->session = $session;
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -68,12 +69,15 @@ class DiscussionController extends AbstractController
     public function index(): \Psr\Http\Message\ResponseInterface
     {
         $params = $this->request->getQueryParams();
-        $page   = isset($params['page']) ? $params['page'] : 1;
-        $limit  = isset($params['limit']) ? $params['limit'] : 15;
+        $page = isset($params['page']) ? $params['page'] : 1;
+        $limit = isset($params['limit']) ? $params['limit'] : 15;
 
         $discussions = $this->discussionService->fetchAllArticles($page, $limit);
 
-        return new HtmlResponse($this->template->render('article::discussion/index', ['list' => $discussions, 'layout' => 'layout/admin']));
+        return new HtmlResponse($this->template->render(
+            'article::discussion/index',
+            ['list' => $discussions, 'layout' => 'layout/admin'])
+        );
     }
 
     /**
@@ -85,22 +89,22 @@ class DiscussionController extends AbstractController
      */
     public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
-        $id         = $this->request->getAttribute('id');
+        $id = $this->request->getAttribute('id');
         $discussion = $this->discussionService->fetchSingleArticle($id);
         $categories = $this->categoryService->getAll();
 
-        if($this->request->getParsedBody()) {
-            $discussion             = (object)($this->request->getParsedBody() + (array)$discussion);
+        if ($this->request->getParsedBody()) {
+            $discussion = (object)($this->request->getParsedBody() + (array)$discussion);
             $discussion->article_id = $id;
         }
 
         return new HtmlResponse(
             $this->template->render(
                 'article::discussion/edit', [
-                'discussion' => $discussion,
-                'categories' => $categories,
-                'errors'     => $errors,
-                'layout'     => 'layout/admin'
+                    'discussion' => $discussion,
+                    'categories' => $categories,
+                    'errors' => $errors,
+                    'layout' => 'layout/admin'
                 ]
             )
         );
@@ -109,32 +113,32 @@ class DiscussionController extends AbstractController
     public function save()
     {
         try {
-            $id   = $this->request->getAttribute('id');
+            $id = $this->request->getAttribute('id');
             $data = $this->request->getParsedBody();
             $user = $this->session->getStorage()->user;
 
-            if($id) {
+            if ($id) {
                 $this->discussionService->updateArticle($data, $id);
             } else {
                 $this->discussionService->createArticle($user, $data);
             }
-        }
-        catch(FilterException $fe) {
+        } catch (FilterException $fe) {
             return $this->edit($fe->getArrayMessages());
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
 
-        return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.discussions'));
+        return $this->response->withStatus(302)->withHeader(
+            'Location',
+            $this->router->generateUri('admin.discussions')
+        );
     }
 
     public function delete()
     {
         try {
             $this->discussionService->deleteArticle($this->request->getAttribute('id'));
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         }
 

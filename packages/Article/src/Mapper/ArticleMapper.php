@@ -1,6 +1,5 @@
 <?php
-declare(strict_types=1);
-
+declare(strict_types = 1);
 namespace Article\Mapper;
 
 use Zend\Db\Adapter\Adapter;
@@ -67,5 +66,4 @@ class ArticleMapper extends AbstractTableGateway implements AdapterAwareInterfac
     {
         trigger_error('Do not use anymore 02!', E_USER_NOTICE);
     }
-
 }

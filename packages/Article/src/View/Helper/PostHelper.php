@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Article\View\Helper;
 
 use Article\Service\PostService;
@@ -33,5 +33,4 @@ class PostHelper extends AbstractHelper
 
         return $this->postService->getLatestWeb($limit);
     }
-
 }

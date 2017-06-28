@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-
 namespace Web\Action;
 
 use Article\Service\PostService;
@@ -62,12 +61,12 @@ class CategoryAction
         $categories = $this->categoryService->getCategories(true);
         $category   = $this->categoryService->getCategoryBySlug($urlSlug);
 
-        if(!$category) {
-            if($urlSlug !== 'all') {
+        if (!$category) {
+            if ($urlSlug !== 'all') {
                 return $next($request, $response);
             }
 
-            $category = (object)[
+            $category = (object) [
                 'name'        => 'Svi članci',
                 'slug'        => 'all',
                 'title'       => 'Svi članci',
@@ -88,5 +87,4 @@ class CategoryAction
             )
         );
     }
-
 }

@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Article\Factory\Service;
 
 use UploadHelper\Upload;

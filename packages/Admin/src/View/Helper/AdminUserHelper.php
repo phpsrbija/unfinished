@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types = 1);
 namespace Admin\View\Helper;
 
 use Admin\Service\AdminUserService;
@@ -13,7 +13,7 @@ class AdminUserHelper extends AbstractHelper
 
     public function __construct(SessionManager $session, AdminUserService $adminUserService)
     {
-        $this->session          = $session;
+        $this->session = $session;
         $this->adminUserService = $adminUserService;
     }
 
@@ -31,5 +31,4 @@ class AdminUserHelper extends AbstractHelper
     {
         return $this->adminUserService->getAll();
     }
-
 }

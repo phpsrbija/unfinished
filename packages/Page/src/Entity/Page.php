@@ -4,6 +4,7 @@ namespace Page\Entity;
 
 /**
  * Class Page.
+ *
  * @package Page\Entity
  */
 class Page
@@ -87,7 +88,7 @@ class Page
     /**
      * @param $page_uuid
      */
-    public function setPageUuid($page_uuid) 
+    public function setPageUuid($page_uuid)
     {
         $this->page_uuid = $page_uuid;
     }

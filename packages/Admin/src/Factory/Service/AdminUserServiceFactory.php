@@ -16,7 +16,7 @@ class AdminUserServiceFactory
     /**
      * Executed when factory is invoked.
      *
-     * @param ContainerInterface $container
+     * @param  ContainerInterface $container
      * @return AdminUserService
      */
     public function __invoke(ContainerInterface $container): AdminUserService
