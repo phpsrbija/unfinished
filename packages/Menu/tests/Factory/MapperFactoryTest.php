@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace Menu\Test\Factory;
 
-class FilterFactoryTest extends \PHPUnit_Framework_TestCase
+class MapperFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testInvokingShouldReturnExpectedInstance()
     {
@@ -15,7 +15,7 @@ class FilterFactoryTest extends \PHPUnit_Framework_TestCase
         $container->expects(static::at(0))
             ->method('get')
             ->will(static::returnValue($adapterMock));
-        $factory = new \Menu\Factory\FilterFactory();
-        static::assertInstanceOf(\Menu\Filter\MenuFilter::class, $factory($container, \Menu\Filter\MenuFilter::class));
+        $factory = new \Menu\Factory\MapperFactory();
+        static::assertInstanceOf(\Menu\Mapper\MenuMapper::class, $factory($container, \Menu\Mapper\MenuMapper::class));
     }
 }

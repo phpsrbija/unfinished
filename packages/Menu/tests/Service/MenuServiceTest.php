@@ -360,4 +360,94 @@ class MenuServiceTest extends \PHPUnit_Framework_TestCase
 
         static::assertInstanceOf(\Zend\Db\ResultSet\ResultSet::class, $menuService->getForSelect());
     }
+
+    public function testUpdateMenuOrderShouldReturnTrueWhenNoOrderReceived()
+    {
+        $menuFilter = $this->getMockBuilder(\Menu\Filter\MenuFilter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $menuMapper = $this->getMockBuilder(\Menu\Mapper\MenuMapper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $pageService = $this->getMockBuilder(\Page\Service\PageService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $menuService = new \Menu\Service\MenuService($menuMapper, $menuFilter, $categoryService, $pageService);
+
+        static::assertSame(true, $menuService->updateMenuOrder(false));
+    }
+
+    /**
+     * @expectedExceptionMessage test error
+     * @expectedException \Exception
+     */
+    public function testUpdateMenuOrderShouldRethrowException()
+    {
+        $menuFilter = $this->getMockBuilder(\Menu\Filter\MenuFilter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $menuMapper = $this->getMockBuilder(\Menu\Mapper\MenuMapper::class)
+            ->setMethods(['getAdapter'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $menuMapper->expects(static::exactly(2))
+            ->method('getAdapter')
+            ->willThrowException(new \Exception('test error'));
+        $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $pageService = $this->getMockBuilder(\Page\Service\PageService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $menuService = new \Menu\Service\MenuService($menuMapper, $menuFilter, $categoryService, $pageService);
+
+        static::assertSame(true, $menuService->updateMenuOrder(true));
+    }
+
+    public function testUpdateMenuOrderShouldReturnTrue()
+    {
+        $child = new \stdClass();
+        $child->id = 1;
+        $parent = new \stdClass();
+        $parent->children = [$child];
+        $parent->id = 2;
+
+        $menuFilter = $this->getMockBuilder(\Menu\Filter\MenuFilter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $menuMapper = $this->getMockBuilder(\Menu\Mapper\MenuMapper::class)
+            ->setMethods(['getAdapter', 'getDriver', 'getConnection', 'beginTransaction', 'commit', 'update'])
+            ->disableOriginalConstructor()
+            ->getMock();
+        $menuMapper->expects(static::exactly(2))
+            ->method('getDriver')
+            ->willReturnSelf();
+        $menuMapper->expects(static::exactly(2))
+            ->method('getConnection')
+            ->willReturnSelf();
+        $menuMapper->expects(static::exactly(2))
+            ->method('getAdapter')
+            ->willReturnSelf();
+        $menuMapper->expects(static::exactly(1))
+            ->method('beginTransaction')
+            ->willReturnSelf();
+        $menuMapper->expects(static::exactly(1))
+            ->method('commit')
+            ->willReturnSelf();
+        $menuMapper->expects(static::exactly(2))
+            ->method('update')
+            ->willReturnSelf();
+        $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $pageService = $this->getMockBuilder(\Page\Service\PageService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $menuService = new \Menu\Service\MenuService($menuMapper, $menuFilter, $categoryService, $pageService);
+
+        static::assertSame(true, $menuService->updateMenuOrder([$parent]));
+    }
 }
