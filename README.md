@@ -37,27 +37,26 @@ Such a way will lead us to easier:
 
 ## Road Map
 
-### Reafctoring 
+### New packages
+- [x] News Letter
+- [ ] Contact Us
+- [ ] Media (for images, admin)
+- [ ] User (for web users)
 
-- [ ] Add type to the category (post, video, event and discussion)
-- [ ] Pull apart current **Article** package into separated packages per article type, allowing easy to add/remove type
-     - [ ] PostArticle, 
-     - [ ] VideoArticle, 
-     - [ ] EventArticle, 
-     - [ ] DiscussionArticle
+### Reafctoring 
      
 - [ ] Refactor and extend Admin packages. Wee need to have:
      - [ ] Admin package (very tiny, hold only layout.phtm with navigation config)
      - [ ] AdminUser package
      - [ ] AdminPermissions package
 
-- [ ] In all packages introduce Entities and Hydration
+- [ ] Pull apart current **Article** package into separated packages per article type, allowing easy to add/remove type
+     - [ ] PostArticle, 
+     - [ ] VideoArticle, 
+     - [ ] EventArticle, 
+     - [ ] DiscussionArticle
 
-### New packages
-- [x] News Letter
-- [ ] Contact Us
-- [ ] Media (for images, admin)
-- [ ] User (for web users)
+- [ ] Introduce Entities and Hydration (as in Page package)
 
 ### Wish list
 - [ ] Switch current Zend-Router router with FastRoute 
