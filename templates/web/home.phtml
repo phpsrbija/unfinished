@@ -136,7 +136,7 @@ $this->headMeta($page ? $page->getDescription() : '', 'og:description');
                 </div>
             <?php endforeach; ?>
         </div>
-        <a class="link video" href="<?= $this->url('videos') ?>">Pogledaj sve video zapise</a>
+        <a class="link video" href="<?= $this->url('category', ['category' => $video->category_slug]) ?>">Pogledaj sve video zapise</a>
     </div>
     <div class="slider slider-thumbnail">
         <?php foreach($this->video()->getLatest() as $video): ?>

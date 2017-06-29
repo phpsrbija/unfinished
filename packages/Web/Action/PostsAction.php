@@ -10,6 +10,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
+use Article\Entity\ArticleType;
 
 /**
  * Class CategoryAction.
@@ -62,7 +63,6 @@ class PostsAction
         $params     = $request->getQueryParams();
         $page       = isset($params['page']) ? $params['page'] : 1;
         $urlSlug    = $request->getAttribute('category');
-        $categories = $this->categoryService->getCategories(true);
         $category   = $this->categoryService->getCategoryBySlug($urlSlug);
 
         if (!$category) {
@@ -70,20 +70,25 @@ class PostsAction
                 return $next($request, $response);
             }
 
+            // Default category for all posts
             $category = (object)[
                 'name'        => 'Svi članci',
                 'slug'        => 'all',
                 'title'       => 'Svi članci',
                 'description' => 'Svi članci PHP i ostalih tehnologija.',
-                'main_img'    => null
+                'main_img'    => null,
+                'type'        => ArticleType::POST
             ];
         }
-        $posts = $this->categoryService->getCategoryPostsPagination($category,
-            $page);
+        elseif ($category->type != ArticleType::POST) {
+            return $next($request, $response);
+        }
+
+        $posts      = $this->categoryService->getCategoryPostsPagination($category, $page);
+        $categories = $this->categoryService->getCategories(true);
 
         return new HtmlResponse(
-            $this->template->render(
-                'web::category', [
+            $this->template->render('web::posts', [
                     'layout'          => 'layout/web',
                     'categories'      => $categories,
                     'currentCategory' => $category,

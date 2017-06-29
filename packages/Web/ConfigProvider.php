@@ -37,11 +37,17 @@ class ConfigProvider
                     'path'       => '/',
                     'middleware' => Action\HomeAction::class
                 ],
+
                 [
                     'name'       => 'category',
                     'path'       => '/:category/',
-                    'middleware' => Action\PostsAction::class
+                    'middleware' => [
+                        Action\PostsAction::class,
+                        Action\VideosAction::class,
+                        Action\EventsAction::class
+                    ]
                 ],
+
                 [
                     'name'       => 'post',
                     'path'       => '/:segment_1/:segment_2',
@@ -53,21 +59,11 @@ class ConfigProvider
                     'middleware' => Action\PageAction::class
                 ],
 
-                // Different article types
-                [
-                    'name'       => 'videos',
-                    'path'       => '/videos/',
-                    'middleware' => Action\VideosAction::class
-                ],
+                // Different types
                 [
                     'name'       => 'video',
                     'path'       => '/video/:video_slug',
                     'middleware' => Action\VideoAction::class
-                ],
-                [
-                    'name'       => 'events',
-                    'path'       => '/events/',
-                    'middleware' => Action\EventsAction::class
                 ],
                 [
                     'name'       => 'event',

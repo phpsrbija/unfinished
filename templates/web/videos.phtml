@@ -55,5 +55,5 @@ $this->headMeta($escaper->escapeHtml($category->description), 'og:description');
 </div>
 
 <div class="half-pagination">
-    <?= $this->paginationControl($videos, 'Sliding', 'article/pagination', ['route' => 'videos']) ?>
+    <?= $this->paginationControl($videos, 'Sliding', 'article/pagination', ['route' => 'category']) ?>
 </div>
