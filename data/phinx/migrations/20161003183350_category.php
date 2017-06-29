@@ -14,6 +14,7 @@ class Category extends AbstractMigration
             ->addColumn('category_id', 'text')
             ->addColumn('name', 'text')
             ->addColumn('slug', 'text')
+            ->addColumn('type', 'integer')  // see Article\Entity\ArticleType
             ->addColumn('title', 'text', ['null' => true])
             ->addColumn('description', 'text', ['null' => true])
             ->addColumn('main_img', 'text', ['null' => true])

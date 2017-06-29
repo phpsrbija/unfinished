@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Web\Action;
 
 use Article\Service\EventService;
@@ -18,32 +19,24 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class EventAction
 {
-    /**
-     * @var Template
-     */
+    /** @var Template */
     private $template;
 
-    /**
-     * @var EventService
-     */
+    /** @var EventService */
     private $eventService;
 
-    /**
-     * @var CategoryService
-     */
+    /** @var CategoryService */
     private $categoryService;
 
-    /**
-     * @var MeetupApiService
-     */
+    /** @var MeetupApiService */
     private $meetupService;
 
     /**
      * EventAction constructor.
      *
-     * @param Template $template
-     * @param EventService $eventService
-     * @param CategoryService $categoryService
+     * @param Template         $template
+     * @param EventService     $eventService
+     * @param CategoryService  $categoryService
      * @param MeetupApiService $meetupService
      */
     public function __construct(
@@ -52,17 +45,17 @@ class EventAction
         CategoryService $categoryService,
         MeetupApiService $meetupService
     ) {
-        $this->template = $template;
-        $this->eventService = $eventService;
+        $this->template        = $template;
+        $this->eventService    = $eventService;
         $this->categoryService = $categoryService;
-        $this->meetupService = $meetupService;
+        $this->meetupService   = $meetupService;
     }
 
     /**
      * Executed when action is invoked
      *
-     * @param Request $request
-     * @param Response $response
+     * @param Request       $request
+     * @param Response      $response
      * @param callable|null $next
      *
      * @return HtmlResponse
@@ -74,21 +67,20 @@ class EventAction
         callable $next = null
     ) {
         $eventSlug = $request->getAttribute('event_slug');
-        $event = $this->eventService->fetchEventBySlug($eventSlug);
+        $event     = $this->eventService->fetchEventBySlug($eventSlug);
 
         if (!$event) {
             return $next($request, $response);
         }
 
         // Fetch going ppl
-        $attendees
-            = $this->meetupService->getMeetupAttendees($event->event_url);
+        $attendees = $this->meetupService->getMeetupAttendees($event->event_url);
 
         return new HtmlResponse(
             $this->template->render(
                 'web::event', [
-                    'layout' => 'layout/web',
-                    'event' => $event,
+                    'layout'    => 'layout/web',
+                    'event'     => $event,
                     'attendees' => $attendees
                 ]
             )

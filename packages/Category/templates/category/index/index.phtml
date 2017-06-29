@@ -33,6 +33,7 @@
                             <tr>
                                 <th>On homepage</th>
                                 <th>In category list</th>
+                                <th>Type</th>
                                 <th>Name</th>
                                 <th>URI</th>
                                 <th></th>
@@ -51,7 +52,7 @@
                                             <?= $one->is_in_category_list ? 'Yes' : 'No' ?>
                                         </span>
                                     </th>
-
+                                    <td><?= \Article\Entity\ArticleType::all()[$one->type] ?></td>
                                     <td><?= $one->name ?></td>
                                     <td><?= $one->slug ?></td>
                                     <td>

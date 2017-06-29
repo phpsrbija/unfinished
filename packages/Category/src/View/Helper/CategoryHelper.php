@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Category\View\Helper;
 
 use Category\Service\CategoryService;
@@ -7,14 +8,10 @@ use Zend\View\Helper\AbstractHelper;
 
 class CategoryHelper extends AbstractHelper
 {
-    /**
-     * @var CategoryService
-     */
+    /** @var CategoryService */
     private $categoryService;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $homepageCategories;
 
     /**
@@ -27,17 +24,13 @@ class CategoryHelper extends AbstractHelper
         $this->categoryService = $categoryService;
     }
 
-    /**
-     * @return $this
-     */
+    /** @return $this */
     public function __invoke()
     {
         return $this;
     }
 
-    /**
-     * @return \Zend\Db\ResultSet\ResultSet
-     */
+    /** @return \Zend\Db\ResultSet\ResultSet */
     public function forSelect()
     {
         return $this->categoryService->getAll();

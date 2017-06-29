@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace Web\Action;
 
 use Article\Service\PostService;
@@ -69,7 +70,7 @@ class CategoryAction
                 return $next($request, $response);
             }
 
-            $category = (object) [
+            $category = (object)[
                 'name'        => 'Svi članci',
                 'slug'        => 'all',
                 'title'       => 'Svi članci',

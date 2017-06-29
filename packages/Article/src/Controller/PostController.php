@@ -11,6 +11,7 @@ use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Std\FilterException;
 use Zend\Http\PhpEnvironment\Request;
+use Article\Entity\ArticleType;
 
 class PostController extends AbstractController
 {
@@ -85,7 +86,7 @@ class PostController extends AbstractController
     {
         $id = $this->request->getAttribute('id');
         $post = $this->postService->fetchSingleArticle($id);
-        $categories = $this->categoryService->getAll();
+        $categories = $this->categoryService->getAll(ArticleType::POST);
 
         if ($this->request->getParsedBody()) {
             $post = (object)($this->request->getParsedBody() + (array)$post);

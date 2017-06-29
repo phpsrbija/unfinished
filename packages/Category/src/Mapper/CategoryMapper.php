@@ -1,11 +1,14 @@
 <?php
+
 declare(strict_types = 1);
+
 namespace Category\Mapper;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
 use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql\Expression;
+use Article\Entity\ArticleType;
 
 /**
  * Class CategoryMapper.
@@ -14,9 +17,7 @@ use Zend\Db\Sql\Expression;
  */
 class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $table = 'category';
 
     /**
@@ -46,14 +47,10 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
     {
         $select = $this->getSql()->select()
             ->columns(['category_name' => 'name', 'category_slug' => 'slug'])
-            ->join(
-                'articles',
-                'articles.category_uuid = category.category_uuid',
+            ->join('articles', 'articles.category_uuid = category.category_uuid',
                 ['article_id', 'slug', 'admin_user_uuid', 'published_at']
             )->join('article_posts', 'article_posts.article_uuid = articles.article_uuid', ['*'], 'right')
-            ->join(
-                'admin_users',
-                'admin_users.admin_user_uuid = articles.admin_user_uuid',
+            ->join('admin_users', 'admin_users.admin_user_uuid = articles.admin_user_uuid',
                 ['admin_user_id', 'first_name', 'last_name', 'face_img']
             )->where(['articles.status' => 1])
             ->order(['published_at' => 'desc']);
@@ -71,7 +68,8 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
 
 
     /**
-     * @todo Refactor and add TYPE into the category table. Than fetch only for blog_post type..
+     * Return only category with type = Post
+     *
      * @param int $limit
      * @param null $order
      * @param null $inHomepage
@@ -85,10 +83,7 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
         $inHomepage = null,
         $inCategoryList = null
     ) {
-
-        $select = $this->getSql()->select();
-        $select->where->notEqualTo('slug', 'videos');
-        $select->where->notEqualTo('slug', 'events');
+        $select = $this->getSql()->select()->where(['type' => ArticleType::POST]);
 
         if ($inHomepage !== null) {
             $select->where(['is_in_homepage' => $inHomepage]);

@@ -11,6 +11,7 @@ use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Session\SessionManager;
 use Zend\Http\PhpEnvironment\Request;
+use Article\Entity\ArticleType;
 
 class EventController extends AbstractController
 {
@@ -59,7 +60,7 @@ class EventController extends AbstractController
     {
         $id = $this->request->getAttribute('id');
         $event = $this->eventService->fetchSingleArticle($id);
-        $categories = $this->categoryService->getAll();
+        $categories = $this->categoryService->getAll(ArticleType::EVENT);
 
         if ($this->request->getParsedBody()) {
             $event = (object)($this->request->getParsedBody() + (array)$event);

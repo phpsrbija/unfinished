@@ -12,8 +12,8 @@ class Articles extends AbstractMigration
             ->addColumn('slug', 'text', ['null' => true])
             ->addColumn('created_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('published_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
-            ->addColumn('type', 'integer')// see Core\Entity\ArticleType
-            ->addColumn('status', 'integer')// active, not active, ...
+            ->addColumn('type', 'integer')      // see Article\Entity\ArticleType
+            ->addColumn('status', 'integer')    // active, not active, ...
             ->addColumn('admin_user_uuid', 'binary', ['limit' => 16])
             ->addColumn('is_wysiwyg_editor', 'boolean', ['default' => false])
             ->addColumn('category_uuid', 'binary', ['limit' => 16])
