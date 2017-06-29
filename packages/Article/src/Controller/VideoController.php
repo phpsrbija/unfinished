@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Article\Controller;
 
 use Std\AbstractController;
@@ -11,41 +12,33 @@ use Zend\Session\SessionManager;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Std\FilterException;
 use Zend\Http\PhpEnvironment\Request;
+use Article\Entity\ArticleType;
 
 class VideoController extends AbstractController
 {
-    /**
-     * @var Template
+    /** @var Template
      */
     private $template;
 
-    /**
-     * @var VideoService
-     */
+    /** @var VideoService */
     private $videoService;
 
-    /**
-     * @var SessionManager
-     */
+    /** @var SessionManager */
     private $session;
 
-    /**
-     * @var Router
-     */
+    /** @var Router */
     private $router;
 
-    /**
-     * @var CategoryService
-     */
+    /** @var CategoryService */
     private $categoryService;
 
     /**
      * VideoController constructor.
      *
-     * @param Template $template
-     * @param Router $router
-     * @param VideoService $videoService
-     * @param SessionManager $session
+     * @param Template        $template
+     * @param Router          $router
+     * @param VideoService    $videoService
+     * @param SessionManager  $session
      * @param CategoryService $categoryService
      */
     public function __construct(
@@ -56,22 +49,21 @@ class VideoController extends AbstractController
         CategoryService $categoryService
     ) {
 
-        $this->template = $template;
-        $this->videoService = $videoService;
-        $this->session = $session;
-        $this->router = $router;
+        $this->template        = $template;
+        $this->videoService    = $videoService;
+        $this->session         = $session;
+        $this->router          = $router;
         $this->categoryService = $categoryService;
     }
 
     public function index(): HtmlResponse
     {
         $params = $this->request->getQueryParams();
-        $page = isset($params['page']) ? $params['page'] : 1;
-        $limit = isset($params['limit']) ? $params['limit'] : 15;
+        $page   = isset($params['page']) ? $params['page'] : 1;
+        $limit  = isset($params['limit']) ? $params['limit'] : 15;
         $videos = $this->videoService->fetchAllArticles($page, $limit);
 
-        return new HtmlResponse($this->template->render(
-            'article::video/index',
+        return new HtmlResponse($this->template->render('article::video/index',
             ['list' => $videos, 'layout' => 'layout/admin'])
         );
     }
@@ -83,22 +75,22 @@ class VideoController extends AbstractController
      */
     public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
-        $id = $this->request->getAttribute('id');
-        $video = $this->videoService->fetchSingleArticle($id);
-        $categories = $this->categoryService->getAll();
+        $id         = $this->request->getAttribute('id');
+        $video      = $this->videoService->fetchSingleArticle($id);
+        $categories = $this->categoryService->getAll(ArticleType::VIDEO);
 
         if ($this->request->getParsedBody()) {
-            $video = (object)($this->request->getParsedBody() + (array)$video);
+            $video             = (object)($this->request->getParsedBody() + (array)$video);
             $video->article_id = $id;
         }
 
         return new HtmlResponse(
             $this->template->render(
                 'article::video/edit', [
-                    'video' => $video,
+                    'video'      => $video,
                     'categories' => $categories,
-                    'errors' => $errors,
-                    'layout' => 'layout/admin'
+                    'errors'     => $errors,
+                    'layout'     => 'layout/admin'
                 ]
             )
         );
@@ -114,7 +106,7 @@ class VideoController extends AbstractController
     public function save(): \Psr\Http\Message\ResponseInterface
     {
         try {
-            $id = $this->request->getAttribute('id');
+            $id   = $this->request->getAttribute('id');
             $user = $this->session->getStorage()->user;
             $data = $this->request->getParsedBody();
             $data += (new Request())->getFiles()->toArray();
@@ -130,7 +122,8 @@ class VideoController extends AbstractController
             throw $e;
         }
 
-        return $this->response->withStatus(302)->withHeader('Location', $this->router->generateUri('admin.videos'));
+        return $this->response->withStatus(302)->withHeader('Location',
+            $this->router->generateUri('admin.videos'));
     }
 
     /**
@@ -147,8 +140,8 @@ class VideoController extends AbstractController
             throw $e;
         }
 
-        return $this->response->withStatus(302)->withHeader(
-            'Location', $this->router->generateUri('admin.videos', ['action' => 'index'])
+        return $this->response->withStatus(302)->withHeader('Location',
+            $this->router->generateUri('admin.videos', ['action' => 'index'])
         );
     }
 }

@@ -92,10 +92,10 @@ class CategoryService
             throw new FilterException($filter->getMessages());
         }
 
-        $values = $filter->getValues();
-        $values['category_id'] = Uuid::uuid1()->toString();
-        $values['category_uuid'] = (new MysqlUuid($values['category_id']))->toFormat(new Binary);
-        $values['main_img'] = $this->upload->uploadImage($data, 'main_img');
+        $values                     = $filter->getValues();
+        $values['category_id']      = Uuid::uuid1()->toString();
+        $values['category_uuid']    = (new MysqlUuid($values['category_id']))->toFormat(new Binary);
+        $values['main_img']         = $this->upload->uploadImage($data, 'main_img');
 
         $this->categoryMapper->insert($values);
     }
@@ -154,13 +154,17 @@ class CategoryService
      *
      * @return \Zend\Db\ResultSet\ResultSet
      */
-    public function getAll()
+    public function getAll($type = null)
     {
+        if($type){
+            return $this->categoryMapper->select(['type' => $type]);
+        }
+
         return $this->categoryMapper->select();
     }
 
     /**
-     * Return categories with posts/articles
+     * Return categories with posts(articles)
      *
      * @param  null $inHomepage
      * @param  null $inCategoryList
@@ -172,7 +176,7 @@ class CategoryService
 
         foreach ($categories as $ctn => $category) {
             $select = $this->categoryMapper->getCategoryPostsSelect($category['category_id'], 4);
-            $posts = $this->categoryMapper->selectWith($select)->toArray();
+            $posts  = $this->categoryMapper->selectWith($select)->toArray();
             $categories[$ctn]['posts'] = $posts;
         }
 
@@ -200,9 +204,9 @@ class CategoryService
     public function getCategoryPostsPagination($category, $page = 1): Paginator
     {
         $categoryid = isset($category->category_id) ? $category->category_id : null;
-        $select = $this->categoryMapper->getCategoryPostsSelect($categoryid, 12);
-        $paginatorAdapter = new DbSelect($select, $this->categoryMapper->getAdapter());
-        $paginator = new Paginator($paginatorAdapter);
+        $select     = $this->categoryMapper->getCategoryPostsSelect($categoryid, 12);
+        $paginatorAdapter   = new DbSelect($select, $this->categoryMapper->getAdapter());
+        $paginator          = new Paginator($paginatorAdapter);
 
         $paginator->setCurrentPageNumber($page);
         $paginator->setItemCountPerPage(12);

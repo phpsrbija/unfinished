@@ -51,6 +51,8 @@ class CategoryFilter implements InputFilterAwareInterface
                 ]
             );
 
+            $inputFilter->add(['name' => 'type', 'required' => true]);
+
             $inputFilter->add(
                 [
                     'name' => 'description',

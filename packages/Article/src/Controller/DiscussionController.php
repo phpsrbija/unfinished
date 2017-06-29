@@ -10,6 +10,7 @@ use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Session\SessionManager;
+use Article\Entity\ArticleType;
 
 class DiscussionController extends AbstractController
 {
@@ -91,7 +92,7 @@ class DiscussionController extends AbstractController
     {
         $id = $this->request->getAttribute('id');
         $discussion = $this->discussionService->fetchSingleArticle($id);
-        $categories = $this->categoryService->getAll();
+        $categories = $this->categoryService->getAll(ArticleType::DISCUSSION);
 
         if ($this->request->getParsedBody()) {
             $discussion = (object)($this->request->getParsedBody() + (array)$discussion);

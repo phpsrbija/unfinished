@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Category\Controller;
 
 use Category\Service\CategoryService;
@@ -17,30 +19,29 @@ use Zend\Http\PhpEnvironment\Request;
  */
 class IndexController extends AbstractController
 {
-    /**
-     * @var Template
-     */
+    /** @var Template */
     private $template;
 
-    /**
-     * @var Router
-     */
+    /** @var Router */
     private $router;
 
-    /**
-     * @var CategoryService
-     */
+    /** @var CategoryService */
     private $categoryService;
 
     /**
      * IndexController constructor.
      *
-     * @param Template $template template engine
+     * @param Template        $template template engine
+     * @param Router          $router
+     * @param CategoryService $categoryService
      */
-    public function __construct(Template $template, Router $router, CategoryService $categoryService)
-    {
-        $this->template = $template;
-        $this->router = $router;
+    public function __construct(
+        Template $template,
+        Router $router,
+        CategoryService $categoryService
+    ) {
+        $this->template        = $template;
+        $this->router          = $router;
         $this->categoryService = $categoryService;
     }
 
@@ -52,15 +53,15 @@ class IndexController extends AbstractController
     public function index(): \Psr\Http\Message\ResponseInterface
     {
         $params = $this->request->getQueryParams();
-        $page = isset($params['page']) ? $params['page'] : 1;
-        $limit = isset($params['limit']) ? $params['limit'] : 15;
+        $page   = isset($params['page']) ? $params['page'] : 1;
+        $limit  = isset($params['limit']) ? $params['limit'] : 15;
 
         $categories = $this->categoryService->getPagination($page, $limit);
 
-        return new HtmlResponse($this->template->render(
-            'category::index/index',
-            ['list' => $categories, 'layout' => 'layout/admin'])
-        );
+        return new HtmlResponse($this->template->render('category::index/index', [
+                'list'   => $categories,
+                'layout' => 'layout/admin'
+        ]));
     }
 
     /**
@@ -70,7 +71,7 @@ class IndexController extends AbstractController
      */
     public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
-        $id = $this->request->getAttribute('id');
+        $id       = $this->request->getAttribute('id');
         $category = $this->categoryService->getCategory($id);
 
         if ($this->request->getParsedBody()) {
@@ -79,11 +80,10 @@ class IndexController extends AbstractController
         }
 
         return new HtmlResponse(
-            $this->template->render(
-                'category::index/edit', [
+            $this->template->render('category::index/edit', [
                     'category' => $category,
-                    'errors' => $errors,
-                    'layout' => 'layout/admin'
+                    'errors'   => $errors,
+                    'layout'   => 'layout/admin'
                 ]
             )
         );
@@ -92,7 +92,7 @@ class IndexController extends AbstractController
     public function save()
     {
         try {
-            $id = $this->request->getAttribute('id');
+            $id   = $this->request->getAttribute('id');
             $data = $this->request->getParsedBody();
             $data += (new Request())->getFiles()->toArray();
 
@@ -102,10 +102,8 @@ class IndexController extends AbstractController
                 $this->categoryService->createCategory($data);
             }
 
-            return $this->response->withStatus(302)->withHeader(
-                'Location',
-                $this->router->generateUri('admin.categories')
-            );
+            return $this->response->withStatus(302)
+                ->withHeader('Location', $this->router->generateUri('admin.categories'));
         } catch (FilterException $fe) {
             return $this->edit($fe->getArrayMessages());
         } catch (\Exception $e) {
@@ -119,8 +117,7 @@ class IndexController extends AbstractController
             $id = $this->request->getAttribute('id');
             $this->categoryService->delete($id);
 
-            return $this->response->withStatus(302)->withHeader(
-                'Location',
+            return $this->response->withStatus(302)->withHeader('Location',
                 $this->router->generateUri('admin.categories')
             );
         } catch (\Exception $e) {
