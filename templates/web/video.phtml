@@ -6,6 +6,7 @@ $this->headMeta('video', 'og:type');
 $this->headMeta($video->main_img ? $this->serverUrl($video->main_img) : '', 'og:image');
 $this->headMeta($this->serverUrl(), 'og:url');
 $this->headMeta($escaper->escapeHtml($video->lead), 'og:description');
+
 ?>
 
 <div class="video-single">

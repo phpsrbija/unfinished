@@ -1,20 +1,4 @@
-<?php
-$escaper = new \Zend\Escaper\Escaper;
-
-if($item->type == 1){
-    $url         = $this->url('post', ['segment_1' => $item->category_slug, 'segment_2' => $item->slug]);
-    $description = $item->lead;
-}
-else if($item->type == 2){
-    $url         = $this->url('video', ['video_slug' => $item->slug]);
-    $description = $item->lead;
-}
-else if($item->type == 3){
-    $url         = $this->url('event', ['event_slug' => $item->slug]);
-    $description = $item->sub_title;
-}
-
-?>
+<?php $url = $this->url('post', ['segment_1' => $item->category_slug, 'segment_2' => $item->slug]); ?>
 
 <div class="social-share">
     <div class="social-icons social-icon__vertical">

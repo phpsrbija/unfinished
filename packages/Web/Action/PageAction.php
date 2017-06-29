@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Web\Action;
 
@@ -17,14 +17,10 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class PageAction
 {
-    /**
-     * @var Template
-     */
+    /** @var Template */
     private $template;
 
-    /**
-     * @var PageService $pageService
-     */
+    /** @var PageService $pageService */
     private $pageService;
 
     /**
@@ -61,13 +57,9 @@ class PageAction
             return $next($request, $response);
         }
 
-        return new HtmlResponse(
-            $this->template->render(
-                'web::page', [
-                    'layout' => $page->getHasLayout() ? 'layout/web' : false,
-                    'page'   => $page
-                ]
-            )
-        );
+        return new HtmlResponse($this->template->render('web::page', [
+            'layout' => $page->getHasLayout() ? 'layout/web' : false,
+            'page'   => $page
+        ]));
     }
 }

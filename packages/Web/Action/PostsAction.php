@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Web\Action;
 
@@ -10,9 +10,10 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
+use Article\Entity\ArticleType;
 
 /**
- * Class CategoryAction.
+ * Class PostsAction.
  *
  * @package Web\Action
  */
@@ -59,37 +60,37 @@ class PostsAction
         Response $response,
         callable $next = null
     ) {
-        $params     = $request->getQueryParams();
-        $page       = isset($params['page']) ? $params['page'] : 1;
-        $urlSlug    = $request->getAttribute('category');
-        $categories = $this->categoryService->getCategories(true);
-        $category   = $this->categoryService->getCategoryBySlug($urlSlug);
+        $params   = $request->getQueryParams();
+        $page     = isset($params['page']) ? $params['page'] : 1;
+        $urlSlug  = $request->getAttribute('category');
+        $category = $this->categoryService->getCategoryBySlug($urlSlug);
 
         if (!$category) {
             if ($urlSlug !== 'all') {
                 return $next($request, $response);
             }
 
+            // Default category for all posts
             $category = (object)[
                 'name'        => 'Svi članci',
                 'slug'        => 'all',
                 'title'       => 'Svi članci',
                 'description' => 'Svi članci PHP i ostalih tehnologija.',
-                'main_img'    => null
+                'main_img'    => null,
+                'type'        => ArticleType::POST
             ];
+        } elseif ($category->type != ArticleType::POST) {
+            return $next($request, $response);
         }
-        $posts = $this->categoryService->getCategoryPostsPagination($category,
-            $page);
 
-        return new HtmlResponse(
-            $this->template->render(
-                'web::category', [
-                    'layout'          => 'layout/web',
-                    'categories'      => $categories,
-                    'currentCategory' => $category,
-                    'posts'           => $posts
-                ]
-            )
-        );
+        $posts = $this->categoryService->paginateCategoryPosts($category, $page);
+        $categories = $this->categoryService->getCategories(true);
+
+        return new HtmlResponse($this->template->render('web::posts', [
+            'layout'          => 'layout/web',
+            'categories'      => $categories,
+            'currentCategory' => $category,
+            'posts'           => $posts
+        ]));
     }
 }

@@ -31,7 +31,7 @@ class MeetupApiService
      * @param  $eventUrl     URL from meetup.com web site
      * @return array
      */
-    public function getMeetupAttendees($eventUrl)
+    public function getAttendees($eventUrl)
     {
         if (strpos($eventUrl, 'meetup.com') === false) {
             return [];

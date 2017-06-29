@@ -7,6 +7,7 @@ $this->headMeta('videos', 'og:type');
 $this->headMeta($category->main_img ? $this->serverUrl($category->main_img) : '', 'og:image');
 $this->headMeta($this->serverUrl(), 'og:url');
 $this->headMeta($escaper->escapeHtml($category->description), 'og:description');
+
 ?>
 <div class="video-page">
     <div class="headline">
@@ -15,7 +16,7 @@ $this->headMeta($escaper->escapeHtml($category->description), 'og:description');
         <div class="headline-text">
             <div class="category">Video</div>
             <div class="title">
-                <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>" class="title">
+                <a href="<?= $this->url('post', ['segment_1' => $video->category_slug, 'segment_2' => $video->slug]) ?>" class="title">
                     <?= $video ? $video->title : '' ?>
                 </a>
             </div>
@@ -36,7 +37,7 @@ $this->headMeta($escaper->escapeHtml($category->description), 'og:description');
             <div class="clearfix">
 
                 <?php foreach($videos as $video): ?>
-                    <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>" class="video-post">
+                    <a href="<?= $this->url('post', ['segment_1' => $video->category_slug, 'segment_2' => $video->slug]) ?>" class="video-post">
                         <div class="image-wrapper-none">
                             <img src="<?= $video->main_img ?>">
 
@@ -55,5 +56,5 @@ $this->headMeta($escaper->escapeHtml($category->description), 'og:description');
 </div>
 
 <div class="half-pagination">
-    <?= $this->paginationControl($videos, 'Sliding', 'article/pagination', ['route' => 'videos']) ?>
+    <?= $this->paginationControl($videos, 'Sliding', 'article/pagination', ['route' => 'category']) ?>
 </div>
