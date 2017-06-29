@@ -16,7 +16,7 @@ use Zend\Diactoros\Response\HtmlResponse;
  *
  * @package Web\Action
  */
-class CategoryAction
+class PostsAction
 {
     /** @var Template */
     private $template;

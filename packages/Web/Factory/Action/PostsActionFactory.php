@@ -6,7 +6,7 @@ namespace Web\Factory\Action;
 use Article\Service\PostService;
 use Category\Service\CategoryService;
 use Interop\Container\ContainerInterface;
-use Web\Action\CategoryAction;
+use Web\Action\PostsAction;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
@@ -14,15 +14,16 @@ use Zend\Expressive\Template\TemplateRendererInterface;
  *
  * @package Web\Factory\Action
  */
-class CategoryActionFactory
+class PostsActionFactory
 {
     /**
      * @param ContainerInterface $container
-     * @return CategoryAction
+     *
+     * @return PostsAction
      */
-    public function __invoke(ContainerInterface $container): CategoryAction
+    public function __invoke(ContainerInterface $container): PostsAction
     {
-        return new CategoryAction(
+        return new PostsAction(
             $container->get(TemplateRendererInterface::class),
             $container->get(PostService::class),
             $container->get(CategoryService::class)

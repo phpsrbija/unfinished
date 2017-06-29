@@ -69,10 +69,9 @@ class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareIn
     public function getLatest($limit = 50)
     {
         $select = $this->getSql()->select()
-            ->join(
-                'articles',
-                'article_videos.article_uuid = articles.article_uuid', ['article_id', 'slug', 'published_at']
-            )->where(['articles.status' => 1])
+            ->join('articles', 'article_videos.article_uuid = articles.article_uuid', ['article_id', 'slug', 'published_at'])
+            ->join('category', 'category.category_uuid = articles.category_uuid', ['category_slug' => 'slug'])
+            ->where(['articles.status' => 1])
             ->order(['published_at' => 'desc'])
             ->limit($limit);
 

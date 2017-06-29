@@ -24,7 +24,9 @@ class ArticleVideos extends AbstractSeed
         $featuredImages = $adminUsers->getImages($faker, 'technics', 600, 600);
 
         $allUsers    = array_column($articleVideos->getAdapter()->fetchAll('select admin_user_uuid from admin_users'), 'admin_user_uuid');
-        $allCategory = array_column($articleVideos->getAdapter()->fetchAll('select category_uuid from category'), 'category_uuid');
+        $allCategory = array_column($articleVideos->getAdapter()->fetchAll(
+            'select category_uuid from category where type = ' . \Article\Entity\ArticleType::VIDEO), 'category_uuid'
+        );
 
         for($i = 0; $i < $count; $i++) {
             // Insert Article

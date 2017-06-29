@@ -16,7 +16,9 @@ class ArticlePosts extends AbstractSeed
         $featuredImages = $adminUsers->getImages($faker, 'technics', 600, 600);
 
         $allUsers    = array_column($articlePosts->getAdapter()->fetchAll('select admin_user_uuid from admin_users'), 'admin_user_uuid');
-        $allCategory = array_column($articlePosts->getAdapter()->fetchAll('select category_uuid from category'), 'category_uuid');
+        $allCategory = array_column($articlePosts->getAdapter()->fetchAll(
+            'select category_uuid from category where type = ' . \Article\Entity\ArticleType::POST), 'category_uuid'
+        );
 
         for($i = 0; $i < $count; $i++) {
             // Insert Article
