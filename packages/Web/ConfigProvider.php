@@ -20,14 +20,14 @@ class ConfigProvider
 
             'dependencies' => [
                 'factories' => [
-                    Action\HomeAction::class     => Factory\Action\HomeActionFactory::class,
-                    Action\CategoryAction::class => Factory\Action\CategoryActionFactory::class,
-                    Action\PostAction::class     => Factory\Action\PostActionFactory::class,
-                    Action\VideosAction::class   => Factory\Action\VideosActionFactory::class,
-                    Action\VideoAction::class    => Factory\Action\VideoActionFactory::class,
-                    Action\EventsAction::class   => Factory\Action\EventsActionFactory::class,
-                    Action\EventAction::class    => Factory\Action\EventActionFactory::class,
-                    Action\PageAction::class     => Factory\Action\PageActionFactory::class,
+                    Action\HomeAction::class   => Factory\Action\HomeActionFactory::class,
+                    Action\PostsAction::class  => Factory\Action\PostsActionFactory::class,
+                    Action\PostAction::class   => Factory\Action\PostActionFactory::class,
+                    Action\VideosAction::class => Factory\Action\VideosActionFactory::class,
+                    Action\VideoAction::class  => Factory\Action\VideoActionFactory::class,
+                    Action\EventsAction::class => Factory\Action\EventsActionFactory::class,
+                    Action\EventAction::class  => Factory\Action\EventActionFactory::class,
+                    Action\PageAction::class   => Factory\Action\PageActionFactory::class,
                 ],
             ],
 
@@ -40,7 +40,7 @@ class ConfigProvider
                 [
                     'name'       => 'category',
                     'path'       => '/:category/',
-                    'middleware' => Action\CategoryAction::class
+                    'middleware' => Action\PostsAction::class
                 ],
                 [
                     'name'       => 'post',

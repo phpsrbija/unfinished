@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Web\Action;
 
 use Article\Service\PostService;
@@ -32,15 +33,15 @@ class PostAction
      */
     public function __construct(Template $template, PostService $postService)
     {
-        $this->template = $template;
+        $this->template    = $template;
         $this->postService = $postService;
     }
 
     /**
      * Executed when action is invoked
      *
-     * @param  Request $request
-     * @param  Response $response
+     * @param  Request       $request
+     * @param  Response      $response
      * @param  callable|null $next
      *
      * @return HtmlResponse
@@ -54,13 +55,8 @@ class PostAction
         $urlSlug1 = $request->getAttribute('segment_1');
         $urlSlug2 = $request->getAttribute('segment_2');
 
-        if ($urlSlug2) {
-            $categorySlug = $urlSlug1;
-            $postSlug = $urlSlug2;
-        } else {
-            $categorySlug = null;
-            $postSlug = $urlSlug1;
-        }
+        $categorySlug = $urlSlug1;
+        $postSlug     = $urlSlug2;
 
         $post = $this->postService->fetchSingleArticleBySlug($postSlug);
 
@@ -73,16 +69,16 @@ class PostAction
         if (!$post) {
             $response = $response->withStatus(404);
 
-            return $next($request, $response, new \Exception("Post by URL does not exist!", 404));
+            return $next($request, $response,
+                new \Exception("Post by URL does not exist!", 404));
         }
 
         return new HtmlResponse(
-            $this->template->render(
-                'web::post', [
-                    'layout' => 'layout/web',
-                    'post' => $post,
+            $this->template->render('web::post', [
+                    'layout'   => 'layout/web',
+                    'post'     => $post,
                     'previous' => $previousPost,
-                    'next' => $nextPost
+                    'next'     => $nextPost
                 ]
             )
         );
