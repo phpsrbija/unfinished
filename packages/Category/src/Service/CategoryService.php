@@ -201,7 +201,7 @@ class CategoryService
      * @param  int $page
      * @return Paginator
      */
-    public function getCategoryPostsPagination($category, $page = 1): Paginator
+    public function paginateCategoryPosts($category, $page = 1): Paginator
     {
         $categoryid = isset($category->category_id) ? $category->category_id : null;
         $select     = $this->categoryMapper->getCategoryPostsSelect($categoryid, 12);

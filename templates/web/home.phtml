@@ -2,12 +2,12 @@
 /** @var \Page\Entity\Page $page */
 
 $escaper = (new \Zend\Escaper\Escaper);
-$this->headMeta(($page ? $page->getDescription() : ''), 'description');
-$this->headMeta(($page ? $page->getTitle() : ''), 'og:title');
+$this->headMeta(($page ? $escaper->escapeHtml($page->getDescription()) : ''), 'description');
+$this->headMeta(($page ? $escaper->escapeHtml($page->getTitle()) : ''), 'og:title');
 $this->headMeta('page', 'og:type');
 $this->headMeta($this->serverUrl($page ? $page->getMainImg() : ''), 'og:image');
 $this->headMeta($this->serverUrl(), 'og:url');
-$this->headMeta($page ? $page->getDescription() : '', 'og:description');
+$this->headMeta($page ? $escaper->escapeHtml($page->getDescription()) : '', 'og:description');
 ?>
 <!-- First Event -->
 <a href="#" class="link active-news">
@@ -25,7 +25,7 @@ $this->headMeta($page ? $page->getDescription() : '', 'og:description');
 <!-- Latest 4 Events -->
 <div class="news-wrapper">
     <?php foreach($this->event()->getLatest() as $count => $event): ?>
-        <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>"
+        <a href="<?= $this->url('post', ['segment_1' => $event->category_slug, 'segment_2' => $event->slug]) ?>"
            class="link news <?= $count == 0 ? 'selected' : '' ?>"
            data-mobile-src="<?= $event->featured_img ?>"
            data-tablet-src="<?= $event->featured_img ?>"
@@ -128,7 +128,7 @@ $this->headMeta($page ? $page->getDescription() : '', 'og:description');
                         <div class="video-content-wrapper">
                             <div class="title"><?= $video->title ?></div>
                             <div class="description"><?= $video->lead ?></div>
-                            <a href="<?= $this->url('video', ['video_slug' => $video->slug]) ?>"
+                            <a href="<?= $this->url('post', ['segment_1' => $video->category_slug, 'segment_2' => $video->slug]) ?>"
                                class="btn btn-play icon-play">
                             </a>
                         </div>

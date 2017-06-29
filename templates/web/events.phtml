@@ -19,7 +19,7 @@ $this->headMeta($escaper->escapeHtml($category->description), 'og:description');
             </div>
             <div class="instructor-name"><?= $event->place_name ?></div>
             <div class="event-title"><?= $event->sub_title ?></div>
-            <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="btn btn-blue">Dolaziš?</a>
+            <a href="<?= $this->url('post', ['segment_1' => $event->category_slug, 'segment_2' => $event->slug]) ?>" class="btn btn-blue">Dolaziš?</a>
         </div>
     </div>
     <ul class="event-tags-wrapper">
@@ -37,7 +37,7 @@ $this->headMeta($escaper->escapeHtml($category->description), 'og:description');
 
         <div class="event-mid-wrapper">
             <?php foreach($futureEvents as $event): ?>
-                <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="event"
+                <a href="<?= $this->url('post', ['segment_1' => $event->category_slug, 'segment_2' => $event->slug]) ?>" class="event"
                    data-title="<?= $event->title ?>"
                    data-image="<?= $this->serverUrl() . $event->main_img ?>">
                     <div class="image-wrapper-none image-transition">
@@ -74,7 +74,7 @@ $this->headMeta($escaper->escapeHtml($category->description), 'og:description');
             <div class="event-status-title">Prethodna dešavanja</div>
             <div class="event-mid-wrapper">
                 <?php foreach($pastEvents as $event): ?>
-                    <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="event"
+                    <a href="<?= $this->url('post', ['segment_1' => $event->category_slug, 'segment_2' => $event->slug]) ?>" class="event"
                        data-title="<?= $event->title ?>"
                        data-image="<?= $this->serverUrl($event->main_img) ?>">
                         <div class="image-wrapper-none image-transition">

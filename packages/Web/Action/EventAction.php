@@ -1,10 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Web\Action;
 
 use Article\Service\EventService;
+use Article\Entity\ArticleType;
 use Category\Service\CategoryService;
 use Meetup\MeetupApiService;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -66,24 +67,21 @@ class EventAction
         Response $response,
         callable $next = null
     ) {
-        $eventSlug = $request->getAttribute('event_slug');
-        $event     = $this->eventService->fetchEventBySlug($eventSlug);
+        $categorySlug = $request->getAttribute('segment_1');
+        $eventSlug    = $request->getAttribute('segment_2');
+        $event        = $this->eventService->fetchEventBySlug($eventSlug);
 
-        if (!$event) {
+        if (!$event || $event->type != ArticleType::EVENT) {
             return $next($request, $response);
         }
 
         // Fetch going ppl
-        $attendees = $this->meetupService->getMeetupAttendees($event->event_url);
+        $attendees = $this->meetupService->getAttendees($event->event_url);
 
-        return new HtmlResponse(
-            $this->template->render(
-                'web::event', [
-                    'layout'    => 'layout/web',
-                    'event'     => $event,
-                    'attendees' => $attendees
-                ]
-            )
-        );
+        return new HtmlResponse($this->template->render('web::event', [
+            'layout'    => 'layout/web',
+            'event'     => $event,
+            'attendees' => $attendees
+        ]));
     }
 }

@@ -58,7 +58,7 @@ $this->headMeta($currentCategory->description, 'og:description');
                     </div>
                     <div class="blog-box-sidebar-content">
                         <a href="<?= $this->url('category', ['category' => $event->category_slug]) ?>" class="category">Dešavanja</a>
-                        <a href="<?= $this->url('event', ['event_slug' => $event->slug]) ?>" class="title">
+                        <a href="<?= $this->url('post', ['segment_1' => $event->category_slug, 'segment_2' => $event->slug]) ?>" class="title">
                             <span><?= $event->title ?></span></a>
                     </div>
                 </article>

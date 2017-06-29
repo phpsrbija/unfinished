@@ -1,9 +1,11 @@
 <?php
-declare(strict_types=1);
+
+declare(strict_types = 1);
 
 namespace Web\Action;
 
 use Article\Service\PostService;
+use Article\Entity\ArticleType;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
@@ -16,14 +18,10 @@ use Zend\Diactoros\Response\HtmlResponse;
  */
 class PostAction
 {
-    /**
-     * @var Template
-     */
+    /** @var Template */
     private $template;
 
-    /**
-     * @var PostService
-     */
+    /** @var PostService */
     private $postService;
 
     /**
@@ -52,35 +50,21 @@ class PostAction
         Response $response,
         callable $next = null
     ) {
-        $urlSlug1 = $request->getAttribute('segment_1');
-        $urlSlug2 = $request->getAttribute('segment_2');
+        $categorySlug = $request->getAttribute('segment_1');
+        $postSlug     = $request->getAttribute('segment_2');
+        $post         = $this->postService->fetchSingleArticleBySlug($postSlug);
 
-        $categorySlug = $urlSlug1;
-        $postSlug     = $urlSlug2;
-
-        $post = $this->postService->fetchSingleArticleBySlug($postSlug);
-
-        if (!$post) {
+        if (!$post || $post->type != ArticleType::POST) {
             return $next($request, $response);
         }
 
         list($previousPost, $nextPost) = $this->postService->fetchNearestArticle($post->published_at);
 
-        if (!$post) {
-            $response = $response->withStatus(404);
-
-            return $next($request, $response,
-                new \Exception("Post by URL does not exist!", 404));
-        }
-
-        return new HtmlResponse(
-            $this->template->render('web::post', [
-                    'layout'   => 'layout/web',
-                    'post'     => $post,
-                    'previous' => $previousPost,
-                    'next'     => $nextPost
-                ]
-            )
-        );
+        return new HtmlResponse($this->template->render('web::post', [
+            'layout'   => 'layout/web',
+            'post'     => $post,
+            'previous' => $previousPost,
+            'next'     => $nextPost
+        ]));
     }
 }
