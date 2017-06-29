@@ -20,7 +20,8 @@ class ACategory extends AbstractSeed
                 'category_uuid' => $mysqlUuid,
                 'category_id'   => $id,
                 'name'          => $categoryName,
-                'slug'          => preg_replace('/[^a-z0-9]/i', '-', strtolower($categoryName))
+                'slug'          => preg_replace('/[^a-z0-9]/i', '-', strtolower($categoryName)),
+                'type'          => \Article\Entity\ArticleType::POST
             ];
 
             $category->insert($data)->save();
@@ -33,7 +34,8 @@ class ACategory extends AbstractSeed
             'category_uuid' => $mysqlUuid,
             'category_id'   => $id,
             'name'          => 'Videos',
-            'slug'          => 'videos'
+            'slug'          => 'videos',
+            'type'          => \Article\Entity\ArticleType::VIDEO
         ])->save();
 
         // Insert special category - events
@@ -43,8 +45,8 @@ class ACategory extends AbstractSeed
             'category_uuid' => $mysqlUuid,
             'category_id'   => $id,
             'name'          => 'Events',
-            'slug'          => 'events'
+            'slug'          => 'events',
+            'type'          => \Article\Entity\ArticleType::EVENT
         ])->save();
-
     }
 }
