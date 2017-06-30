@@ -26,4 +26,4 @@ script:
   - composer -d=application cs-check
 
 after_script:
-  - composer -d=application upload-coverage
+  - application/vendor/bin/coveralls -v
