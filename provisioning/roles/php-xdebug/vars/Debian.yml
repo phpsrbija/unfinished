@@ -1,0 +1,6 @@
+---
+php_fmp_conf_d_path: /etc/php/7.0/fpm/conf.d/
+
+php_cli_conf_d_path: /etc/php/7.0/cli/conf.d/
+
+php_mods_available: /etc/php/7.0/mods-available/

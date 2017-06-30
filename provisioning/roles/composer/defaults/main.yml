@@ -1,0 +1,4 @@
+---
+PROJECT_ROOT: "/var/www"
+
+use_composer_no_dev: no

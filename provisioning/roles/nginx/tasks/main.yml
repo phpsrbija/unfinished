@@ -1,0 +1,23 @@
+---
+# tasks file for nginx
+- name: Install the packages
+  apt: name="{{ item }}" state=present update_cache=yes
+  with_items: "{{ nginx_packages }}"
+  when: ansible_os_family == "Debian"
+  tags: [packages, nginx]
+
+- name: ensure nginx service is up
+  action: service name=nginx state=started
+  tags: [nginx]
+
+- name: make sure that there is no default website
+  file: path="{{ NGINX_SITES_CONFIG_PATH }}/default" state=absent
+  tags: [nginx]
+
+- name: installing website config {{ name }}-{{ APPLICATION_ENVIRONMENT }}
+  copy: src="files/nginx/{{ name }}-{{ APPLICATION_ENVIRONMENT }}.conf"
+        dest="{{ NGINX_SITES_CONFIG_PATH }}/{{ name }}.conf"
+  # also a handler named restart nginx is present if needed
+  notify:
+  - reload nginx
+  tags: [nginx]

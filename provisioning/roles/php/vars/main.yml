@@ -1,0 +1,22 @@
+---
+php_packages:
+  - php7.0-dev
+  - php7.0-cli
+  - php7.0-mysql
+  - php7.0-pgsql
+  - php-pear
+  - php7.0-mcrypt
+  - php7.0-curl
+  - php7.0-gd
+  - php7.0-exif
+  - php7.0-fileinfo
+  - php7.0-intl
+  - php7.0-bcmath
+  - php7.0-mbstring
+  - php7.0-dom
+  - php7.0-zip
+  - php7.0-xsl
+  - php7.0-mbstring
+
+php_fpm_packages:
+  - php7.0-fpm

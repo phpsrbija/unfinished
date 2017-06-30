@@ -1,0 +1,25 @@
+---
+- include: common.yml
+
+# This is a setup for vagrant host, inherits from all
+- hosts: default
+  become: yes
+  roles:
+    - nodejs
+    - mysql
+    - php
+    - { role: php-xdebug, use_xdebug: true, use_xdebug_profiler: true}
+    - { role: composer, use_composer_no_dev: no }
+    - mailhog
+
+  tasks:
+    - name: Update bashrc for with the app environment
+      lineinfile:
+        dest=/home/vagrant/.bashrc
+        line="export APPLICATION_ENVIRONMENT=dev"
+        regexp='^export APPLICATION_ENVIRONMENT=dev$'
+        state=present
+        insertafter=EOF
+        create=True
+    - name: Install the valgrind (APT)
+      apt: name=valgrind state=latest update_cache=yes

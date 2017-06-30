@@ -1,0 +1,129 @@
+---
+
+- name: Add the OS specific varibles
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Add php 7.0 repository if needed for quantal and newer (ondrej)
+  # Add specified repository into sources list.
+  apt_repository: repo='ppa:ondrej/php/ubuntu trusty main' state=present update_cache=yes
+  when: ansible_os_family == "Debian" and ansible_distribution_version|float >= 12.10
+  tags: [php, php70, packages]
+
+- name: Install the php libraries (APT)
+  apt: name="{{ item }}" state=latest update_cache=yes
+  with_items: "{{ php_packages }}"
+  when: ansible_os_family == "Debian" and php_packages|lower != 'none'
+  tags: [php, packages]
+
+- name: Install the php-fpm specific libraries (APT)
+  apt: name="{{ item }}" state=present update_cache=yes
+  # located in vars/main.yml
+  with_items: "{{ php_fpm_packages }}"
+  when: ansible_os_family == "Debian" and use_php_fpm == true
+  tags: [php, php_fpm, packages]
+
+- name: Copy the upload limit configuration
+  copy: src="files/php-fpm/upload_limits.ini"
+        dest="{{ php_fmp_conf_d_path }}/upload_limits.ini"
+        backup=yes
+        owner=root
+        group=root
+        mode=0644
+  # located in defaults/main.yml
+  when: use_php_fpm == true
+  notify:
+   - restart php-fpm
+  tags: [configuration,php,fpm]
+
+- name: Copy the timezone configuration
+  copy: src="files/php-fpm/timezone.ini"
+        dest="{{ php_fmp_conf_d_path }}/timezone.ini"
+        backup=yes
+        owner=root
+        group=root
+        mode=0644
+  # located in defaults/main.yml
+  when: use_php_fpm == true
+  notify:
+   - restart php-fpm
+  tags: [configuration,php,fpm]
+
+- name: Copy the opcache configuration
+  copy: src="files/php-fpm/opcache.ini"
+        dest="{{ php_fmp_conf_d_path }}/opcache.ini"
+        backup=yes
+        owner=root
+        group=root
+        mode=0644
+  # located in defaults/main.yml
+  when: use_php_fpm == true
+  notify:
+   - restart php-fpm
+  tags: [configuration,php,fpm]
+
+  # on a newly built box I encountered the following error:
+  # [crit] 9162#0: *18 connect() to unix:/var/run/php-fpm.sock failed (13: Permission denied) while connecting to upstream
+  # AFAIU the problem was caused by the fix implemented for https://bugs.php.net/bug.php?id=67060
+  # The solution is from http://stackoverflow.com/a/23487409 (second addition)
+- name: Copy the www pool additional configuration
+  copy: src="files/php-fpm/www_additional.conf"
+        dest="{{ php_fmp_pool_d_path }}/www_additional.conf"
+        backup=yes
+        owner=root
+        group=root
+        mode=0644
+  # located in defaults/main.yml
+  when: use_php_fpm == true
+  notify:
+   - restart php-fpm
+  tags: [configuration,php,fpm]
+
+- name: Copy the timezone cli configuration
+  copy: src="files/php-fpm/timezone.ini"
+        dest="{{ php_cli_conf_d_path }}/timezone.ini"
+        backup=yes
+        owner=root
+        group=root
+        mode=0644
+  # located in defaults/main.yml
+  when: use_php_fpm == true
+  notify:
+   - restart php-fpm
+  tags: [configuration,php]
+
+- name: Copy the memory cli configuration
+  copy: src="files/php-fpm/memory.ini"
+        dest="{{ php_cli_conf_d_path }}/memory.ini"
+        backup=yes
+        owner=root
+        group=root
+        mode=0644
+  # located in defaults/main.yml
+  when: use_php_fpm == true
+  notify:
+   - restart php-fpm
+  tags: [configuration,php]
+
+- name: ensure php7.0-fpm service is up
+  action: service name=php7.0-fpm state=started
+  when: ansible_os_family == "Debian" and use_php_fpm == true
+  tags: [php, php_fpm]
+
+- name: Copy the dev opcache configuration
+  copy: src="files/php-fpm/opcache-dev.ini"
+        dest="{{ php_fmp_conf_d_path }}/opcache-dev.ini"
+        backup=yes
+        owner=root
+        group=root
+        mode=0644
+  # located in defaults/main.yml
+  when: use_dev_opcache == true
+  notify:
+   - restart php-fpm
+  tags: [php, configuration, dev]
+
+- name: Set php 7.0 as default
+  alternatives:
+    name: php
+    path: "/usr/bin/php7.0"
+  tags: [php, packages]

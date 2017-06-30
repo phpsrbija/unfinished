@@ -1,0 +1,93 @@
+---
+
+- name: Add the OS specific varibles
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Install xdebug
+  apt: name="{{ item }}" state=present update_cache=yes
+  # located in vars/main.yml
+  with_items: "{{ php_xdebug }}"
+  when: ansible_os_family == "Debian" and use_xdebug == true
+  tags: [php, packages, xdebug, dev]
+
+- name: Create xdebug log dir
+  file: state=directory group=ubuntu owner=ubuntu recurse=yes path=/var/log/xdebug
+  when: ansible_os_family == "Debian" and use_xdebug == true
+  tags: [php, packages, xdebug, dev]
+
+- name: copy the xdebug.ini
+  copy: src=files/php-xdebug/xdebug.ini dest="{{ php_mods_available }}/xdebug.ini"
+  when: ansible_os_family == "Debian" and use_xdebug == true
+
+- name: Copy the xdebug profiler configuration
+  copy: src=files/php-xdebug/xdebug-profiler.ini dest="{{ php_mods_available }}/xdebug-profiler.ini"
+  when: ansible_os_family == "Debian" and use_xdebug == true and use_xdebug_profiler == true
+  tags: [php, configuration, xdebug, dev]
+
+- name: Copy the xdebug extension loading configuration for fpm
+  copy: src=files/php-xdebug/xdebug-extension-fpm.ini dest="{{ php_mods_available }}/xdebug-extension-fpm.ini"
+  when: ansible_os_family == "Debian" and use_xdebug == true and use_fpm == true
+  tags: [php, configuration, xdebug, dev]
+
+- name: Copy the xdebug profiler configuration for fpm
+  copy: src=files/php-xdebug/xdebug-profiler-fpm.ini dest="{{ php_mods_available }}/xdebug-profiler-fpm.ini"
+  when: ansible_os_family == "Debian" and use_xdebug == true and use_fpm == true
+  tags: [php, configuration, xdebug, dev]
+
+- name: Enable the debugger settings for cli
+  shell: phpenmod -s cli xdebug
+  when: ansible_os_family == "Debian" and use_xdebug == true
+  tags: [php, configuration, xdebug, dev]
+
+- name: Enable the profiler settings for cli
+  shell: phpenmod -s cli xdebug-profiler
+  when: ansible_os_family == "Debian" and use_xdebug == true and use_xdebug_profiler == true
+  tags: [php, configuration, xdebug, dev]
+
+- name: Enable the debugger settings for fpm
+  shell: phpenmod -s fpm xdebug
+  when: ansible_os_family == "Debian" and use_xdebug == true and use_fpm == true
+  tags: [php, configuration, xdebug, dev]
+
+- name: Enable the debugger extension settings for fpm
+  shell: phpenmod -s fpm xdebug-extension-fpm
+  when: ansible_os_family == "Debian" and use_xdebug == true and use_fpm == true
+  tags: [php, configuration, xdebug, dev]
+
+- name: Enable the profiler settings for fpm
+  shell: phpenmod -s fpm xdebug-profiler-fpm
+  when: ansible_os_family == "Debian" and use_xdebug == true and use_xdebug_profiler == true and use_fpm == true
+  tags: [php, configuration, xdebug, dev]
+
+- name: Update bashrc for with alias for debugging
+  lineinfile:
+    dest=/home/vagrant/.bashrc
+    line="alias php-debug='/usr/bin/php -dzend_extension=xdebug.so'"
+    regexp="^alias php-debug='/usr/bin/php -dzend_extension=xdebug.so'$"
+    state=present
+    insertafter=EOF
+    create=True
+  when: ansible_os_family == "Debian" and use_xdebug == true
+  tags: [php, configuration, xdebug, dev]
+
+- name: Update bashrc for with alias for profiling
+  lineinfile:
+    dest=/home/vagrant/.bashrc
+    line="alias php-profiler='XDEBUG_CONFIG=\"profiler_enable=1\" /usr/bin/php -dzend_extension=xdebug.so'"
+    regexp="^alias php-profiler='XDEBUG_CONFIG=\"profiler_enable=1\" /usr/bin/php -dzend_extension=xdebug.so'$"
+    state=present
+    insertafter=EOF
+    create=True
+  when: ansible_os_family == "Debian" and use_xdebug == true and use_xdebug_profiler == true
+  tags: [php, configuration, xdebug, dev]
+
+- name: Update bashrc for with alias for valgrinding
+  lineinfile:
+    dest=/home/vagrant/.bashrc
+    line="alias php-valgrind='sudo valgrind --tool=callgrind --dump-instr=yes --trace-jump=yes -v /usr/bin/php'"
+    regexp="^alias php-valgrind='sudo valgrind --tool=callgrind --dump-instr=yes --trace-jump=yes -v /usr/bin/php'$"
+    state=present
+    insertafter=EOF
+    create=True
+  when: ansible_os_family == "Debian" and use_xdebug == true and use_xdebug_profiler == true
+  tags: [php, configuration, xdebug, dev]
