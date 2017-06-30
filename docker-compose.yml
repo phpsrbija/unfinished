@@ -19,7 +19,7 @@ services:
   app:
       image: phpdockerio/php7-fpm
       volumes:
-          - .:/var/www/unfinished
+          - ./application:/var/www/unfinished
       command: "true"
   mysql:
 #      build: ./mysql/
