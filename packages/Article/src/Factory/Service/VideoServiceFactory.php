@@ -1,14 +1,16 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Factory\Service;
 
+use Admin\Mapper\AdminUsersMapper;
+use Article\Filter\ArticleFilter;
+use Article\Filter\VideoFilter;
 use Article\Mapper\ArticleMapper;
 use Article\Mapper\ArticleVideosMapper;
 use Article\Service\VideoService;
-use Article\Filter\ArticleFilter;
-use Article\Filter\VideoFilter;
 use Category\Mapper\CategoryMapper;
-use Admin\Mapper\AdminUsersMapper;
 use Interop\Container\ContainerInterface;
 use UploadHelper\Upload;
 
@@ -16,6 +18,7 @@ class VideoServiceFactory
 {
     /**
      * @param ContainerInterface $container
+     *
      * @return VideoService
      */
     public function __invoke(ContainerInterface $container): VideoService

@@ -1,20 +1,18 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Web\Action;
 
-use Article\Service\PostService;
 use Article\Entity\ArticleType;
+use Article\Service\PostService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Template\TemplateRendererInterface as Template;
 
 /**
  * Class PostAction.
- *
- * @package Web\Action
  */
 class PostAction
 {
@@ -31,19 +29,20 @@ class PostAction
      */
     public function __construct(Template $template, PostService $postService)
     {
-        $this->template    = $template;
+        $this->template = $template;
         $this->postService = $postService;
     }
 
     /**
-     * Executed when action is invoked
+     * Executed when action is invoked.
      *
-     * @param  Request       $request
-     * @param  Response      $response
-     * @param  callable|null $next
+     * @param Request       $request
+     * @param Response      $response
+     * @param callable|null $next
+     *
+     * @throws \Exception
      *
      * @return HtmlResponse
-     * @throws \Exception
      */
     public function __invoke(
         Request $request,
@@ -51,8 +50,8 @@ class PostAction
         callable $next = null
     ) {
         $categorySlug = $request->getAttribute('segment_1');
-        $postSlug     = $request->getAttribute('segment_2');
-        $post         = $this->postService->fetchSingleArticleBySlug($postSlug);
+        $postSlug = $request->getAttribute('segment_2');
+        $post = $this->postService->fetchSingleArticleBySlug($postSlug);
 
         if (!$post || $post->type != ArticleType::POST) {
             return $next($request, $response);
@@ -64,7 +63,7 @@ class PostAction
             'layout'   => 'layout/web',
             'post'     => $post,
             'previous' => $previousPost,
-            'next'     => $nextPost
+            'next'     => $nextPost,
         ]));
     }
 }

@@ -1,16 +1,16 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Mapper;
 
+use Article\Entity\ArticleType;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
 use Zend\Db\TableGateway\AbstractTableGateway;
-use Article\Entity\ArticleType;
 
 /**
  * Class ArticlePostsMapper.
- *
- * @package Article\Mapper
  */
 class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInterface
 {
@@ -20,9 +20,10 @@ class ArticlePostsMapper extends AbstractTableGateway implements AdapterAwareInt
     protected $table = 'article_posts';
 
     /**
-     * Db adapter setter method,
+     * Db adapter setter method,.
      *
-     * @param  Adapter $adapter db adapter
+     * @param Adapter $adapter db adapter
+     *
      * @return void
      */
     public function setDbAdapter(Adapter $adapter)

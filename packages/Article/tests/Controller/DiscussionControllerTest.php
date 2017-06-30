@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Test\Article\Controller;
 
 class DiscussionControllerTest extends \PHPUnit_Framework_TestCase
@@ -147,7 +149,7 @@ class DiscussionControllerTest extends \PHPUnit_Framework_TestCase
             $categoryService
         );
         /**
-         * @var \Zend\Diactoros\Response $returnedResponse
+         * @var \Zend\Diactoros\Response
          */
         $returnedResponse = $discussionController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());

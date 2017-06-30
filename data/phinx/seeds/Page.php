@@ -4,16 +4,15 @@ use Phinx\Seed\AbstractSeed;
 
 class Page extends AbstractSeed
 {
-
     public function run()
     {
         $faker = Faker\Factory::create();
-        $page  = $this->table('page');
+        $page = $this->table('page');
 
         // Insert one Page
-        $id        = $faker->uuid;
+        $id = $faker->uuid;
         $mysqlUuid = (new MysqlUuid\Uuid($id))->toFormat(new MysqlUuid\Formats\Binary());
-        $title     = $faker->sentence();
+        $title = $faker->sentence();
         $page->insert([
             'page_uuid'         => $mysqlUuid,
             'page_id'           => $id,

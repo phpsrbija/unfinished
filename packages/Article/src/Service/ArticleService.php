@@ -1,11 +1,13 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Service;
 
-use Zend\Paginator\Paginator;
-use Zend\Paginator\Adapter\DbSelect;
-use Article\Mapper\ArticleMapper;
 use Article\Filter\ArticleFilter;
+use Article\Mapper\ArticleMapper;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
 
 abstract class ArticleService implements ArticleServiceInterface
 {

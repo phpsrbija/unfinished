@@ -1,12 +1,14 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\Test\Service;
 
 class AdminUserServiceTest extends \PHPUnit_Framework_TestCase
 {
     public function testUserLoginShouldReturnUserDataIfUserIsProperlyLoggedIn()
     {
-        $userData = new class {
+        $userData = new class() {
             public $email = 'admin@example.org';
             public $password = 'secret';
             public $admin_user_uuid = 'uuid';
@@ -43,7 +45,7 @@ class AdminUserServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testUserLoginShouldThrowExceptionIfCredentialsVerificationFails()
     {
-        $userData = new class {
+        $userData = new class() {
             public $email = 'admin@example.org';
             public $password = 'secret';
             public $admin_user_uuid = 'uuid';

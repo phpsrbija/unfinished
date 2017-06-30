@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Filter;
 
 use Zend\InputFilter\InputFilter;
@@ -17,9 +19,9 @@ class PostFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'title',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'title',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [
                         ['name' => 'NotEmpty'],
                         ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
@@ -29,9 +31,9 @@ class PostFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'body',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'body',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [
                         ['name' => 'NotEmpty'],
                         ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100000]],
@@ -41,9 +43,9 @@ class PostFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'lead',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'lead',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [
                         ['name' => 'NotEmpty'],
                         ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 50000]],
@@ -53,9 +55,9 @@ class PostFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'has_layout',
+                    'name'     => 'has_layout',
                     'required' => false,
-                    'filters' => [['name' => 'Boolean']],
+                    'filters'  => [['name' => 'Boolean']],
                 ]
             );
 
@@ -67,6 +69,6 @@ class PostFilter implements InputFilterAwareInterface
 
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("Not used");
+        throw new \Exception('Not used');
     }
 }

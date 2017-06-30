@@ -1,14 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Article\Factory\Controller;
 
 use Article\Controller\DiscussionController;
-use Interop\Container\ContainerInterface;
-use Zend\Expressive\Template\TemplateRendererInterface;
 use Article\Service\DiscussionService;
 use Category\Service\CategoryService;
+use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 class DiscussionFactory
 {

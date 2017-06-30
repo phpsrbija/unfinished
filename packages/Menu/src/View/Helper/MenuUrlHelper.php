@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Menu\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
 use Zend\Expressive\Helper\UrlHelper;
-use Article\Service\PostService;
+use Zend\View\Helper\AbstractHelper;
 
 class MenuUrlHelper extends AbstractHelper
 {
@@ -24,15 +25,16 @@ class MenuUrlHelper extends AbstractHelper
     }
 
     /**
-     * Depend on given MenuItem create URL
+     * Depend on given MenuItem create URL.
      *
      * @param  $menuItem
-     * @return String
+     *
+     * @return string
      */
     public function __invoke($menuItem)
     {
         if ($menuItem['href']) {
-            return strpos($menuItem['href'], 'http') === 0 ? $menuItem['href'] : '/' . $menuItem['href'];
+            return strpos($menuItem['href'], 'http') === 0 ? $menuItem['href'] : '/'.$menuItem['href'];
         } elseif ($menuItem['page_slug']) {
             return $this->url->__invoke('page', ['url_slug' => $menuItem['page_slug']]);
         } elseif ($menuItem['category_slug']) {

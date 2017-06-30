@@ -1,21 +1,24 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Factory\Service;
 
-use UploadHelper\Upload;
-use Article\Mapper\ArticleMapper;
-use Article\Service\EventService;
-use Article\Mapper\ArticleEventsMapper;
+use Admin\Mapper\AdminUsersMapper;
 use Article\Filter\ArticleFilter;
 use Article\Filter\EventFilter;
-use Interop\Container\ContainerInterface;
+use Article\Mapper\ArticleEventsMapper;
+use Article\Mapper\ArticleMapper;
+use Article\Service\EventService;
 use Category\Mapper\CategoryMapper;
-use Admin\Mapper\AdminUsersMapper;
+use Interop\Container\ContainerInterface;
+use UploadHelper\Upload;
 
 class EventServiceFactory
 {
     /**
      * @param ContainerInterface $container
+     *
      * @return EventService
      */
     public function __invoke(ContainerInterface $container)

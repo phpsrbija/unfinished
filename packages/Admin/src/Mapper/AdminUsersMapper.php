@@ -1,16 +1,16 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\Mapper;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
-use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql\Expression;
+use Zend\Db\TableGateway\AbstractTableGateway;
 
 /**
  * Class AdminUsersMapper.
- *
- * @package Admin\Mapper
  */
 class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInterface
 {
@@ -20,9 +20,10 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
     protected $table = 'admin_users';
 
     /**
-     * Db adapter setter method,
+     * Db adapter setter method,.
      *
-     * @param  Adapter $adapter db adapter
+     * @param Adapter $adapter db adapter
+     *
      * @return void
      */
     public function setDbAdapter(Adapter $adapter)
@@ -38,7 +39,8 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
     /**
      * Get admin user by email.
      *
-     * @param  string $email email
+     * @param string $email email
+     *
      * @return array|\ArrayObject|null
      */
     public function getByEmail(string $email)
@@ -49,7 +51,8 @@ class AdminUsersMapper extends AbstractTableGateway implements AdapterAwareInter
     /**
      * Updates login data.
      *
-     * @param  string $uuid admin user id
+     * @param string $uuid admin user id
+     *
      * @return int number of affected rows
      */
     public function updateLogin(string $userId): int

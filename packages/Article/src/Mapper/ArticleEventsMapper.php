@@ -1,17 +1,17 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Mapper;
 
 use Article\Entity\ArticleType;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
-use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql\Expression;
+use Zend\Db\TableGateway\AbstractTableGateway;
 
 /**
  * Class ArticleEventsMapper.
- *
- * @package Article\Mapper
  */
 class ArticleEventsMapper extends AbstractTableGateway implements
     AdapterAwareInterface
@@ -22,9 +22,9 @@ class ArticleEventsMapper extends AbstractTableGateway implements
     protected $table = 'article_events';
 
     /**
-     * Db adapter setter method,
+     * Db adapter setter method,.
      *
-     * @param  Adapter $adapter db adapter
+     * @param Adapter $adapter db adapter
      *
      * @return void
      */
@@ -47,7 +47,7 @@ class ArticleEventsMapper extends AbstractTableGateway implements
             ->order(['created_at' => 'desc']);
 
         if ($status) {
-            $select->where(['articles.status' => (int)$status]);
+            $select->where(['articles.status' => (int) $status]);
         }
 
         return $select;
@@ -63,7 +63,7 @@ class ArticleEventsMapper extends AbstractTableGateway implements
                 [
                     'category_slug' => 'slug',
                     'category_name' => 'name',
-                    'category_id'
+                    'category_id',
                 ], 'left'
             )
             ->join('admin_users',
@@ -84,7 +84,7 @@ class ArticleEventsMapper extends AbstractTableGateway implements
                 [
                     'category_slug' => 'slug',
                     'category_name' => 'name',
-                    'category_id'
+                    'category_id',
                 ], 'left'
             )
             ->where(['articles.slug' => $slug]);

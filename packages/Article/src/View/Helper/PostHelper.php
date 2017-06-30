@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\View\Helper;
 
 use Article\Service\PostService;
@@ -20,7 +22,7 @@ class PostHelper extends AbstractHelper
     }
 
     /**
-     * Fetch all posts for select box
+     * Fetch all posts for select box.
      */
     public function forSelect()
     {

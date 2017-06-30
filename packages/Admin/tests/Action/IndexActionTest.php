@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Test\Admin\Action;
 
 class IndexActionTest extends \PHPUnit_Framework_TestCase
@@ -7,7 +9,7 @@ class IndexActionTest extends \PHPUnit_Framework_TestCase
     public function testIndexActionShouldReturnHtmlResponse()
     {
         $template = $this->getMockBuilder('Zend\Expressive\Template\TemplateRendererInterface')
-            ->setMethods(array('render'))
+            ->setMethods(['render'])
             ->getMockForAbstractClass();
         $template->expects(static::once())
             ->method('render')

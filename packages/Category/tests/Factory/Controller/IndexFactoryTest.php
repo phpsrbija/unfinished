@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Category\Test\Factory\Controller;
 
 class IndexFactoryTest extends \PHPUnit_Framework_TestCase

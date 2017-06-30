@@ -1,17 +1,17 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Mapper;
 
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
-use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql\Delete;
 use Zend\Db\Sql\Insert;
+use Zend\Db\TableGateway\AbstractTableGateway;
 
 /**
  * Class ArticleMapper.
- *
- * @package Article\Mapper
  */
 class ArticleMapper extends AbstractTableGateway implements AdapterAwareInterface
 {
@@ -21,9 +21,10 @@ class ArticleMapper extends AbstractTableGateway implements AdapterAwareInterfac
     protected $table = 'articles';
 
     /**
-     * Db adapter setter method,
+     * Db adapter setter method,.
      *
-     * @param  Adapter $adapter db adapter
+     * @param Adapter $adapter db adapter
+     *
      * @return void
      */
     public function setDbAdapter(Adapter $adapter)
@@ -52,7 +53,7 @@ class ArticleMapper extends AbstractTableGateway implements AdapterAwareInterfac
     }
 
     /**
-     * Delete all categories for given article
+     * Delete all categories for given article.
      */
     public function deleteCategories($id)
     {

@@ -1,18 +1,20 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Service;
 
-use Category\Mapper\CategoryMapper;
-use Article\Mapper\ArticleMapper;
-use Article\Mapper\ArticleVideosMapper;
+use Admin\Mapper\AdminUsersMapper;
 use Article\Entity\ArticleType;
 use Article\Filter\ArticleFilter;
-use Std\FilterException;
-use Admin\Mapper\AdminUsersMapper;
 use Article\Filter\VideoFilter;
-use Ramsey\Uuid\Uuid;
-use MysqlUuid\Uuid as MysqlUuid;
+use Article\Mapper\ArticleMapper;
+use Article\Mapper\ArticleVideosMapper;
+use Category\Mapper\CategoryMapper;
 use MysqlUuid\Formats\Binary;
+use MysqlUuid\Uuid as MysqlUuid;
+use Ramsey\Uuid\Uuid;
+use Std\FilterException;
 use UploadHelper\Upload;
 
 class VideoService extends ArticleService
@@ -55,13 +57,13 @@ class VideoService extends ArticleService
     /**
      * VideosService constructor.
      *
-     * @param ArticleMapper $articleMapper
+     * @param ArticleMapper       $articleMapper
      * @param ArticleVideosMapper $articleVideosMapper
-     * @param ArticleFilter $articleFilter
-     * @param VideoFilter $videosFilter
-     * @param CategoryMapper $categoryMapper
-     * @param Upload $upload
-     * @param AdminUsersMapper $adminUsersMapper
+     * @param ArticleFilter       $articleFilter
+     * @param VideoFilter         $videosFilter
+     * @param CategoryMapper      $categoryMapper
+     * @param Upload              $upload
+     * @param AdminUsersMapper    $adminUsersMapper
      */
     public function __construct(
         ArticleMapper $articleMapper,
@@ -72,7 +74,6 @@ class VideoService extends ArticleService
         Upload $upload,
         AdminUsersMapper $adminUsersMapper
     ) {
-
         parent::__construct($articleMapper, $articleFilter);
 
         $this->articleMapper = $articleMapper;
@@ -123,14 +124,14 @@ class VideoService extends ArticleService
         }
 
         $id = Uuid::uuid1()->toString();
-        $uuId = (new MysqlUuid($id))->toFormat(new Binary);
+        $uuId = (new MysqlUuid($id))->toFormat(new Binary());
 
         $article = $articleFilter->getValues();
         $article += [
             'admin_user_uuid' => $this->adminUsersMapper->getUuid($article['admin_user_id']),
-            'type' => ArticleType::VIDEO,
-            'article_id' => $id,
-            'article_uuid' => $uuId
+            'type'            => ArticleType::VIDEO,
+            'article_id'      => $id,
+            'article_uuid'    => $uuId,
         ];
 
         $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
@@ -138,8 +139,8 @@ class VideoService extends ArticleService
 
         $videos = $videosFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
-                'main_img' => $this->upload->uploadImage($data, 'main_img'),
-                'article_uuid' => $uuId
+                'main_img'     => $this->upload->uploadImage($data, 'main_img'),
+                'article_uuid' => $uuId,
             ];
 
         $this->articleMapper->insert($article);
@@ -164,7 +165,7 @@ class VideoService extends ArticleService
 
         $videos = $videosFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
-                'main_img' => $this->upload->uploadImage($data, 'main_img')
+                'main_img'     => $this->upload->uploadImage($data, 'main_img'),
             ];
 
         // We don't want to force user to re-upload image on edit

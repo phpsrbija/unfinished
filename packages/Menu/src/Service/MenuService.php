@@ -1,15 +1,17 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Menu\Service;
 
-use Ramsey\Uuid\Uuid;
-use MysqlUuid\Uuid as MysqlUuid;
-use MysqlUuid\Formats\Binary;
-use Menu\Mapper\MenuMapper;
-use Menu\Filter\MenuFilter;
-use Std\FilterException;
 use Category\Service\CategoryService;
+use Menu\Filter\MenuFilter;
+use Menu\Mapper\MenuMapper;
+use MysqlUuid\Formats\Binary;
+use MysqlUuid\Uuid as MysqlUuid;
 use Page\Service\PageService;
+use Ramsey\Uuid\Uuid;
+use Std\FilterException;
 
 class MenuService
 {
@@ -22,8 +24,9 @@ class MenuService
      * We store menu items in DB as flat structure,
      * but we need nested(tree) structure to show in the menu.
      *
-     * @param  array $flatArray Array from DB
-     * @return array            Return same array with tree structure
+     * @param array $flatArray Array from DB
+     *
+     * @return array Return same array with tree structure
      */
     private function unflattenArray(array $flatArray)
     {
@@ -37,16 +40,16 @@ class MenuService
                     $flatArray[$i]['children'] = [];
                 }
 
-                if (!$flatArray[$i]["parent_id"]) {
-                    $result[$flatArray[$i]["menu_id"]] = $flatArray[$i];
-                    $refs[$flatArray[$i]["menu_id"]] = &$result[$flatArray[$i]["menu_id"]];
+                if (!$flatArray[$i]['parent_id']) {
+                    $result[$flatArray[$i]['menu_id']] = $flatArray[$i];
+                    $refs[$flatArray[$i]['menu_id']] = &$result[$flatArray[$i]['menu_id']];
                     unset($flatArray[$i]);
                     $flatArray = array_values($flatArray);
-                } elseif ($flatArray[$i]["parent_id"] != 0) {
-                    if (array_key_exists($flatArray[$i]["parent_id"], $refs)) {
+                } elseif ($flatArray[$i]['parent_id'] != 0) {
+                    if (array_key_exists($flatArray[$i]['parent_id'], $refs)) {
                         $o = $flatArray[$i];
-                        $refs[$flatArray[$i]["menu_id"]] = $o;
-                        $refs[$flatArray[$i]["parent_id"]]["children"][] = &$refs[$flatArray[$i]["menu_id"]];
+                        $refs[$flatArray[$i]['menu_id']] = $o;
+                        $refs[$flatArray[$i]['parent_id']]['children'][] = &$refs[$flatArray[$i]['menu_id']];
                         unset($flatArray[$i]);
                         $flatArray = array_values($flatArray);
                     }
@@ -86,7 +89,7 @@ class MenuService
         $data = $this->filterMenuItem($data);
 
         $data['menu_id'] = Uuid::uuid1()->toString();
-        $data['menu_uuid'] = (new MysqlUuid($data['menu_id']))->toFormat(new Binary);
+        $data['menu_uuid'] = (new MysqlUuid($data['menu_id']))->toFormat(new Binary());
 
         return $this->menuMapper->insertMenuItem($data);
     }

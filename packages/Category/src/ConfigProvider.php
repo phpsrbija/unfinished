@@ -9,7 +9,7 @@ class ConfigProvider
         return [
             'templates' => [
                 'paths' => [
-                    'category' => [__DIR__ . '/../templates/category'],
+                    'category' => [__DIR__.'/../templates/category'],
                 ],
             ],
 
@@ -36,7 +36,7 @@ class ConfigProvider
                     'name'            => 'admin.categories.action',
                     'path'            => '/admin/categories/:action/:id',
                     'middleware'      => Controller\IndexController::class,
-                    'allowed_methods' => ['GET', 'POST']
+                    'allowed_methods' => ['GET', 'POST'],
                 ],
             ],
 

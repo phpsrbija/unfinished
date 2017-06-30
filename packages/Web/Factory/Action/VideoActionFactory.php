@@ -12,13 +12,12 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class VideoActionFactory.
- *
- * @package Web\Factory\Action
  */
 class VideoActionFactory
 {
     /**
      * @param ContainerInterface $container
+     *
      * @return VideoAction
      */
     public function __invoke(ContainerInterface $container): VideoAction

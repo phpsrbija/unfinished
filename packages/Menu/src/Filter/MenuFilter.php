@@ -1,11 +1,13 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Menu\Filter;
 
+use Zend\Db\Adapter\Adapter;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
-use Zend\Db\Adapter\Adapter;
 use Zend\Validator\Db\RecordExists;
 
 class MenuFilter implements InputFilterAwareInterface
@@ -25,9 +27,9 @@ class MenuFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'title',
-                    'required' => true,
-                    'filters' => [['name' => 'StripTags'], ['name' => 'StringTrim']],
+                    'name'       => 'title',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StripTags'], ['name' => 'StringTrim']],
                     'validators' => [
                         ['name' => 'NotEmpty'],
                         ['name' => 'StringLength', 'options' => ['max' => '255']],
@@ -37,69 +39,69 @@ class MenuFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'href',
+                    'name'     => 'href',
                     'required' => false,
-                    'filters' => [['name' => 'StripTags'], ['name' => 'StringTrim']]
+                    'filters'  => [['name' => 'StripTags'], ['name' => 'StringTrim']],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'page_id',
-                    'required' => false,
-                    'filters' => [['name' => 'Null']],
+                    'name'       => 'page_id',
+                    'required'   => false,
+                    'filters'    => [['name' => 'Null']],
                     'validators' => [
                         [
-                            'name' => RecordExists::class,
-                            'options' => ['table' => 'page', 'field' => 'page_id', 'adapter' => $this->db]
-                        ]
-                    ]
+                            'name'    => RecordExists::class,
+                            'options' => ['table' => 'page', 'field' => 'page_id', 'adapter' => $this->db],
+                        ],
+                    ],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'category_id',
-                    'required' => false,
-                    'filters' => [['name' => 'Null']],
+                    'name'       => 'category_id',
+                    'required'   => false,
+                    'filters'    => [['name' => 'Null']],
                     'validators' => [
                         [
-                            'name' => RecordExists::class,
-                            'options' => ['table' => 'category', 'field' => 'category_id', 'adapter' => $this->db]
-                        ]
-                    ]
+                            'name'    => RecordExists::class,
+                            'options' => ['table' => 'category', 'field' => 'category_id', 'adapter' => $this->db],
+                        ],
+                    ],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'is_active',
+                    'name'     => 'is_active',
                     'required' => false,
-                    'filters' => [['name' => 'Boolean']]
+                    'filters'  => [['name' => 'Boolean']],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'is_in_header',
+                    'name'     => 'is_in_header',
                     'required' => false,
-                    'filters' => [['name' => 'Boolean']]
+                    'filters'  => [['name' => 'Boolean']],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'is_in_footer',
+                    'name'     => 'is_in_footer',
                     'required' => false,
-                    'filters' => [['name' => 'Boolean']]
+                    'filters'  => [['name' => 'Boolean']],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'is_in_side',
+                    'name'     => 'is_in_side',
                     'required' => false,
-                    'filters' => [['name' => 'Boolean']]
+                    'filters'  => [['name' => 'Boolean']],
                 ]
             );
 
@@ -111,6 +113,6 @@ class MenuFilter implements InputFilterAwareInterface
 
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("Not used");
+        throw new \Exception('Not used');
     }
 }

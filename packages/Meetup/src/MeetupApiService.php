@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Meetup;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\json_decode;
 
 class MeetupApiService
 {
@@ -26,9 +27,10 @@ class MeetupApiService
 
     /**
      * If something goes wrong on the meetup.com API
-     * we want to continue and render our page anyway
+     * we want to continue and render our page anyway.
      *
      * @param  $eventUrl     URL from meetup.com web site
+     *
      * @return array
      */
     public function getAttendees($eventUrl)

@@ -1,8 +1,8 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
 use MysqlUuid\Formats\Binary;
 use MysqlUuid\Uuid;
+use Phinx\Migration\AbstractMigration;
 
 class AdminUsers extends AbstractMigration
 {
@@ -26,8 +26,8 @@ class AdminUsers extends AbstractMigration
             ->create();
 
         // Insert one default admin user with password testtest
-        $faker     = Faker\Factory::create();
-        $id        = $faker->uuid;
+        $faker = Faker\Factory::create();
+        $id = $faker->uuid;
         $mysqlUuid = (new Uuid($id))->toFormat(new Binary());
 
         $this->insert('admin_users', [
@@ -39,7 +39,7 @@ class AdminUsers extends AbstractMigration
             'password'        => '$2y$10$jhGH8RXl269ho1CrLaDiregVuW84HegLHmBFUCKTgDQTH2XgPZyBK',
             'status'          => 1,
             'face_img'        => $this->getImage($faker, 'people'),
-            'profile_img'     => $this->getImage($faker, 'sports')
+            'profile_img'     => $this->getImage($faker, 'sports'),
         ]);
     }
 
@@ -50,11 +50,11 @@ class AdminUsers extends AbstractMigration
 
     private function getImage($faker, $type = 'people', $width = 400, $height = 400)
     {
-        $conf     = include __DIR__ . "/../../../config/autoload/local.php";
-        $p        = $conf['upload']['public_path'];
-        $upload   = new \UploadHelper\Upload($p, '');
-        $filename = md5(rand()) . '.jpg';
-        $path     = $p . $filename[0] . '/' . $filename[1] . '/' . $filename[2] . '/' . $filename;
+        $conf = include __DIR__.'/../../../config/autoload/local.php';
+        $p = $conf['upload']['public_path'];
+        $upload = new \UploadHelper\Upload($p, '');
+        $filename = md5(rand()).'.jpg';
+        $path = $p.$filename[0].'/'.$filename[1].'/'.$filename[2].'/'.$filename;
         $upload->getPath($filename); // create sub folders
         $img = file_get_contents($faker->imageUrl(400, 400, $type));
         file_put_contents($path, $img);
@@ -62,4 +62,3 @@ class AdminUsers extends AbstractMigration
         return $upload->getWebPath($filename);
     }
 }
-

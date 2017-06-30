@@ -6,20 +6,19 @@ namespace Web\Factory\Action;
 
 use Article\Service\EventService;
 use Category\Service\CategoryService;
-use Meetup\MeetupApiService;
 use Interop\Container\ContainerInterface;
+use Meetup\MeetupApiService;
 use Web\Action\EventAction;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class EventActionFactory.
- *
- * @package Web\Factory\Action
  */
 class EventActionFactory
 {
     /**
      * @param ContainerInterface $container
+     *
      * @return EventAction
      */
     public function __invoke(ContainerInterface $container): EventAction

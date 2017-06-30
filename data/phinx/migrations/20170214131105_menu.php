@@ -4,7 +4,6 @@ use Phinx\Migration\AbstractMigration;
 
 class Menu extends AbstractMigration
 {
-
     public function up()
     {
         $this->table('menu', ['id' => false, 'primary_key' => 'menu_uuid'])

@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Page\View\Helper;
 
-use Page\Service\PageService;
 use Interop\Container\ContainerInterface;
+use Page\Service\PageService;
 
 class PageHelperFactory
 {

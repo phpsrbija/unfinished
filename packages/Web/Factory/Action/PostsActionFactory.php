@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace Web\Factory\Action;
 
 use Article\Service\PostService;
@@ -11,8 +12,6 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class CategoryActionFactory.
- *
- * @package Web\Factory\Action
  */
 class PostsActionFactory
 {

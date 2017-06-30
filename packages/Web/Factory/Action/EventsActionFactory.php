@@ -12,13 +12,12 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class EventsActionFactory.
- *
- * @package Web\Factory\Action
  */
 class EventsActionFactory
 {
     /**
      * @param ContainerInterface $container
+     *
      * @return EventsAction
      */
     public function __invoke(ContainerInterface $container): EventsAction

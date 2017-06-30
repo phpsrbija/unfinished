@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Filter;
 
 use Zend\InputFilter\InputFilter;
@@ -17,9 +19,9 @@ class EventFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'title',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'title',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [
                         ['name' => 'NotEmpty'],
                         ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
@@ -29,33 +31,33 @@ class EventFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'sub_title',
+                    'name'     => 'sub_title',
                     'required' => false,
-                    'filters' => [['name' => 'StringTrim']]
+                    'filters'  => [['name' => 'StringTrim']],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'place_name',
+                    'name'     => 'place_name',
                     'required' => true,
-                    'filters' => [['name' => 'StringTrim']]
+                    'filters'  => [['name' => 'StringTrim']],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'event_url',
+                    'name'     => 'event_url',
                     'required' => false,
-                    'filters' => [['name' => 'StringTrim']]
+                    'filters'  => [['name' => 'StringTrim']],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'body',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'body',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [
                         ['name' => 'NotEmpty'],
                         ['name' => 'StringLength', 'options' => ['min' => 2]],
@@ -65,42 +67,42 @@ class EventFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'start_at',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'start_at',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [
                         ['name' => 'NotEmpty'],
-                        ['name' => 'Date', 'options' => ['format' => 'Y-m-d H:i:s']]
-                    ]
+                        ['name' => 'Date', 'options' => ['format' => 'Y-m-d H:i:s']],
+                    ],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'end_at',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'end_at',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [
                         ['name' => 'NotEmpty'],
-                        ['name' => 'Date', 'options' => ['format' => 'Y-m-d H:i:s']]
-                    ]
+                        ['name' => 'Date', 'options' => ['format' => 'Y-m-d H:i:s']],
+                    ],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'longitude',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'longitude',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [['name' => 'NotEmpty']],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'latitude',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'latitude',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [['name' => 'NotEmpty']],
                 ]
             );
@@ -113,6 +115,6 @@ class EventFilter implements InputFilterAwareInterface
 
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("Not used");
+        throw new \Exception('Not used');
     }
 }

@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Filter;
 
 use Zend\InputFilter\InputFilter;
@@ -17,9 +19,9 @@ class ArticleFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'slug',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim', 'options' => ['charlist' => '/']]],
+                    'name'       => 'slug',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim', 'options' => ['charlist' => '/']]],
                     'validators' => [
                         ['name' => 'NotEmpty'],
                         ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
@@ -29,43 +31,43 @@ class ArticleFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'published_at',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'published_at',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [
                         ['name' => 'NotEmpty'],
-                        ['name' => 'Date', 'options' => ['format' => 'Y-m-d H:i:s']]
-                    ]
+                        ['name' => 'Date', 'options' => ['format' => 'Y-m-d H:i:s']],
+                    ],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'category_id',
-                    'required' => true
+                    'name'     => 'category_id',
+                    'required' => true,
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'admin_user_id',
-                    'required' => true
+                    'name'     => 'admin_user_id',
+                    'required' => true,
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'status',
+                    'name'     => 'status',
                     'required' => false,
-                    'filters' => [['name' => 'Boolean']],
+                    'filters'  => [['name' => 'Boolean']],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'is_wysiwyg_editor',
+                    'name'     => 'is_wysiwyg_editor',
                     'required' => false,
-                    'filters' => [['name' => 'Boolean']],
+                    'filters'  => [['name' => 'Boolean']],
                 ]
             );
 
@@ -77,6 +79,6 @@ class ArticleFilter implements InputFilterAwareInterface
 
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("Not used");
+        throw new \Exception('Not used');
     }
 }

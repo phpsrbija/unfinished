@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Menu\View\Helper;
 
 use Menu\Service\MenuService;
@@ -20,7 +22,7 @@ class MenuItems extends AbstractHelper
     }
 
     /**
-     * Get all menu items
+     * Get all menu items.
      */
     public function forMenu()
     {

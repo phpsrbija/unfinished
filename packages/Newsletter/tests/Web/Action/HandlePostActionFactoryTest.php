@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Newsletter\Test\Web\Action;
 
 class HandlePostActionFactoryTest extends \PHPUnit_Framework_TestCase
@@ -19,4 +21,3 @@ class HandlePostActionFactoryTest extends \PHPUnit_Framework_TestCase
         static::assertInstanceOf(\Newsletter\Web\Action\HandlePostAction::class, $handlePostActionFactory($container));
     }
 }
-

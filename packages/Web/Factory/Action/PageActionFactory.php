@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Web\Factory\Action;
 
-use Page\Service\PageService;
 use Interop\Container\ContainerInterface;
-use Zend\Expressive\Template\TemplateRendererInterface;
+use Page\Service\PageService;
 use Web\Action\PageAction;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class PageActionFactory.
- *
- * @package Web\Factory\Action
  */
 class PageActionFactory
 {

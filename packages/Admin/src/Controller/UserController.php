@@ -1,20 +1,20 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\Controller;
 
-use Std\AbstractController;
 use Admin\Service\AdminUserService;
+use Std\AbstractController;
 use Std\FilterException;
-use Zend\Expressive\Template\TemplateRendererInterface as Template;
-use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Session\SessionManager;
+use Zend\Expressive\Router\RouterInterface as Router;
+use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Http\PhpEnvironment\Request;
+use Zend\Session\SessionManager;
 
 /**
  * Class UserController.
- *
- * @package Admin\Controller
  */
 class UserController extends AbstractController
 {
@@ -41,10 +41,10 @@ class UserController extends AbstractController
     /**
      * UserController constructor.
      *
-     * @param Template $template
-     * @param Router $router
+     * @param Template         $template
+     * @param Router           $router
      * @param AdminUserService $adminUserService
-     * @param SessionManager $session
+     * @param SessionManager   $session
      */
     public function __construct(
         Template $template,
@@ -89,16 +89,16 @@ class UserController extends AbstractController
         $user = $this->adminUserService->getUser($id);
 
         if ($this->request->getParsedBody()) {
-            $user = (object)($this->request->getParsedBody() + (array)$user);
+            $user = (object) ($this->request->getParsedBody() + (array) $user);
             $user->admin_user_id = $id;
         }
 
         return new HtmlResponse(
             $this->template->render(
                 'admin::user/edit', [
-                    'user' => $user,
+                    'user'   => $user,
                     'errors' => $errors,
-                    'layout' => 'layout/admin'
+                    'layout' => 'layout/admin',
                 ]
             )
         );

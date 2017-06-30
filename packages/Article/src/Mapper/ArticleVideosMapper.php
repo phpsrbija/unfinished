@@ -1,16 +1,16 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Mapper;
 
+use Article\Entity\ArticleType;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
 use Zend\Db\TableGateway\AbstractTableGateway;
-use Article\Entity\ArticleType;
 
 /**
  * Class ArticleVideosMapper.
- *
- * @package Article\Mapper
  */
 class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareInterface
 {
@@ -20,9 +20,10 @@ class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareIn
     protected $table = 'article_videos';
 
     /**
-     * Db adapter setter method,
+     * Db adapter setter method,.
      *
-     * @param  Adapter $adapter db adapter
+     * @param Adapter $adapter db adapter
+     *
      * @return void
      */
     public function setDbAdapter(Adapter $adapter)
@@ -43,7 +44,7 @@ class ArticleVideosMapper extends AbstractTableGateway implements AdapterAwareIn
             ->order(['articles.created_at' => 'desc']);
 
         if ($isActive !== null) {
-            $select->where(['articles.status' => (int)$isActive]);
+            $select->where(['articles.status' => (int) $isActive]);
         }
 
         return $select;

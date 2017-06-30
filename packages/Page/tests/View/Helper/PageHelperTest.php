@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Page\Test\View\Helper;
 
 class PageHelperTest extends \PHPUnit_Framework_TestCase

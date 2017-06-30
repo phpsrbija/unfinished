@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Test\Page\Controller;
 
 class PageControllerTest extends \PHPUnit_Framework_TestCase

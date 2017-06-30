@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Menu\Test\Service;
 
 use Zend\Stdlib\ArrayObject;

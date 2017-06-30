@@ -2,12 +2,12 @@
 
 namespace Page\Controller;
 
+use Page\Service\PageService;
 use Std\AbstractController;
 use Std\FilterException;
-use Page\Service\PageService;
+use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Expressive\Template\TemplateRendererInterface as Template;
-use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Http\PhpEnvironment\Request;
 
 class PageController extends AbstractController
@@ -30,8 +30,8 @@ class PageController extends AbstractController
     /**
      * PageController constructor.
      *
-     * @param Template $template
-     * @param Router $router
+     * @param Template    $template
+     * @param Router      $router
      * @param PageService $pageService
      */
     public function __construct(Template $template, Router $router, PageService $pageService)
@@ -55,7 +55,7 @@ class PageController extends AbstractController
             $this->template->render(
                 'page::index', [
                     'pagination' => $pagination,
-                    'layout' => 'layout/admin'
+                    'layout'     => 'layout/admin',
                 ]
             )
         );
@@ -68,15 +68,15 @@ class PageController extends AbstractController
 
         if ($this->request->getParsedBody()) {
             $page = new \Page\Entity\Page();
-            $page->exchangeArray($this->request->getParsedBody() + (array)$page);
+            $page->exchangeArray($this->request->getParsedBody() + (array) $page);
         }
 
         return new HtmlResponse(
             $this->template->render(
                 'page::edit', [
-                    'page' => $page,
+                    'page'   => $page,
                     'errors' => $errors,
-                    'layout' => 'layout/admin'
+                    'layout' => 'layout/admin',
                 ]
             )
         );
