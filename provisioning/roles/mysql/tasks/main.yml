@@ -24,3 +24,33 @@
               check_implicit_admin=yes
               login_user="root"
               state=present
+
+- name: During development turn the genral log on
+  lineinfile:
+    dest=/etc/mysql/my.cnf
+    line="general_log = on"
+    regexp='^general_log = on$'
+    state=present
+    insertafter=EOF
+    create=True
+  notify: restart mysql
+
+- name: During development log every query in /tmp/mysql.log
+  lineinfile:
+    dest=/etc/mysql/my.cnf
+    line="general_log_file=/tmp/mysql.log"
+    regexp='^general_log_file=/tmp/mysql.log$'
+    state=present
+    insertafter=EOF
+    create=True
+  notify: restart mysql
+
+- name: During development decrease the amount of ram used
+  lineinfile:
+    dest=/etc/mysql/my.cnf
+    line="table_definition_cache=200"
+    regexp='^table_definition_cache='
+    state=present
+    insertafter="[mysqld]"
+    create=True
+  notify: restart mysql
