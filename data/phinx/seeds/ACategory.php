@@ -17,11 +17,13 @@ class ACategory extends AbstractSeed
             $categoryName = $faker->name;
 
             $data = [
-                'category_uuid' => $mysqlUuid,
-                'category_id'   => $id,
-                'name'          => $categoryName,
-                'slug'          => preg_replace('/[^a-z0-9]/i', '-', strtolower($categoryName)),
-                'type'          => \Article\Entity\ArticleType::POST
+                'category_uuid'       => $mysqlUuid,
+                'category_id'         => $id,
+                'name'                => $categoryName,
+                'slug'                => preg_replace('/[^a-z0-9]/i', '-', strtolower($categoryName)),
+                'type'                => \Article\Entity\ArticleType::POST,
+                'is_in_homepage'      => rand(0, 1),
+                'is_in_category_list' => rand(0, 1),
             ];
 
             $category->insert($data)->save();

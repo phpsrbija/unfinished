@@ -16,7 +16,6 @@ echo "
 sudo add-apt-repository ppa:ondrej/php      >> /dev/null 2>&1
 sudo apt-get update                         >> /dev/null 2>&1
 
-
 echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
    Installing MySql 5.6 - DB name: unfinished | user:root | password:12345
