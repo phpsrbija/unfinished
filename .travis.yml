@@ -22,7 +22,7 @@ install:
   - composer install -d=application --prefer-dist --no-interaction
 
 script:
-  - composer -d=application test
+  - composer -d=application test-ci
   - composer -d=application cs-check
 
 after_script:
