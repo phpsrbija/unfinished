@@ -1,9 +1,11 @@
 .idea
 .vagrant
 .~lock.*
-/vendor/
+**/vendor/
 docker/mysql_data
-data/phinx/phinx.php
+**/data/phinx/phinx.php
 *.DS_Store
 *.sublime-project
 *.sublime-workspace
+**/clover.xml
+
