@@ -9,5 +9,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path: "bootstrap.sh"
   config.vm.network :forwarded_port, guest: 80, host: 4587
   config.vm.network "private_network", ip: "192.168.33.3"
-  config.vm.synced_folder ".", "/var/www/unfinished", owner: "www-data", group: "www-data"
+  config.vm.synced_folder "./application", "/var/www/unfinished", owner: "www-data", group: "www-data"
 end
