@@ -23,3 +23,7 @@
         create=True
     - name: Install the valgrind (APT)
       apt: name=valgrind state=latest update_cache=yes
+    - name: Prepopulate the database
+      command: bin/setup-db.sh
+      args:
+          chdir: "{{PROJECT_ROOT}}"
