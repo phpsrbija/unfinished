@@ -10,20 +10,34 @@
   action: service name=mysql state=started
   tags: [mysql,services]
 
-- name: Create the dev database
-  mysql_db: name="{{ DB_NAME }}" state=present encoding=utf8 collation=utf8_general_ci
-  tags: [mysql]
-
-- name: Create the dev user for the mysql
-  mysql_user: name="{{ USERNAME }}" password="{{ PASSWORD }}" priv="{{ DB_NAME }}.*:ALL,GRANT" state=present
-  tags: [mysql]
-
 - name: Set root user password
   mysql_user: name=root
               password="{{ MYSQL_ROOT_PASSWORD }}"
               check_implicit_admin=yes
               login_user="root"
               state=present
+  ignore_errors: yes
+  tags: [mysql]
+
+- name: Create the dev database
+  mysql_db: name="{{ DB_NAME }}"
+            state=present
+            encoding=utf8
+            collation=utf8_general_ci
+            login_user="root"
+            login_password="{{ MYSQL_ROOT_PASSWORD }}"
+  tags: [mysql]
+
+- name: Create the dev user for the mysql
+  mysql_user: name="{{ USERNAME }}"
+              password="{{ PASSWORD }}"
+              priv="{{ DB_NAME }}.*:ALL,GRANT"
+              state=present
+              check_implicit_admin=yes
+              login_user="root"
+              login_password="{{ MYSQL_ROOT_PASSWORD }}"
+  tags: [mysql]
+
 
 - name: During development turn the genral log on
   lineinfile:
@@ -46,11 +60,10 @@
   notify: restart mysql
 
 - name: During development decrease the amount of ram used
-  lineinfile:
-    dest=/etc/mysql/my.cnf
-    line="table_definition_cache=200"
-    regexp='^table_definition_cache='
-    state=present
-    insertafter="[mysqld]"
-    create=True
+  ini_file:
+    path: /etc/mysql/my.cnf
+    section: mysqld
+    option: table_definition_cache
+    value: 200
+    backup: yes
   notify: restart mysql
