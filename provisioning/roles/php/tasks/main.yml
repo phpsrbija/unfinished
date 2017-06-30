@@ -122,6 +122,19 @@
    - restart php-fpm
   tags: [php, configuration, dev]
 
+- name: Copy the dev configuration tweaks
+  copy: src="files/php-fpm/dev-config.ini"
+        dest="{{ php_fmp_conf_d_path }}/dev-config.ini"
+        backup=yes
+        owner=root
+        group=root
+        mode=0644
+  # located in defaults/main.yml
+  when: APPLICATION_ENVIRONMENT == "dev"
+  notify:
+   - restart php-fpm
+  tags: [php, configuration, dev]
+
 - name: Set php 7.0 as default
   alternatives:
     name: php
