@@ -72,11 +72,4 @@ Vagrant.configure("2") do |config|
     end
   end
 
-#  config.vm.provider "virtualbox" do |v|
-#          v.memory  = 1024
-#          v.cpus    = 1
-#  end
-#
-#  config.vm.provision :shell, path: "bootstrap.sh"
-
 end
