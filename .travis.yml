@@ -1,15 +1,12 @@
 language: php
 php:
-  - 7.0
-
+- 7.0
 git:
   depth: 5
-
 sudo: false
-
 env:
   global:
-    secure: H7LWiqtLH7M3oK2toczKynlqVDm3oX1P6DcF+oxJAnFWzv1CT2pjkLegl0xUVedwwrTUp8S0w6LcnQ44cWuENBD0VNpQAiczgtKYNd+WGnfqqdJHSC9nBbaLwn4RaaLE397qC8dculhRRzF7CxbUxdEOFWl8RjoWboVzqxA9sMHLdkmpFMk6eLviF7zfUfnV+y49echEn+p9d3owAheuOfoFY9+ci5NhmaNcKHvtP4hq733KTYUOMJnhIu/XXkLGwAAX2FhNWYD7vkYI0z2bV07dooc9l+PxehJCILed08kPQjzW2RuRwgK1y3eIc8/rk//nuHbFZam9ilhaGe5iP7XRWIJ4z6IDM0IBt7oYs6OTQSxf16kZsBicklmk99NUraSYciowO8M/06XDcIN0DxzgqaiGMrhK/40an4e7McXlLPU7I82fD9q0fj3KOknBsXPQOyZNIOmdg/zXHau4NM0NXvnjmG6132RaKbzD7kcWL0pgsK7l+vjTF5u8kj4zTD0/WS1sUlUtxFPdZUzU/L619f332eAutahsZsnTUAc2FaLHrEpS8Ybi+ZakRCQ7Cgt1qEnpw4UVIaxh3DIp1hti6ABD1+pj1fCtF6AMXG75TT6eFGUY9u0Uy2/4EqcxWGZWEfpRuwkShrU/69zQwvfUqpP5LgtVioeTHx3xDlM=
+    - secure: "EPJQMTmBUXUMeHIhM+Zqk/Z2DqjcNB+ErYI5frgCqANjSud7wnbzUeMCokeP0dduNDWVguQEqSh6CHy1QKTSUaeudTYZvo+XyniOvlxfOEf0aLVfxZAcDSjgGzcX9aVZzM4M1nxgk8qAQvq5GgcGDxrtSYsQOKFkx9RXiacciS9BPzL3VH+JDr0Z9O6EQ5dq6y6rcq/vKESDT4Wo/DcDip8Sdlu1vnmIOZPEk2gueWS+CxisBtO8x7wSMlegZ2iQmUr9GAOh49x3x6zL4TgZyWGZTgcSc2RJp3QqAd7+tHhYUtGAbxB7Rv83tObXMGUVbwpW58FgmzNq9RpI5ELTUW+YOsaisBLfqHduRKEA82JxFlbmYc9HT1rUJbgHBbEuEmlAhbhinzTKHHq7eW1IifteB5ir8PAt9c/CBx+s2zC8Wuk/pfdLVuNH0/gknKioufcc0Y7klOBSOUxZwuqN4K0F+xT4tUOEeJhy8R8SqpSXdFOHnp0dNh/BvuyyEYk4WKXE3ZqyYDWmJSF1SD49r5CKex1BF40kf37l6j7ydoHNUhh9RVXlxifeL66Ceodz+SK5VR6gaiortkAm/yhZXsKWvldVY6Ps5lRmxlbSS3i1WPW/vWHL1fKgMrww8eqHlqUK6cBz2X/KAX6mMNcarW7DI+YGHJjA22l0kVDURI8="
 
 matrix:
   fast_finish: true
@@ -23,5 +20,6 @@ install:
 script:
   - composer test
   - composer cs-check
+
 after_script:
   - composer upload-coverage
