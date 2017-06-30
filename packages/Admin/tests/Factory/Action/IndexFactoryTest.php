@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Test\Admin\Factory\Action;
 
 class IndexFactoryTest extends \PHPUnit_Framework_TestCase
@@ -18,4 +20,3 @@ class IndexFactoryTest extends \PHPUnit_Framework_TestCase
         static::assertInstanceOf('Admin\Action\IndexAction', $indexFactory($container));
     }
 }
-

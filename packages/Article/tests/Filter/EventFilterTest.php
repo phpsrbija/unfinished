@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Test\Filter;
 
 class EventFilterTest extends \PHPUnit_Framework_TestCase

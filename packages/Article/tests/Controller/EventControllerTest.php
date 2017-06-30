@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Test\Article\Controller;
 
 class EventControllerTest extends \PHPUnit_Framework_TestCase
@@ -147,10 +149,8 @@ class EventControllerTest extends \PHPUnit_Framework_TestCase
             $categoryService
         );
         /**
-* 
-         *
- * @var \Zend\Diactoros\Response $returnedResponse 
-*/
+         * @var \Zend\Diactoros\Response
+         */
         $returnedResponse = $eventController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }
@@ -192,10 +192,8 @@ class EventControllerTest extends \PHPUnit_Framework_TestCase
             $categoryService
         );
         /**
-* 
-         *
- * @var \Zend\Diactoros\Response $returnedResponse 
-*/
+         * @var \Zend\Diactoros\Response
+         */
         $returnedResponse = $eventController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }
@@ -240,10 +238,8 @@ class EventControllerTest extends \PHPUnit_Framework_TestCase
             $categoryService
         );
         /**
-* 
-         *
- * @var \Zend\Diactoros\Response $returnedResponse 
-*/
+         * @var \Zend\Diactoros\Response
+         */
         $returnedResponse = $eventController($request, $response);
         static::assertSame(200, $returnedResponse->getStatusCode());
         static::assertInstanceOf(\Zend\Diactoros\Response\HtmlResponse::class, $returnedResponse);
@@ -328,10 +324,8 @@ class EventControllerTest extends \PHPUnit_Framework_TestCase
             $categoryService
         );
         /**
-* 
-         *
- * @var \Zend\Diactoros\Response $returnedResponse 
-*/
+         * @var \Zend\Diactoros\Response
+         */
         $returnedResponse = $eventController($request, $response);
         static::assertSame(302, $returnedResponse->getStatusCode());
     }

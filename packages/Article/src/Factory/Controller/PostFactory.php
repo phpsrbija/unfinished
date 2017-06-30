@@ -1,15 +1,15 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Article\Factory\Controller;
 
 use Article\Controller\PostController;
-use Interop\Container\ContainerInterface;
-use Zend\Expressive\Template\TemplateRendererInterface;
 use Article\Service\PostService;
 use Category\Service\CategoryService;
+use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\RouterInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 class PostFactory
 {

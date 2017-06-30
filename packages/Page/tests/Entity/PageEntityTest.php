@@ -1,8 +1,10 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Page\Test\Entity;
 
-class PageTest extends \PHPUnit_Framework_TestCase
+class PageEntityTest extends \PHPUnit_Framework_TestCase
 {
     public function testStandardGettersAndSetters()
     {
@@ -40,18 +42,18 @@ class PageTest extends \PHPUnit_Framework_TestCase
         static::assertSame('test', $page->getTitle());
         static::assertSame(
             [
-            'page_uuid' => 'test',
-            'page_id' => '1',
-            'title' => 'test',
-            'body' => 'test',
-            'description' => 'test',
-            'main_img' => 'test',
-            'has_layout' => true,
-            'is_homepage' => true,
-            'is_active' => true,
+            'page_uuid'         => 'test',
+            'page_id'           => '1',
+            'title'             => 'test',
+            'body'              => 'test',
+            'description'       => 'test',
+            'main_img'          => 'test',
+            'has_layout'        => true,
+            'is_homepage'       => true,
+            'is_active'         => true,
             'is_wysiwyg_editor' => true,
-            'created_at' => $date,
-            'slug' => 'test',
+            'created_at'        => $date,
+            'slug'              => 'test',
             ], $page->getArrayCopy()
         );
     }

@@ -1,15 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace Menu\Controller;
 
 use Menu\Service\MenuService;
-use Std\FilterException;
 use Std\AbstractController;
-use Zend\Diactoros\Response\JsonResponse;
-use Zend\Expressive\Template\TemplateRendererInterface as Template;
-use Zend\Expressive\Router\RouterInterface as Router;
+use Std\FilterException;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Diactoros\Response\JsonResponse;
+use Zend\Expressive\Router\RouterInterface as Router;
+use Zend\Expressive\Template\TemplateRendererInterface as Template;
 
 class IndexController extends AbstractController
 {
@@ -41,7 +42,7 @@ class IndexController extends AbstractController
             $this->template->render(
                 'menu::index/index', [
                     'menuNestedItems' => $this->menuService->getNestedAll(),
-                    'layout' => 'layout/admin'
+                    'layout'          => 'layout/admin',
                 ]
             )
         );
@@ -53,18 +54,18 @@ class IndexController extends AbstractController
         $item = $this->menuService->get($id);
 
         if ($this->request->getParsedBody()) {
-            $item = (object)($this->request->getParsedBody() + (array)$item);
+            $item = (object) ($this->request->getParsedBody() + (array) $item);
             $item->menu_id = $id;
         }
 
         return new HtmlResponse(
             $this->template->render(
                 'menu::index/edit', [
-                    'id' => $id,
-                    'item' => $item,
+                    'id'        => $id,
+                    'item'      => $item,
                     'menuItems' => $this->menuService->getForSelect(),
-                    'errors' => $errors,
-                    'layout' => 'layout/admin'
+                    'errors'    => $errors,
+                    'layout'    => 'layout/admin',
                 ]
             )
         );

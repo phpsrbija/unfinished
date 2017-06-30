@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Category\Filter;
 
 use Zend\InputFilter\InputFilter;
@@ -17,9 +19,9 @@ class CategoryFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'name',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'name',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [
                         ['name' => 'NotEmpty'],
                         ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 500]],
@@ -29,9 +31,9 @@ class CategoryFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'slug',
-                    'required' => true,
-                    'filters' => [['name' => 'StringTrim', 'options' => ['charlist' => '/']]],
+                    'name'       => 'slug',
+                    'required'   => true,
+                    'filters'    => [['name' => 'StringTrim', 'options' => ['charlist' => '/']]],
                     'validators' => [
                         ['name' => 'NotEmpty'],
                         ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
@@ -41,9 +43,9 @@ class CategoryFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'title',
-                    'required' => false,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'title',
+                    'required'   => false,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [
                         ['name' => 'NotEmpty'],
                         ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
@@ -55,9 +57,9 @@ class CategoryFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'description',
-                    'required' => false,
-                    'filters' => [['name' => 'StringTrim']],
+                    'name'       => 'description',
+                    'required'   => false,
+                    'filters'    => [['name' => 'StringTrim']],
                     'validators' => [
                         ['name' => 'NotEmpty'],
                         ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 1000]],
@@ -67,17 +69,17 @@ class CategoryFilter implements InputFilterAwareInterface
 
             $inputFilter->add(
                 [
-                    'name' => 'is_in_homepage',
+                    'name'     => 'is_in_homepage',
                     'required' => false,
-                    'filters' => [['name' => 'Boolean']],
+                    'filters'  => [['name' => 'Boolean']],
                 ]
             );
 
             $inputFilter->add(
                 [
-                    'name' => 'is_in_category_list',
+                    'name'     => 'is_in_category_list',
                     'required' => false,
-                    'filters' => [['name' => 'Boolean']],
+                    'filters'  => [['name' => 'Boolean']],
                 ]
             );
 
@@ -89,6 +91,6 @@ class CategoryFilter implements InputFilterAwareInterface
 
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("Not used");
+        throw new \Exception('Not used');
     }
 }

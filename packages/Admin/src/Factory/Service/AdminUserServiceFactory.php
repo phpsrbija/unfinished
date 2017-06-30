@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace Admin\Factory\Service;
 
+use Admin\Filter\AdminUserFilter;
 use Admin\Mapper\AdminUsersMapper;
 use Admin\Service\AdminUserService;
-use Admin\Filter\AdminUserFilter;
 use Interop\Container\ContainerInterface;
-use Zend\Crypt\Password\Bcrypt;
 use UploadHelper\Upload;
+use Zend\Crypt\Password\Bcrypt;
 
 class AdminUserServiceFactory
 {
     /**
      * Executed when factory is invoked.
      *
-     * @param  ContainerInterface $container
+     * @param ContainerInterface $container
+     *
      * @return AdminUserService
      */
     public function __invoke(ContainerInterface $container): AdminUserService

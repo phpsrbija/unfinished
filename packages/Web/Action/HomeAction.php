@@ -1,19 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Web\Action;
 
 use Page\Service\PageService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Template\TemplateRendererInterface as Template;
 
 /**
  * Class HomeAction.
- *
- * @package Web\Action
  */
 class HomeAction
 {
@@ -31,20 +29,21 @@ class HomeAction
      */
     public function __construct(Template $template, PageService $pageService)
     {
-        $this->template    = $template;
+        $this->template = $template;
         $this->pageService = $pageService;
     }
 
     /**
      * Get homepage to display body or
-     * need to get homepage from Pages package at least for SEO tags
+     * need to get homepage from Pages package at least for SEO tags.
      *
-     * @param  Request       $request
-     * @param  Response      $response
-     * @param  callable|null $next
+     * @param Request       $request
+     * @param Response      $response
+     * @param callable|null $next
+     *
+     * @throws \Exception
      *
      * @return HtmlResponse
-     * @throws \Exception
      */
     public function __invoke(Request $request, Response $response, callable $next = null): HtmlResponse
     {
@@ -52,7 +51,7 @@ class HomeAction
 
         return new HtmlResponse($this->template->render('web::home', [
             'page'   => $page,
-            'layout' => 'layout/web'
+            'layout' => 'layout/web',
         ]));
     }
 }

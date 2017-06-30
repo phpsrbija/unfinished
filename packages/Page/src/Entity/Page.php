@@ -1,11 +1,11 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Page\Entity;
 
 /**
  * Class Page.
- *
- * @package Page\Entity
  */
 class Page
 {
@@ -232,7 +232,7 @@ class Page
     }
 
     /**
-     * Hydrating result set from database
+     * Hydrating result set from database.
      *
      * @param array $data
      */
@@ -250,18 +250,18 @@ class Page
     public function getArrayCopy()
     {
         return [
-            'page_uuid'         => (binary)$this->page_uuid,
-            'page_id'           => (string)$this->page_id,
-            'title'             => (string)$this->title,
-            'body'              => (string)$this->body,
-            'description'       => (string)$this->description,
-            'main_img'          => (string)$this->main_img,
-            'has_layout'        => (boolean)$this->has_layout,
-            'is_homepage'       => (boolean)$this->is_homepage,
-            'is_active'         => (boolean)$this->is_active,
-            'is_wysiwyg_editor' => (boolean)$this->is_wysiwyg_editor,
-            'created_at'        => (string)$this->created_at,
-            'slug'              => (string)$this->slug
+            'page_uuid'         => (binary) $this->page_uuid,
+            'page_id'           => (string) $this->page_id,
+            'title'             => (string) $this->title,
+            'body'              => (string) $this->body,
+            'description'       => (string) $this->description,
+            'main_img'          => (string) $this->main_img,
+            'has_layout'        => (bool) $this->has_layout,
+            'is_homepage'       => (bool) $this->is_homepage,
+            'is_active'         => (bool) $this->is_active,
+            'is_wysiwyg_editor' => (bool) $this->is_wysiwyg_editor,
+            'created_at'        => (string) $this->created_at,
+            'slug'              => (string) $this->slug,
         ];
     }
 }

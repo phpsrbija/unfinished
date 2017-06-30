@@ -23,4 +23,3 @@ class ArticlePosts extends AbstractMigration
         $this->dropTable('article_posts');
     }
 }
-

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Category\Factory\Controller;
 
@@ -12,15 +12,14 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class CategoryFactory.
- *
- * @package Category\Factory\Controller
  */
 final class IndexFactory
 {
     /**
      * Factory method for IndexFactory.
      *
-     * @param  ContainerInterface $container container
+     * @param ContainerInterface $container container
+     *
      * @return IndexController
      */
     public function __invoke(ContainerInterface $container) : IndexController

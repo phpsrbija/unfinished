@@ -1,9 +1,11 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\Factory\View\Helper;
 
-use Admin\View\Helper\WebAdminUserHelper;
 use Admin\Service\AdminUserService;
+use Admin\View\Helper\WebAdminUserHelper;
 use Interop\Container\ContainerInterface;
 
 class WebAdminUserHelperFactory

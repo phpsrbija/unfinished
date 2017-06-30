@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\View\Helper;
 
 use Article\Service\EventService;

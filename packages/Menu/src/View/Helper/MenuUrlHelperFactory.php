@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Menu\View\Helper;
 
 use Interop\Container\ContainerInterface;

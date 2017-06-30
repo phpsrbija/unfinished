@@ -35,12 +35,12 @@ class ConfigProvider
                 [
                     'name'       => 'home',
                     'path'       => '/',
-                    'middleware' => Action\HomeAction::class
+                    'middleware' => Action\HomeAction::class,
                 ],
                 [
                     'name'       => 'page',
                     'path'       => '/:url_slug',
-                    'middleware' => Action\PageAction::class
+                    'middleware' => Action\PageAction::class,
                 ],
                 [
                     'name'       => 'category',
@@ -48,8 +48,8 @@ class ConfigProvider
                     'middleware' => [
                         Action\PostsAction::class,
                         Action\VideosAction::class,
-                        Action\EventsAction::class
-                    ]
+                        Action\EventsAction::class,
+                    ],
                 ],
                 [
                     'name'       => 'post',
@@ -57,8 +57,8 @@ class ConfigProvider
                     'middleware' => [
                         Action\PostAction::class,
                         Action\VideoAction::class,
-                        Action\EventAction::class
-                    ]
+                        Action\EventAction::class,
+                    ],
                 ],
             ],
         ];

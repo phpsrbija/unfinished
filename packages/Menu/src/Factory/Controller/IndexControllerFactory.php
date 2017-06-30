@@ -1,24 +1,25 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Menu\Factory\Controller;
 
-use Menu\Controller\IndexController;
 use Interop\Container\ContainerInterface;
-use Zend\Expressive\Template\TemplateRendererInterface;
+use Menu\Controller\IndexController;
 use Menu\Service\MenuService;
 use Zend\Expressive\Router\RouterInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class IndexControllerFactory.
- *
- * @package Menu\Factory\Controller
  */
 final class IndexControllerFactory
 {
     /**
      * Factory method for IndexController.
      *
-     * @param  ContainerInterface $container container
+     * @param ContainerInterface $container container
+     *
      * @return IndexController
      */
     public function __invoke(ContainerInterface $container) : IndexController

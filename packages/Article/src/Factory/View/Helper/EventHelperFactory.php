@@ -1,9 +1,11 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Factory\View\Helper;
 
-use Article\View\Helper\EventHelper;
 use Article\Service\EventService;
+use Article\View\Helper\EventHelper;
 use Interop\Container\ContainerInterface;
 
 class EventHelperFactory

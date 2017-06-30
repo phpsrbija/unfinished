@@ -1,68 +1,56 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Service;
 
+use Admin\Mapper\AdminUsersMapper;
+use Article\Entity\ArticleType;
+use Article\Filter\ArticleFilter;
+use Article\Filter\PostFilter;
 use Article\Mapper\ArticleMapper;
 use Article\Mapper\ArticlePostsMapper;
 use Category\Mapper\CategoryMapper;
-use Article\Entity\ArticleType;
-use Article\Filter\ArticleFilter;
-use Std\FilterException;
-use Admin\Mapper\AdminUsersMapper;
-use Article\Filter\PostFilter;
-use Ramsey\Uuid\Uuid;
-use MysqlUuid\Uuid as MysqlUuid;
 use MysqlUuid\Formats\Binary;
+use MysqlUuid\Uuid as MysqlUuid;
+use Ramsey\Uuid\Uuid;
+use Std\FilterException;
 use UploadHelper\Upload;
 use Zend\Paginator\Paginator;
 
 class PostService extends ArticleService
 {
     /**
-     *
-     *
      * @var ArticleMapper
      */
     private $articleMapper;
 
     /**
-     *
-     *
      * @var ArticlePostsMapper
      */
     private $articlePostsMapper;
 
     /**
-     *
-     *
      * @var ArticleFilter
      */
     private $articleFilter;
 
     /**
-     *
-     *
      * @var PostFilter
      */
     private $postFilter;
 
     /**
-     *
-     *
      * @var CategoryMapper
      */
     private $categoryMapper;
 
     /**
-     *
-     *
      * @var Upload
      */
     private $upload;
 
     /**
-     *
-     *
      * @var AdminUsersMapper
      */
     private $adminUsersMapper;
@@ -70,13 +58,13 @@ class PostService extends ArticleService
     /**
      * PostService constructor.
      *
-     * @param ArticleMapper $articleMapper
+     * @param ArticleMapper      $articleMapper
      * @param ArticlePostsMapper $articlePostsMapper
-     * @param ArticleFilter $articleFilter
-     * @param PostFilter $postFilter
-     * @param CategoryMapper $categoryMapper
-     * @param Upload $upload
-     * @param AdminUsersMapper $adminUsersMapper
+     * @param ArticleFilter      $articleFilter
+     * @param PostFilter         $postFilter
+     * @param CategoryMapper     $categoryMapper
+     * @param Upload             $upload
+     * @param AdminUsersMapper   $adminUsersMapper
      */
     public function __construct(
         ArticleMapper $articleMapper,
@@ -133,14 +121,14 @@ class PostService extends ArticleService
         }
 
         $id = Uuid::uuid1()->toString();
-        $uuId = (new MysqlUuid($id))->toFormat(new Binary);
+        $uuId = (new MysqlUuid($id))->toFormat(new Binary());
 
         $article = $articleFilter->getValues();
         $article += [
             'admin_user_uuid' => $this->adminUsersMapper->getUuid($article['admin_user_id']),
-            'type' => ArticleType::POST,
-            'article_id' => $id,
-            'article_uuid' => $uuId
+            'type'            => ArticleType::POST,
+            'article_id'      => $id,
+            'article_uuid'    => $uuId,
         ];
 
         $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;
@@ -148,8 +136,8 @@ class PostService extends ArticleService
 
         $post = $postFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
-                'main_img' => $this->upload->uploadImage($data, 'main_img'),
-                'article_uuid' => $article['article_uuid']
+                'main_img'     => $this->upload->uploadImage($data, 'main_img'),
+                'article_uuid' => $article['article_uuid'],
             ];
 
         $this->articleMapper->insert($article);
@@ -169,7 +157,7 @@ class PostService extends ArticleService
         $article = $articleFilter->getValues() + ['article_uuid' => $oldArticle->article_uuid];
         $post = $postFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
-                'main_img' => $this->upload->uploadImage($data, 'main_img')
+                'main_img'     => $this->upload->uploadImage($data, 'main_img'),
             ];
 
         $article['admin_user_uuid'] = $this->adminUsersMapper->getUuid($article['admin_user_id']);

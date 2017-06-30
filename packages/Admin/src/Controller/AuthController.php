@@ -1,19 +1,19 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\Controller;
 
-use Std\AbstractController;
 use Admin\Service\AdminUserService;
-use Zend\Expressive\Template\TemplateRendererInterface as Template;
-use Zend\Expressive\Router\RouterInterface as Router;
+use Std\AbstractController;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Router\RouterInterface as Router;
+use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Session\SessionManager;
 
 /**
  * Class AuthController.
  * Deals with handlers which work with admin user authentication.
- *
- * @package Admin\Controller
  */
 final class AuthController extends AbstractController
 {
@@ -40,9 +40,9 @@ final class AuthController extends AbstractController
     /**
      * AuthController constructor.
      *
-     * @param Router $router router
-     * @param Template $template template engine
-     * @param SessionManager $session session manager
+     * @param Router           $router           router
+     * @param Template         $template         template engine
+     * @param SessionManager   $session          session manager
      * @param AdminUserService $adminUserService admin user service
      */
     public function __construct(

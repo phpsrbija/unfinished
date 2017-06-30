@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Menu\Test\Factory;
 
 class FilterFactoryTest extends \PHPUnit_Framework_TestCase

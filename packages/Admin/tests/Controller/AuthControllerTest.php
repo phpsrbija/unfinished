@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Test\Admin\Controller;
 
 class AuthControllerTest extends \PHPUnit_Framework_TestCase
@@ -26,7 +28,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
         $sessionManager->expects(static::at(0))
             ->method('getStorage')
             ->will(static::returnValue(
-                new class {
+                new class() {
                     public $user = true;
                 }
             ));
@@ -59,7 +61,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
         $sessionManager->expects(static::at(0))
             ->method('getStorage')
             ->will(static::returnValue(
-                new class {
+                new class() {
                     public $user = false;
                 }
             ));
@@ -108,7 +110,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
         $adminUserService->expects(static::once())
             ->method('loginUser')
             ->will(static::returnValue(
-                new class {
+                new class() {
                     public $isLoggedIn = true;
                 }
             ));
@@ -116,7 +118,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withParsedBody([
-            'email' => 'admin@example.org',
+            'email'    => 'admin@example.org',
             'password' => 'secret',
         ]);
         $request = $request->withAttribute('action', 'loginHandle');
@@ -148,7 +150,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withParsedBody([
-            'email' => 'admin@test',
+            'email'    => 'admin@test',
             'password' => 'secretpass',
         ]);
         $request = $request->withAttribute('action', 'loginHandle');
@@ -213,13 +215,13 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
         $template->expects(static::once())
             ->method('render')
             ->will(static::returnCallback(
-                function($tpl, $error) {
+                function ($tpl, $error) {
                     return $error['error'];
                 }
             ));
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withParsedBody([
-            'email' => 'admin@test',
+            'email'    => 'admin@test',
             'password' => 'secretpass',
         ]);
         $request = $request->withAttribute('action', 'loginHandle');

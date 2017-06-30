@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Page\View\Helper;
 
 use Page\Service\PageService;
@@ -20,7 +22,7 @@ class PageHelper extends AbstractHelper
     }
 
     /**
-     * Fetch all pages for select box
+     * Fetch all pages for select box.
      */
     public function forSelect()
     {

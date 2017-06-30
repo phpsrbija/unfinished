@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Page;
 
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -11,10 +13,10 @@ class ConfigProvider
         return [
             'templates' => [
                 'map'   => [
-                    'page/pagination' => __DIR__ . '/../templates/partial/pagination.php',
+                    'page/pagination' => __DIR__.'/../templates/partial/pagination.php',
                 ],
                 'paths' => [
-                    'page' => [__DIR__ . '/../templates/page'],
+                    'page' => [__DIR__.'/../templates/page'],
                 ],
             ],
 
@@ -38,13 +40,13 @@ class ConfigProvider
                     'name'            => 'admin.pages.action',
                     'path'            => '/admin/pages/:action/:id',
                     'middleware'      => Controller\PageController::class,
-                    'allowed_methods' => ['GET', 'POST']
-                ]
+                    'allowed_methods' => ['GET', 'POST'],
+                ],
             ],
 
             'view_helpers' => [
                 'factories' => [
-                    'page'  => View\Helper\PageHelperFactory::class
+                    'page'  => View\Helper\PageHelperFactory::class,
                 ],
             ],
         ];

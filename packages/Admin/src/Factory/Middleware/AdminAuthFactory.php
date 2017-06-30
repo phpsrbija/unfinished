@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\Factory\Middleware;
 
 use Admin\Middleware\AdminAuth;
@@ -8,8 +10,6 @@ use Zend\Expressive\Router\RouterInterface;
 
 /**
  * Class AdminAuthFactory.
- *
- * @package Admin\Factory\Middleware
  */
 class AdminAuthFactory
 {

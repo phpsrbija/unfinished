@@ -1,19 +1,21 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Service;
 
-use UploadHelper\Upload;
-use Article\Mapper\ArticleMapper;
-use Article\Mapper\ArticleEventsMapper;
-use Category\Mapper\CategoryMapper;
+use Admin\Mapper\AdminUsersMapper;
 use Article\Entity\ArticleType;
 use Article\Filter\ArticleFilter;
 use Article\Filter\EventFilter;
-use Std\FilterException;
-use Admin\Mapper\AdminUsersMapper;
-use Ramsey\Uuid\Uuid;
-use MysqlUuid\Uuid as MysqlUuid;
+use Article\Mapper\ArticleEventsMapper;
+use Article\Mapper\ArticleMapper;
+use Category\Mapper\CategoryMapper;
 use MysqlUuid\Formats\Binary;
+use MysqlUuid\Uuid as MysqlUuid;
+use Ramsey\Uuid\Uuid;
+use Std\FilterException;
+use UploadHelper\Upload;
 
 class EventService extends ArticleService
 {
@@ -34,7 +36,6 @@ class EventService extends ArticleService
         Upload $upload,
         AdminUsersMapper $adminUsersMapper
     ) {
-
         parent::__construct($articleMapper, $articleFilter);
         $this->articleMapper = $articleMapper;
         $this->articleEventsMapper = $articleEventsMapper;
@@ -97,14 +98,14 @@ class EventService extends ArticleService
         }
 
         $id = Uuid::uuid1()->toString();
-        $uuId = (new MysqlUuid($id))->toFormat(new Binary);
+        $uuId = (new MysqlUuid($id))->toFormat(new Binary());
 
         $article = $articleFilter->getValues();
         $article += [
             'admin_user_uuid' => $this->adminUsersMapper->getUuid($article['admin_user_id']),
-            'type' => ArticleType::EVENT,
-            'article_id' => $id,
-            'article_uuid' => $uuId
+            'type'            => ArticleType::EVENT,
+            'article_id'      => $id,
+            'article_uuid'    => $uuId,
         ];
         unset($article['admin_user_id']);
 
@@ -113,8 +114,8 @@ class EventService extends ArticleService
 
         $event = $eventFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
-                'main_img' => $this->upload->uploadImage($data, 'main_img'),
-                'article_uuid' => $uuId
+                'main_img'     => $this->upload->uploadImage($data, 'main_img'),
+                'article_uuid' => $uuId,
             ];
 
         $this->articleMapper->insert($article);
@@ -134,7 +135,7 @@ class EventService extends ArticleService
         $article = $articleFilter->getValues() + ['article_uuid' => $oldArticle->article_uuid];
         $event = $eventFilter->getValues() + [
                 'featured_img' => $this->upload->uploadImage($data, 'featured_img'),
-                'main_img' => $this->upload->uploadImage($data, 'main_img')
+                'main_img'     => $this->upload->uploadImage($data, 'main_img'),
             ];
 
         $article['admin_user_uuid'] = $this->adminUsersMapper->getUuid($article['admin_user_id']);

@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Admin;
 
 class ConfigProvider
@@ -9,11 +11,11 @@ class ConfigProvider
         return [
             'templates' => [
                 'map'   => [
-                    'layout/admin'     => __DIR__ . '/../templates/layout/admin.phtml',
-                    'admin/pagination' => __DIR__ . '/../templates/admin/partial/pagination.phtml',
+                    'layout/admin'     => __DIR__.'/../templates/layout/admin.phtml',
+                    'admin/pagination' => __DIR__.'/../templates/admin/partial/pagination.phtml',
                 ],
                 'paths' => [
-                    'admin' => [__DIR__ . '/../templates/admin'],
+                    'admin' => [__DIR__.'/../templates/admin'],
                 ],
             ],
 
@@ -49,13 +51,13 @@ class ConfigProvider
                     'name'            => 'admin.users',
                     'path'            => '/admin/users',
                     'middleware'      => Controller\UserController::class,
-                    'allowed_methods' => ['GET']
+                    'allowed_methods' => ['GET'],
                 ],
                 [
                     'name'            => 'admin.users.action',
                     'path'            => '/admin/users/:action/:id',
                     'middleware'      => Controller\UserController::class,
-                    'allowed_methods' => ['GET', 'POST']
+                    'allowed_methods' => ['GET', 'POST'],
                 ],
             ],
 
@@ -71,7 +73,7 @@ class ConfigProvider
                 'permission' => [
                     'middleware' => [Middleware\AdminAuth::class],
                     'priority'   => 100,
-                    'path'       => '/admin'
+                    'path'       => '/admin',
                 ],
             ],
 

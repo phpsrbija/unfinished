@@ -1,21 +1,22 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Category\Factory\Service;
 
+use Category\Filter\CategoryFilter;
 use Category\Mapper\CategoryMapper;
 use Category\Service\CategoryService;
 use Interop\Container\ContainerInterface;
-use Category\Filter\CategoryFilter;
 use UploadHelper\Upload;
 
 class CategoryServiceFactory
 {
-
     /**
      * Executed when factory is invoked.
      *
-     * @param  ContainerInterface $container
+     * @param ContainerInterface $container
+     *
      * @return CategoryService
      */
     public function __invoke(ContainerInterface $container): CategoryService

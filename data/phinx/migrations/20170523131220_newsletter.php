@@ -4,7 +4,6 @@ use Phinx\Migration\AbstractMigration;
 
 class Newsletter extends AbstractMigration
 {
-
     public function change()
     {
         $this->table('newsletter', ['id' => false])

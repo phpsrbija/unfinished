@@ -11,13 +11,12 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class PostActionFactory.
- *
- * @package Web\Factory\Action
  */
 class PostActionFactory
 {
     /**
      * @param ContainerInterface $container
+     *
      * @return PostAction
      */
     public function __invoke(ContainerInterface $container): PostAction

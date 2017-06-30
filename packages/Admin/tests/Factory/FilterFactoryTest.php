@@ -1,7 +1,8 @@
 <?php
-declare(strict_types = 1);
-namespace Admin\Test\Factory;
 
+declare(strict_types=1);
+
+namespace Admin\Test\Factory;
 
 class FilterFactoryTest extends \PHPUnit_Framework_TestCase
 {

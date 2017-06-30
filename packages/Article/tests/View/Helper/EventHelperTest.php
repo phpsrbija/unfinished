@@ -1,8 +1,10 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Test\View\Helper;
 
-class EventUserHelperTest extends \PHPUnit_Framework_TestCase
+class EventHelperTest extends \PHPUnit_Framework_TestCase
 {
     public function testInvokingAdminUserHelperShouldReturnItSelf()
     {
