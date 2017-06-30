@@ -1,18 +1,20 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Service;
 
-use Article\Mapper\ArticleMapper;
-use Article\Mapper\ArticleDiscussionsMapper;
-use Category\Mapper\CategoryMapper;
+use Admin\Mapper\AdminUsersMapper;
 use Article\Entity\ArticleType;
 use Article\Filter\ArticleFilter;
 use Article\Filter\DiscussionFilter;
-use Std\FilterException;
-use Admin\Mapper\AdminUsersMapper;
-use Ramsey\Uuid\Uuid;
-use MysqlUuid\Uuid as MysqlUuid;
+use Article\Mapper\ArticleDiscussionsMapper;
+use Article\Mapper\ArticleMapper;
+use Category\Mapper\CategoryMapper;
 use MysqlUuid\Formats\Binary;
+use MysqlUuid\Uuid as MysqlUuid;
+use Ramsey\Uuid\Uuid;
+use Std\FilterException;
 
 class DiscussionService extends ArticleService
 {
@@ -31,7 +33,6 @@ class DiscussionService extends ArticleService
         CategoryMapper $categoryMapper,
         AdminUsersMapper $adminUsersMapper
     ) {
-
         parent::__construct($articleMapper, $articleFilter);
 
         $this->articleMapper = $articleMapper;
@@ -64,14 +65,14 @@ class DiscussionService extends ArticleService
         }
 
         $id = Uuid::uuid1()->toString();
-        $uuId = (new MysqlUuid($id))->toFormat(new Binary);
+        $uuId = (new MysqlUuid($id))->toFormat(new Binary());
 
         $article = $articleFilter->getValues();
         $article += [
             'admin_user_uuid' => $this->adminUsersMapper->getUuid($article['admin_user_id']),
-            'type' => ArticleType::DISCUSSION,
-            'article_id' => $id,
-            'article_uuid' => $uuId
+            'type'            => ArticleType::DISCUSSION,
+            'article_id'      => $id,
+            'article_uuid'    => $uuId,
         ];
 
         $article['category_uuid'] = $this->categoryMapper->get($article['category_id'])->category_uuid;

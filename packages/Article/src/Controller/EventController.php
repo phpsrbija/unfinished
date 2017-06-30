@@ -1,17 +1,19 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Controller;
 
-use Std\AbstractController;
-use Article\Service\EventService;
-use Std\FilterException;
-use Category\Service\CategoryService;
-use Zend\Expressive\Template\TemplateRendererInterface as Template;
-use Zend\Expressive\Router\RouterInterface as Router;
-use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Session\SessionManager;
-use Zend\Http\PhpEnvironment\Request;
 use Article\Entity\ArticleType;
+use Article\Service\EventService;
+use Category\Service\CategoryService;
+use Std\AbstractController;
+use Std\FilterException;
+use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Router\RouterInterface as Router;
+use Zend\Expressive\Template\TemplateRendererInterface as Template;
+use Zend\Http\PhpEnvironment\Request;
+use Zend\Session\SessionManager;
 
 class EventController extends AbstractController
 {
@@ -23,10 +25,11 @@ class EventController extends AbstractController
 
     /**
      * EventController constructor.
-     * @param Template $template
-     * @param Router $router
-     * @param EventService $eventService
-     * @param SessionManager $session
+     *
+     * @param Template        $template
+     * @param Router          $router
+     * @param EventService    $eventService
+     * @param SessionManager  $session
      * @param CategoryService $categoryService
      */
     public function __construct(
@@ -63,17 +66,17 @@ class EventController extends AbstractController
         $categories = $this->categoryService->getAll(ArticleType::EVENT);
 
         if ($this->request->getParsedBody()) {
-            $event = (object)($this->request->getParsedBody() + (array)$event);
+            $event = (object) ($this->request->getParsedBody() + (array) $event);
             $event->article_id = $id;
         }
 
         return new HtmlResponse(
             $this->template->render(
                 'article::event/edit', [
-                    'event' => $event,
+                    'event'      => $event,
                     'categories' => $categories,
-                    'errors' => $errors,
-                    'layout' => 'layout/admin'
+                    'errors'     => $errors,
+                    'layout'     => 'layout/admin',
                 ]
             )
         );

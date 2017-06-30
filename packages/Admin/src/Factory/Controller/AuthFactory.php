@@ -1,17 +1,17 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\Factory\Controller;
 
 use Admin\Controller\AuthController;
 use Admin\Service\AdminUserService;
 use Interop\Container\ContainerInterface;
-use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Expressive\Router\RouterInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class AuthFactory.
- *
- * @package Admin\Factory\Controller
  */
 final class AuthFactory
 {

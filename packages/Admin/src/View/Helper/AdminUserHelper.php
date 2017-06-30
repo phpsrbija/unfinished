@@ -1,10 +1,12 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\View\Helper;
 
 use Admin\Service\AdminUserService;
-use Zend\View\Helper\AbstractHelper;
 use Zend\Session\SessionManager;
+use Zend\View\Helper\AbstractHelper;
 
 class AdminUserHelper extends AbstractHelper
 {

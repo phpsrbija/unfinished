@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\Test\Middleware;
 
 class AdminAuthTest extends \PHPUnit_Framework_TestCase
@@ -18,7 +20,6 @@ class AdminAuthTest extends \PHPUnit_Framework_TestCase
         $adminAuthMiddleware = new \Admin\Middleware\AdminAuth($router, $session);
         /** @var \Zend\Diactoros\Response $response */
         $response = $adminAuthMiddleware($request, $response, function ($request, $response) {
-
         });
         static::assertSame(302, $response->getStatusCode());
         static::assertSame(['http://unfinished.dev/admin/login'], $response->getHeader('Location'));
@@ -29,7 +30,7 @@ class AdminAuthTest extends \PHPUnit_Framework_TestCase
         $session = new \Zend\Session\SessionManager();
         $storage = new \Zend\Session\Storage\ArrayStorage([
             'user' => [
-                'email' => 'admin@example.org',
+                'email'    => 'admin@example.org',
                 'password' => 'secret',
             ],
         ]);

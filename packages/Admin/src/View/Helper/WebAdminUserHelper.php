@@ -1,9 +1,11 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
 use Admin\Service\AdminUserService;
+use Zend\View\Helper\AbstractHelper;
 
 class WebAdminUserHelper extends AbstractHelper
 {

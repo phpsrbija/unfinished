@@ -1,16 +1,18 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Controller;
 
-use Std\AbstractController;
+use Article\Entity\ArticleType;
 use Article\Service\DiscussionService;
 use Category\Service\CategoryService;
+use Std\AbstractController;
 use Std\FilterException;
-use Zend\Expressive\Template\TemplateRendererInterface as Template;
-use Zend\Expressive\Router\RouterInterface as Router;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Router\RouterInterface as Router;
+use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Session\SessionManager;
-use Article\Entity\ArticleType;
 
 class DiscussionController extends AbstractController
 {
@@ -42,11 +44,11 @@ class DiscussionController extends AbstractController
     /**
      * DiscussionController constructor.
      *
-     * @param Template $template
-     * @param Router $router
+     * @param Template          $template
+     * @param Router            $router
      * @param DiscussionService $discussionService
-     * @param SessionManager $session
-     * @param CategoryService $categoryService
+     * @param SessionManager    $session
+     * @param CategoryService   $categoryService
      */
     public function __construct(
         Template $template,
@@ -95,7 +97,7 @@ class DiscussionController extends AbstractController
         $categories = $this->categoryService->getAll(ArticleType::DISCUSSION);
 
         if ($this->request->getParsedBody()) {
-            $discussion = (object)($this->request->getParsedBody() + (array)$discussion);
+            $discussion = (object) ($this->request->getParsedBody() + (array) $discussion);
             $discussion->article_id = $id;
         }
 
@@ -104,8 +106,8 @@ class DiscussionController extends AbstractController
                 'article::discussion/edit', [
                     'discussion' => $discussion,
                     'categories' => $categories,
-                    'errors' => $errors,
-                    'layout' => 'layout/admin'
+                    'errors'     => $errors,
+                    'layout'     => 'layout/admin',
                 ]
             )
         );

@@ -1,8 +1,7 @@
 <?php
 /**
- * Expressive programmatic pipeline configuration
+ * Expressive programmatic pipeline configuration.
  */
-
 use Zend\Expressive\Container\ErrorHandlerFactory;
 use Zend\Expressive\Container\ErrorResponseGeneratorFactory;
 use Zend\Expressive\Container\NotFoundDelegateFactory;
@@ -22,9 +21,9 @@ return [
             'Zend\Expressive\Delegate\DefaultDelegate' => NotFoundDelegate::class,
         ],
         'invokables' => [
-            ImplicitHeadMiddleware::class => ImplicitHeadMiddleware::class,
+            ImplicitHeadMiddleware::class    => ImplicitHeadMiddleware::class,
             ImplicitOptionsMiddleware::class => ImplicitOptionsMiddleware::class,
-            OriginalMessages::class => OriginalMessages::class,
+            OriginalMessages::class          => OriginalMessages::class,
         ],
         'factories' => [
             ErrorHandler::class => ErrorHandlerFactory::class,
@@ -34,7 +33,7 @@ return [
             ErrorResponseGenerator::class => ErrorResponseGeneratorFactory::class,
             // Override the following to use an alternate "not found" delegate.
             NotFoundDelegate::class => NotFoundDelegateFactory::class,
-            NotFoundHandler::class => NotFoundHandlerFactory::class,
+            NotFoundHandler::class  => NotFoundHandlerFactory::class,
         ],
     ],
     'zend-expressive' => [

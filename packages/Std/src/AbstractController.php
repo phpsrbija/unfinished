@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Std;
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -8,8 +10,6 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 /**
  * Class AbstractController.
  * Intended to be extended by any newly created controller.
- *
- * @package Std\Controller
  */
 abstract class AbstractController
 {
@@ -45,12 +45,13 @@ abstract class AbstractController
         if (!method_exists($this, $action)) {
             // clone new response with 404 status code set
             $response = $response->withStatus(404);
+
             return $next($request, $response, new \Exception("Function '$action' is not defined!", 404));
         }
 
-        $this->request  = $request;
+        $this->request = $request;
         $this->response = $response;
-        $this->next     = $next;
+        $this->next = $next;
 
         return $this->$action();
     }

@@ -1,52 +1,52 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\Service;
 
-use Ramsey\Uuid\Uuid;
-use MysqlUuid\Uuid as MysqlUuid;
-use MysqlUuid\Formats\Binary;
-use Admin\Mapper\AdminUsersMapper;
 use Admin\Filter\AdminUserFilter;
+use Admin\Mapper\AdminUsersMapper;
+use MysqlUuid\Formats\Binary;
+use MysqlUuid\Uuid as MysqlUuid;
+use Ramsey\Uuid\Uuid;
 use Std\FilterException;
+use UploadHelper\Upload;
+use Zend\Crypt\Password\Bcrypt;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
-use Zend\Crypt\Password\Bcrypt;
-use UploadHelper\Upload;
 
 /**
  * Class AdminUserService.
- *
- * @package Admin\Service
  */
 class AdminUserService
 {
     /**
-     * @var Bcrypt $crypt
+     * @var Bcrypt
      */
     private $crypt;
 
     /**
-     * @var AdminUsersMapper $adminUsersMapper
+     * @var AdminUsersMapper
      */
     private $adminUsersMapper;
 
     /**
-     * @var AdminUserFilter $adminUserFilter
+     * @var AdminUserFilter
      */
     private $adminUserFilter;
 
     /**
-     * @var Upload $upload
+     * @var Upload
      */
     private $upload;
 
     /**
      * AdminUserService constructor.
      *
-     * @param Bcrypt $crypt bcrypt password encryption method
+     * @param Bcrypt           $crypt            bcrypt password encryption method
      * @param AdminUsersMapper $adminUsersMapper mapper for admin us
-     * @param AdminUserFilter $adminUserFilter
-     * @param Upload $upload
+     * @param AdminUserFilter  $adminUserFilter
+     * @param Upload           $upload
      */
     public function __construct(
         Bcrypt $crypt,
@@ -54,7 +54,6 @@ class AdminUserService
         AdminUserFilter $adminUserFilter,
         Upload $upload
     ) {
-
         $this->crypt = $crypt;
         $this->adminUsersMapper = $adminUsersMapper;
         $this->adminUserFilter = $adminUserFilter;
@@ -64,10 +63,12 @@ class AdminUserService
     /**
      * Performs user login or throws exception if credentials are not valid.
      *
-     * @param  string $email user email
-     * @param  string $password user password
-     * @return array|\ArrayObject|null
+     * @param string $email    user email
+     * @param string $password user password
+     *
      * @throws \Exception if user does not exist or password is not valid
+     *
+     * @return array|\ArrayObject|null
      */
     public function loginUser($email, $password)
     {
@@ -91,11 +92,12 @@ class AdminUserService
     }
 
     /**
-     * Return pagination object to paginate results on view
+     * Return pagination object to paginate results on view.
      *
-     * @param  int $page Current page set to pagination to display
-     * @param  int $limit Limit set to pagination
-     * @param  string $userId UUID from DB
+     * @param int    $page   Current page set to pagination to display
+     * @param int    $limit  Limit set to pagination
+     * @param string $userId UUID from DB
+     *
      * @return Paginator
      */
     public function getPagination($page, $limit, $userId)
@@ -111,9 +113,10 @@ class AdminUserService
     }
 
     /**
-     * Return one user for given UUID
+     * Return one user for given UUID.
      *
-     * @param  string $userId UUID from DB
+     * @param string $userId UUID from DB
+     *
      * @return array|\ArrayObject|null
      */
     public function getUser($userId)
@@ -130,14 +133,14 @@ class AdminUserService
         }
 
         $data = $filter->getValues() + [
-            'face_img' => $this->upload->uploadImage($data, 'face_img'),
-            'profile_img' => $this->upload->uploadImage($data, 'profile_img')
+            'face_img'    => $this->upload->uploadImage($data, 'face_img'),
+            'profile_img' => $this->upload->uploadImage($data, 'profile_img'),
         ];
 
         unset($data['confirm_password']);
         $data['password'] = $this->crypt->create($data['password']);
         $data['admin_user_id'] = Uuid::uuid1()->toString();
-        $data['admin_user_uuid'] = (new MysqlUuid($data['admin_user_id']))->toFormat(new Binary);
+        $data['admin_user_uuid'] = (new MysqlUuid($data['admin_user_id']))->toFormat(new Binary());
 
         return $this->adminUsersMapper->insert($data);
     }
@@ -166,8 +169,8 @@ class AdminUserService
         }
 
         $data = $filter->getValues() + [
-            'face_img' => $this->upload->uploadImage($data, 'face_img'),
-            'profile_img' => $this->upload->uploadImage($data, 'profile_img')
+            'face_img'    => $this->upload->uploadImage($data, 'face_img'),
+            'profile_img' => $this->upload->uploadImage($data, 'profile_img'),
         ];
 
         // We don't want to force user to re-upload image on edit
@@ -192,11 +195,13 @@ class AdminUserService
     }
 
     /**
-     * Delete user by given UUID
+     * Delete user by given UUID.
      *
      * @param  $userId
-     * @return bool
+     *
      * @throws \Exception
+     *
+     * @return bool
      */
     public function delete($userId)
     {
@@ -207,13 +212,14 @@ class AdminUserService
         $this->upload->deleteFile($adminUser->face_img);
         $this->upload->deleteFile($adminUser->profile_img);
 
-        return (bool)$this->adminUsersMapper->delete(['admin_user_id' => $userId]);
+        return (bool) $this->adminUsersMapper->delete(['admin_user_id' => $userId]);
     }
 
     /**
-     * Fetch random X users to show on homepage
+     * Fetch random X users to show on homepage.
      *
-     * @param  int $limit
+     * @param int $limit
+     *
      * @return null|\Zend\Db\ResultSet\ResultSetInterface
      */
     public function getForWeb($limit = 10)
@@ -222,7 +228,7 @@ class AdminUserService
     }
 
     /**
-     * Return all Admin User for select box
+     * Return all Admin User for select box.
      *
      * @return \Zend\Db\ResultSet\ResultSet
      */

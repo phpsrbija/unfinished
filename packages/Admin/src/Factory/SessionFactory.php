@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -8,8 +10,6 @@ use Zend\Session\SessionManager;
 
 /**
  * Class SessionFactory.
- *
- * @package Admin\Factory
  */
 class SessionFactory
 {
@@ -19,7 +19,7 @@ class SessionFactory
         'cookie_httponly'     => true,
         'name'                => 'admin',
         'cookie_lifetime'     => 2592000,
-        'gc_maxlifetime'      => 2592000
+        'gc_maxlifetime'      => 2592000,
     ];
 
     /**

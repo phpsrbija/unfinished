@@ -1,8 +1,10 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Menu\Test\View\Helper;
 
-class MenuItemsHelperTest extends \PHPUnit_Framework_TestCase
+class MenuItemsTest extends \PHPUnit_Framework_TestCase
 {
     public function testInvokingMenuItemsHelperShouldReturnItSelf()
     {

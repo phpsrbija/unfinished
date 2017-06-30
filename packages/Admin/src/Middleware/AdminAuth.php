@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Admin\Middleware;
 
@@ -11,8 +11,6 @@ use Zend\Session\SessionManager;
 
 /**
  * Class AdminAuth.
- *
- * @package Admin\Middleware
  */
 final class AdminAuth
 {
@@ -34,7 +32,7 @@ final class AdminAuth
      */
     public function __construct(Router $router, SessionManager $session)
     {
-        $this->router  = $router;
+        $this->router = $router;
         $this->session = $session;
     }
 
@@ -50,7 +48,7 @@ final class AdminAuth
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
         /**
-         * Check if user is logged in
+         * Check if user is logged in.
          */
         $user = $this->session->getStorage()->user;
         if (!$user) {
@@ -60,7 +58,7 @@ final class AdminAuth
             );
         }
 
-        /**
+        /*
          * If everything is OK, continue execution middleware
          */
         return $next($request, $response);

@@ -1,12 +1,10 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
 use MysqlUuid\Formats\Binary;
-use MysqlUuid\Uuid;
+use Phinx\Migration\AbstractMigration;
 
 class Category extends AbstractMigration
 {
-
     public function up()
     {
         $this->table('category', ['id' => false, 'primary_key' => 'category_uuid'])
@@ -27,5 +25,4 @@ class Category extends AbstractMigration
     {
         $this->dropTable('category');
     }
-
 }

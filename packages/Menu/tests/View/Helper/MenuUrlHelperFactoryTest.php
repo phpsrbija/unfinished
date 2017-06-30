@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Menu\Test\View\Helper;
 
 class MenuUrlHelperFactoryTest extends \PHPUnit_Framework_TestCase
@@ -18,5 +20,4 @@ class MenuUrlHelperFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new \Menu\View\Helper\MenuUrlHelperFactory();
         static::assertInstanceOf(\Menu\View\Helper\MenuUrlHelper::class, $factory($container, 'test'));
     }
-
 }

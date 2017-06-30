@@ -1,9 +1,9 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
+use Core\Entity\ArticleType;
 use MysqlUuid\Formats\Binary;
 use MysqlUuid\Uuid;
-use Core\Entity\ArticleType;
+use Phinx\Migration\AbstractMigration;
 use UploadHelper\Upload;
 
 class ArticleVideos extends AbstractMigration
@@ -32,38 +32,38 @@ class ArticleVideos extends AbstractMigration
 
     private function insertDummyData()
     {
-        $ids  = [];
+        $ids = [];
         $rows = $this->fetchAll('select admin_user_uuid from admin_users;');
-        foreach($rows as $r) {
+        foreach ($rows as $r) {
             $ids[] = $r['admin_user_uuid'];
         }
 
-        $faker      = Faker\Factory::create();
-        $upload     = new Upload('/var/www/unfinished/public/uploads/', '/var/www/unfinished/data/uploads/');
-        $count      = rand(25, 300);
+        $faker = Faker\Factory::create();
+        $upload = new Upload('/var/www/unfinished/public/uploads/', '/var/www/unfinished/data/uploads/');
+        $count = rand(25, 300);
         $embedCodes = [
             '<iframe width="560" height="315" src="https://www.youtube.com/embed/JQxbSh99te8" frameborder="0" allowfullscreen></iframe>',
             '<iframe width="560" height="315" src="https://www.youtube.com/embed/oH46Cr33-h4" frameborder="0" allowfullscreen></iframe>',
-            '<iframe width="560" height="315" src="https://www.youtube.com/embed/JQxbSh99te8" frameborder="0" allowfullscreen></iframe>'
+            '<iframe width="560" height="315" src="https://www.youtube.com/embed/JQxbSh99te8" frameborder="0" allowfullscreen></iframe>',
         ];
 
         // Download N images and set it randomly to posts
-        for($i = 0; $i < 5; $i++) {
-            $image       = $faker->image();
+        for ($i = 0; $i < 5; $i++) {
+            $image = $faker->image();
             $destination = $upload->getPath(basename($image));
             rename($image, $destination);
             $mainImg[] = substr($destination, strlen('/var/www/unfinished/public'));
 
-            $image       = $faker->image();
+            $image = $faker->image();
             $destination = $upload->getPath(basename($image));
             rename($image, $destination);
             $featuredImg[] = substr($destination, strlen('/var/www/unfinished/public'));
         }
 
-        for($i = 0; $i < $count; $i++) {
-            $id        = $faker->uuid;
+        for ($i = 0; $i < $count; $i++) {
+            $id = $faker->uuid;
             $mysqluuid = (new Uuid($id))->toFormat(new Binary());
-            $title     = $faker->sentence(7, 20);
+            $title = $faker->sentence(7, 20);
 
             $article = [
                 'article_uuid'    => $mysqluuid,
@@ -71,7 +71,7 @@ class ArticleVideos extends AbstractMigration
                 'slug'            => strtolower(trim(preg_replace('~[^\pL\d]+~u', '-', $title), '-')),
                 'status'          => 1,
                 'admin_user_uuid' => $ids[array_rand($ids)],
-                'type'            => ArticleType::POST
+                'type'            => ArticleType::POST,
             ];
 
             $video = [
@@ -81,7 +81,7 @@ class ArticleVideos extends AbstractMigration
                 'lead'         => $faker->paragraph(5),
                 'main_img'     => $mainImg[array_rand($mainImg)],
                 'featured_img' => $featuredImg[array_rand($featuredImg)],
-                'video_url'    => $embedCodes[rand(0, 2)]
+                'video_url'    => $embedCodes[rand(0, 2)],
             ];
 
             $this->insert('articles', $article);

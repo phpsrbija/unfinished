@@ -9,10 +9,10 @@ class ConfigProvider
         return [
             'templates' => [
                 'map'   => [
-                    'partial/menu-level' => __DIR__ . '/../templates/partial/menu-level.phtml',
+                    'partial/menu-level' => __DIR__.'/../templates/partial/menu-level.phtml',
                 ],
                 'paths' => [
-                    'menu' => [__DIR__ . '/../templates/menu'],
+                    'menu' => [__DIR__.'/../templates/menu'],
                 ],
             ],
 
@@ -46,7 +46,7 @@ class ConfigProvider
             'view_helpers' => [
                 'factories' => [
                     'menu'    => View\Helper\MenuItemsFactory::class,
-                    'menuUrl' => View\Helper\MenuUrlHelperFactory::class
+                    'menuUrl' => View\Helper\MenuUrlHelperFactory::class,
                 ],
             ],
         ];

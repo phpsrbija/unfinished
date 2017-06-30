@@ -1,10 +1,9 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
+use Core\Entity\ArticleType;
 use MysqlUuid\Formats\Binary;
 use MysqlUuid\Uuid;
-use Core\Entity\ArticleType;
-use MysqlUuid\Formats\PlainString;
+use Phinx\Migration\AbstractMigration;
 
 class ArticleDiscussions extends AbstractMigration
 {
@@ -27,18 +26,18 @@ class ArticleDiscussions extends AbstractMigration
 
     private function insertDummyData()
     {
-        $ids  = [];
+        $ids = [];
         $rows = $this->fetchAll('select admin_user_uuid from admin_users;');
-        foreach($rows as $r){
+        foreach ($rows as $r) {
             $ids[] = $r['admin_user_uuid'];
         }
 
         $faker = Faker\Factory::create();
         $count = rand(250, 300);
-        for($i = 0; $i < $count; $i++){
-            $id        = $faker->uuid;
+        for ($i = 0; $i < $count; $i++) {
+            $id = $faker->uuid;
             $mysqluuid = (new Uuid($id))->toFormat(new Binary());
-            $title     = $faker->sentence(5, 15);
+            $title = $faker->sentence(5, 15);
 
             $article = [
                 'article_uuid'    => $mysqluuid,
@@ -46,12 +45,12 @@ class ArticleDiscussions extends AbstractMigration
                 'slug'            => strtolower(trim(preg_replace('~[^\pL\d]+~u', '-', $title), '-')),
                 'status'          => 1,
                 'admin_user_uuid' => $ids[array_rand($ids)],
-                'type'            => ArticleType::DISCUSSION
+                'type'            => ArticleType::DISCUSSION,
             ];
 
             $post = [
                 'article_uuid' => $mysqluuid,
-                'title'        => 'Discussion: ' . $title,
+                'title'        => 'Discussion: '.$title,
                 'body'         => $faker->paragraph(15),
             ];
 

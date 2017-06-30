@@ -1,19 +1,17 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Category\Mapper;
 
+use Article\Entity\ArticleType;
 use Zend\Db\Adapter\Adapter;
 use Zend\Db\Adapter\AdapterAwareInterface;
-use Zend\Db\TableGateway\AbstractTableGateway;
 use Zend\Db\Sql\Expression;
-use Article\Entity\ArticleType;
+use Zend\Db\TableGateway\AbstractTableGateway;
 
 /**
  * Class CategoryMapper.
- *
- * @package Category\Mapper
  */
 class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterface
 {
@@ -21,9 +19,10 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
     protected $table = 'category';
 
     /**
-     * Db adapter setter method,
+     * Db adapter setter method,.
      *
-     * @param  Adapter $adapter db adapter
+     * @param Adapter $adapter db adapter
+     *
      * @return void
      */
     public function setDbAdapter(Adapter $adapter)
@@ -66,11 +65,10 @@ class CategoryMapper extends AbstractTableGateway implements AdapterAwareInterfa
         return $select;
     }
 
-
     /**
-     * Return only category with type = Post
+     * Return only category with type = Post.
      *
-     * @param int $limit
+     * @param int  $limit
      * @param null $order
      * @param null $inHomepage
      * @param null $inCategoryList

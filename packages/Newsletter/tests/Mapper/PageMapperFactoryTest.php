@@ -1,8 +1,10 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Newsletter\Test\Mapper;
 
-class NewsletterMapperFactoryTest extends \PHPUnit_Framework_TestCase
+class PageMapperFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testInvokeShouldReturnExpectedInstance()
     {

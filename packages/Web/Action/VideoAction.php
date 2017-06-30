@@ -1,21 +1,19 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Web\Action;
 
-use Article\Service\VideoService;
 use Article\Entity\ArticleType;
+use Article\Service\VideoService;
 use Category\Service\CategoryService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Template\TemplateRendererInterface as Template;
 
 /**
  * Class VideoAction.
- *
- * @package Web\Action
  */
 class VideoAction
 {
@@ -40,20 +38,21 @@ class VideoAction
         VideoService $videoService,
         CategoryService $categoryService
     ) {
-        $this->template        = $template;
-        $this->videoService    = $videoService;
+        $this->template = $template;
+        $this->videoService = $videoService;
         $this->categoryService = $categoryService;
     }
 
     /**
-     * Executed when action is invoked
+     * Executed when action is invoked.
      *
-     * @param  Request       $request
-     * @param  Response      $response
-     * @param  callable|null $next
+     * @param Request       $request
+     * @param Response      $response
+     * @param callable|null $next
+     *
+     * @throws \Exception
      *
      * @return HtmlResponse
-     * @throws \Exception
      */
     public function __invoke(
         Request $request,
@@ -61,8 +60,8 @@ class VideoAction
         callable $next = null
     ) {
         $categorySlug = $request->getAttribute('segment_1');
-        $videoSlug    = $request->getAttribute('segment_2');
-        $video        = $this->videoService->fetchVideoBySlug($videoSlug);
+        $videoSlug = $request->getAttribute('segment_2');
+        $video = $this->videoService->fetchVideoBySlug($videoSlug);
 
         if (!$video || $video->type != ArticleType::VIDEO) {
             return $next($request, $response);
@@ -70,7 +69,7 @@ class VideoAction
 
         return new HtmlResponse($this->template->render('web::video', [
             'layout' => 'layout/web',
-            'video'  => $video
+            'video'  => $video,
         ]));
     }
 }

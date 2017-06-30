@@ -1,8 +1,10 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Menu\Test\View\Helper;
 
-class MenuItemsFactoryHelperTest extends \PHPUnit_Framework_TestCase
+class MenuItemsFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testInvokingMenuItemsFactoryShouldReturnExpectedInstance()
     {
@@ -18,5 +20,4 @@ class MenuItemsFactoryHelperTest extends \PHPUnit_Framework_TestCase
         $factory = new \Menu\View\Helper\MenuItemsFactory();
         static::assertInstanceOf(\Menu\View\Helper\MenuItems::class, $factory($container, 'test'));
     }
-
 }

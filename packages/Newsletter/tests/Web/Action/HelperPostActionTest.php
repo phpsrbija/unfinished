@@ -1,8 +1,10 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Newsletter\Test\Web\Action;
 
-class HandlePostTest extends \PHPUnit_Framework_TestCase
+class HelperPostActionTest extends \PHPUnit_Framework_TestCase
 {
     public function testHandlePostActionShouldReturnJsonResponseWithError()
     {

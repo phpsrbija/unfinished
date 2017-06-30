@@ -1,17 +1,19 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Article\Controller;
 
-use Std\AbstractController;
-use Zend\Expressive\Template\TemplateRendererInterface as Template;
-use Zend\Diactoros\Response\HtmlResponse;
+use Article\Entity\ArticleType;
 use Article\Service\PostService;
 use Category\Service\CategoryService;
-use Zend\Session\SessionManager;
-use Zend\Expressive\Router\RouterInterface as Router;
+use Std\AbstractController;
 use Std\FilterException;
+use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Router\RouterInterface as Router;
+use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Http\PhpEnvironment\Request;
-use Article\Entity\ArticleType;
+use Zend\Session\SessionManager;
 
 class PostController extends AbstractController
 {
@@ -43,10 +45,10 @@ class PostController extends AbstractController
     /**
      * PostController constructor.
      *
-     * @param Template $template
-     * @param Router $router
-     * @param PostService $postService
-     * @param SessionManager $session
+     * @param Template        $template
+     * @param Router          $router
+     * @param PostService     $postService
+     * @param SessionManager  $session
      * @param CategoryService $categoryService
      */
     public function __construct(
@@ -56,7 +58,6 @@ class PostController extends AbstractController
         SessionManager $session,
         CategoryService $categoryService
     ) {
-
         $this->template = $template;
         $this->postService = $postService;
         $this->session = $session;
@@ -78,7 +79,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * Add/Edit show form
+     * Add/Edit show form.
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
@@ -89,27 +90,28 @@ class PostController extends AbstractController
         $categories = $this->categoryService->getAll(ArticleType::POST);
 
         if ($this->request->getParsedBody()) {
-            $post = (object)($this->request->getParsedBody() + (array)$post);
+            $post = (object) ($this->request->getParsedBody() + (array) $post);
             $post->article_id = $id;
         }
 
         return new HtmlResponse(
             $this->template->render(
                 'article::post/edit', [
-                    'post' => $post,
+                    'post'       => $post,
                     'categories' => $categories,
-                    'errors' => $errors,
-                    'layout' => 'layout/admin'
+                    'errors'     => $errors,
+                    'layout'     => 'layout/admin',
                 ]
             )
         );
     }
 
     /**
-     * Add/Edit article action
+     * Add/Edit article action.
      *
      * @throws FilterException if filter fails
      * @throws \Exception
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function save(): \Psr\Http\Message\ResponseInterface
@@ -137,8 +139,9 @@ class PostController extends AbstractController
     /**
      * Delete post by id.
      *
-     * @return \Psr\Http\Message\ResponseInterface
      * @throws \Exception
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function delete(): \Psr\Http\Message\ResponseInterface
     {

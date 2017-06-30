@@ -1,18 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Article\Controller;
 
-use Std\AbstractController;
-use Zend\Expressive\Template\TemplateRendererInterface as Template;
-use Zend\Diactoros\Response\HtmlResponse;
+use Article\Entity\ArticleType;
 use Article\Service\VideoService;
 use Category\Service\CategoryService;
-use Zend\Session\SessionManager;
-use Zend\Expressive\Router\RouterInterface as Router;
+use Std\AbstractController;
 use Std\FilterException;
+use Zend\Diactoros\Response\HtmlResponse;
+use Zend\Expressive\Router\RouterInterface as Router;
+use Zend\Expressive\Template\TemplateRendererInterface as Template;
 use Zend\Http\PhpEnvironment\Request;
-use Article\Entity\ArticleType;
+use Zend\Session\SessionManager;
 
 class VideoController extends AbstractController
 {
@@ -48,19 +49,18 @@ class VideoController extends AbstractController
         SessionManager $session,
         CategoryService $categoryService
     ) {
-
-        $this->template        = $template;
-        $this->videoService    = $videoService;
-        $this->session         = $session;
-        $this->router          = $router;
+        $this->template = $template;
+        $this->videoService = $videoService;
+        $this->session = $session;
+        $this->router = $router;
         $this->categoryService = $categoryService;
     }
 
     public function index(): HtmlResponse
     {
         $params = $this->request->getQueryParams();
-        $page   = isset($params['page']) ? $params['page'] : 1;
-        $limit  = isset($params['limit']) ? $params['limit'] : 15;
+        $page = isset($params['page']) ? $params['page'] : 1;
+        $limit = isset($params['limit']) ? $params['limit'] : 15;
         $videos = $this->videoService->fetchAllArticles($page, $limit);
 
         return new HtmlResponse($this->template->render('article::video/index',
@@ -69,18 +69,18 @@ class VideoController extends AbstractController
     }
 
     /**
-     * Add/Edit show form
+     * Add/Edit show form.
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function edit($errors = []): \Psr\Http\Message\ResponseInterface
     {
-        $id         = $this->request->getAttribute('id');
-        $video      = $this->videoService->fetchSingleArticle($id);
+        $id = $this->request->getAttribute('id');
+        $video = $this->videoService->fetchSingleArticle($id);
         $categories = $this->categoryService->getAll(ArticleType::VIDEO);
 
         if ($this->request->getParsedBody()) {
-            $video             = (object)($this->request->getParsedBody() + (array)$video);
+            $video = (object) ($this->request->getParsedBody() + (array) $video);
             $video->article_id = $id;
         }
 
@@ -90,23 +90,24 @@ class VideoController extends AbstractController
                     'video'      => $video,
                     'categories' => $categories,
                     'errors'     => $errors,
-                    'layout'     => 'layout/admin'
+                    'layout'     => 'layout/admin',
                 ]
             )
         );
     }
 
     /**
-     * Add/Edit article action
+     * Add/Edit article action.
      *
      * @throws FilterException if filter fails
      * @throws \Exception
+     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function save(): \Psr\Http\Message\ResponseInterface
     {
         try {
-            $id   = $this->request->getAttribute('id');
+            $id = $this->request->getAttribute('id');
             $user = $this->session->getStorage()->user;
             $data = $this->request->getParsedBody();
             $data += (new Request())->getFiles()->toArray();
@@ -129,8 +130,9 @@ class VideoController extends AbstractController
     /**
      * Delete video by id.
      *
-     * @return \Psr\Http\Message\ResponseInterface
      * @throws \Exception
+     *
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function delete(): \Psr\Http\Message\ResponseInterface
     {

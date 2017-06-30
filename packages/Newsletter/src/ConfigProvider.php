@@ -9,7 +9,7 @@ class ConfigProvider
         return [
             'templates' => [
                 'paths' => [
-                    'newsletter' => [__DIR__ . '/../templates/newsletter'],
+                    'newsletter' => [__DIR__.'/../templates/newsletter'],
                 ],
             ],
 
@@ -17,7 +17,7 @@ class ConfigProvider
                 'factories' => [
                     Web\Action\HandlePostAction::class => Web\Action\HandlePostActionFactory::class,
                     Service\NewsletterService::class   => Service\NewsletterServiceFactory::class,
-                    Mapper\NewsletterMapper::class     => Mapper\NewsletterMapperFactory::class
+                    Mapper\NewsletterMapper::class     => Mapper\NewsletterMapperFactory::class,
                 ],
             ],
 

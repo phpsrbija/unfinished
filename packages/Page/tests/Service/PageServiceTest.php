@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Page\Test\Service;
 
 class PageServiceTest extends \PHPUnit_Framework_TestCase
@@ -104,7 +106,7 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
     public function testCreatePageShouldReturnTrue()
     {
         $pageData = [
-            'is_homepage' => 1
+            'is_homepage' => 1,
         ];
         $pageFilter = $this->getMockBuilder(\Page\Filter\PageFilter::class)
             ->setMethods(['getInputFilter', 'setData', 'isValid', 'getValues'])
@@ -147,7 +149,7 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
     public function testCreatePageShouldThrowFilterException()
     {
         $pageData = [
-            'is_homepage' => 1
+            'is_homepage' => 1,
         ];
 
         $pageFilter = $this->getMockBuilder(\Page\Filter\PageFilter::class)
@@ -188,7 +190,7 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
     public function testUpdatePageShouldThrowException()
     {
         $pageData = [
-            'is_homepage' => 1
+            'is_homepage' => 1,
         ];
         $pageFilter = $this->getMockBuilder(\Page\Filter\PageFilter::class)
             ->setMethods(['select'])
@@ -222,7 +224,7 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
     public function testUpdatePageShouldThrowFilterException()
     {
         $pageData = [
-            'is_homepage' => 1
+            'is_homepage' => 1,
         ];
         $pageFilter = $this->getMockBuilder(\Page\Filter\PageFilter::class)
             ->setMethods(['getInputFilter', 'setData', 'isValid', 'getMessages'])
@@ -264,7 +266,7 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
     public function testUpdatePageShouldReturnTrue()
     {
         $pageData = [
-            'is_homepage' => 1
+            'is_homepage' => 1,
         ];
         $pageFilter = $this->getMockBuilder(\Page\Filter\PageFilter::class)
             ->setMethods(['getInputFilter', 'setData', 'isValid', 'getValues', 'select'])
@@ -310,7 +312,7 @@ class PageServiceTest extends \PHPUnit_Framework_TestCase
     {
         $pageData = [
             'is_homepage' => 1,
-            'main_img' => 'test_path'
+            'main_img'    => 'test_path',
         ];
         $pageFilter = $this->getMockBuilder(\Page\Filter\PageFilter::class)
             ->setMethods(['getInputFilter', 'setData', 'isValid', 'getValues', 'select'])

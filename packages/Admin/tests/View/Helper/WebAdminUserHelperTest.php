@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Admin\Test\View\Helper;
 
 class WebAdminUserHelperTest extends \PHPUnit_Framework_TestCase
