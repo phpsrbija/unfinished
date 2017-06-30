@@ -3,9 +3,9 @@ matrix:
   fast_finish: true
   include:
     - php: 7
-install: composer install --no-interaction
+install: composer --working-dir=application install --no-interaction
 script:
-  - composer test
-  - composer cs-check
+  - composer --working-dir=application test
+  - composer --working-dir=application cs-check
 after_script:
-  - composer upload-coverage
+  - composer --working-dir=application upload-coverage
