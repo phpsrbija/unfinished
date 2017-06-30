@@ -2,7 +2,7 @@
 - include: common.yml
 
 # This is a setup for vagrant host, inherits from all
-- hosts: default
+- hosts: default, localhost
   become: yes
   roles:
     - nodejs

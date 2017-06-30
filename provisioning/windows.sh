@@ -13,4 +13,4 @@ then
     echo "Ansible installed"
 fi
 
-ansible-playbook /vagrant/provisioning/vagrant.yml -c local -i localhost,
+ansible-playbook /var/www/unfinished/provisioning/vagrant.yml -c local -i localhost,
