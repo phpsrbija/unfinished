@@ -20,6 +20,7 @@ matrix:
 
 before_install:
   - composer config --global github-oauth.github.com "$GITHUB_TOKEN"
+  - composer global require hirak/prestissimo
 
 install:
   - composer install --prefer-dist --no-interaction
