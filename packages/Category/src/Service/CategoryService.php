@@ -156,7 +156,7 @@ class CategoryService
      */
     public function getAll($type = null)
     {
-        if($type){
+        if ($type) {
             return $this->categoryMapper->select(['type' => $type]);
         }
 

@@ -46,13 +46,8 @@ class HomeAction
      * @return HtmlResponse
      * @throws \Exception
      */
-    public function __invoke(
-        Request $request,
-        Response $response,
-        callable $next = null
-    ): HtmlResponse
+    public function __invoke(Request $request, Response $response, callable $next = null): HtmlResponse
     {
-
         $page = $this->pageService->getHomepage();
 
         return new HtmlResponse($this->template->render('web::home', [
