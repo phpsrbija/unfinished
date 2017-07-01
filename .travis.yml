@@ -19,11 +19,11 @@ before_install:
   - composer global require hirak/prestissimo
 
 install:
-  - composer install --prefer-dist --no-interaction
+  - composer install -d=application --prefer-dist --no-interaction
 
 script:
-  - composer test
-  - composer cs-check
+  - composer -d=application test-ci
+  - composer -d=application cs-check
 
 after_script:
-  - composer upload-coverage
+  - application/vendor/bin/coveralls -v

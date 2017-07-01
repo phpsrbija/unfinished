@@ -53,8 +53,8 @@
         }
     },
     "scripts": {
-        "test": "bin/unit-tests-ci.sh",
-        "upload-coverage": "vendor/bin/coveralls -v",
+        "test": "bin/unit-tests.sh",
+        "test-ci": "bin/unit-tests-ci.sh",
         "cs-check": "vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1 --standard=PSR2 ./packages/* --ignore=*/tests/*,*/templates/*",
         "cs-fix": "phpcbf",
         "server": "php -S 0.0.0.0:8080 -t public/ public/index.php"
