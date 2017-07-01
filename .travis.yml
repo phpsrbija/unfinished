@@ -7,10 +7,6 @@ git:
 
 sudo: false
 
-cache:
-  directories:
-    - $HOME/.composer/cache/files
-
 env:
   global:
     secure: "h55B++8MJdwcN6SptIonYnA3TOPLLd7fQLE/x8mpuimf1kvnDEpgVsCMJWgdlNCDrUgMTNRMzQclSo3y4O+zA06s4TikLIIW7TjQRbc9TDCQGtjy9IvixpfjutjaYhQKn4vSpgAuw6rFyVOX2rFCfg1tD2gK0lMWPygT4dXSs+UBanOKCt2PaBiP0k1nOJGReWspVurbP3/r8OxdFwIBUaoLv68EFLwD71CNBxYq5nZGNDSLsjnFDx0lamvQQKS5TnybbvGHlJlYxtJYIp3ETWtno3QeKoYVEGPau5jRFTaROebsWa9lLUzHNtt9YyQDvVSNGMaQSm7mtxHA9JCpOe+ux4v2V26reqx3cj9wIdiBg12acOn8eVBGaNGw3y+NLxIOJkNxrOZLN5IJWgqVlEQMN84n/BX4eD5rZVmh7SFYrXMCDay8+6OZ+Zr6a8bx9q4jXz59ZOfKW2HFUxC+0kay8h1L9yJd3czptEjItcW2zfWKu/nrk2521CmVl3rj5nc3k0udUdbT5zujwBk9BciM0LQYCTr/JMxIcNg2d6Mt6PB5ZnRZBA0+xGDk3RebDenQhKn2DcRdUxSsk6H4yLNg5G9Ji54FZnrO08lUCwBPMichfhRmw0bH/Hnxhh+/NCzGHCQI7VeNRd269VnxIMWR9RP1gFIvY/B2UMDg4U4="
@@ -20,6 +16,7 @@ matrix:
 
 before_install:
   - composer config --global github-oauth.github.com "$GITHUB_TOKEN"
+  - composer global require hirak/prestissimo
 
 install:
   - composer install --prefer-dist --no-interaction
