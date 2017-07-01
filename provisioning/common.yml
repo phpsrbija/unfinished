@@ -1,0 +1,44 @@
+---
+- hosts: all
+  become: yes
+  # You should remember this from my puppet rants
+  # Execute the apt-get update only if it was last executed more than 12 hours ago
+  pre_tasks:
+    - name: check apt last update
+      stat: path=/var/cache/apt
+      register: apt_cache_stat
+      when: ansible_os_family == "Debian"
+    - name: update apt if needed
+      apt: update_cache=yes
+      when: ansible_os_family == "Debian" and ansible_date_time.epoch|float - apt_cache_stat.stat.mtime > 60*60*12
+    # the oh so very important bit if you are going to add apt repos
+    - name: install python-pycurl
+      apt: pkg=python-pycurl state=latest
+      when: ansible_os_family == "Debian"
+
+  roles:
+    - common
+    - { role: nginx, name: unfinished }
+    - redis
+
+  tasks:
+    # Install pip via easyinstall
+    - name: Install pip with easy_install
+      easy_install: name=pip
+    # Setup file limits
+    - name: copy the sysctl
+      copy: src=files/sysctl.conf
+            dest=/etc/sysctl.d/60-scout.conf
+            owner=ubuntu
+            mode=0600
+            backup=yes
+    - name: apply the new settings
+      command: sysctl -p
+    - lineinfile: dest=/etc/security/limits.conf line="* hard nproc 65535"
+    - lineinfile: dest=/etc/security/limits.conf line="* soft nproc 65535"
+    - lineinfile: dest=/etc/security/limits.conf line="* hard nofile 65535"
+    - lineinfile: dest=/etc/security/limits.conf line="* soft nofile 65535"
+    - lineinfile: dest=/etc/security/limits.conf line="root hard nofile 65535"
+    - lineinfile: dest=/etc/security/limits.conf line="root soft nofile 65535"
+    - lineinfile: dest=/etc/pam.d/common-session line="session required pam_limits.so"
+    - lineinfile: dest=/etc/pam.d/common-session-noninteractive line="session required pam_limits.so"

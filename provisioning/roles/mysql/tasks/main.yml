@@ -1,0 +1,69 @@
+---
+
+- name: Install the packages
+  apt: name="{{ item }}" state=present update_cache=yes
+  with_items: "{{ mysql_packages }}"
+  when: ansible_os_family == "Debian"
+  tags: [mysql,packages]
+
+- name: ensure mysql service is up
+  action: service name=mysql state=started
+  tags: [mysql,services]
+
+- name: Set root user password
+  mysql_user: name=root
+              password="{{ MYSQL_ROOT_PASSWORD }}"
+              check_implicit_admin=yes
+              login_user="root"
+              state=present
+  ignore_errors: yes
+  tags: [mysql]
+
+- name: Create the dev database
+  mysql_db: name="{{ DB_NAME }}"
+            state=present
+            encoding=utf8
+            collation=utf8_general_ci
+            login_user="root"
+            login_password="{{ MYSQL_ROOT_PASSWORD }}"
+  tags: [mysql]
+
+- name: Create the dev user for the mysql
+  mysql_user: name="{{ USERNAME }}"
+              password="{{ PASSWORD }}"
+              priv="{{ DB_NAME }}.*:ALL,GRANT"
+              state=present
+              check_implicit_admin=yes
+              login_user="root"
+              login_password="{{ MYSQL_ROOT_PASSWORD }}"
+  tags: [mysql]
+
+
+- name: During development turn the genral log on
+  lineinfile:
+    dest=/etc/mysql/my.cnf
+    line="general_log = on"
+    regexp='^general_log = on$'
+    state=present
+    insertafter=EOF
+    create=True
+  notify: restart mysql
+
+- name: During development log every query in /tmp/mysql.log
+  lineinfile:
+    dest=/etc/mysql/my.cnf
+    line="general_log_file=/tmp/mysql.log"
+    regexp='^general_log_file=/tmp/mysql.log$'
+    state=present
+    insertafter=EOF
+    create=True
+  notify: restart mysql
+
+- name: During development decrease the amount of ram used
+  ini_file:
+    path: /etc/mysql/my.cnf
+    section: mysqld
+    option: table_definition_cache
+    value: 200
+    backup: yes
+  notify: restart mysql
