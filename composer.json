@@ -28,7 +28,8 @@
         "vend/mysql-uuid": "1.0",
         "tasmaniski/upload-helper":"^1.0",
         "guzzlehttp/guzzle": "^6.1",
-        "zendframework/zend-escaper": "^2.5"
+        "zendframework/zend-escaper": "^2.5",
+        "zendframework/zend-http": "^2.6"
     },
     "require-dev": {
         "robmorgan/phinx": "^0.6.4",
