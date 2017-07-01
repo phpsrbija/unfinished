@@ -39,7 +39,7 @@ class ConfigProvider
                 ],
                 [
                     'name'       => 'page',
-                    'path'       => '/:url_slug',
+                    'path'       => '/{url_slug}',
                     'middleware' => Action\PageAction::class,
                 ],
                 [
