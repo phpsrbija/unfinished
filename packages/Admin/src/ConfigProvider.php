@@ -37,7 +37,7 @@ class ConfigProvider
             'routes' => [
                 [
                     'name'            => 'auth',
-                    'path'            => '/auth/:action',
+                    'path'            => '/auth/{action}',
                     'middleware'      => Controller\AuthController::class,
                     'allowed_methods' => ['GET', 'POST'],
                 ],
@@ -55,7 +55,7 @@ class ConfigProvider
                 ],
                 [
                     'name'            => 'admin.users.action',
-                    'path'            => '/admin/users/:action/:id',
+                    'path'            => '/admin/users/{action}/{id}',
                     'middleware'      => Controller\UserController::class,
                     'allowed_methods' => ['GET', 'POST'],
                 ],

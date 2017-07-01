@@ -38,7 +38,7 @@ class ConfigProvider
                 ],
                 [
                     'name'            => 'admin.pages.action',
-                    'path'            => '/admin/pages/:action/:id',
+                    'path'            => '/admin/pages/{action}/{id}',
                     'middleware'      => Controller\PageController::class,
                     'allowed_methods' => ['GET', 'POST'],
                 ],

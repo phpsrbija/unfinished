@@ -34,7 +34,7 @@ class ConfigProvider
                 ],
                 [
                     'name'            => 'admin.categories.action',
-                    'path'            => '/admin/categories/:action/:id',
+                    'path'            => '/admin/categories/{action}/{id}',
                     'middleware'      => Controller\IndexController::class,
                     'allowed_methods' => ['GET', 'POST'],
                 ],
