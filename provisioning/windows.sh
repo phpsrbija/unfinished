@@ -18,7 +18,11 @@ if [ $(dpkg-query -W -f='${Status}' ansible 2>/dev/null | grep -c "ok installed"
 then
     echo "Add APT repositories"
     export DEBIAN_FRONTEND=noninteractive
-    sudo apt-get install -y python-software-properties
+    sudo apt-get update
+    sudo apt-get install -y software-properties-common libxml2-dev libxslt1-dev gcc python-dev libssl-dev libffi-dev
+    sudo apt-get install -y python-crypto
+    sudo apt-get install -y python-pycurl
+    sudo apt-get install -y python-software-properties python-pycurl
     sudo apt-get install -y python-setuptools
 
     echo "Installing Ansible"
