@@ -1,0 +1,8 @@
+---
+# vars file for mysql
+
+mysql_packages:
+  - python-mysqldb
+  - mysql-common
+  - mysql-server-5.6
+  - mysql-client-5.6

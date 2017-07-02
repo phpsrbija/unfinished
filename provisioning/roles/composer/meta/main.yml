@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: Srdjan Vranac
+  description: Ansilble role to setup Composer tool
+  company: Code4Hire Kft.
+  license: BSD
+  min_ansible_version: 1.7
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+  categories:
+    - development
+    - php
+    - web
+
+dependencies: []

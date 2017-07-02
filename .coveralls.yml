@@ -1,11 +1,11 @@
 coverage_clover:
-  - packages/Admin/tests/clover.xml
-  - packages/Article/tests/clover.xml
-  - packages/Category/tests/clover.xml
-  - packages/Meetup/tests/clover.xml
-  - packages/Menu/tests/clover.xml
-  - packages/Newsletter/tests/clover.xml
-  - packages/Page/tests/clover.xml
-  - packages/Std/tests/clover.xml
-  - packages/Web/tests/clover.xml
+  - application/packages/Admin/tests/clover.xml
+  - application/packages/Article/tests/clover.xml
+  - application/packages/Category/tests/clover.xml
+  - application/packages/Meetup/tests/clover.xml
+  - application/packages/Menu/tests/clover.xml
+  - application/packages/Newsletter/tests/clover.xml
+  - application/packages/Page/tests/clover.xml
+  - application/packages/Std/tests/clover.xml
+  - application/packages/Web/tests/clover.xml
 json_path: coveralls-upload.json

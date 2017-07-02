@@ -1,0 +1,25 @@
+---
+# tasks file for nodejs
+- name: Add the Nodesource signing keys
+  apt_key: url=https://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x1655A0AB68576280 state=present id="68576280"
+
+- name: Add Nodesource repo (formerly known as Chris Lea repo) for nodejs, because ubuntu
+  # Add specified repository into sources list.
+  apt_repository: repo='{{ item }} trusty main' state=present update_cache=yes
+  with_items:
+    - deb https://deb.nodesource.com/node_4.x
+    - deb-src https://deb.nodesource.com/node_4.x
+  when: ansible_os_family == "Debian"
+  tags: [nodejs, packages]
+
+- name: Install node.js and npm (APT)
+  apt: name=nodejs state=latest update_cache=yes
+  when: ansible_os_family == "Debian"
+  tags: [nodejs, packages]
+
+- name: install uglifiers
+  command: "npm install -g {{ item }}"
+  with_items:
+    - uglify-js
+    - uglifycss
+  tags: [nodejs, packages]

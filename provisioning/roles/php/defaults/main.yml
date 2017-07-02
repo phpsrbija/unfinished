@@ -1,0 +1,8 @@
+---
+PROJECT_ROOT: "/var/www"
+
+use_php_fpm: true
+
+use_php_apc: false
+
+use_dev_opcache: false

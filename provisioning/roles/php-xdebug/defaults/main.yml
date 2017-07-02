@@ -1,0 +1,5 @@
+---
+use_xdebug: false
+use_xdebug_profiler: false
+
+use_fpm: true

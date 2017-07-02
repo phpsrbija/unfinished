@@ -1,0 +1,33 @@
+---
+
+- name: Download composer
+  shell: curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+         creates=/usr/local/bin/composer
+  when: ansible_os_family == "Debian"
+  tags: [packages,composer]
+
+- name: Check the composer installation
+  command: composer -V --no-ansi
+  register: composer_result
+  changed_when: "'Composer version' in composer_result.stdout"
+  failed_when: "'Composer version' not in composer_result.stdout"
+  when: ansible_os_family == "Debian"
+  tags: [packages,composer]
+
+- name: Check if composer.json exists
+  stat: path="{{ PROJECT_ROOT }}/composer.json"
+  register: composer_json
+  when: ansible_os_family == "Debian"
+  tags: [packages,composer]
+
+- name: Install vendors
+  # Well imagine my surprise when it turned out that composer will not install the dev requirements
+  # on some machines, the no_dev takes care of that
+  composer: working_dir="{{ PROJECT_ROOT }}" no_dev="{{ use_composer_no_dev }}"
+  # Because sometimes composer has a nasty race condition with nfs (happened on Fedora)
+  # So I set the long timeout, should be enough
+  environment:
+    COMPOSER_PROCESS_TIMEOUT: "9000"
+  when: ansible_os_family == "Debian" and composer_json.stat.exists and not composer_result|failed
+  tags: [packages,composer]
+

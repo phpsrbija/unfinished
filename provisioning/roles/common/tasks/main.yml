@@ -1,0 +1,20 @@
+---
+
+- name: Add the OS specific varibles
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Install the common tools (APT)
+  apt: name="{{ item }}" state=present update_cache=yes
+  with_items: "{{ common_packages }}"
+  when: ansible_os_family == "Debian"
+  tags: [packages]
+
+- name: Set timezone variables
+  copy: content="{{ PROJECT_TIMEZONE }}"
+        dest="{{ timezone_destination_path }}"
+        owner=root
+        group=root
+        mode=0644
+        backup=yes
+  notify:
+    - update timezone
