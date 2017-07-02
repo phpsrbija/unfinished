@@ -1,0 +1,26 @@
+---
+
+common_packages:
+  - gcc
+  - curl
+  - make
+  - git-core
+  - vim
+  - ack-grep
+  - htop
+  - build-essential
+  - wget
+  - python-software-properties
+  - software-properties-common
+  - unzip
+  - tmux
+  - ntp
+  - python-setuptools
+  - python-dev
+  - openjdk-7-jdk
+  - xvfb
+  - chromium-browser
+  - zip
+  - unzip
+
+PROJECT_TIMEZONE: 'UTC'

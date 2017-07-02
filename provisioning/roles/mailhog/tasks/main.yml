@@ -1,0 +1,35 @@
+---
+- name: Add the OS specific varibles
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Download MailHog and mhsendmail binaries.
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0755
+  with_items:
+    - url: "{{ mailhog_binary_url }}"
+      dest: "{{ mailhog_install_dir }}/mailhog"
+    - url: "{{ mhsendmail_binary_url }}"
+      dest: "{{ mailhog_install_dir }}/mhsendmail"
+
+- name: Copy mailhog systemd unit file into place (for systemd systems).
+  copy: src="files/mailhog/mailhog.unit"
+        dest="/etc/systemd/system/mailhog.service"
+        owner=root
+        group=root
+        mode=0755
+  when: "ansible_service_mgr == 'systemd'"
+
+- name: Copy mailhog init script into place.
+  copy: src="files/mailhog/mailhog.conf"
+        dest="{{ upstart_init_path }}/mailhog.conf"
+        owner=root
+        group=root
+        mode=0755
+  when: "ansible_service_mgr != 'systemd'"
+
+- name: Ensure mailhog is enabled and will start on boot.
+  service: name=mailhog state=started enabled=yes

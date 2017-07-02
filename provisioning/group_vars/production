@@ -1,0 +1,13 @@
+---
+# default variables for production hosts
+
+# project root in the default host (in this case Vagrant box)
+PROJECT_ROOT: "/var/www/unfinished"
+
+# application environment
+APPLICATION_ENVIRONMENT: "prod"
+
+# defaults file for mysql
+USERNAME: dev
+PASSWORD:
+DB_NAME: unfinished

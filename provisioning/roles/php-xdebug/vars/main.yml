@@ -1,0 +1,3 @@
+---
+php_xdebug:
+  - php7.0-xdebug
