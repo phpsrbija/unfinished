@@ -14,9 +14,9 @@ return [
         'always' => [
             'middleware' => [
                 // Execute on every request: bootstrapping, pre-conditions, modifications to outgoing responses etc.
-                \Zend\Stratigility\Middleware\OriginalMessages::class,
-                \Zend\Stratigility\Middleware\ErrorHandler::class,
-                \Zend\Expressive\Helper\ServerUrlMiddleware::class,
+                Zend\Stratigility\Middleware\OriginalMessages::class,
+                Zend\Stratigility\Middleware\ErrorHandler::class,
+                Zend\Expressive\Helper\ServerUrlMiddleware::class,
             ],
             'priority'   => 10000,
         ],
@@ -25,27 +25,14 @@ return [
             'middleware' => [
                 Zend\Expressive\Container\ApplicationFactory::ROUTING_MIDDLEWARE,
 
-                \Zend\Expressive\Middleware\ImplicitHeadMiddleware::class,
-                \Zend\Expressive\Middleware\ImplicitOptionsMiddleware::class,
-                \Zend\Expressive\Helper\UrlHelperMiddleware::class,
+                Zend\Expressive\Middleware\ImplicitHeadMiddleware::class,
+                Zend\Expressive\Middleware\ImplicitOptionsMiddleware::class,
+                Zend\Expressive\Helper\UrlHelperMiddleware::class,
                 // Introspect the routing results; this might include: route-based authentication and validation etc.
 
                 Zend\Expressive\Container\ApplicationFactory::DISPATCH_MIDDLEWARE,
             ],
             'priority'   => 1,
         ],
-
-        // Custom error middleware
-        //'error'    => [
-        //    'middleware' => [\Core\Middleware\Error::class],
-        //    'error'      => true,
-        //    'priority'   => 1000000,
-        //],
-        //'error404' => [
-        //    'middleware' => [
-        //        \Zend\Expressive\Middleware\NotFoundHandler::class
-        //    ],
-        //    'priority'   => -10,
-        //],
     ],
 ];
