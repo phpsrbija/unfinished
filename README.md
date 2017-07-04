@@ -88,7 +88,7 @@ If you start seeing the connection timeout after adding of the private key
     default: Warning: Connection timeout. Retrying...
     default: Warning: Connection timeout. Retrying...
 ```
-You should open up the Virtualbox, click the vm running (name should be along the lines of 4cinc-thinkfasttoys....)
+You should open up the Virtualbox, click the vm running (name should be along the lines of unfinished....)
 and reset it (on OSX it is cmd+t). This is due to some weird bug somewhere on intersection of vagrant, virtualbox and
 this ubuntu cloud image.
 After the initial virtual machine build, you will not need to use this.
