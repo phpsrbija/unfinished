@@ -4,7 +4,7 @@ return [
     'dependencies' => [
         'invokables' => [
             Zend\Expressive\Helper\ServerUrlHelper::class => Zend\Expressive\Helper\ServerUrlHelper::class,
-            Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\ZendRouter::class,
+            Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\FastRouteRouter::class,
         ],
         'factories'  => [
             Zend\Db\Adapter\Adapter::class                            => Zend\Db\Adapter\AdapterServiceFactory::class,

@@ -37,7 +37,7 @@ class ConfigProvider
                 ],
                 [
                     'name'            => 'admin.menu.action',
-                    'path'            => '/admin/menu/:action/:id',
+                    'path'            => '/admin/menu/{action}/{id}',
                     'middleware'      => Controller\IndexController::class,
                     'allowed_methods' => ['GET', 'POST'],
                 ],

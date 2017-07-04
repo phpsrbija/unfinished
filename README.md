@@ -59,7 +59,7 @@ Such a way will lead us to easier:
 - [ ] Introduce Entities and Hydration (as in Page package)
 
 ### Wish list
-- [ ] Switch current Zend-Router router with FastRoute 
+- [x] Switch current Zend-Router router with FastRoute 
 - [ ] Move all packages in separate repository (main repo need to have install process)
 - [ ] Scale images during upload process; change upload lib.
 - [ ] Better naming of variables/functions & write the documentation

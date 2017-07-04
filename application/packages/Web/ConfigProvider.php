@@ -39,12 +39,12 @@ class ConfigProvider
                 ],
                 [
                     'name'       => 'page',
-                    'path'       => '/:url_slug',
+                    'path'       => '/{url_slug}',
                     'middleware' => Action\PageAction::class,
                 ],
                 [
                     'name'       => 'category',
-                    'path'       => '/:category/',
+                    'path'       => '/{category}/',
                     'middleware' => [
                         Action\PostsAction::class,
                         Action\VideosAction::class,
@@ -53,7 +53,7 @@ class ConfigProvider
                 ],
                 [
                     'name'       => 'post',
-                    'path'       => '/:segment_1/:segment_2',
+                    'path'       => '/{segment_1}/{segment_2}',
                     'middleware' => [
                         Action\PostAction::class,
                         Action\VideoAction::class,

@@ -54,7 +54,7 @@ class ConfigProvider
                 ],
                 [
                     'name'            => 'admin.posts.action',
-                    'path'            => '/admin/posts/:action/:id',
+                    'path'            => '/admin/posts/{action}/{id}',
                     'middleware'      => Controller\PostController::class,
                     'allowed_methods' => ['GET', 'POST'],
                 ],
@@ -66,7 +66,7 @@ class ConfigProvider
                 ],
                 [
                     'name'            => 'admin.discussions.action',
-                    'path'            => '/admin/discussions/:action/:id',
+                    'path'            => '/admin/discussions/{action}/{id}',
                     'middleware'      => Controller\DiscussionController::class,
                     'allowed_methods' => ['GET', 'POST'],
                 ],
@@ -78,7 +78,7 @@ class ConfigProvider
                 ],
                 [
                     'name'            => 'admin.events.action',
-                    'path'            => '/admin/events/:action/:id',
+                    'path'            => '/admin/events/{action}/{id}',
                     'middleware'      => Controller\EventController::class,
                     'allowed_methods' => ['GET', 'POST'],
                 ],
@@ -90,7 +90,7 @@ class ConfigProvider
                 ],
                 [
                     'name'            => 'admin.videos.action',
-                    'path'            => '/admin/videos/:action/:id',
+                    'path'            => '/admin/videos/{action}/{id}',
                     'middleware'      => Controller\VideoController::class,
                     'allowed_methods' => ['GET', 'POST'],
                 ],
