@@ -16,7 +16,7 @@ class ArticleDiscussions extends AbstractMigration
             ->addForeignKey('article_uuid', 'articles', 'article_uuid', ['delete' => 'NO_ACTION', 'update' => 'NO_ACTION'])
             ->create();
 
-//        $this->insertDummyData();
+        //        $this->insertDummyData();
     }
 
     public function down()

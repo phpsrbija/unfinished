@@ -8,7 +8,7 @@ return [
             'driver'   => 'Pdo',
             'dsn'      => 'mysql:dbname=unfinished;host=localhost',
             'username' => 'root',       // set DB username
-            'password' => '12345',   // set DB password
+            'password' => '',           // set DB password
     ],
     'upload' => [
         'public_path' => getcwd() . '/public/uploads/',

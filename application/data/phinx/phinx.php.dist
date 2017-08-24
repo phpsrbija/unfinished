@@ -15,8 +15,8 @@ return [
             "host"    => 'localhost',
             "name"    => 'unfinished',
             "user"    => 'root',  // set username
-            "pass"    => '12345', // and pass
-            "port"    => '5432'
+            "pass"    => '',      // and pass
+            "port"    => '3306'
         ]
     ]
 ];
