@@ -12,6 +12,7 @@ use MysqlUuid\Uuid as MysqlUuid;
 use Page\Service\PageService;
 use Ramsey\Uuid\Uuid;
 use Std\FilterException;
+use Zend\Db\Sql\Expression;
 
 class MenuService
 {
@@ -86,10 +87,12 @@ class MenuService
 
     public function addMenuItem($data)
     {
-        $data = $this->filterMenuItem($data);
+        $data  = $this->filterMenuItem($data);
+        $order = $this->getMaxParentsOrderNumber();
 
         $data['menu_id'] = Uuid::uuid1()->toString();
         $data['menu_uuid'] = (new MysqlUuid($data['menu_id']))->toFormat(new Binary());
+        $data['order_no'] = (!empty($order)) ? ($order + 1) : 1;
 
         return $this->menuMapper->insertMenuItem($data);
     }
@@ -103,10 +106,24 @@ class MenuService
 
     public function delete($id)
     {
+        $menu     = $this->menuMapper->select(['menu_id' => $id]);
         $children = $this->menuMapper->select(['parent_id' => $id]);
 
         if ($children->count()) {
-            throw new \Exception('This Menu Item has child items', 400);
+            $menu = $menu->current();
+            $this->menuMapper->update([
+                'order_no'  => new Expression('order_no + ' . ($children->count() - 1))], [
+                'parent_id' => $menu->parent_id,
+                'order_no'  => new Expression('order_no > ' . ($menu->order_no))
+            ]);
+
+            foreach ($children->toArray() as $child) {
+                $child['parent_id'] = $menu->parent_id;
+                $child['order_no'] += ($menu->order_no - 1);
+                $this->menuMapper->update($child, [
+                    'menu_id' => $child['menu_id']
+                ]);
+            }
         }
 
         return $this->menuMapper->delete(['menu_id' => $id]);
@@ -125,8 +142,7 @@ class MenuService
 
         try {
             $this->menuMapper->getAdapter()->getDriver()->getConnection()->beginTransaction();
-            $orderNo = 1;
-            $this->updateLevel($menuOrder, $orderNo, null);
+            $this->updateLevel($menuOrder, null);
             $this->menuMapper->getAdapter()->getDriver()->getConnection()->commit();
         } catch (\Exception $e) {
             $this->menuMapper->getAdapter()->getDriver()->getConnection()->rollback();
@@ -137,14 +153,14 @@ class MenuService
         return true;
     }
 
-    private function updateLevel($children, &$orderNo, $parentId = null)
+    private function updateLevel($children, $parentId = null)
     {
-        foreach ($children as $v) {
+        $i=0; foreach ($children as $v) { $i++;
             if (isset($v->children)) {
-                $this->menuMapper->update(['order_no' => $orderNo++, 'parent_id' => $parentId], ['menu_id' => $v->id]);
-                $this->updateLevel($v->children, $orderNo, $v->id);
+                $this->menuMapper->update(['order_no' => $i, 'parent_id' => $parentId], ['menu_id' => $v->id]);
+                $this->updateLevel($v->children, $v->id);
             } else {
-                $this->menuMapper->update(['order_no' => $orderNo++, 'parent_id' => $parentId], ['menu_id' => $v->id]);
+                $this->menuMapper->update(['order_no' => $i, 'parent_id' => $parentId], ['menu_id' => $v->id]);
             }
         }
     }
@@ -180,5 +196,24 @@ class MenuService
         unset($data['page_id'], $data['category_id']);
 
         return $data;
+    }
+
+    /**
+     * Returns max order number if found.
+     *
+     * @return integer|null
+     */
+    private function getMaxParentsOrderNumber()
+    {
+        $select = $this->menuMapper
+            ->getSql()
+            ->setTable('menu')
+            ->select()
+            ->where(['parent_id'  => new Expression('NULL')])
+            ->columns(['order_no' => new Expression('MAX(order_no)')])
+        ;
+
+        $result = $this->menuMapper->selectWith($select)->current();
+        return $result->order_no;
     }
 }
