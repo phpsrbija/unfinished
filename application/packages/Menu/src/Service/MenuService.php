@@ -21,46 +21,6 @@ class MenuService
     private $categoryService;
     private $pageService;
 
-    /**
-     * We store menu items in DB as flat structure,
-     * but we need nested(tree) structure to show in the menu.
-     *
-     * @param array $flatArray Array from DB
-     *
-     * @return array Return same array with tree structure
-     */
-    private function unflattenArray(array $flatArray)
-    {
-        $flatArray = array_reverse($flatArray);
-        $refs = [];
-        $result = [];
-
-        while (count($flatArray) > 0) {
-            for ($i = count($flatArray) - 1; $i >= 0; $i--) {
-                if (!isset($flatArray[$i]['children'])) {
-                    $flatArray[$i]['children'] = [];
-                }
-
-                if (!$flatArray[$i]['parent_id']) {
-                    $result[$flatArray[$i]['menu_id']] = $flatArray[$i];
-                    $refs[$flatArray[$i]['menu_id']] = &$result[$flatArray[$i]['menu_id']];
-                    unset($flatArray[$i]);
-                    $flatArray = array_values($flatArray);
-                } elseif ($flatArray[$i]['parent_id'] != 0) {
-                    if (array_key_exists($flatArray[$i]['parent_id'], $refs)) {
-                        $o = $flatArray[$i];
-                        $refs[$flatArray[$i]['menu_id']] = $o;
-                        $refs[$flatArray[$i]['parent_id']]['children'][] = &$refs[$flatArray[$i]['menu_id']];
-                        unset($flatArray[$i]);
-                        $flatArray = array_values($flatArray);
-                    }
-                }
-            }
-        }
-
-        return $result;
-    }
-
     public function __construct(
         MenuMapper $menuMapper,
         MenuFilter $menuFilter,
@@ -73,11 +33,35 @@ class MenuService
         $this->pageService = $pageService;
     }
 
+    /**
+     * We store menu items in DB as flat structure,
+     * but we need nested(tree) structure to show in the menu.
+     *
+     * @param array    $flatArray Array from DB
+     * @param int|bool $parent
+     *
+     * @return array Return same array with tree structure
+     */
+    private function buildTree(array $flatArray, $parent = null)
+    {
+        $result = [];
+
+        foreach ($flatArray as $element) {
+            if ($element['parent_id'] == $parent) {
+                $children = $this->buildTree($flatArray, $element['menu_id']);
+                $element['children'] = ($children) ? $children : [];
+                $result[] = $element;
+            }
+        }
+
+        return $result;
+    }
+
     public function getNestedAll($isActive = null, $filter = [])
     {
         $items = $this->menuMapper->selectAll($isActive, $filter)->toArray();
 
-        return $this->unflattenArray($items);
+        return $this->buildTree($items);
     }
 
     public function get($id)
@@ -209,7 +193,7 @@ class MenuService
             ->getSql()
             ->setTable('menu')
             ->select()
-            ->where(['parent_id'  => new Expression('NULL')])
+            ->where('parent_id IS NULL')
             ->columns(['order_no' => new Expression('MAX(order_no)')])
         ;
 
