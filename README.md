@@ -40,6 +40,7 @@ Such a way will lead us to easier:
 ### New packages
 - [x] News Letter
 - [ ] Contact Us
+- [ ] Settings (for global web site configuration like SEO tags)
 - [ ] Media (for images, admin)
 - [ ] User (for web users)
 
