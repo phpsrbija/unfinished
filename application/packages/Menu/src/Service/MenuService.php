@@ -12,6 +12,7 @@ use MysqlUuid\Uuid as MysqlUuid;
 use Page\Service\PageService;
 use Ramsey\Uuid\Uuid;
 use Std\FilterException;
+use Zend\Db\Sql\Expression;
 
 class MenuService
 {
@@ -19,46 +20,6 @@ class MenuService
     private $menuFilter;
     private $categoryService;
     private $pageService;
-
-    /**
-     * We store menu items in DB as flat structure,
-     * but we need nested(tree) structure to show in the menu.
-     *
-     * @param array $flatArray Array from DB
-     *
-     * @return array Return same array with tree structure
-     */
-    private function unflattenArray(array $flatArray)
-    {
-        $flatArray = array_reverse($flatArray);
-        $refs = [];
-        $result = [];
-
-        while (count($flatArray) > 0) {
-            for ($i = count($flatArray) - 1; $i >= 0; $i--) {
-                if (!isset($flatArray[$i]['children'])) {
-                    $flatArray[$i]['children'] = [];
-                }
-
-                if (!$flatArray[$i]['parent_id']) {
-                    $result[$flatArray[$i]['menu_id']] = $flatArray[$i];
-                    $refs[$flatArray[$i]['menu_id']] = &$result[$flatArray[$i]['menu_id']];
-                    unset($flatArray[$i]);
-                    $flatArray = array_values($flatArray);
-                } elseif ($flatArray[$i]['parent_id'] != 0) {
-                    if (array_key_exists($flatArray[$i]['parent_id'], $refs)) {
-                        $o = $flatArray[$i];
-                        $refs[$flatArray[$i]['menu_id']] = $o;
-                        $refs[$flatArray[$i]['parent_id']]['children'][] = &$refs[$flatArray[$i]['menu_id']];
-                        unset($flatArray[$i]);
-                        $flatArray = array_values($flatArray);
-                    }
-                }
-            }
-        }
-
-        return $result;
-    }
 
     public function __construct(
         MenuMapper $menuMapper,
@@ -72,11 +33,35 @@ class MenuService
         $this->pageService = $pageService;
     }
 
+    /**
+     * We store menu items in DB as flat structure,
+     * but we need nested(tree) structure to show in the menu.
+     *
+     * @param array    $flatArray Array from DB
+     * @param int|bool $parent
+     *
+     * @return array Return same array with tree structure
+     */
+    private function buildTree(array $flatArray, $parent = null)
+    {
+        $result = [];
+
+        foreach ($flatArray as $element) {
+            if ($element['parent_id'] == $parent) {
+                $children = $this->buildTree($flatArray, $element['menu_id']);
+                $element['children'] = ($children) ? $children : [];
+                $result[] = $element;
+            }
+        }
+
+        return $result;
+    }
+
     public function getNestedAll($isActive = null, $filter = [])
     {
         $items = $this->menuMapper->selectAll($isActive, $filter)->toArray();
 
-        return $this->unflattenArray($items);
+        return $this->buildTree($items);
     }
 
     public function get($id)
@@ -86,10 +71,12 @@ class MenuService
 
     public function addMenuItem($data)
     {
-        $data = $this->filterMenuItem($data);
+        $data  = $this->filterMenuItem($data);
+        $order = $this->getMaxParentsOrderNumber();
 
         $data['menu_id'] = Uuid::uuid1()->toString();
         $data['menu_uuid'] = (new MysqlUuid($data['menu_id']))->toFormat(new Binary());
+        $data['order_no'] = (!empty($order)) ? ($order + 1) : 1;
 
         return $this->menuMapper->insertMenuItem($data);
     }
@@ -103,10 +90,24 @@ class MenuService
 
     public function delete($id)
     {
+        $menu     = $this->menuMapper->select(['menu_id' => $id]);
         $children = $this->menuMapper->select(['parent_id' => $id]);
 
         if ($children->count()) {
-            throw new \Exception('This Menu Item has child items', 400);
+            $menu = $menu->current();
+            $this->menuMapper->update([
+                'order_no'  => new Expression('order_no + ' . ($children->count() - 1))], [
+                'parent_id' => $menu->parent_id,
+                'order_no'  => new Expression('order_no > ' . ($menu->order_no))
+            ]);
+
+            foreach ($children->toArray() as $child) {
+                $child['parent_id'] = $menu->parent_id;
+                $child['order_no'] += ($menu->order_no - 1);
+                $this->menuMapper->update($child, [
+                    'menu_id' => $child['menu_id']
+                ]);
+            }
         }
 
         return $this->menuMapper->delete(['menu_id' => $id]);
@@ -125,8 +126,7 @@ class MenuService
 
         try {
             $this->menuMapper->getAdapter()->getDriver()->getConnection()->beginTransaction();
-            $orderNo = 1;
-            $this->updateLevel($menuOrder, $orderNo, null);
+            $this->updateLevel($menuOrder, null);
             $this->menuMapper->getAdapter()->getDriver()->getConnection()->commit();
         } catch (\Exception $e) {
             $this->menuMapper->getAdapter()->getDriver()->getConnection()->rollback();
@@ -137,14 +137,14 @@ class MenuService
         return true;
     }
 
-    private function updateLevel($children, &$orderNo, $parentId = null)
+    private function updateLevel($children, $parentId = null)
     {
-        foreach ($children as $v) {
+        $i=0; foreach ($children as $v) { $i++;
             if (isset($v->children)) {
-                $this->menuMapper->update(['order_no' => $orderNo++, 'parent_id' => $parentId], ['menu_id' => $v->id]);
-                $this->updateLevel($v->children, $orderNo, $v->id);
+                $this->menuMapper->update(['order_no' => $i, 'parent_id' => $parentId], ['menu_id' => $v->id]);
+                $this->updateLevel($v->children, $v->id);
             } else {
-                $this->menuMapper->update(['order_no' => $orderNo++, 'parent_id' => $parentId], ['menu_id' => $v->id]);
+                $this->menuMapper->update(['order_no' => $i, 'parent_id' => $parentId], ['menu_id' => $v->id]);
             }
         }
     }
@@ -180,5 +180,24 @@ class MenuService
         unset($data['page_id'], $data['category_id']);
 
         return $data;
+    }
+
+    /**
+     * Returns max order number if found.
+     *
+     * @return integer|null
+     */
+    private function getMaxParentsOrderNumber()
+    {
+        $select = $this->menuMapper
+            ->getSql()
+            ->setTable('menu')
+            ->select()
+            ->where('parent_id IS NULL')
+            ->columns(['order_no' => new Expression('MAX(order_no)')])
+        ;
+
+        $result = $this->menuMapper->selectWith($select)->current();
+        return $result->order_no;
     }
 }

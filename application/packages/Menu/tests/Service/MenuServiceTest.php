@@ -306,39 +306,6 @@ class MenuServiceTest extends \PHPUnit_Framework_TestCase
         static::assertSame(true, $menuService->delete(1));
     }
 
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage This Menu Item has child items
-     */
-    public function testDeleteShouldThrowException()
-    {
-        $resultSet = $this->getMockBuilder(\Zend\Db\ResultSet\ResultSet::class)
-            ->setMethods(['count'])
-            ->getMockForAbstractClass();
-        $resultSet->expects(static::once())
-            ->method('count')
-            ->willReturn(1);
-        $menuFilter = $this->getMockBuilder(\Menu\Filter\MenuFilter::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $menuMapper = $this->getMockBuilder(\Menu\Mapper\MenuMapper::class)
-            ->setMethods(['select'])
-            ->disableOriginalConstructor()
-            ->getMock();
-        $menuMapper->expects(static::once())
-            ->method('select')
-            ->willReturn($resultSet);
-        $categoryService = $this->getMockBuilder(\Category\Service\CategoryService::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $pageService = $this->getMockBuilder(\Page\Service\PageService::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $menuService = new \Menu\Service\MenuService($menuMapper, $menuFilter, $categoryService, $pageService);
-
-        static::assertSame(true, $menuService->delete(1));
-    }
-
     public function testGetForSelectShouldReturnResultSet()
     {
         $menuFilter = $this->getMockBuilder(\Menu\Filter\MenuFilter::class)
