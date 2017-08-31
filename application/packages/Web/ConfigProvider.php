@@ -20,14 +20,15 @@ class ConfigProvider
 
             'dependencies' => [
                 'factories' => [
-                    Action\HomeAction::class   => Factory\Action\HomeActionFactory::class,
-                    Action\PageAction::class   => Factory\Action\PageActionFactory::class,
-                    Action\PostsAction::class  => Factory\Action\PostsActionFactory::class,
-                    Action\PostAction::class   => Factory\Action\PostActionFactory::class,
-                    Action\VideosAction::class => Factory\Action\VideosActionFactory::class,
-                    Action\VideoAction::class  => Factory\Action\VideoActionFactory::class,
-                    Action\EventsAction::class => Factory\Action\EventsActionFactory::class,
-                    Action\EventAction::class  => Factory\Action\EventActionFactory::class,
+                    Action\HomeAction::class      => Factory\Action\HomeActionFactory::class,
+                    Action\PageAction::class      => Factory\Action\PageActionFactory::class,
+                    Action\PostsAction::class     => Factory\Action\PostsActionFactory::class,
+                    Action\PostAction::class      => Factory\Action\PostActionFactory::class,
+                    Action\VideosAction::class    => Factory\Action\VideosActionFactory::class,
+                    Action\VideoAction::class     => Factory\Action\VideoActionFactory::class,
+                    Action\EventsAction::class    => Factory\Action\EventsActionFactory::class,
+                    Action\EventAction::class     => Factory\Action\EventActionFactory::class,
+                    Action\ContactUsAction::class => Factory\Action\ContactUsFactory::class
                 ],
             ],
 
@@ -36,6 +37,18 @@ class ConfigProvider
                     'name'       => 'home',
                     'path'       => '/',
                     'middleware' => Action\HomeAction::class,
+                ],
+                [
+                    'name'       => 'contact-us',
+                    'path'       => '/contact-us',
+                    'middleware' => Action\ContactUsAction::class,
+                    'allowed_methods' => ['POST', 'GET'],
+                ],
+                [
+                    'name'       => 'contact-us-post',
+                    'path'       => '/contact-us-post',
+                    'middleware' => Action\ContactUsAction::class,
+                    'allowed_methods' => ['POST'],
                 ],
                 [
                     'name'       => 'page',
@@ -59,7 +72,7 @@ class ConfigProvider
                         Action\VideoAction::class,
                         Action\EventAction::class,
                     ],
-                ],
+                ]
             ],
         ];
     }

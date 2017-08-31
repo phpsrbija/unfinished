@@ -1,0 +1,75 @@
+<?php /** @var \ContactUs\Entity\ContactUs $record */ ?>
+<?php /** @var \Zend\Paginator\Paginator $pagination */ ?>
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Contact Us
+                <small> / List of contact messages.</small>
+            </h3>
+        </div>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <a href="<?= $this->url('admin.contact-us.action', ['action' => 'edit', 'id' => 0]) ?>"
+                       class="btn btn-default pull-right btn-success"> Submit New
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <?php if($pagination->getTotalItemCount() > 0): ?>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Subject</th>
+                                <th>Created</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach($pagination as $record): ?>
+                                <tr>
+                                    <th><?= $record->getName(); ?></th>
+                                    <th><?= $record->getEmail(); ?></th>
+                                    <td><?= $record->getPhone(); ?></td>
+                                    <td><?= $record->getSubject(); ?></td>
+                                    <td><?= $record->getCreatedAt('H:i d.m.Y') ?></td>
+                                    <td>
+                                        <span class="pull-right">
+                                            <a href="<?= $this->url('admin.contact-us.action', ['action' => 'edit', 'id' => $record->getContactId()]) ?>">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </a> &nbsp;
+                                        </span>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <?= $this->paginationControl($pagination, 'Sliding', 'contact-us/pagination', ['route' => 'admin.contact-us']) ?>
+                    <?php else: ?>
+                        <div class="col-md-offset-3 col-sm-offset-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="jumbotron text-center">
+                                <h3>There are no contact messages!</h3>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

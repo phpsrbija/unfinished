@@ -14,6 +14,7 @@ $configManager = new ConfigAggregator([
     \Page\ConfigProvider::class,
     \Meetup\ConfigProvider::class,
     \Web\ConfigProvider::class,
+    \ContactUs\ConfigProvider::class,
 
     new PhpFileProvider('config/autoload/{{,*.}global,{,*.}local}.php'),
 ]);

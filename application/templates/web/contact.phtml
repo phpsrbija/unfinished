@@ -1,0 +1,89 @@
+<?php
+    $escaper = (new \Zend\Escaper\Escaper);
+    $this->headTitle('Kontakt');
+    $this->headMeta('kontakt stranica', 'description');
+    $this->headMeta('page', 'og:type');
+    $this->headMeta($this->serverUrl(), 'og:url');
+?>
+
+<div class="blog-page">
+    <div class="blog-page">
+        <div class="headline">Kontakt</div>
+    </div>
+
+    <ul class="blog-tags-wrapper"></ul>
+
+    <div class="blog-wrapper">
+
+        <div class="blog-posts">
+            <div class="clearfix">
+                <div class="row">
+                    <form class="col-md-8" method="POST" action="<?= $this->url('contact-us-post') ?>">
+                        <h4 style="font-weight: 700; font-size: 14px; text-transform: uppercase; margin-top: 0; padding-top: 0; float: left;">
+                            Kontakt Forma
+                        </h4>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" placeholder="Full name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" placeholder="Email address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="phone" placeholder="Phone number (optional)">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="subject" placeholder="Message subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" required rows="20">Message...</textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn" id="send-button" title="Send" style="background-color: #0e0d15;width: 200px;min-height: 50px; float: right; color: white;">
+                                Send
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-sidebar">
+            <h4>Ne propustite</h4>
+            <!-- Two last events -->
+            <?php foreach($this->event()->getLatest(2) as $event): ?>
+                <article class="blog-post-sidebar">
+                    <div class="image-wrapper-none">
+                        <img src="<?= $event->main_img ?>">
+
+                        <div class="blog-box-hover"></div>
+                    </div>
+                    <div class="blog-box-sidebar-content">
+                        <a href="<?= $this->url('category', ['category' => $event->category_slug]) ?>" class="category">Dešavanja</a>
+                        <a href="<?= $this->url('post', ['segment_1' => $event->category_slug, 'segment_2' => $event->slug]) ?>" class="title">
+                            <span><?= $event->title ?></span></a>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+            <!-- \Two last events -->
+
+            <!-- Latest blog posts -->
+            <?php foreach($this->post()->forWeb() as $post): ?>
+                <article class="blog-post-sidebar">
+                    <div class="image-wrapper-none">
+                        <img src="<?= $post->main_img ?>">
+
+                        <div class="blog-box-hover"></div>
+                    </div>
+                    <div class="blog-box-sidebar-content">
+                        <a href="<?= $this->url('category', ['category' => $post->category_slug]) ?>"
+                           class="category"><?= $post->category_name ?></a>
+                        <a href="<?= $this->url('post', ['segment_1' => $post->category_slug, 'segment_2' => $post->slug]) ?>"
+                           class="title"><span><?= $post->title ?></span></a>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+            <!-- \Latest blog posts -->
+        </div>
+    </div>
+</div>
+
