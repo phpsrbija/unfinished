@@ -69,6 +69,7 @@ class PageController extends AbstractController
         if ($this->request->getParsedBody()) {
             $page = new \Page\Entity\Page();
             $page->exchangeArray($this->request->getParsedBody() + (array) $page);
+            $page->setPageId($id);
         }
 
         return new HtmlResponse(
