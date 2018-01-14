@@ -1,4 +1,0 @@
----
-# vars file for Debian
-
-upstart_init_path: /etc/init

@@ -12,12 +12,12 @@ cd unfinished
 vagrant up
 
 open file /etc/hosts and at the end add one line: 
-192.168.33.3 unfinished.dev
+192.168.33.3 unfinished.test
 ```
 
-Open in your browser http://unfinished.dev and voila!
+Open in your browser http://unfinished.test and voila!
 
-Admin is at http://unfinished.dev/admin  
+Admin is at http://unfinished.test/admin  
 user: admin@unfinished.com    
 pass: testtest
 

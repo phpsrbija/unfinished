@@ -6,27 +6,28 @@ class ArticleEvents extends AbstractSeed
 {
     public function run()
     {
-        $adminUsers = new AdminUsers();
-        $faker = Faker\Factory::create();
-        $articleEvents = $this->table('article_events');
-        $articles = $this->table('articles');
-        $count = rand(100, 150);
-        $mainImages = $adminUsers->getImages($faker, 'city', 1200, 1200);
+        $adminUsers     = new AdminUsers();
+        $faker          = Faker\Factory::create();
+        $articleEvents  = $this->table('article_events');
+        $articles       = $this->table('articles');
+        $count          = rand(100, 150);
+        $mainImages     = $adminUsers->getImages($faker, 'city', 1200, 1200);
         $featuredImages = $adminUsers->getImages($faker, 'technics', 600, 600);
-
-        $allUsers = array_column($articleEvents->getAdapter()->fetchAll('select admin_user_uuid from admin_users'), 'admin_user_uuid');
-        $allCategory = array_column($articleEvents->getAdapter()->fetchAll(
-            'select category_uuid from category where type = '.\Article\Entity\ArticleType::EVENT), 'category_uuid'
+        $allUsers       = array_column($articleEvents->getAdapter()
+            ->fetchAll('select admin_user_uuid from admin_users'), 'admin_user_uuid');
+        $allCategory    = array_column($articleEvents->getAdapter()
+            ->fetchAll('select category_uuid from category where type = ' . \Article\Entity\ArticleType::EVENT),
+            'category_uuid'
         );
 
         for ($i = 0; $i < $count; $i++) {
             // Insert Article
-            $id = $faker->uuid;
-            $mysqlUuid = (new MysqlUuid\Uuid($id))->toFormat(new MysqlUuid\Formats\Binary());
-            $title = $faker->sentence();
-            $userUuid = $allUsers[rand(0, (count($allUsers) - 1))];
+            $id           = $faker->uuid;
+            $mysqlUuid    = (new MysqlUuid\Uuid($id))->toFormat(new MysqlUuid\Formats\Binary());
+            $title        = $faker->sentence();
+            $userUuid     = $allUsers[rand(0, (count($allUsers) - 1))];
             $categoryUuid = $allCategory[rand(0, (count($allCategory) - 1))];
-            $data = [
+            $data         = [
                 'article_uuid'      => $mysqlUuid,
                 'article_id'        => $id,
                 'slug'              => preg_replace('/[^a-z0-9]/i', '-', strtolower($title)),

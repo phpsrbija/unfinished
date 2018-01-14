@@ -10,7 +10,6 @@
     - php
     - { role: php-xdebug, use_xdebug: true, use_xdebug_profiler: true}
     - { role: composer, use_composer_no_dev: no }
-    - mailhog
 
   tasks:
     - name: Update bashrc for with the app environment

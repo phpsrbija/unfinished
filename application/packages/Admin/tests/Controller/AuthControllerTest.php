@@ -21,7 +21,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin'));
+            ->will(static::returnValue('http://unfinished.test/admin'));
         $sessionManager = $this->getMockBuilder(\Zend\Session\SessionManager::class)
             ->setMethods(['getStorage', 'writeClose'])
             ->getMock();
@@ -36,7 +36,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
         /** @var \Zend\Diactoros\Response\EmptyResponse $response */
         $response = $auth($request, $response);
         static::assertSame(302, $response->getStatusCode());
-        static::assertSame(['http://unfinished.dev/admin'], $response->getHeader('Location'));
+        static::assertSame(['http://unfinished.test/admin'], $response->getHeader('Location'));
     }
 
     public function testIfUserNotLoggedInLoginActionShouldTakeHimToLoginHtmlPage()
@@ -87,7 +87,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin'));
+            ->will(static::returnValue('http://unfinished.test/admin'));
         $sessionStorage = new \Zend\Session\Storage\ArrayStorage([
             'user' => 'user@example.org',
         ]);
@@ -98,7 +98,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
         $response = $auth($request, $response);
         static::assertNull($sessionManager->getStorage()->user);
         static::assertSame(302, $response->getStatusCode());
-        static::assertSame(['http://unfinished.dev/admin'], $response->getHeader('Location'));
+        static::assertSame(['http://unfinished.test/admin'], $response->getHeader('Location'));
     }
 
     public function testUserLoginHandleWithCorrectCredentialsShouldSetUserInSessionStorage()
@@ -128,7 +128,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin'));
+            ->will(static::returnValue('http://unfinished.test/admin'));
         $sessionStorage = new \Zend\Session\Storage\ArrayStorage();
         $sessionManager = new \Zend\Session\SessionManager();
         $sessionManager->setStorage($sessionStorage);
@@ -137,7 +137,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
         $response = $auth($request, $response);
         static::assertTrue($sessionManager->getStorage()->user->isLoggedIn);
         static::assertSame(302, $response->getStatusCode());
-        static::assertSame(['http://unfinished.dev/admin'], $response->getHeader('Location'));
+        static::assertSame(['http://unfinished.test/admin'], $response->getHeader('Location'));
     }
 
     public function testUserLoginHandleWithWrongCredentialsShouldNotSetUserInSessionStorage()
@@ -160,7 +160,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin'));
+            ->will(static::returnValue('http://unfinished.test/admin'));
         $sessionStorage = new \Zend\Session\Storage\ArrayStorage();
         $sessionManager = new \Zend\Session\SessionManager();
         $sessionManager->setStorage($sessionStorage);
@@ -170,7 +170,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
         $response = $auth($request, $response);
         static::assertNull($sessionManager->getStorage()->user);
         static::assertSame(302, $response->getStatusCode());
-        static::assertSame(['http://unfinished.dev/admin'], $response->getHeader('Location'));
+        static::assertSame(['http://unfinished.test/admin'], $response->getHeader('Location'));
     }
 
     public function testUserLoginHandleWitAlreadyLoggedInUserShouldRedirectToAdminPage()
@@ -188,7 +188,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin'));
+            ->will(static::returnValue('http://unfinished.test/admin'));
         $sessionStorage = new \Zend\Session\Storage\ArrayStorage([
             'user' => true,
         ]);
@@ -198,7 +198,7 @@ class AuthControllerTest extends \PHPUnit_Framework_TestCase
         /** @var \Zend\Diactoros\Response\HtmlResponse $response */
         $response = $auth($request, $response);
         static::assertSame(302, $response->getStatusCode());
-        static::assertSame(['http://unfinished.dev/admin'], $response->getHeader('Location'));
+        static::assertSame(['http://unfinished.test/admin'], $response->getHeader('Location'));
     }
 
     public function testUserLoginHandleShouldThrowExceptionAndDisplayMessage()
