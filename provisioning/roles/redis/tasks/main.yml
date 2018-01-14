@@ -1,9 +1,0 @@
----
-
-- name: add chris lea repository for redis
-  apt_repository: repo='ppa:chris-lea/redis-server' state=present update_cache=yes
-
-- name: Ensure packages are installed
-  apt: pkg={{ item }} update_cache=yes
-  with_items:
-    - redis-server

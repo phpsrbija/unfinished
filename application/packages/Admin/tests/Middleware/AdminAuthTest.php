@@ -14,7 +14,7 @@ class AdminAuthTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin/login'));
+            ->will(static::returnValue('http://unfinished.test/admin/login'));
         $request = new \Zend\Diactoros\ServerRequest();
         $response = new \Zend\Diactoros\Response();
         $adminAuthMiddleware = new \Admin\Middleware\AdminAuth($router, $session);
@@ -22,7 +22,7 @@ class AdminAuthTest extends \PHPUnit_Framework_TestCase
         $response = $adminAuthMiddleware($request, $response, function ($request, $response) {
         });
         static::assertSame(302, $response->getStatusCode());
-        static::assertSame(['http://unfinished.dev/admin/login'], $response->getHeader('Location'));
+        static::assertSame(['http://unfinished.test/admin/login'], $response->getHeader('Location'));
     }
 
     public function testExecutionShouldContinueFurtherIfUserIsLoggedIn()

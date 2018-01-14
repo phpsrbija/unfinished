@@ -92,14 +92,14 @@ echo "
    Setup Nginx vhost and change config
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"
 sudo php -r '$f = file_get_contents("/etc/nginx/nginx.conf"); $new_f = str_replace("sendfile on;", "sendfile off; client_max_body_size 12M;", $f);  file_put_contents("/etc/nginx/nginx.conf", $new_f);'
-sudo touch /etc/nginx/sites-available/unfinished.dev
+sudo touch /etc/nginx/sites-available/unfinished.conf
 
 sudo bash -c "echo 'server {
     listen 80;
     listen [::]:80;
     root /var/www/unfinished/public;
     index index.php index.html index.htm;
-    server_name unfinished.dev;
+    server_name unfinished.test;
     location / {
         root /var/www/unfinished/public;
         index  index.html index.htm index.php;
@@ -120,9 +120,9 @@ sudo bash -c "echo 'server {
         fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
         include fastcgi_params;
     }
-}' > /etc/nginx/sites-available/unfinished.dev"
+}' > /etc/nginx/sites-available/unfinished.conf"
 
-sudo cp /etc/nginx/sites-available/unfinished.dev /etc/nginx/sites-enabled/
+sudo cp /etc/nginx/sites-available/unfinished.conf /etc/nginx/sites-enabled/
 sudo service nginx restart          >> /dev/null 2>&1
 sudo service php7.0-fpm restart     >> /dev/null 2>&1
 
@@ -144,5 +144,5 @@ echo "
 ────────────────────────────────────────────────────────────────────────────────────────────────────────
    Almost done,
    In your /etc/hosts file add line
-   192.168.33.3 unfinished.dev
+   192.168.33.3 unfinished.test
 ────────────────────────────────────────────────────────────────────────────────────────────────────────"

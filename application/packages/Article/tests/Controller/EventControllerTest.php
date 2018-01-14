@@ -136,7 +136,7 @@ class EventControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin'));
+            ->will(static::returnValue('http://unfinished.test/admin'));
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'save');
         $request = $request->withParsedBody(['event' => 'test']);
@@ -178,7 +178,7 @@ class EventControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin'));
+            ->will(static::returnValue('http://unfinished.test/admin'));
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'save');
         $request = $request->withAttribute('id', 2);
@@ -311,7 +311,7 @@ class EventControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin'));
+            ->will(static::returnValue('http://unfinished.test/admin'));
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'delete');
         $request = $request->withAttribute('id', 2);

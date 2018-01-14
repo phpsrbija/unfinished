@@ -135,7 +135,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin/users'));
+            ->will(static::returnValue('http://unfinished.test/admin/users'));
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'save');
         $request = $request->withParsedBody(['user' => 'test']);
@@ -171,7 +171,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin/users'));
+            ->will(static::returnValue('http://unfinished.test/admin/users'));
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'save');
         $request = $request->withAttribute('id', 2);
@@ -285,7 +285,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin/users'));
+            ->will(static::returnValue('http://unfinished.test/admin/users'));
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'delete');
         $request = $request->withAttribute('id', 2);
@@ -325,7 +325,7 @@ class UserControllerTest extends \PHPUnit_Framework_TestCase
             ->getMockForAbstractClass();
         $router->expects(static::at(0))
             ->method('generateUri')
-            ->will(static::returnValue('http://unfinished.dev/admin/users'));
+            ->will(static::returnValue('http://unfinished.test/admin/users'));
         $request = new \Zend\Diactoros\ServerRequest();
         $request = $request->withAttribute('action', 'delete');
         $request = $request->withAttribute('id', 2);
