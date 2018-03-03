@@ -22,8 +22,8 @@ class Page extends AbstractSeed
             'description'       => $faker->paragraph(5),
             'main_img'          => '',
             'has_layout'        => true,
-            'is_homepage'       => false,
-            'is_wysiwyg_editor' => false,
+            'is_homepage'       => true,
+            'is_wysiwyg_editor' => true,
             'is_active'         => rand(0, 1),
         ])->save();
     }
