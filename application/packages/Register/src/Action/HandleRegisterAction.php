@@ -49,9 +49,19 @@ class HandleRegisterAction
         } catch (FilterException $fe) {
 
             return new HtmlResponse($this->template->render('register::index', [
-                'data'   => $data,
-                'errors' => $fe->getArrayMessages(),
-                'layout' => 'layout/web'
+                'exception' => null,
+                'data'      => $data,
+                'errors'    => $fe->getArrayMessages(),
+                'layout'    => 'layout/web'
+            ]));
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+
+            return new HtmlResponse($this->template->render('register::index', [
+                'data'      => $data,
+                'exception' => 'Something went wrong, please contact us at pr@phpsrbija.rs',
+                'errors'    => null,
+                'layout'    => 'layout/web'
             ]));
         }
 

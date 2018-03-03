@@ -45,6 +45,10 @@ $this->headMeta('Prijavi se da budeš član udruženja PHPSrbija.', 'og:descript
             mogu doprineti radu i razvoju Udruženja.
             <br/><br/>
 
+
+            <?php if ($exception): ?>
+                <strong class="text-danger"><?= $exception ?></strong>
+            <?php endif; ?>
             <form class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data"
                   action="<?= $this->url('register-handle') ?>">
                 <div class="row">

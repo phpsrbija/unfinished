@@ -41,9 +41,10 @@ class RegisterAction
     public function __invoke(Request $request, Response $response, callable $next = null): HtmlResponse
     {
         return new HtmlResponse($this->template->render('register::index', [
-            'data'   => null,
-            'errors' => null,
-            'layout' => 'layout/web'
+            'data'      => null,
+            'errors'    => null,
+            'exception' => null,
+            'layout'    => 'layout/web'
         ]));
     }
 }

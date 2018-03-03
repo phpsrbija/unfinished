@@ -30,17 +30,13 @@ class RegisterService
             throw new FilterException($filter->getMessages());
         }
 
-        $data = $filter->getValues();
-
-
+        $data       = $filter->getValues();
         $htmlString = '<h1>Nova prijava za članstvo!</h1><br/><br/>';
         foreach ($data as $title => $userInput) {
             $htmlString .= "$title: $userInput<br/>";
         }
 
         $this->sendEmail($htmlString);
-
-        return true;
     }
 
     private function sendEmail($htmlString)
