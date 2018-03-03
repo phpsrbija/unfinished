@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace MeetupRegister\Service;
 
 use Interop\Container\ContainerInterface;
-use MeetupRegister\Service\RegisterService;
 use MeetupRegister\Filter\RegisterFilter;
 use ReCaptcha\ReCaptcha;
 use Zend\Mail\Transport\Smtp as SmtpTransport;

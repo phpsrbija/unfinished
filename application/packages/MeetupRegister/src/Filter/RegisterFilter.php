@@ -18,7 +18,7 @@ class RegisterFilter implements InputFilterAwareInterface
             [
                 'name'       => 'firstName',
                 'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
+                'filters'    => [['name' => 'StringTrim'], ['name' => 'StripTags'], ['name' => 'StripNewlines']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
@@ -30,7 +30,7 @@ class RegisterFilter implements InputFilterAwareInterface
             [
                 'name'       => 'lastName',
                 'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
+                'filters'    => [['name' => 'StringTrim'], ['name' => 'StripTags'], ['name' => 'StripNewlines']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
@@ -42,7 +42,7 @@ class RegisterFilter implements InputFilterAwareInterface
             [
                 'name'       => 'email',
                 'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
+                'filters'    => [['name' => 'StringTrim'], ['name' => 'StripTags'], ['name' => 'StripNewlines']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
                     ['name' => 'EmailAddress'],
@@ -54,7 +54,7 @@ class RegisterFilter implements InputFilterAwareInterface
             [
                 'name'       => 'subject',
                 'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
+                'filters'    => [['name' => 'StringTrim'], ['name' => 'StripTags'], ['name' => 'StripNewlines']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
@@ -66,7 +66,7 @@ class RegisterFilter implements InputFilterAwareInterface
             [
                 'name'       => 'slideUrl',
                 'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
+                'filters'    => [['name' => 'StringTrim'], ['name' => 'StripTags'], ['name' => 'StripNewlines']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100]],
@@ -78,7 +78,7 @@ class RegisterFilter implements InputFilterAwareInterface
             [
                 'name'       => 'description',
                 'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
+                'filters'    => [['name' => 'StringTrim'], ['name' => 'StripTags'], ['name' => 'StripNewlines']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 100000]],
@@ -90,7 +90,7 @@ class RegisterFilter implements InputFilterAwareInterface
             [
                 'name'       => 'bio',
                 'required'   => true,
-                'filters'    => [['name' => 'StringTrim']],
+                'filters'    => [['name' => 'StringTrim'], ['name' => 'StripTags'], ['name' => 'StripNewlines']],
                 'validators' => [
                     ['name' => 'NotEmpty'],
                     ['name' => 'StringLength', 'options' => ['min' => 2, 'max' => 50000]],

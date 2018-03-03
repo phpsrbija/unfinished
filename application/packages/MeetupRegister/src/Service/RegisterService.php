@@ -32,8 +32,6 @@ class RegisterService
         if ($resp->isSuccess()) {
 
         } else {
-//            $errors = $resp->getErrorCodes();
-
             throw new \Exception('Captcha was not solved properly.', 400);
         }
 
