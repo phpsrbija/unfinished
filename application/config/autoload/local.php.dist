@@ -18,7 +18,11 @@ return [
         'key' => '1a16666057586205f62f806f234d57'
     ],
     'recaptcha' => [
-        'secret' => '6LcBTEoUAAAAAEP-zWmjQSFjOVXvlMc02I2msTmU',
-        'public' => '6LcBTEoUAAAAAFoMZdz4Ygez4SPoNXuiczNGwUgd'
+        'secret' => '',
+        'public' => ''
+    ],
+    'gmail_config' => [
+        'username' => '',
+        'password' => ''
     ]
 ];

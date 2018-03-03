@@ -1,0 +1,137 @@
+<?php
+$this->headTitle('Priključi se!');
+$this->headMeta('Prijavi se da budeš član udruženja PHPSrbija.', 'description');
+$this->headMeta('post', 'og:type');
+$this->headMeta($this->serverUrl('/uploads/f/f/5/ff59f46f3ff13ef8a18092fc01861072.jpg'), 'og:image');
+$this->headMeta($this->serverUrl(), 'og:url');
+$this->headMeta('Prijavi se da budeš član udruženja PHPSrbija.', 'og:description');
+?>
+
+<div class="blog-page-single">
+    <div class="blog-single-wrapper">
+        <div class="social-share">
+            <div class="social-icons social-icon__vertical">
+                <div class="social-icon-shared">
+                    <strong class="total-shares">0</strong>
+                    <span>Podeljeno</span>
+                </div>
+                <a href="<?= $this->serverUrl() ?>" target="_blank" data-title="Priključi se!"
+                   data-image="<?= $this->serverUrl('/uploads/f/f/5/ff59f46f3ff13ef8a18092fc01861072.jpg') ?>">
+                    <button class="btn btn-white social facebook-share icon-facebook"></button>
+                </a>
+                <a href="<?= $this->serverUrl() ?>" target="_blank" data-title="Priključi se!"
+                   data-image="<?= $this->serverUrl('/uploads/f/f/5/ff59f46f3ff13ef8a18092fc01861072.jpg') ?>">
+                    <button class="btn btn-white social twitter-share icon-twitter"></button>
+                </a>
+                <a href="<?= $this->serverUrl() ?>" target="_blank" data-title="Priključi se!"
+                   data-image="<?= $this->serverUrl('/uploads/f/f/5/ff59f46f3ff13ef8a18092fc01861072.jpg') ?>">
+                    <button class="btn btn-white social linkedin-share icon-linkedin"></button>
+                </a>
+            </div>
+        </div>
+
+        <div class="blog-text">
+            <h1>Priključi se</h1>
+
+            Želiš da se uključiš i da zajedno sa nama radiš na jačanju PHP zajednice u Srbiji? Postoje dva načina.
+            Na tebi je da odabereš koji ti više odgovara.
+            <br/><br/>
+            <b>Član Udruženja</b><br/>
+            <b>Saradnik</b>
+            <br/><br/>
+            Od članova i saradnika očekujemo posvećenost, entuzijazam i pozitivnu energiju jer samo tako možemo doći do
+            rezultata i ciljeva kojima stremimo. Upravni odbor Udruženja će razmotriti vašu prijavu i blagovremeno vam
+            odgovoriti. Mi nažalost nismo u mogućnosti da prihvatimo svaku prijavu već samo one za koje procenimo da
+            mogu doprineti radu i razvoju Udruženja.
+            <br/><br/>
+
+
+            <?php if ($exception): ?>
+                <strong class="text-danger"><?= $exception ?></strong>
+            <?php endif; ?>
+            <form class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data"
+                  action="<?= $this->url('register-handle') ?>">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+
+                        <div class="form-group">
+                            <label class="col-md-12 col-sm-12 col-xs-12">Ime i prezime</label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input type="text" class="form-control" name="full_name"
+                                       value="<?= $data ? $data['full_name'] : '' ?>">
+                                <strong class="text-danger">
+                                    <?= (isset($errors->full_name) ? implode('<br/>',
+                                        (array)$errors->full_name) : ''); ?>
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12 col-sm-12 col-xs-12">Tvoj e-mail</label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input type="text" class="form-control" name="email"
+                                       value="<?= $data ? $data['email'] : '' ?>">
+                                <strong class="text-danger">
+                                    <?= (isset($errors->email) ? implode('<br/>',
+                                        (array)$errors->email) : ''); ?>
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12 col-sm-12 col-xs-12">Tvoj telefon</label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input type="text" class="form-control" name="phone"
+                                       value="<?= $data ? $data['phone'] : '' ?>">
+                                <strong class="text-danger">
+                                    <?= (isset($errors->phone) ? implode('<br/>',
+                                        (array)$errors->phone) : ''); ?>
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12 col-sm-12 col-xs-12">Linkedin profil (URL)</label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <input type="text" class="form-control" name="url"
+                                       value="<?= $data ? $data['url'] : '' ?>">
+                                <strong class="text-danger">
+                                    <?= (isset($errors->url) ? implode('<br/>',
+                                        (array)$errors->url) : ''); ?>
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12 col-sm-12 col-xs-12">
+                                Napiši nam zašto želiš da budeš deo naše zajednice
+                            </label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <textarea class="form-control" rows="5"
+                                          name="cover_letter"><?= $data ? $data['cover_letter'] : '' ?></textarea>
+                                <strong class="text-danger">
+                                    <?= (isset($errors->cover_letter) ? implode('<br/>',
+                                        (array)$errors->cover_letter) : ''); ?>
+                                </strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-9 col-md-9 col-lg-9">
+                                <button type="submit" class="btn btn-blue">Pošalji prijavu</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <?= $this->partial('templates::partial/disqus.phtml'); ?>
+        </div>
+    </div>
+</div>
+
+<!-- Separate footer  -->
+<div class="half-pagination">
+    <div class="paginate-prev"></div>
+    <div class="paginate-next"></div>
+</div>
