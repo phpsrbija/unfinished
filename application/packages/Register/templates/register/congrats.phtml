@@ -1,0 +1,32 @@
+<div class="blog-page-single">
+    <div class="blog-single-wrapper">
+
+        <!-- respect layout with dummy DOM :/ -->
+        <div class="social-share">
+            <div class="social-icons social-icon__vertical">
+                <div class="social-icon-shared">
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-text">
+            <h1>Čestitamo :)</h1>
+
+            <div class="alert alert-info" role="alert">
+                Vaša prijava je zabeležena.<br/>
+                Neko će vas kontaktirati iz organizacije u najbrže mogučem roku.
+            </div>
+
+
+            <br/><br/>
+
+            <?= $this->partial('templates::partial/disqus.phtml'); ?>
+        </div>
+    </div>
+</div>
+
+<!-- Separate footer  -->
+<div class="half-pagination">
+    <div class="paginate-prev"></div>
+    <div class="paginate-next"></div>
+</div>
