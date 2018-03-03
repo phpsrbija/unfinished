@@ -14,10 +14,28 @@ class RegisterServiceFactory
     public function __invoke(ContainerInterface $container): RegisterService
     {
         $recaptcha = new ReCaptcha($container->get('config')['recaptcha']['secret']);
+        $config     = $container->get('config');
+        $mailConfig = $config['gmail_config'];
+        $config     = [
+            'name'              => 'smtp.gmail.com',
+            'host'              => 'smtp.gmail.com',
+            'connection_class'  => 'login',
+            'port'              => '587',
+            'connection_config' => [
+                'username' => $mailConfig['username'],
+                'password' => $mailConfig['password'],
+                'ssl'      => 'tls',
+            ]
+        ];
+
+        $transport = new SmtpTransport;
+        $options   = new SmtpOptions($config);
+        $transport->setOptions($options);
 
         return new RegisterService(
             $container->get(RegisterFilter::class),
-            $recaptcha
+            $recaptcha,
+            $transport
         );
     }
 }
