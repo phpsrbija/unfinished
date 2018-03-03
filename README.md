@@ -6,7 +6,7 @@
 
 ## Installation
 
-### Vagrant (Recommended)
+### Vagrant
 
 ```
 git clone https://github.com/phpsrbija/unfinished.git
