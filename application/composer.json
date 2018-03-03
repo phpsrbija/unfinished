@@ -29,7 +29,8 @@
         "tasmaniski/upload-helper":"^1.0",
         "guzzlehttp/guzzle": "^6.1",
         "zendframework/zend-escaper": "^2.5",
-        "zendframework/zend-http": "^2.6"
+        "zendframework/zend-http": "^2.6",
+        "google/recaptcha": "~1.1"
     },
     "require-dev": {
         "robmorgan/phinx": "^0.6.4",
@@ -49,6 +50,7 @@
             "Category\\": "packages/Category/src/",
             "Article\\": "packages/Article/src/",
             "Newsletter\\": "packages/Newsletter/src/",
+            "MeetupRegister\\": "packages/MeetupRegister/src/",
             "Page\\": "packages/Page/src/",
             "Meetup\\": "packages/Meetup/src/"
         }

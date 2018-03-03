@@ -1,0 +1,117 @@
+<div>
+    <h3 align="center">Prijavite se kao predavac na nasem meetup-u</h3>
+    <br /><br />
+</div>
+<div id="formWrapper">
+    <ul class="parsley-errors-list">
+        <li class="">
+            <?= (isset($errors->captcha) ? implode('. ', (array)$errors->captcha) : ''); ?>
+        </li>
+    </ul>
+<?php if (!$success) : ?>
+    <form class="form-horizontal form-label-left" method="POST" action="<?= $this->url('submit-meetup-register') ?>">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <div class="form-group">
+                    <label class="col-md-12 col-sm-12 col-xs-12">Ime</label>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input required type="text" class="form-control" name="firstName" placeholder="Ime" value="">
+                        <ul class="parsley-errors-list">
+                            <li class="">
+                                <?= (isset($errors->firstName) ? implode('. ', (array)$errors->firstName) : ''); ?>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-12 col-sm-12 col-xs-12">Prezime</label>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input required type="text" class="form-control" name="lastName" placeholder="Prezime" value="">
+                        <ul class="parsley-errors-list">
+                            <li class="">
+                                <?= (isset($errors->firstName) ? implode('. ', (array)$errors->firstName) : ''); ?>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-12 col-sm-12 col-xs-12">Email</label>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input required type="text" class="form-control" name="email" placeholder="email adresa" value="">
+                        <ul class="parsley-errors-list">
+                            <li class="">
+                                <?= (isset($errors->email) ? implode('. ', (array)$errors->email) : ''); ?>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-12 col-sm-12 col-xs-12">Naslov predavanja</label>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input required type="text" class="form-control" name="subject" placeholder="Naslov" value="">
+                        <ul class="parsley-errors-list">
+                            <li class="">
+                                <?= (isset($errors->subject) ? implode('. ', (array)$errors->subject) : ''); ?>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-12 col-sm-12 col-xs-12">Opis predavanja</label>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <textarea required class="form-control" name="description" placeholder="Opis predavanja"></textarea>
+                        <ul class="parsley-errors-list">
+                            <li class="">
+                                <?= (isset($errors->description) ? implode('. ', (array)$errors->description) : ''); ?>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-12 col-sm-12 col-xs-12">Url do slajdova</label>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input type="text" class="form-control" name="slideUrl" placeholder="Url do slajdova" value="">
+                        <ul class="parsley-errors-list">
+                            <li class="">
+                                <?= (isset($errors->slideUrl) ? implode('. ', (array)$errors->slideUrl) : ''); ?>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-12 col-sm-12 col-xs-12">Kratak info o predavacu</label>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <textarea required class="form-control" name="bio" placeholder="Kratak info o predavacu"></textarea>
+                        <ul class="parsley-errors-list">
+                            <li class="">
+                                <?= (isset($errors->bio) ? implode('. ', (array)$errors->bio) : ''); ?>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="g-recaptcha" data-sitekey="6LcBTEoUAAAAAFoMZdz4Ygez4SPoNXuiczNGwUgd"></div>
+
+                <div class="form-group">
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <button type="submit" class="btn btn-blue">Prijavi se</button>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+<?php else: ?>
+    <p>
+       Hvala vam na interesovanju za meetup. Kontaktiracemo vas u najkracem roku.
+    </p>
+<?php endif; ?>
+
+</div>
