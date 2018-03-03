@@ -14,7 +14,6 @@ services:
           - 9000
       volumes_from:
           - app
-      tty: true
       working_dir: /var/www/unfinished
   app:
       build:
