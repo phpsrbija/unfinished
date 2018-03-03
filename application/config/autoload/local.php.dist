@@ -16,5 +16,9 @@ return [
     ],
     'meetupApi' => [
         'key' => '1a16666057586205f62f806f234d57'
+    ],
+    'gmail_config' => [
+        'username' => '',
+        'password' => ''
     ]
 ];

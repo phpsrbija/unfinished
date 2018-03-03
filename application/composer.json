@@ -29,12 +29,14 @@
         "tasmaniski/upload-helper":"^1.0",
         "guzzlehttp/guzzle": "^6.1",
         "zendframework/zend-escaper": "^2.5",
-        "zendframework/zend-http": "^2.6"
+        "zendframework/zend-http": "^2.6",
+        "zendframework/zend-mail": "2.8.0",
+        "http-interop/http-middleware": "^0.4.1"
     },
     "require-dev": {
         "robmorgan/phinx": "^0.6.4",
         "fzaninotto/faker": "1.6.*",
-        "phpunit/phpunit": "5.6.1",
+        "phpunit/phpunit": "5.6.*",
         "squizlabs/php_codesniffer": "3.0.0a1",
         "roave/security-advisories": "dev-master",
         "digitronac/coverage-checker": "1.0.0",
@@ -50,7 +52,8 @@
             "Article\\": "packages/Article/src/",
             "Newsletter\\": "packages/Newsletter/src/",
             "Page\\": "packages/Page/src/",
-            "Meetup\\": "packages/Meetup/src/"
+            "Meetup\\": "packages/Meetup/src/",
+            "Register\\": "packages/Register/src/"
         }
     },
     "scripts": {
