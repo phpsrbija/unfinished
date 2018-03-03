@@ -1,5 +1,4 @@
 {
-
     "name": "phpsrbija/unfinished",
     "description": "Fast, enterprise CMS for User Groups",
     "type": "project",
@@ -30,7 +29,7 @@
         "guzzlehttp/guzzle": "^6.1",
         "zendframework/zend-escaper": "^2.5",
         "zendframework/zend-http": "^2.6",
-        "google/recaptcha": "~1.1"
+        "google/recaptcha": "~1.1",
         "zendframework/zend-mail": "2.8.0",
         "http-interop/http-middleware": "^0.4.1"
     },
