@@ -7,22 +7,23 @@ services:
       volumes_from:
           - app
   php:
-      #restart: always
-      build: ./docker/php7.0-fpm/
-      ##build: .
-      #restart: always
-      #image: phpdockerio/php7-fpm
+      build:
+          context: ./docker/php7.0-fpm
+          dockerfile: ./Dockerfile
       expose:
           - 9000
       volumes_from:
           - app
+      tty: true
+      working_dir: /var/www/unfinished
   app:
-      image: phpdockerio/php7-fpm
+      build:
+          context: ./docker/app
+          dockerfile: ./Dockerfile
       volumes:
           - ./application:/var/www/unfinished
       command: "true"
   mysql:
-#      build: ./mysql/
       image: mysql:latest
       volumes_from:
           - data
@@ -47,4 +48,3 @@ services:
       image: redis
       expose:
           - 6379
-      #command: "start"

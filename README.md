@@ -4,7 +4,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/phpsrbija/unfinished/badge.svg)](https://coveralls.io/github/phpsrbija/unfinished)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/phpsrbija/unfinished/badges/quality-score.png?s=4023c984fc1163a44f4220cd7d57406643ced9f2)](https://scrutinizer-ci.com/g/phpsrbija/unfinished/)
 
-## Instalation
+## Installation
+
+### Vagrant (Recommended)
 
 ```
 git clone https://github.com/phpsrbija/unfinished.git
@@ -18,6 +20,23 @@ open file /etc/hosts and at the end add one line:
 Open in your browser http://unfinished.test and voila!
 
 Admin is at http://unfinished.test/admin  
+user: admin@unfinished.com    
+pass: testtest
+
+### Docker
+
+```
+git clone https://github.com/phpsrbija/unfinished.git
+cd unfinished
+docker-compose up
+docker-compose run php composer install
+docker-compose run php bin/setup-db.sh docker
+
+```
+
+Open in your browser http://localhost and voila!
+
+Admin is at http://localhost/admin  
 user: admin@unfinished.com    
 pass: testtest
 
