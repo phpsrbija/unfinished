@@ -22,7 +22,7 @@ class Page extends AbstractSeed
             'description'       => $faker->paragraph(5),
             'main_img'          => '',
             'has_layout'        => true,
-            'is_homepage'       => true,
+            'is_homepage'       => 0,
             'is_wysiwyg_editor' => true,
             'is_active'         => rand(0, 1),
         ])->save();
