@@ -19,7 +19,7 @@ class AdminUsers extends AbstractSeed
             $filename = md5(rand()).'.jpg';
             $path = $p.$filename[0].'/'.$filename[1].'/'.$filename[2].'/'.$filename;
             $upload->getPath($filename); // create sub folders
-            $img = file_get_contents($faker->imageUrl(400, 400, $type));
+            $img = file_get_contents(__DIR__ . '/images/' . $width . '_' . $height . '_' . $type . '.jpg');
             file_put_contents($path, $img);
 
             $images[] = $upload->getWebPath($filename);
