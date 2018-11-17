@@ -17,7 +17,7 @@ final class ImageUploadAction
     /**
      * IndexAction constructor.
      *
-     * @param Template $template template engine
+     * @param Upload $upload template engine
      */
     public function __construct(Upload $upload)
     {
