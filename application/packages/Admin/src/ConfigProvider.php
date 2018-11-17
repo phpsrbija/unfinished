@@ -23,6 +23,7 @@ class ConfigProvider
                 'factories' => [
                     'session'                        => Factory\SessionFactory::class,
                     Action\IndexAction::class        => Factory\Action\IndexFactory::class,
+                    Action\ImageUploadAction::class  => Factory\Action\ImageUploadFactory::class,
                     Controller\AuthController::class => Factory\Controller\AuthFactory::class,
                     Controller\UserController::class => Factory\Controller\UserFactory::class,
 
@@ -57,6 +58,12 @@ class ConfigProvider
                     'name'            => 'admin.users.action',
                     'path'            => '/admin/users/{action}/{id}',
                     'middleware'      => Controller\UserController::class,
+                    'allowed_methods' => ['GET', 'POST'],
+                ],
+                [
+                    'name'            => 'admin.images.upload',
+                    'path'            => '/admin/images/upload',
+                    'middleware'      => Action\ImageUploadAction::class,
                     'allowed_methods' => ['GET', 'POST'],
                 ],
             ],

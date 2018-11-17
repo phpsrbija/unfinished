@@ -220,11 +220,20 @@
 <?php
 $this->inlineScript()->appendScript("
     $(document).ready(function() {
-        initMce('#body', '100%', 500, true);
-
-        $('.articleForm').on('submit', function(e) {
-            tinyMCE.triggerSave();
-        });
+        tinymce.init({ 
+        selector:'#body',
+        images_upload_url: '/admin/images/upload',
+        automatic_uploads: true,
+        plugins: [
+            'advlist autolink lists link image charmap preview anchor textcolor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code help wordcount'
+        ],
+        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+            '//www.tinymce.com/css/codepen.min.css']
+            });
         
         $('#published_at_calendar').daterangepicker({
             timePicker24Hour: true,
