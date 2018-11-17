@@ -184,7 +184,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">WYSIWYG</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12">
                                     <input type="checkbox" class="js-switch" value="1" id="is_wysiwyg_editor"
-                                           name="is_wysiwyg_editor" <?= (isset($post->is_wysiwyg_editor) && $post->is_wysiwyg_editor == 1) ? 'checked' : ''; ?> />
+                                           name="is_wysiwyg_editor" <?= (!isset($post->is_wysiwyg_editor) || isset($post->is_wysiwyg_editor) && $post->is_wysiwyg_editor == 1) ? 'checked' : ''; ?> />
                                     <ul class="parsley-errors-list">
                                         <li class="">
                                             <?= (isset($errors->is_wysiwyg_editor) ? implode('. ', (array)$errors->is_wysiwyg_editor) : ''); ?>
@@ -218,14 +218,24 @@
     </div>
 </div>
 
-<?php if(isset($post->is_wysiwyg_editor) && $post->is_wysiwyg_editor): ?>
+<?php if(!isset($post->is_wysiwyg_editor) || isset($post->is_wysiwyg_editor) && $post->is_wysiwyg_editor): ?>
     <?php
     $this->inlineScript()->appendScript("
     $(document).ready(function() {
-        initMce('#body', '100%', 500, true);
-        $('.articleForm').on('submit', function(e) {
-            tinyMCE.triggerSave();
-        });
+        tinymce.init({ 
+        selector:'#body',
+        images_upload_url: '/admin/images/upload',
+        automatic_uploads: true,
+        plugins: [
+            'advlist autolink lists link image charmap preview anchor textcolor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code help wordcount'
+        ],
+        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+            '//www.tinymce.com/css/codepen.min.css']
+            });
     });
     ");
     ?>

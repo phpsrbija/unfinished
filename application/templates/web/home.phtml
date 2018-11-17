@@ -118,7 +118,9 @@ $this->headMeta($page ? $escaper->escapeHtml($page->getDescription()) : '', 'og:
     <div class="slider-video-wrapper">
         <div class="headline">Video Materijali</div>
         <div class="slider slider-video">
+            <?php $videoCat = false; ?>
             <?php foreach($this->video()->getLatest() as $video): ?>
+            <?php $videoCat = true; ?>
                 <div class="video-slide">
                     <div class="video-wrapper">
                         <video poster="<?= $video->featured_img ?>">
@@ -136,7 +138,9 @@ $this->headMeta($page ? $escaper->escapeHtml($page->getDescription()) : '', 'og:
                 </div>
             <?php endforeach; ?>
         </div>
+        <?php if ($videoCat): ?>
         <a class="link video" href="<?= $this->url('category', ['category' => $video->category_slug]) ?>">Pogledaj sve video zapise</a>
+        <?php endif; ?>
     </div>
     <div class="slider slider-thumbnail">
         <?php foreach($this->video()->getLatest() as $video): ?>
