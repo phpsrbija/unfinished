@@ -13,6 +13,7 @@ $configManager = new ConfigAggregator([
     \Newsletter\ConfigProvider::class,
     \Page\ConfigProvider::class,
     \Meetup\ConfigProvider::class,
+    \MeetupRegister\ConfigProvider::class,
     \Register\ConfigProvider::class,
     \Web\ConfigProvider::class,
 
