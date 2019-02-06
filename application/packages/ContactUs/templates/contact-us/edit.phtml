@@ -1,0 +1,103 @@
+<?php /** @var \ContactUs\Entity\ContactUs $contact */ ?>
+
+<? /* normalize errors */ ?>
+<?= $this->partial('contact-us/errors', ['errors' => $errors]) ?>
+
+<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>
+                    <?php if($contact && $contact->getContactId()): ?>
+                        <h2>Subject: "<?= $contact->getSubject() ?>"</h2>
+                    <?php else: ?>
+                        <h2>Message Edit</h2>
+                    <?php endif; ?>
+                </h2>
+                <a href="<?= $this->url('admin.contact-us') ?>" class="btn btn-default pull-right">
+                    <i class="fa fa-reply"></i> Back
+                </a>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content"><br/>
+                <form class="form-horizontal form-label-left" method="POST" enctype="multipart/form-data"
+                      action="<?= $this->url('admin.contact-us.action', ['action' => 'save', 'id' => $contact && $contact->getContactId() ? $contact->getContactId() : 0]) ?>">
+
+                    <div class="form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label">Sender Name</label>
+                            <input class="form-control" id="name" name="name" placeholder="Sender Name"
+                                   value="<?= $contact ? $contact->getName() : '' ?>">
+
+                            <?= (isset($errors->name) ? $errors->name : ''); ?>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label">Sender Email</label>
+                            <input class="form-control" id="email" name="email" placeholder="Sender Email"
+                                   value="<?= $contact ? $contact->getEmail() : '' ?>">
+
+                            <?= (isset($errors->email) ? $errors->email : ''); ?>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label">Sender Phone</label>
+                            <input class="form-control" id="phone" name="phone" placeholder="Sender Phone"
+                                   value="<?= $contact ? $contact->getPhone() : '' ?>">
+
+                            <?= (isset($errors->phone ) ? $errors->phone : ''); ?>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label">Sender Subject</label>
+                            <input class="form-control" id="subject" name="subject" placeholder="Sender Subject"
+                                   value="<?= $contact ? $contact->getSubject() : '' ?>">
+
+                            <?= (isset($errors->subject ) ? $errors->subject : ''); ?>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label class="control-label">Message Text</label>
+                            <textarea class="form-control" id="body" name="body" placeholder="Message Body..."
+                                      rows="10"><?= $contact ? $contact->getBody() : '' ?></textarea>
+
+                            <?= (isset($errors->body ) ? $errors->body : ''); ?>
+
+                        </div>
+                    </div>
+
+                    <div class="ln_solid"></div>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button type="submit" class="btn btn-success">Save</button>
+                            <a type="button" class="btn btn-default"
+                               href="<?= $this->url('admin.contact-us') ?>">
+                                Cancel
+                            </a>
+                            <?php if($contact && $contact ->getContactId()): ?>
+                            <a href="<?= $this->url('admin.contact-us.action', ['action' => 'delete', 'id' => $contact->getContactId()]) ?>"
+                               onclick="if(!confirm('Are you sure you want to delete?')){return false;}"
+                               class="btn btn-danger"> Delete
+                            </a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
